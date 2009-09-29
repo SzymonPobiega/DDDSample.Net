@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace DDDSample.Domain.Location
 {
@@ -13,6 +14,7 @@ namespace DDDSample.Domain.Location
    /// </summary>
    public class UnLocode : ValueObject
    {
+      private static readonly Regex _codePattern = new Regex("[a-zA-Z]{2}[a-zA-Z2-9]{3}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
       private readonly string _code;
 
       /// <summary>
@@ -21,6 +23,14 @@ namespace DDDSample.Domain.Location
       /// <param name="code">String representation of location code.</param>
       public UnLocode(string code)
       {
+         if(code == null)
+         {
+            throw new ArgumentNullException("code");
+         }
+         if (!_codePattern.Match(code).Success)
+         {
+            throw new ArgumentException(string.Format("Provided code does not comply with a UnLocode pattern ({0})",_codePattern), "code");
+         }
          _code = code;
       }
 
