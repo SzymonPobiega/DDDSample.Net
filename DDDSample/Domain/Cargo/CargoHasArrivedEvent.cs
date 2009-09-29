@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DDDSampleNET.Domain.Cargo
+namespace DDDSample.Domain.Cargo
 {
    public class CargoHasArrivedEvent
    {

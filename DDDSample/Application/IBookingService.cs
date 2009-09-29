@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSampleNET.Domain.Booking;
-using DDDSampleNET.Domain.Cargo;
+using DDDSample.Domain.Location;
+using DDDSample.Domain.Cargo;
 
 namespace DDDSampleNET.Application
 {

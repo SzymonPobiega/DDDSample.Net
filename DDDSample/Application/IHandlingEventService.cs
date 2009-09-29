@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSampleNET.Domain.Booking;
-using DDDSampleNET.Domain.Cargo;
-using DDDSampleNET.Domain.Handling;
-using DDDSampleNET.Domain.Voyage;
+using DDDSample.Domain.Location;
+using DDDSample.Domain.Cargo;
+using DDDSample.Domain.Handling;
+using DDDSample.Domain.Voyage;
 
 namespace DDDSampleNET.Application
 {

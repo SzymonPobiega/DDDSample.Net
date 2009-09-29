@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DDDSampleNET.Domain.Handling
+namespace DDDSample.Domain.Handling
 {
    public enum HandlingEventType
    {
