@@ -5,13 +5,42 @@ using System.Text;
 
 namespace DDDSample.Domain.Cargo
 {
+   /// <summary>
+   /// Cargo.
+   /// </summary>
    public class Cargo : IEntity<Cargo>
    {
+      /// <summary>
+      /// Gets the tracking id of this cargo.
+      /// </summary>
+      public virtual TrackingId TrackingId { get; protected set; }
 
+      /// <summary>
+      /// Gets the route specification of this cargo.
+      /// </summary>
+      public virtual RouteSpecification RouteSpecification { get; protected set; }
 
-      public bool HasSameIdentityAs(Cargo other)
+      /// <summary>
+      /// Creates new <see cref="Cargo"/> object with provided tracking id and route specification.
+      /// </summary>
+      /// <param name="trackingId">Tracking id of this cargo.</param>
+      /// <param name="routeSpecification">Route specification.</param>
+      public Cargo(TrackingId trackingId, RouteSpecification routeSpecification)
+      {
+         TrackingId = trackingId;
+         RouteSpecification = routeSpecification;
+      }
+
+      public virtual bool HasSameIdentityAs(Cargo other)
       {
          throw new NotImplementedException();
+      }
+
+      /// <summary>
+      /// For NHibernate.
+      /// </summary>
+      protected Cargo()
+      {         
       }
    }
 }

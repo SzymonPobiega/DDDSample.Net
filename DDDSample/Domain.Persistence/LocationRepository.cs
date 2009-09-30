@@ -21,10 +21,10 @@ namespace DDDSample.Domain.Persistence
             .UniqueResult<Location.Location>();
       }
 
-      public IEnumerable<Location.Location> FindAll()
+      public IList<Location.Location> FindAll()
       {
          const string query = @"from DDDSample.Domain.Location.Location l";
-         return Session.CreateQuery(query).Enumerable<Location.Location>();
+         return Session.CreateQuery(query).List<Location.Location>();
       }
    }
 }

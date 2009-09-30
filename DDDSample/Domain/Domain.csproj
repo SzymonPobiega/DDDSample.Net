@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargo\Cargo.cs" />
+    <Compile Include="Cargo\ICargoRepository.cs" />
+    <Compile Include="Cargo\RouteSpecification.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Location\Location.cs" />
     <Compile Include="Location\ILocationRepository.cs" />

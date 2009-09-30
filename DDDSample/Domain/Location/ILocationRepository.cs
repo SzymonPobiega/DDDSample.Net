@@ -20,6 +20,6 @@ namespace DDDSample.Domain.Location
       /// Finds all locations.
       /// </summary>
       /// <returns>A collection of all defined locations.</returns>
-      IEnumerable<Location> FindAll();
+      IList<Location> FindAll();
    }
 }

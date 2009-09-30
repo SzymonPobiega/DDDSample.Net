@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DDDSample.Domain" namespace="DDDSample.Domain.Cargo">
+  <class name="Cargo" table="Cargo">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"></generator>
+    </id>
+    <component name="TrackingId" update="false" class="TrackingId">
+      <property name="_idString" column="TrackingId" not-null="true" access="field"/>
+    </component>
+    <component name="RouteSpecification" class="RouteSpecification">
+      <many-to-one name="_origin" column="SpecOriginId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>
+      <many-to-one name="_destination" column="SpecDestinationId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>      
+      <property name="_arrivalDeadline" column="SpecArrivalDeadline" not-null="true" access="field"/>
+    </component>    
+  </class>
+</hibernate-mapping>

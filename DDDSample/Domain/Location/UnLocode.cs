@@ -43,15 +43,9 @@ namespace DDDSample.Domain.Location
          get { return _code; }
       }
 
-      public override bool Equals(object obj)
+      protected override IEnumerable<object> GetAtomicValues()
       {
-         UnLocode other = obj as UnLocode;
-         return other != null && _code.Equals(other._code);
-      }
-
-      public override int GetHashCode()
-      {
-         return _code.GetHashCode();
+         yield return _code;
       }
 
       public static bool operator ==(UnLocode left, UnLocode right)
