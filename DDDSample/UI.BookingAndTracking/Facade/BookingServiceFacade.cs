@@ -8,6 +8,9 @@ using DDDSampleNET.Application;
 
 namespace UI.BookingAndTracking.Facade
 {
+   /// <summary>
+   /// Facade for cargo booking services.
+   /// </summary>
    public class BookingServiceFacade
    {
       private readonly IBookingService _bookingService;
@@ -21,6 +24,13 @@ namespace UI.BookingAndTracking.Facade
          _locationRepository = locationRepository;
       }
 
+      /// <summary>
+      /// Books new cargo for specified origin, destination and arrival deadline.
+      /// </summary>
+      /// <param name="origin">Origin of a cargo in UnLocode format.</param>
+      /// <param name="destination">Destination of a cargo in UnLocode format.</param>
+      /// <param name="arrivalDeadline">Arrival deadline.</param>
+      /// <returns>Cargo tracking id.</returns>
       public string BookNewCargo(string origin, string destination, DateTime arrivalDeadline)
       {
          return _bookingService.BookNewCargo(
@@ -30,11 +40,21 @@ namespace UI.BookingAndTracking.Facade
             .IdString;
       }
 
+      /// <summary>
+      /// Returns a list of all defined shipping locations in format acceptable by MVC framework 
+      /// drop down list.
+      /// </summary>
+      /// <returns>A list of shipping locations.</returns>
       public IList<SelectListItem> ListShippingLocations()
       {
          return _locationRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode.CodeString }).ToList();
       }
 
+      /// <summary>
+      /// Loads DTO of cargo for cargo routing function.
+      /// </summary>
+      /// <param name="trackingId">Cargo tracking id.</param>
+      /// <returns>DTO.</returns>
       public CargoRoutingDTO LoadCargoForRouting(string trackingId)
       {
          Cargo c = _cargoRepository.Find(new TrackingId(trackingId));
@@ -44,53 +64,15 @@ namespace UI.BookingAndTracking.Facade
          }
          return new CargoRoutingDTOAssembler().ToDTO(c);
       }
-   }
 
-   public class CargoRoutingDTOAssembler
-   {
-      public CargoRoutingDTO ToDTO(Cargo cargo)
+      /// <summary>
+      /// Changes destination of an existing cargo.
+      /// </summary>
+      /// <param name="trackingId">Cargo tracking id.</param>
+      /// <param name="destination">New destination UnLocode in string format.</param>
+      public void ChangeDestination(string trackingId, string destination)
       {
-         return new CargoRoutingDTO(
-            cargo.TrackingId.IdString,
-            cargo.RouteSpecification.Origin.UnLocode.CodeString,
-            cargo.RouteSpecification.Destination.UnLocode.CodeString,
-            cargo.RouteSpecification.ArrivalDeadline);
-      }
-   }
-
-   public class CargoRoutingDTO
-   {
-      private readonly string _trackingId;
-      private readonly string _origin;
-      private readonly string _destination;
-      private readonly DateTime _arrivalDeadline;
-
-      public CargoRoutingDTO(string trackingId, string origin, string destination, DateTime arrivalDeadline)
-      {
-         _trackingId = trackingId;
-         _arrivalDeadline = arrivalDeadline;
-         _destination = destination;
-         _origin = origin;
-      }
-
-      public DateTime ArrivalDeadline
-      {
-         get { return _arrivalDeadline; }
-      }
-
-      public string Destination
-      {
-         get { return _destination; }
-      }
-
-      public string Origin
-      {
-         get { return _origin; }
-      }
-
-      public string TrackingId
-      {
-         get { return _trackingId; }
+         _bookingService.ChangeDestination(new TrackingId(trackingId), new UnLocode(destination));
       }
    }
 }

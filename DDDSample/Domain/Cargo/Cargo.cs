@@ -31,6 +31,15 @@ namespace DDDSample.Domain.Cargo
          RouteSpecification = routeSpecification;
       }
 
+      /// <summary>
+      /// Specifies a new route for this cargo.
+      /// </summary>
+      /// <param name="routeSpecification">Route specification.</param>
+      public virtual void SpecifyNewRoute(RouteSpecification routeSpecification)
+      {
+         RouteSpecification = routeSpecification;
+      }
+
       public virtual bool HasSameIdentityAs(Cargo other)
       {
          throw new NotImplementedException();
@@ -41,6 +50,6 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       protected Cargo()
       {         
-      }
+      }      
    }
 }

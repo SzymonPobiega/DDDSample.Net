@@ -7,9 +7,9 @@
 
 <asp:Content ID="changeCargoDestinationContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>Book new cargo</h2>
+    <h2>Change destination for cargo <%= Model.TrackingId %></h2>
     <p>
-        Use the form below to book a new cargo. 
+        Use the form below to change destination of a cargo.
     </p>
     
     <% using (Html.BeginForm()) { %>
@@ -17,20 +17,15 @@
             <fieldset>
                 <legend>Cargo information</legend>
                 <p>
-                    <label for="origin">Origin:</label>
-                    <%= Html.DropDownList("origin", Model.Locations) %>                    
+                    <label for="origin">Current destination:</label>
+                    <%= Model.Destination %>                    
                 </p>
                 <p>
-                    <label for="destination">Destination:</label>
-                    <%= Html.DropDownList("destination", Model.Locations) %>                    
-                </p>
+                    <label for="destination">New destination:</label>
+                    <%= Html.DropDownList("destination", (IList<SelectListItem>)ViewData["ShippingLocations"])%>                    
+                </p>                
                 <p>
-                    <label for="arrivalDeadline">Arrival deadline:</label>
-                    <%= Html.TextBox("arrivalDeadline") %>
-                    <%= Html.ValidationMessage("arrivalDeadline")%>
-                </p>
-                <p>
-                    <input type="submit" value="Book" />
+                    <input type="submit" value="Change destination" />
                 </p>
             </fieldset>
         </div>

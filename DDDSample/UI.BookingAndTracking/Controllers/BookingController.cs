@@ -23,8 +23,9 @@ namespace UI.BookingAndTracking.Controllers
       }
 
       public ActionResult NewCargo()
-      {                  
-         return View(GetBookingModel());
+      {
+         AddShipingLocations();
+         return View();
       }
 
       public ActionResult CargoDetails(string trackingId)
@@ -32,19 +33,48 @@ namespace UI.BookingAndTracking.Controllers
          return View(GetDetailsModel(trackingId));
       }
 
-      [AcceptVerbs(HttpVerbs.Post)]
+      [AcceptVerbs(HttpVerbs.Get)]
       public ActionResult ChangeDestination(string trackingId)
       {
-         throw new InvalidOperationException();
+         AddShipingLocations();
+         return View(GetDetailsModel(trackingId));
       }
 
-      [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult NewCargo(string origin, string destination, DateTime arrivalDeadline)
+      [AcceptVerbs(HttpVerbs.Post)]      
+      public ActionResult ChangeDestination(string trackingId, string destination)
       {
-         string trackingId = _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline);
+         _bookingFacade.ChangeDestination(trackingId, destination);
          return RedirectToAction("CargoDetails", new { trackingId });
       }
 
+      [AcceptVerbs(HttpVerbs.Post)]
+      public ActionResult NewCargo(string origin, string destination, DateTime? arrivalDeadline)
+      {
+         bool validationError = false;
+         if (!arrivalDeadline.HasValue)
+         {
+            ViewData.ModelState.AddModelError("arrivalDeadline", "Arrival deadline is required and must be a valid date.");
+            validationError = true;            
+         }
+         if (origin == destination)
+         {
+            ViewData.ModelState.AddModelError("destination", "Destination of a cargo must be different from its origin.");
+            validationError = true;            
+         }
+         if (validationError)
+         {
+            AddShipingLocations();
+            return View();
+         }
+         string trackingId = _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
+         return RedirectToAction("CargoDetails", new { trackingId });
+      }
+
+
+      public void AddShipingLocations()
+      {
+         ViewData["ShippingLocations"] = _bookingFacade.ListShippingLocations();
+      }
 
       public CargoRoutingDTO GetDetailsModel(string trackingId)
       {

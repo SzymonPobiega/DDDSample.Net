@@ -50,9 +50,18 @@ namespace DDDSampleNET.Application.Implemetation
          throw new NotImplementedException();
       }
 
-      public void ChangeDestination(TrackingId trackingId, UnLocode unLocode)
+      public void ChangeDestination(TrackingId trackingId, UnLocode destinationUnLocode)
       {
-         throw new NotImplementedException();
+         using (ITransaction tx = _sessionFactory.GetCurrentSession().BeginTransaction())
+         {
+            Cargo cargo = _cargoRepository.Find(trackingId);
+            Location destination = _locationRepository.Find(destinationUnLocode);
+
+            RouteSpecification routeSpecification = new RouteSpecification(cargo.RouteSpecification.Origin, destination, cargo.RouteSpecification.ArrivalDeadline);
+            cargo.SpecifyNewRoute(routeSpecification);
+            
+            tx.Commit();
+         }
       }
    }
 }

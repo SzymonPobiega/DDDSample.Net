@@ -1,4 +1,4 @@
-<%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<Booking>" %>
+<%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
 <%@ Import Namespace="UI.BookingAndTracking.Models"%>
 
 <asp:Content ID="bookNewCargoTitle" ContentPlaceHolderID="TitleContent" runat="server">
@@ -12,22 +12,24 @@
         Use the form below to book a new cargo. 
     </p>
     
+    <%= Html.ValidationSummary() %>
+    
     <% using (Html.BeginForm()) { %>
         <div>
             <fieldset>
                 <legend>Cargo information</legend>
                 <p>
                     <label for="origin">Origin:</label>
-                    <%= Html.DropDownList("origin", Model.Locations) %>                    
+                    <%= Html.DropDownList("origin", (IList<SelectListItem>)ViewData["ShippingLocations"])%>                    
                 </p>
                 <p>
                     <label for="destination">Destination:</label>
-                    <%= Html.DropDownList("destination", Model.Locations) %>                    
+                    <%= Html.DropDownList("destination", (IList<SelectListItem>)ViewData["ShippingLocations"])%>                    
                 </p>
                 <p>
                     <label for="arrivalDeadline">Arrival deadline:</label>
                     <%= Html.TextBox("arrivalDeadline") %>
-                    <%= Html.ValidationMessage("arrivalDeadline")%>
+                    <%= Html.ValidationMessage("arrivalDeadline", "*")%>
                 </p>
                 <p>
                     <input type="submit" value="Book" />

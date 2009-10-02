@@ -111,6 +111,8 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Facade\BookingServiceFacade.cs" />
+    <Compile Include="Facade\CargoRoutingDTO.cs" />
+    <Compile Include="Facade\CargoRoutingDTOAssembler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

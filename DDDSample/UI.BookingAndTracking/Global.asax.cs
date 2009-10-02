@@ -49,6 +49,12 @@ namespace UI.BookingAndTracking
          );
 
          routes.MapRoute(
+             "Change destination",
+             "Booking/ChangeDestination/{trackingId}",
+             new { controller = "Booking", action = "ChangeDestination" }
+         );
+
+         routes.MapRoute(
              "Default",                                              // Route name
              "{controller}/{action}/{id}",                           // URL with parameters
              new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
