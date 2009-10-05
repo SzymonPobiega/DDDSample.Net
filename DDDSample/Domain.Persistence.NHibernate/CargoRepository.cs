@@ -2,7 +2,7 @@ using System;
 using DDDSample.Domain.Cargo;
 using NHibernate;
 
-namespace DDDSample.Domain.Persistence
+namespace DDDSample.Domain.Persistence.NHibernate
 {
    /// <summary>
    /// Cargo repository implementation based on NHibernate.

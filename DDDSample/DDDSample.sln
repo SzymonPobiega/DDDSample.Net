@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.NHibernate", "Domain.Persistence\Domain.Persistence.NHibernate.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.NHibernate", "Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{591BFC07-E7F5-400B-9761-9AF6EF2A3009}"
 EndProject
@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain.Persistence.NHibernate", "Tests.Domain.Persistence\Tests.Domain.Persistence.NHibernate.csproj", "{41C3E0F5-528E-4703-B321-C0742224BF25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain.Persistence.NHibernate", "Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj", "{41C3E0F5-528E-4703-B321-C0742224BF25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Application", "Tests.Application\Tests.Application.csproj", "{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}"
 EndProject
@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5592DB69-F
 		Libs\Microsoft.Practices.ObjectBuilder2.dll = Libs\Microsoft.Practices.ObjectBuilder2.dll
 		Libs\Microsoft.Practices.ServiceLocation.dll = Libs\Microsoft.Practices.ServiceLocation.dll
 		Libs\Microsoft.Practices.Unity.dll = Libs\Microsoft.Practices.Unity.dll
+		Libs\Microsoft.Practices.Unity.Interception.dll = Libs\Microsoft.Practices.Unity.Interception.dll
 		Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll = Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll
 	EndProjectSection
 EndProject
@@ -60,9 +61,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.InMemory", "Domain.Persistence.InMemory\Domain.Persistence.InMemory.csproj", "{F0820483-BA6F-49D9-9621-F06AA6B1A172}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 13
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -97,64 +100,95 @@ Global
 		SccProjectUniqueName9 = Setup\\Setup.vdproj
 		SccProjectName9 = Setup
 		SccLocalPath9 = Setup
-		SccProjectUniqueName10 = Domain.Persistence\\Domain.Persistence.NHibernate.csproj
-		SccProjectName10 = Domain.Persistence
-		SccLocalPath10 = Domain.Persistence
-		SccProjectUniqueName11 = Tests.Domain.Persistence\\Tests.Domain.Persistence.NHibernate.csproj
-		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
-		SccProjectName11 = Tests.Domain.Persistence
-		SccLocalPath11 = Tests.Domain.Persistence
+		SccProjectUniqueName10 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
+		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
+		SccProjectName10 = Tests.Domain.Persistence.NHibernate
+		SccLocalPath10 = Tests.Domain.Persistence.NHibernate
+		SccProjectUniqueName11 = Domain.Persistence.NHibernate\\Domain.Persistence.NHibernate.csproj
+		SccProjectName11 = Domain.Persistence.NHibernate
+		SccLocalPath11 = Domain.Persistence.NHibernate
+		SccProjectUniqueName12 = Domain.Persistence.InMemory\\Domain.Persistence.InMemory.csproj
+		SccProjectName12 = Domain.Persistence.InMemory
+		SccLocalPath12 = Domain.Persistence.InMemory
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		InMemory|Any CPU = InMemory|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.Release|Any CPU.Build.0 = Release|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.InMemory|Any CPU.ActiveCfg = InMemory|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.InMemory|Any CPU.Build.0 = InMemory|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD7E6399-B55C-492D-8003-11241F19283E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD7E6399-B55C-492D-8003-11241F19283E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD7E6399-B55C-492D-8003-11241F19283E}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD7E6399-B55C-492D-8003-11241F19283E}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{FD7E6399-B55C-492D-8003-11241F19283E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD7E6399-B55C-492D-8003-11241F19283E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD29958-37D6-49E6-9797-30E484F9B289}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD29958-37D6-49E6-9797-30E484F9B289}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.InMemory|Any CPU.ActiveCfg = Debug
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Release|Any CPU.ActiveCfg = Release
+		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.InMemory|Any CPU.Build.0 = Debug|Any CPU
+		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

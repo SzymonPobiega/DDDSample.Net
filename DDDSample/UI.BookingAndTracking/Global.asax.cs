@@ -6,11 +6,11 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSample.Domain.Persistence;
 using DDDSample.Application;
 using DDDSample.Application.Implemetation;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using NHibernate;
 using NHibernate.Cfg;
@@ -29,10 +29,14 @@ namespace UI.BookingAndTracking
 
       public static void RegisterRoutes(RouteCollection routes)
       {
-         _ambientContainer = new UnityContainer();
+         _ambientContainer = new UnityContainer();                 
 
-         _ambientContainer.RegisterType<ILocationRepository, LocationRepository>();
-         _ambientContainer.RegisterType<ICargoRepository, CargoRepository>();
+#if IN_MEMORY
+         ConfigureInMemoryRepositories();
+#elif NHIBERNATE
+         ConfigureNHibernateRepositories();
+#endif
+
          _ambientContainer.RegisterType<IBookingService, BookingService>();
 
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
@@ -65,7 +69,28 @@ namespace UI.BookingAndTracking
       protected void Application_Start()
       {         
          RegisterRoutes(RouteTable.Routes);         
+#if NHIBERNATE
          InitializeNHibernate();
+#endif
+      }
+
+      private static void ConfigureNHibernateRepositories()
+      {
+         _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
+         _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
+
+         _ambientContainer.AddNewExtension<Interception>();
+         _ambientContainer.Configure<Interception>().SetInterceptorFor<IBookingService>(
+            new InterfaceInterceptor())
+            .AddPolicy("Transactions")
+            .AddCallHandler<DDDSample.Domain.Persistence.NHibernate.TransactionCallHandler>()
+            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
+      }
+
+      private static void ConfigureInMemoryRepositories()
+      {
+         _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.InMemory.LocationRepository>();
+         _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.InMemory.CargoRepository>();
       }
 
       private static void InitializeNHibernate()
@@ -74,13 +99,15 @@ namespace UI.BookingAndTracking
 
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);                  
-      }
+      }      
 
       public override void Init()
       {
-         base.Init();
+         base.Init();         
+#if NHIBERNATE
          PreRequestHandlerExecute += BindNHibernateSession;
          PostRequestHandlerExecute += UnbindNHibernateSession;         
+#endif
       }      
 
       private static void BindNHibernateSession(object sender, EventArgs e)

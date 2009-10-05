@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 
-namespace DDDSample.Domain.Persistence
+namespace DDDSample.Domain.Persistence.NHibernate
 {
    /// <summary>
    /// Base class for NHibernate based repositories.

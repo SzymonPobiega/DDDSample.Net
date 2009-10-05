@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DDDSample.Domain.Location;
 using NHibernate;
 
-namespace DDDSample.Domain.Persistence
+namespace DDDSample.Domain.Persistence.NHibernate
 {
    /// <summary>
    /// Location repository implementation based on NHibernate.

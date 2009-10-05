@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Persistence;
+using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.Domain.Location;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

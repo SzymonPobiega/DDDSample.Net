@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSample.Domain.Persistence;
+using DDDSample.Domain.Persistence.NHibernate;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Domain.Persistence.Tests
