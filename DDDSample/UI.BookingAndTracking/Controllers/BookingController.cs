@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Routing;
 using DDDSample.Domain.Location;
-using DDDSampleNET.Application;
+using DDDSample.Application;
 using Microsoft.Practices.ServiceLocation;
 using UI.BookingAndTracking.Facade;
 using UI.BookingAndTracking.Models;

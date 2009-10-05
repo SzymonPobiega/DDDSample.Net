@@ -4,7 +4,7 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using NHibernate;
 
-namespace DDDSampleNET.Application.Implemetation
+namespace DDDSample.Application.Implemetation
 {
    /// <summary>
    /// Implementation of <see cref="IBookingService"/>.

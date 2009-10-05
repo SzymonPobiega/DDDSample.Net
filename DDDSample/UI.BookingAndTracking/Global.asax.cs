@@ -7,8 +7,8 @@ using System.Web.Routing;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence;
-using DDDSampleNET.Application;
-using DDDSampleNET.Application.Implemetation;
+using DDDSample.Application;
+using DDDSample.Application.Implemetation;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
@@ -70,7 +70,8 @@ namespace UI.BookingAndTracking
 
       private static void InitializeNHibernate()
       {
-         Configuration cfg = new Configuration().Configure();
+         Configuration cfg = new Configuration().Configure();         
+
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);                  
       }

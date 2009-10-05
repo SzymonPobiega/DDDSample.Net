@@ -7,7 +7,7 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
 using DDDSample.Domain.Voyage;
 
-namespace DDDSampleNET.Application
+namespace DDDSample.Application
 {
    /// <summary>
    /// Handling event service.

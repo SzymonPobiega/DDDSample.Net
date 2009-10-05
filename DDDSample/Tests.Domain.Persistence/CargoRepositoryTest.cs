@@ -30,8 +30,9 @@ namespace Domain.Persistence.Tests
 
          using (Scope(true))
          {
-            //Assert.IsNotNull(Session.);
+            IList<Cargo> cargoes = Session.CreateQuery("from DDDSample.Domain.Cargo.Cargo c").List<Cargo>();
+            Assert.AreEqual(1, cargoes.Count);
          }
-      }
+      }      
    }
 }

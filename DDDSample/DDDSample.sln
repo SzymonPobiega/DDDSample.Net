@@ -58,9 +58,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus"
 		Libs\NServiceBus\NServiceBus.pdb = Libs\NServiceBus\NServiceBus.pdb
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 11
+		SccNumberOfProjects = 12
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -99,6 +101,9 @@ Global
 		SccProjectUniqueName10 = UI.EventLogger\\UI.EventLogger.csproj
 		SccProjectName10 = UI.EventLogger
 		SccLocalPath10 = UI.EventLogger
+		SccProjectUniqueName11 = Setup\\Setup.vdproj
+		SccProjectName11 = Setup
+		SccLocalPath11 = Setup
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
@@ -148,6 +153,8 @@ Global
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DD29958-37D6-49E6-9797-30E484F9B289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

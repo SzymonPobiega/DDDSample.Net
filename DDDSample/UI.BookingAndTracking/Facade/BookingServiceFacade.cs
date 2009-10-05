@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSampleNET.Application;
+using DDDSample.Application;
 
 namespace UI.BookingAndTracking.Facade
 {

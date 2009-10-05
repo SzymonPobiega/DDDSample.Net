@@ -8,8 +8,8 @@
     <ProjectGuid>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DDDSampleNET.Application</RootNamespace>
-    <AssemblyName>DDDSampleNET.Application</AssemblyName>
+    <RootNamespace>DDDSample.Application</RootNamespace>
+    <AssemblyName>DDDSample.Application</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

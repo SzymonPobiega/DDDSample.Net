@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DDDSample.Domain.Cargo;
 
-namespace DDDSampleNET.Application
+namespace DDDSample.Application
 {
    /// <summary>
    /// Cargo inspection service.
