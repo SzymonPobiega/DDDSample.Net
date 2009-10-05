@@ -100,13 +100,7 @@
         "Entry"
         {
         "MsmKey" = "8:_6F49D297FA285736733236CCFF9ECDD9"
-        "OwnerKey" = "8:_75F6F34CF6513F32EB38339A33D69B1A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_75F6F34CF6513F32EB38339A33D69B1A"
-        "OwnerKey" = "8:_810ECE0CEB7E4FB6AEEC91249EA9157D"
+        "OwnerKey" = "8:_DFF1B1D9D01BFF5FC28E44426CDF9FB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -141,12 +135,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9EA61018B506466F93673F664C2F5FD9"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A24696D96BA3A65F58E0789A2D12D39C"
         "OwnerKey" = "8:_810ECE0CEB7E4FB6AEEC91249EA9157D"
         "MsmSig" = "8:_UNDEFINED"
@@ -172,7 +160,7 @@
         "Entry"
         {
         "MsmKey" = "8:_CD10385BFA9BD5F7BFD9D3C4AE7387B8"
-        "OwnerKey" = "8:_75F6F34CF6513F32EB38339A33D69B1A"
+        "OwnerKey" = "8:_DFF1B1D9D01BFF5FC28E44426CDF9FB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -185,6 +173,12 @@
         {
         "MsmKey" = "8:_DA23742E4735728D6131EFDE7A7851A5"
         "OwnerKey" = "8:_1914440068C24E8FD412B6A5A115A66B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DFF1B1D9D01BFF5FC28E44426CDF9FB1"
+        "OwnerKey" = "8:_810ECE0CEB7E4FB6AEEC91249EA9157D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -232,7 +226,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_75F6F34CF6513F32EB38339A33D69B1A"
+        "OwnerKey" = "8:_DFF1B1D9D01BFF5FC28E44426CDF9FB1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -604,37 +598,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_75F6F34CF6513F32EB38339A33D69B1A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DDDSample.Domain.Persistence, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_75F6F34CF6513F32EB38339A33D69B1A"
-                    {
-                    "Name" = "8:DDDSample.Domain.Persistence.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DDDSample.Domain.Persistence.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_07A2835DF6244D4C92247997B733E4DB"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8B754FEA8998445E725D3956BDBAD57F"
             {
             "AssemblyRegister" = "3:1"
@@ -728,26 +691,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9EA61018B506466F93673F664C2F5FD9"
-            {
-            "SourcePath" = "8:..\\UI.BookingAndTracking\\App_Data\\Database.mdf"
-            "TargetName" = "8:Database.mdf"
-            "Tag" = "8:"
-            "Folder" = "8:_AA3ABCE5B78A452A8A2D35736560A2DA"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A24696D96BA3A65F58E0789A2D12D39C"
             {
             "AssemblyRegister" = "3:1"
@@ -824,6 +767,37 @@
                     }
                 }
             "SourcePath" = "8:Microsoft.Practices.ServiceLocation.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_07A2835DF6244D4C92247997B733E4DB"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DFF1B1D9D01BFF5FC28E44426CDF9FB1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DDDSample.Domain.Persistence.NHibernate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_DFF1B1D9D01BFF5FC28E44426CDF9FB1"
+                    {
+                    "Name" = "8:DDDSample.Domain.Persistence.NHibernate.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DDDSample.Domain.Persistence.NHibernate.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_07A2835DF6244D4C92247997B733E4DB"
@@ -941,7 +915,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DDDSampleNet"
         "ProductCode" = "8:{57FD0068-C222-47CD-939E-CE7D159FB7F8}"
-        "PackageCode" = "8:{1B46C7C5-C9CA-492B-8E16-D1D12D8829E2}"
+        "PackageCode" = "8:{E7E190D5-395D-4305-BD38-8119052780A6}"
         "UpgradeCode" = "8:{68B7A336-1687-42E0-9FBC-49ADC159190A}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"

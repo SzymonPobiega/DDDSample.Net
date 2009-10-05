@@ -20,7 +20,7 @@ namespace Domain.Persistence.Tests
          using (Scope(true))
          {
             Location krakow = new Location(new UnLocode("PLKRK"), "Krakow");
-            Session.Save(new Location(new UnLocode("PLKRK"), "Krakow"));
+            Session.Save(krakow);
 
             Location warszawa = new Location(new UnLocode("PLWAW"), "Warszawa");
             Session.Save(warszawa);
