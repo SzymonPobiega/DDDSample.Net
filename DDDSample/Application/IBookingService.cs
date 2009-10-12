@@ -25,13 +25,13 @@ namespace DDDSample.Application
       /// </summary>
       /// <param name="trackingId">Cargo tracking id.</param>
       /// <returns>A list of possible itineraries for this cargo.</returns>
-      IEnumerable<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId);
+      IList<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId);
       /// <summary>
       /// Assigns cargo identified by <paramref name="trackingId"/> to a new route.
       /// </summary>
       /// <param name="itinerary">Itinerary describing the selected route.</param>
       /// <param name="trackingId">cargo tracking id.</param>
-      void AssignCargoToRoute(Itinerary itinerary, TrackingId trackingId);
+      void AssignCargoToRoute(TrackingId trackingId, Itinerary itinerary);
       /// <summary>
       /// Changes the destination of a cargo.
       /// </summary>

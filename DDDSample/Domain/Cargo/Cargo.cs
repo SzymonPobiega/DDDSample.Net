@@ -8,7 +8,7 @@ namespace DDDSample.Domain.Cargo
    /// <summary>
    /// Cargo.
    /// </summary>
-   public class Cargo : IEntity<Cargo>
+   public class Cargo
    {
       /// <summary>
       /// Gets the tracking id of this cargo.
@@ -19,6 +19,11 @@ namespace DDDSample.Domain.Cargo
       /// Gets the route specification of this cargo.
       /// </summary>
       public virtual RouteSpecification RouteSpecification { get; protected set; }
+
+      /// <summary>
+      /// Gets the itinerary of this cargo.
+      /// </summary>
+      public virtual Itinerary Itinerary { get; protected set; }
 
       /// <summary>
       /// Creates new <see cref="Cargo"/> object with provided tracking id and route specification.
@@ -40,14 +45,15 @@ namespace DDDSample.Domain.Cargo
          RouteSpecification = routeSpecification;
       }
 
-      public virtual bool HasSameIdentityAs(Cargo other)
-      {
-         throw new NotImplementedException();
-      }
-
       /// <summary>
-      /// For NHibernate.
+      /// Assigns cargo to a provided route.
       /// </summary>
+      /// <param name="itinerary"></param>
+      public virtual void AssignToRoute(Itinerary itinerary)
+      {
+         Itinerary = itinerary;
+      }
+      
       protected Cargo()
       {         
       }      

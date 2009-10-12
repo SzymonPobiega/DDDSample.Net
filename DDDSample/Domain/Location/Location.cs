@@ -11,7 +11,7 @@ namespace DDDSample.Domain.Location
    /// 
    /// It is uniquely identified by a UN Locode.
    /// </summary>
-   public class Location : IEntity<Location>
+   public class Location
    {
       /// <summary>
       /// Gets the <see cref="UnLocode"/> for this location.
@@ -40,18 +40,18 @@ namespace DDDSample.Domain.Location
       {
          UnLocode = locode;
          Name = name;
-      }
-
-      public virtual bool HasSameIdentityAs(Location other)
-      {
-         return UnLocode == other.UnLocode;
-      }
+      }      
 
       /// <summary>
       /// For NHibernate.
       /// </summary>
       protected Location()
       {
+      }
+
+      public override string ToString()
+      {
+         return Name + " [" + UnLocode + "]";
       }
    }
 }

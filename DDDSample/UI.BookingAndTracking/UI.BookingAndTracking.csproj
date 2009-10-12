@@ -127,9 +127,14 @@
     <Compile Include="Facade\BookingServiceFacade.cs" />
     <Compile Include="Facade\CargoRoutingDTO.cs" />
     <Compile Include="Facade\CargoRoutingDTOAssembler.cs" />
+    <Compile Include="Facade\LegDTO.cs" />
+    <Compile Include="Facade\LegDTOAssembler.cs" />
+    <Compile Include="Facade\RouteCandidateDTO.cs" />
+    <Compile Include="Facade\RouteCandidateDTOAssember.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssignToRouteModel.cs" />
     <Compile Include="Models\Booking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -142,6 +147,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Views\Booking\ChangeDestination.aspx" />
+    <Content Include="Views\Booking\AssignToRoute.aspx" />
     <Content Include="Views\Booking\NewCargo.aspx" />
     <Content Include="Views\Booking\CargoDetails.aspx" />
     <Content Include="Web.config" />
@@ -176,6 +182,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Routing\Infrastructure.Routing.csproj">
+      <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>
+      <Name>Infrastructure.Routing</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

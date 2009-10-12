@@ -63,9 +63,11 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.InMemory", "Domain.Persistence.InMemory\Domain.Persistence.InMemory.csproj", "{F0820483-BA6F-49D9-9621-F06AA6B1A172}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Routing", "Infrastructure.Routing\Infrastructure.Routing.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 14
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -110,6 +112,9 @@ Global
 		SccProjectUniqueName12 = Domain.Persistence.InMemory\\Domain.Persistence.InMemory.csproj
 		SccProjectName12 = Domain.Persistence.InMemory
 		SccLocalPath12 = Domain.Persistence.InMemory
+		SccProjectUniqueName13 = Infrastructure.Routing\\Infrastructure.Routing.csproj
+		SccProjectName13 = Infrastructure.Routing
+		SccLocalPath13 = Infrastructure.Routing
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
@@ -189,6 +194,12 @@ Global
 		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0820483-BA6F-49D9-9621-F06AA6B1A172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.InMemory|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.InMemory|Any CPU.Build.0 = Release|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

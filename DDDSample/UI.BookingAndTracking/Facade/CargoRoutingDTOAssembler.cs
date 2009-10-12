@@ -10,18 +10,30 @@ namespace UI.BookingAndTracking.Facade
    /// </summary>
    public class CargoRoutingDTOAssembler
    {
-      /// <summary>
-      /// Assembles a DTO from <see cref="Cargo"/> domain object.
-      /// </summary>
-      /// <param name="cargo">Domain object.</param>
-      /// <returns>DTO.</returns>
-      public CargoRoutingDTO ToDTO(Cargo cargo)
+      private readonly LegDTOAssembler _legDTOAssembler;
+
+      public CargoRoutingDTOAssembler(LegDTOAssembler legDtoAssembler)
       {
+         _legDTOAssembler = legDtoAssembler;
+      }
+      
+      public CargoRoutingDTO ToDTO(Cargo cargo)
+      {         
          return new CargoRoutingDTO(
             cargo.TrackingId.IdString,
             cargo.RouteSpecification.Origin.UnLocode.CodeString,
             cargo.RouteSpecification.Destination.UnLocode.CodeString,
-            cargo.RouteSpecification.ArrivalDeadline);
+            cargo.RouteSpecification.ArrivalDeadline,
+            ToLegDTOs(cargo.Itinerary));
+      }
+
+      public IList<LegDTO> ToLegDTOs(Itinerary itinerary)
+      {
+         if (itinerary == null)
+         {
+            return new List<LegDTO>();
+         }
+         return itinerary.Legs.Select(x => _legDTOAssembler.ToDTO(x)).ToList();
       }
    }
 }

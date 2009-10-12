@@ -43,7 +43,7 @@ namespace DDDSample.Domain
                return false;
             }
          }
-         return true;
+         return !thisValues.MoveNext() && !otherValues.MoveNext();
       }
 
       public override int GetHashCode()

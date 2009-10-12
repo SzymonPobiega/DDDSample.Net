@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 using DDDSample.Application.Implemetation;
+using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -38,6 +40,7 @@ namespace UI.BookingAndTracking
 #endif
 
          _ambientContainer.RegisterType<IBookingService, BookingService>();
+         _ambientContainer.RegisterType<IRoutingService, RoutingService>();
 
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
          ServiceLocator.SetLocatorProvider(()=>_ambientLocator);
@@ -59,9 +62,15 @@ namespace UI.BookingAndTracking
          );
 
          routes.MapRoute(
-             "Default",                                              // Route name
-             "{controller}/{action}/{id}",                           // URL with parameters
-             new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
+             "Assign to route",
+             "Booking/AssignToRoute/{trackingId}",
+             new { controller = "Booking", action = "AssignToRoute" }
+         );
+
+         routes.MapRoute(
+             "Default",                                              
+             "{controller}/{action}/{id}",                           
+             new { controller = "Home", action = "Index", id = "" }  
          );         
 
       }      

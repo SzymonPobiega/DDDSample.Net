@@ -64,5 +64,10 @@ namespace DDDSample.Domain.Location
       protected UnLocode()
       {         
       }
+
+      public override string ToString()
+      {
+         return _code;
+      }
    }
 }

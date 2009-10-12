@@ -13,13 +13,20 @@ namespace UI.BookingAndTracking.Facade
       private readonly string _origin;
       private readonly string _destination;
       private readonly DateTime _arrivalDeadline;
+      private readonly IList<LegDTO> _legs;
 
-      public CargoRoutingDTO(string trackingId, string origin, string destination, DateTime arrivalDeadline)
+      public CargoRoutingDTO(string trackingId, string origin, string destination, DateTime arrivalDeadline, IList<LegDTO> legs)
       {
          _trackingId = trackingId;
+         _legs = legs;
          _arrivalDeadline = arrivalDeadline;
          _destination = destination;
          _origin = origin;
+      }
+
+      public IList<LegDTO> Legs
+      {
+         get { return _legs; }
       }
 
       public DateTime ArrivalDeadline

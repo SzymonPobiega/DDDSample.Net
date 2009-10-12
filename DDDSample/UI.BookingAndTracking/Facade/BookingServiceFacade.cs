@@ -13,13 +13,17 @@ namespace UI.BookingAndTracking.Facade
    /// </summary>
    public class BookingServiceFacade
    {
+      private readonly RouteCandidateDTOAssember _routeCandidateAssembler;
+      private readonly CargoRoutingDTOAssembler _cargoRoutingAssembler;
       private readonly IBookingService _bookingService;
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
 
-      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, ICargoRepository cargoRepository)
+      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, ICargoRepository cargoRepository, RouteCandidateDTOAssember routeCandidateAssembler, CargoRoutingDTOAssembler cargoRoutingAssembler)
       {
          _bookingService = bookingService;
+         _cargoRoutingAssembler = cargoRoutingAssembler;
+         _routeCandidateAssembler = routeCandidateAssembler;
          _cargoRepository = cargoRepository;
          _locationRepository = locationRepository;
       }
@@ -62,7 +66,7 @@ namespace UI.BookingAndTracking.Facade
          {
             throw new ArgumentException("Cargo with specified tracking id not found.");
          }
-         return new CargoRoutingDTOAssembler().ToDTO(c);
+         return _cargoRoutingAssembler.ToDTO(c);
       }
 
       /// <summary>
@@ -73,6 +77,27 @@ namespace UI.BookingAndTracking.Facade
       public void ChangeDestination(string trackingId, string destination)
       {
          _bookingService.ChangeDestination(new TrackingId(trackingId), new UnLocode(destination));
+      }
+
+      /// <summary>
+      /// Fetches all possible routes for delivering cargo with provided tracking id.
+      /// </summary>
+      /// <param name="trackingId">Cargo tracking id.</param>
+      /// <returns>Possible delivery routes</returns>
+      public IList<RouteCandidateDTO> RequestPossibleRoutesForCargo(String trackingId)
+      {         
+         return _bookingService.RequestPossibleRoutesForCargo(new TrackingId(trackingId))
+            .Select(x => _routeCandidateAssembler.ToDTO(x)).ToList();
+      }
+
+      /// <summary>
+      /// Binds cargo to selected delivery route.
+      /// </summary>
+      /// <param name="trackingId">Cargo tracking id.</param>
+      /// <param name="route">Route definition.</param>
+      public void AssignCargoToRoute(String trackingId, RouteCandidateDTO route)
+      {
+         _bookingService.AssignCargoToRoute(new TrackingId(trackingId), _routeCandidateAssembler.FromDTO(route));
       }
    }
 }

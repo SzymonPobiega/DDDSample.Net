@@ -12,6 +12,13 @@
       <many-to-one name="_origin" column="SpecOriginId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>
       <many-to-one name="_destination" column="SpecDestinationId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>      
       <property name="_arrivalDeadline" column="SpecArrivalDeadline" not-null="true" access="field"/>
-    </component>    
+    </component>
+    <component name="Itinerary" class="Itinerary">         
+      <list name="_legs" lazy="true" cascade="all-delete-orphan" access="field">
+        <key column="CargoId"/>
+        <index column="LegIndex"/>
+        <one-to-many class="Leg"/>
+      </list>
+    </component>
   </class>
 </hibernate-mapping>

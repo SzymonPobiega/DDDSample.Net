@@ -22,12 +22,14 @@ namespace UI.BookingAndTracking.Controllers
          _bookingFacade = bookingFacade;         
       }
 
+      [AcceptVerbs(HttpVerbs.Get)]
       public ActionResult NewCargo()
       {
          AddShipingLocations();
          return View();
       }
 
+      [AcceptVerbs(HttpVerbs.Get)]
       public ActionResult CargoDetails(string trackingId)
       {         
          return View(GetDetailsModel(trackingId));
@@ -44,8 +46,8 @@ namespace UI.BookingAndTracking.Controllers
       public ActionResult ChangeDestination(string trackingId, string destination)
       {
          _bookingFacade.ChangeDestination(trackingId, destination);
-         return RedirectToAction("CargoDetails", new { trackingId });
-      }
+         return RedirectToDetails(trackingId);
+      }      
 
       [AcceptVerbs(HttpVerbs.Post)]
       public ActionResult NewCargo(string origin, string destination, DateTime? arrivalDeadline)
@@ -67,13 +69,39 @@ namespace UI.BookingAndTracking.Controllers
             return View();
          }
          string trackingId = _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
-         return RedirectToAction("CargoDetails", new { trackingId });
+         return RedirectToDetails(trackingId);
       }
 
+      [AcceptVerbs(HttpVerbs.Get)]
+      public ActionResult AssignToRoute(string trackingId)
+      {
+         return View(GetAssignToRouteModel(trackingId));
+      }
 
+      [AcceptVerbs(HttpVerbs.Post)]
+      public ActionResult AssignToRoute(string trackingId, RouteCandidateDTO routeCandidate)
+      {
+         _bookingFacade.AssignCargoToRoute(trackingId, routeCandidate);
+         return RedirectToDetails(trackingId);
+      }
+      
+      #region Utility
       public void AddShipingLocations()
       {
          ViewData["ShippingLocations"] = _bookingFacade.ListShippingLocations();
+      }
+
+      public ActionResult RedirectToDetails(string trackingId)
+      {
+         return RedirectToAction("CargoDetails", new { trackingId });
+      }
+
+      public AssignToRouteModel GetAssignToRouteModel(string trackingId)
+      {
+         return new AssignToRouteModel(
+            _bookingFacade.LoadCargoForRouting(trackingId),
+            _bookingFacade.RequestPossibleRoutesForCargo(trackingId)
+            );
       }
 
       public CargoRoutingDTO GetDetailsModel(string trackingId)
@@ -85,5 +113,6 @@ namespace UI.BookingAndTracking.Controllers
       {
          return new Booking(_bookingFacade.ListShippingLocations());
       }
+      #endregion
    }
 }

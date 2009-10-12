@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using NHibernate;
@@ -13,11 +14,13 @@ namespace DDDSample.Application.Implemetation
    {
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
+      private readonly IRoutingService _routingService;
 
-      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository)
+      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService)
       {
          _locationRepository = locationRepository;
          _cargoRepository = cargoRepository;
+         _routingService = routingService;
       }
 
       public TrackingId BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline)
@@ -33,14 +36,16 @@ namespace DDDSample.Application.Implemetation
          return trackingId;
       }
 
-      public IEnumerable<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId)
+      public IList<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId)
       {
-         throw new NotImplementedException();
+         Cargo cargo = _cargoRepository.Find(trackingId);
+         return _routingService.FetchRoutesForSpecification(cargo.RouteSpecification);
       }
 
-      public void AssignCargoToRoute(Itinerary itinerary, TrackingId trackingId)
+      public void AssignCargoToRoute(TrackingId trackingId, Itinerary itinerary)
       {
-         throw new NotImplementedException();
+         Cargo cargo = _cargoRepository.Find(trackingId);
+         cargo.AssignToRoute(itinerary);
       }
 
       public void ChangeDestination(TrackingId trackingId, UnLocode destinationUnLocode)

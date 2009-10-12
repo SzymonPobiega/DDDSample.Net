@@ -22,7 +22,7 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("destination");
          }
-         if (origin.HasSameIdentityAs(destination))
+         if (origin == destination)
          {
             throw new ArgumentException("Origin and destination can't be the same.");
          }
