@@ -54,10 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SynchronousEventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
     <Compile Include="IBookingService.cs" />
     <Compile Include="ICargoInspectionService.cs" />
     <Compile Include="IHandlingEventService.cs" />
     <Compile Include="Implemetation\BookingService.cs" />
+    <Compile Include="SynchronousEventHandlers\CargoWasHandledEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

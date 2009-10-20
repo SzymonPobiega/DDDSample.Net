@@ -14,10 +14,15 @@
       <property name="_arrivalDeadline" column="SpecArrivalDeadline" not-null="true" access="field"/>
     </component>
     <component name="Itinerary" class="Itinerary">         
-      <list name="_legs" lazy="true" cascade="all-delete-orphan" access="field">
+      <list name="_legs" lazy="true" cascade="all" access="field" table="Leg">
         <key column="CargoId"/>
         <index column="LegIndex"/>
-        <one-to-many class="Leg"/>
+        <composite-element class="Leg">
+          <many-to-one name="_loadLocation" column="LoadLocation" class="DDDSample.Domain.Location.Location" access="field"/>
+          <many-to-one name="_unloadLocation" column="UnloadLocation" class="DDDSample.Domain.Location.Location" access="field"/>
+          <property name="_loadDate" column="LoadDate" access="field"/>
+          <property name="_unloadDate" column="UnloadDate" access="field"/>
+        </composite-element>        
       </list>
     </component>
   </class>

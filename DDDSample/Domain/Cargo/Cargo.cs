@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
 {
@@ -9,7 +10,7 @@ namespace DDDSample.Domain.Cargo
    /// Cargo.
    /// </summary>
    public class Cargo
-   {
+   {      
       /// <summary>
       /// Gets the tracking id of this cargo.
       /// </summary>
@@ -51,7 +52,17 @@ namespace DDDSample.Domain.Cargo
       /// <param name="itinerary"></param>
       public virtual void AssignToRoute(Itinerary itinerary)
       {
+         CargoHasBeenAssignedToRouteEvent @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
+         DomainEvents.Raise(@event);
+      }
+
+      /// <summary>
+      /// Updates delivery progress information according to handling history.
+      /// </summary>
+      /// <param name="handlingHistory">A collection of handling events associated with this cargo.</param>
+      public virtual void DeriveDeliveryProgress(HandlingHistory handlingHistory)
+      {
       }
       
       protected Cargo()

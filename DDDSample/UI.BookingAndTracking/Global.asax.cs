@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DDDSample.Application.SynchronousEventHandlers;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
+using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 using DDDSample.Application.Implemetation;
@@ -41,6 +43,9 @@ namespace UI.BookingAndTracking
 
          _ambientContainer.RegisterType<IBookingService, BookingService>();
          _ambientContainer.RegisterType<IRoutingService, RoutingService>();
+
+         _ambientContainer.RegisterType<IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>("cargoHasBeenAssignedToRouteEventHandler");
+         _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");
 
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
          ServiceLocator.SetLocatorProvider(()=>_ambientLocator);
@@ -87,6 +92,7 @@ namespace UI.BookingAndTracking
       {
          _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
          _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
+         _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
 
          _ambientContainer.AddNewExtension<Interception>();
          _ambientContainer.Configure<Interception>().SetInterceptorFor<IBookingService>(
@@ -100,6 +106,7 @@ namespace UI.BookingAndTracking
       {
          _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.InMemory.LocationRepository>();
          _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.InMemory.CargoRepository>();
+         _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.InMemory.HandlingEventRepository>();
       }
 
       private static void InitializeNHibernate()

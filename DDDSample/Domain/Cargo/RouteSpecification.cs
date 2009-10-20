@@ -6,7 +6,12 @@ using DDDSample.Domain.Location;
 
 namespace DDDSample.Domain.Cargo
 {
+   /// <summary>
+   /// Contains information about a route: its origin, destination and arrival deadline.
+   /// </summary>
+#pragma warning disable 661,660
    public class RouteSpecification : ValueObject
+#pragma warning restore 661,660
    {
       private readonly Location.Location _origin;
       private readonly Location.Location _destination;
@@ -45,6 +50,16 @@ namespace DDDSample.Domain.Cargo
       public Location.Location Origin
       {
          get { return _origin; }
+      }
+
+      public static bool operator ==(RouteSpecification left, RouteSpecification right)
+      {
+         return EqualOperator(left, right);
+      }
+
+      public static bool operator !=(RouteSpecification left, RouteSpecification right)
+      {
+         return NotEqualOperator(left, right);
       }
 
       protected override IEnumerable<object> GetAtomicValues()

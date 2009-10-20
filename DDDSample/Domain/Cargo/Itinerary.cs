@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// NHibernate does not allow fields to be read only.
-// ReSharper disable FieldCanBeMadeReadOnly.Local
-
 namespace DDDSample.Domain.Cargo
 {
    /// <summary>
@@ -15,7 +12,7 @@ namespace DDDSample.Domain.Cargo
    public class Itinerary : ValueObject
 #pragma warning restore 661,660
    {
-      private IList<Leg> _legs;
+      private readonly IList<Leg> _legs;
 
       /// <summary>
       /// Creates new <see cref="Itinerary"/> instance for provided collection of routing steps (legs).
@@ -59,4 +56,3 @@ namespace DDDSample.Domain.Cargo
       #endregion
    }
 }
-// ReSharper restore FieldCanBeMadeReadOnly.Local
