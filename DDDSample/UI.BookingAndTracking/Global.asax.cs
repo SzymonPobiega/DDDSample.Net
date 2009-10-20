@@ -43,6 +43,7 @@ namespace UI.BookingAndTracking
 
          _ambientContainer.RegisterType<IBookingService, BookingService>();
          _ambientContainer.RegisterType<IRoutingService, RoutingService>();
+         _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
 
          _ambientContainer.RegisterType<IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>("cargoHasBeenAssignedToRouteEventHandler");
          _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");

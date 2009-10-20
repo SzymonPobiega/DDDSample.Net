@@ -12,7 +12,7 @@ namespace DDDSample.Application
    /// <summary>
    /// Handling event service.
    /// </summary>
-   public interface HandlingEventService
+   public interface IHandlingEventService
    {      
       /// <summary>
       /// Registers a handling event in the system, and notifies interested parties that a 

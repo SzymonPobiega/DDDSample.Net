@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Application", "Tests.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B41F94-5227-4533-B102-75A87FF61AE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.EventLogger", "UI.EventLogger\UI.EventLogger.csproj", "{38F8ADD0-4236-4C45-9E29-DB7B92830E38}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.BookingAndTracking", "UI.BookingAndTracking\UI.BookingAndTracking.csproj", "{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.UI.BookingAndTracking", "Tests.UI.BookingAndTracking\Tests.UI.BookingAndTracking.csproj", "{FD7E6399-B55C-492D-8003-11241F19283E}"
@@ -71,7 +69,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder.Persistence.InMe
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 16
+		SccNumberOfProjects = 15
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -100,31 +98,28 @@ Global
 		SccProjectUniqueName7 = UI.BookingAndTracking\\UI.BookingAndTracking.csproj
 		SccProjectName7 = UI.BookingAndTracking
 		SccLocalPath7 = UI.BookingAndTracking
-		SccProjectUniqueName8 = UI.EventLogger\\UI.EventLogger.csproj
-		SccProjectName8 = UI.EventLogger
-		SccLocalPath8 = UI.EventLogger
-		SccProjectUniqueName9 = Setup\\Setup.vdproj
-		SccProjectName9 = Setup
-		SccLocalPath9 = Setup
-		SccProjectUniqueName10 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
-		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
-		SccProjectName10 = Tests.Domain.Persistence.NHibernate
-		SccLocalPath10 = Tests.Domain.Persistence.NHibernate
-		SccProjectUniqueName11 = Domain.Persistence.NHibernate\\Domain.Persistence.NHibernate.csproj
-		SccProjectName11 = Domain.Persistence.NHibernate
-		SccLocalPath11 = Domain.Persistence.NHibernate
-		SccProjectUniqueName12 = Domain.Persistence.InMemory\\Domain.Persistence.InMemory.csproj
-		SccProjectName12 = Domain.Persistence.InMemory
-		SccLocalPath12 = Domain.Persistence.InMemory
-		SccProjectUniqueName13 = Infrastructure.Routing\\Infrastructure.Routing.csproj
-		SccProjectName13 = Infrastructure.Routing
-		SccLocalPath13 = Infrastructure.Routing
-		SccProjectUniqueName14 = Pathfinder\\Pathfinder.csproj
-		SccProjectName14 = Pathfinder
-		SccLocalPath14 = Pathfinder
-		SccProjectUniqueName15 = Pathfinder.Persistence.InMemory\\Pathfinder.Persistence.InMemory.csproj
-		SccProjectName15 = Pathfinder.Persistence.InMemory
-		SccLocalPath15 = Pathfinder.Persistence.InMemory
+		SccProjectUniqueName8 = Setup\\Setup.vdproj
+		SccProjectName8 = Setup
+		SccLocalPath8 = Setup
+		SccProjectUniqueName9 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
+		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
+		SccProjectName9 = Tests.Domain.Persistence.NHibernate
+		SccLocalPath9 = Tests.Domain.Persistence.NHibernate
+		SccProjectUniqueName10 = Domain.Persistence.NHibernate\\Domain.Persistence.NHibernate.csproj
+		SccProjectName10 = Domain.Persistence.NHibernate
+		SccLocalPath10 = Domain.Persistence.NHibernate
+		SccProjectUniqueName11 = Domain.Persistence.InMemory\\Domain.Persistence.InMemory.csproj
+		SccProjectName11 = Domain.Persistence.InMemory
+		SccLocalPath11 = Domain.Persistence.InMemory
+		SccProjectUniqueName12 = Infrastructure.Routing\\Infrastructure.Routing.csproj
+		SccProjectName12 = Infrastructure.Routing
+		SccLocalPath12 = Infrastructure.Routing
+		SccProjectUniqueName13 = Pathfinder\\Pathfinder.csproj
+		SccProjectName13 = Pathfinder
+		SccLocalPath13 = Pathfinder
+		SccProjectUniqueName14 = Pathfinder.Persistence.InMemory\\Pathfinder.Persistence.InMemory.csproj
+		SccProjectName14 = Pathfinder.Persistence.InMemory
+		SccLocalPath14 = Pathfinder.Persistence.InMemory
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
@@ -171,12 +166,6 @@ Global
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51A1EE2E-44FE-4D9B-B335-079EC0B65B54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
-		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.InMemory|Any CPU.Build.0 = Debug|Any CPU
-		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38F8ADD0-4236-4C45-9E29-DB7B92830E38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.InMemory|Any CPU.ActiveCfg = InMemory|Any CPU

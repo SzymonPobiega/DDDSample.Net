@@ -21,6 +21,7 @@
                     <li><%= Html.ActionLink("Home", "Index", "Home")%></li>
                     <li><%= Html.ActionLink("Reset database", "Reset", "DatabaseAdmin")%></li>                    
                     <li><%= Html.ActionLink("Booking", "NewCargo", "Booking")%></li>
+                    <li><%= Html.ActionLink("Handling", "RegisterHandlingEvent", "Handling")%></li>
                 </ul>
             
             </div>

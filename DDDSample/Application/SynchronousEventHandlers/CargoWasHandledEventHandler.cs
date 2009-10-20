@@ -16,6 +16,11 @@ namespace DDDSample.Application.SynchronousEventHandlers
    {
       private readonly IHandlingEventRepository _handlingEventRepository;
 
+      public CargoWasHandledEventHandler(IHandlingEventRepository handlingEventRepository)
+      {
+         _handlingEventRepository = handlingEventRepository;
+      }
+
       public void Handle(CargoWasHandledEvent @event)
       {                  
          HandlingHistory handlingHistory = _handlingEventRepository.LookupHandlingHistoryOfCargo(@event.Source.Cargo.TrackingId);

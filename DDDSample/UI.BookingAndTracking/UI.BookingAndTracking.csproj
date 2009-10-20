@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="ContainerControllerFactory.cs" />
     <Compile Include="Controllers\BookingController.cs" />
+    <Compile Include="Controllers\HandlingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DatabaseAdminController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -127,6 +128,7 @@
     <Compile Include="Facade\BookingServiceFacade.cs" />
     <Compile Include="Facade\CargoRoutingDTO.cs" />
     <Compile Include="Facade\CargoRoutingDTOAssembler.cs" />
+    <Compile Include="Facade\HandlingEventServiceFacade.cs" />
     <Compile Include="Facade\LegDTO.cs" />
     <Compile Include="Facade\LegDTOAssembler.cs" />
     <Compile Include="Facade\RouteCandidateDTO.cs" />
@@ -149,6 +151,7 @@
     <Content Include="Views\Booking\ChangeDestination.aspx" />
     <Content Include="Views\Booking\AssignToRoute.aspx" />
     <Content Include="Views\Booking\NewCargo.aspx" />
+    <Content Include="Views\Handling\RegisterHandlingEvent.aspx" />
     <Content Include="Views\Booking\CargoDetails.aspx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
