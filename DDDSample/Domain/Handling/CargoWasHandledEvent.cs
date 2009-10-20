@@ -8,25 +8,14 @@ namespace DDDSample.Domain.Handling
    /// <summary>
    /// Signals that a cargo was handled.
    /// </summary>
-   public class CargoWasHandledEvent
+   public class CargoWasHandledEvent : DomainEvent<HandlingEvent>
    {
-      private readonly HandlingEvent _data;
-
       /// <summary>
       /// Creates new event instance.
       /// </summary>
-      /// <param name="data"></param>
-      public CargoWasHandledEvent(HandlingEvent data)
+      /// <param name="source"></param>
+      public CargoWasHandledEvent(HandlingEvent source) : base(source)
       {
-         _data = data;
-      }
-
-      /// <summary>
-      /// Data associated with this event.
-      /// </summary>
-      public HandlingEvent Data
-      {
-         get { return _data; }
       }
    }
 }

@@ -12,7 +12,9 @@ namespace DDDSample.Domain.Location
    /// http://www.unece.org/cefact/locode/
    /// http://www.unece.org/cefact/locode/DocColumnDescription.htm#LOCODE
    /// </summary>
+#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class UnLocode : ValueObject
+#pragma warning restore 661,660
    {
       private static readonly Regex _codePattern = new Regex("[a-zA-Z]{2}[a-zA-Z2-9]{3}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
       private readonly string _code;

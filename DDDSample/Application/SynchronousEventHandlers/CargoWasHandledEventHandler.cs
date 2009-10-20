@@ -18,8 +18,8 @@ namespace DDDSample.Application.SynchronousEventHandlers
 
       public void Handle(CargoWasHandledEvent @event)
       {                  
-         HandlingHistory handlingHistory = _handlingEventRepository.LookupHandlingHistoryOfCargo(@event.Data.Cargo.TrackingId);
-         @event.Data.Cargo.DeriveDeliveryProgress(handlingHistory);
+         HandlingHistory handlingHistory = _handlingEventRepository.LookupHandlingHistoryOfCargo(@event.Source.Cargo.TrackingId);
+         @event.Source.Cargo.DeriveDeliveryProgress(handlingHistory);
       }
    }
 }

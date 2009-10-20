@@ -9,7 +9,7 @@ namespace DDDSample.Domain.Cargo
    /// <summary>
    /// Contains information about a route: its origin, destination and arrival deadline.
    /// </summary>
-#pragma warning disable 661,660
+#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class RouteSpecification : ValueObject
 #pragma warning restore 661,660
    {

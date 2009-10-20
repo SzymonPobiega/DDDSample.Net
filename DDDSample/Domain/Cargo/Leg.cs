@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-// NHibernate does not allow fields to be read only.
-// ReSharper disable FieldCanBeMadeReadOnly.Local
-
 namespace DDDSample.Domain.Cargo
 {   
    /// <summary>
@@ -15,11 +12,11 @@ namespace DDDSample.Domain.Cargo
    public class Leg : ValueObject
 #pragma warning restore 661,660
    {
-      private Location.Location _loadLocation;
-      private Location.Location _unloadLocation;
+      private readonly Location.Location _loadLocation;
+      private readonly Location.Location _unloadLocation;
 
-      private DateTime _loadDate;
-      private DateTime _unloadDate;
+      private readonly DateTime _loadDate;
+      private readonly DateTime _unloadDate;
 
       /// <summary>
       /// Creates new leg instance.
@@ -93,4 +90,3 @@ namespace DDDSample.Domain.Cargo
       #endregion
    }   
 }
-// ReSharper restore FieldCanBeMadeReadOnly.Local
