@@ -50,13 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constraints.cs" />
+    <Compile Include="GraphDAO.cs" />
     <Compile Include="GraphTraversalService.cs" />
     <Compile Include="IGraphDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RouteSpecification.cs" />
     <Compile Include="TransitEdge.cs" />
     <Compile Include="TransitPath.cs" />
-    <Compile Include="TransitPathBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

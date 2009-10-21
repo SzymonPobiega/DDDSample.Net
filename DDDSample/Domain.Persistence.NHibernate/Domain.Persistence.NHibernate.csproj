@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AbstractRepository.cs" />
     <Compile Include="CargoRepository.cs" />
+    <Compile Include="VoyageRepository.cs" />
     <Compile Include="HandlingEventRepository.cs" />
     <Compile Include="LocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HandlingHistory.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Voyage.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

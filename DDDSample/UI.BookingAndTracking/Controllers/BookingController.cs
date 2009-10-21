@@ -38,7 +38,11 @@ namespace UI.BookingAndTracking.Controllers
       [AcceptVerbs(HttpVerbs.Get)]
       public ActionResult ChangeDestination(string trackingId)
       {
-         AddShipingLocations();
+         CargoRoutingDTO cargo = _bookingFacade.LoadCargoForRouting(trackingId);         
+
+         IList<SelectListItem> shippingLocations = _bookingFacade.ListShippingLocations();
+         ViewData["destination"] = shippingLocations.Where(x => x.Value != cargo.Origin).ToList();
+
          return View(GetDetailsModel(trackingId));
       }
 
@@ -88,8 +92,10 @@ namespace UI.BookingAndTracking.Controllers
       #region Utility
       public void AddShipingLocations()
       {
-         ViewData["ShippingLocations"] = _bookingFacade.ListShippingLocations();
-      }
+         IList<SelectListItem> shippingLocations = _bookingFacade.ListShippingLocations();
+         ViewData["origin"] = shippingLocations;
+         ViewData["destination"] = shippingLocations;
+      }      
 
       public ActionResult RedirectToDetails(string trackingId)
       {

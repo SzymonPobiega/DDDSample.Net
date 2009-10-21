@@ -6,16 +6,18 @@ using System.Text;
 namespace DDDSample.Domain.Voyage
 {
    /// <summary>
-   /// Represents a unique voyage number.
+   /// A unique voyage number.
    /// </summary>
-#pragma warning disable 661,660
+#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class VoyageNumber : ValueObject
 #pragma warning restore 661,660
    {
-// ReSharper disable FieldCanBeMadeReadOnly.Local
-      private string _number;
-// ReSharper restore FieldCanBeMadeReadOnly.Local
+      private readonly string _number;
 
+      /// <summary>
+      /// Creates new voyage number using specified string.
+      /// </summary>
+      /// <param name="number">String represantation of voyage number.</param>
       public VoyageNumber(string number)
       {
          if (number == null)
@@ -25,6 +27,13 @@ namespace DDDSample.Domain.Voyage
          _number = number;
       }
 
+      /// <summary>
+      /// Gets string representation of this voyage number.
+      /// </summary>
+      public virtual string NumberString
+      {
+         get { return _number; }
+      }
 
       public static bool operator ==(VoyageNumber left, VoyageNumber right)
       {
@@ -35,6 +44,7 @@ namespace DDDSample.Domain.Voyage
       {
          return NotEqualOperator(left, right);
       }
+      
 
       protected override IEnumerable<object> GetAtomicValues()
       {

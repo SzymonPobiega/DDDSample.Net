@@ -20,11 +20,11 @@
                 <legend>Cargo information</legend>
                 <p>
                     <label for="origin">Origin:</label>
-                    <%= Html.DropDownList("origin", (IList<SelectListItem>)ViewData["ShippingLocations"])%>                    
+                    <%= Html.DropDownList("origin")%>                    
                 </p>
                 <p>
                     <label for="destination">Destination:</label>
-                    <%= Html.DropDownList("destination", (IList<SelectListItem>)ViewData["ShippingLocations"])%>                    
+                    <%= Html.DropDownList("destination")%>                    
                 </p>
                 <p>
                     <label for="arrivalDeadline">Arrival deadline:</label>

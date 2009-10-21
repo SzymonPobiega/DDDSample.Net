@@ -22,7 +22,7 @@
                 </p>
                 <p>
                     <label for="destination">New destination:</label>
-                    <%= Html.DropDownList("destination", (IList<SelectListItem>)ViewData["ShippingLocations"])%>                    
+                    <%= Html.DropDownList("destination")%>                    
                 </p>                
                 <p>
                     <input type="submit" value="Change destination" />

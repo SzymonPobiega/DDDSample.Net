@@ -77,7 +77,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueObject.cs" />
     <Compile Include="Voyage\CarrierMovement.cs" />
+    <Compile Include="Voyage\IVoyageRepository.cs" />
     <Compile Include="Voyage\Schedule.cs" />
+    <Compile Include="Voyage\Voyage.cs" />
     <Compile Include="Voyage\VoyageNumber.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
