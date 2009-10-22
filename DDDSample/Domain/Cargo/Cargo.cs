@@ -27,6 +27,11 @@ namespace DDDSample.Domain.Cargo
       public virtual Itinerary Itinerary { get; protected set; }
 
       /// <summary>
+      /// Gets delivery status of this cargo.
+      /// </summary>
+      public virtual Delivery Delivery { get; protected set; }
+
+      /// <summary>
       /// Creates new <see cref="Cargo"/> object with provided tracking id and route specification.
       /// </summary>
       /// <param name="trackingId">Tracking id of this cargo.</param>
@@ -35,6 +40,7 @@ namespace DDDSample.Domain.Cargo
       {
          TrackingId = trackingId;
          RouteSpecification = routeSpecification;
+         Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, null);
       }
 
       /// <summary>
@@ -44,16 +50,18 @@ namespace DDDSample.Domain.Cargo
       public virtual void SpecifyNewRoute(RouteSpecification routeSpecification)
       {
          RouteSpecification = routeSpecification;
+         Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
       }
 
       /// <summary>
       /// Assigns cargo to a provided route.
       /// </summary>
-      /// <param name="itinerary"></param>
+      /// <param name="itinerary">New itinerary</param>
       public virtual void AssignToRoute(Itinerary itinerary)
       {
          CargoHasBeenAssignedToRouteEvent @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
+         Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
          DomainEvents.Raise(@event);
       }
 

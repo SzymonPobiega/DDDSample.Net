@@ -55,6 +55,9 @@
   <ItemGroup>
     <Compile Include="Cargo\Cargo.cs" />
     <Compile Include="Cargo\CargoHasBeenAssignedToRouteEvent.cs" />
+    <Compile Include="Cargo\Delivery.cs" />
+    <Compile Include="Cargo\RoutingStatus.cs" />
+    <Compile Include="Cargo\TransportStatus.cs" />
     <Compile Include="DomainEvent.cs" />
     <Compile Include="Cargo\ICargoRepository.cs" />
     <Compile Include="Cargo\Leg.cs" />

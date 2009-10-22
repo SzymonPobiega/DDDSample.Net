@@ -96,11 +96,15 @@ namespace UI.BookingAndTracking
          _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
 
          _ambientContainer.AddNewExtension<Interception>();
-         _ambientContainer.Configure<Interception>().SetInterceptorFor<IBookingService>(
-            new InterfaceInterceptor())
+                  
+         _ambientContainer.Configure<Interception>()
+
+            .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
+            .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
+
             .AddPolicy("Transactions")
             .AddCallHandler<DDDSample.Domain.Persistence.NHibernate.TransactionCallHandler>()
-            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
+            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
       }
 
       private static void ConfigureInMemoryRepositories()

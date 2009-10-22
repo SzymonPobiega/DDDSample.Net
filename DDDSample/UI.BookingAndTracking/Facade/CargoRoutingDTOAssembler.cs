@@ -19,11 +19,12 @@ namespace UI.BookingAndTracking.Facade
       
       public CargoRoutingDTO ToDTO(Cargo cargo)
       {         
-         return new CargoRoutingDTO(
+         return new CargoRoutingDTO(            
             cargo.TrackingId.IdString,
             cargo.RouteSpecification.Origin.UnLocode.CodeString,
             cargo.RouteSpecification.Destination.UnLocode.CodeString,
             cargo.RouteSpecification.ArrivalDeadline,
+            cargo.Delivery.RoutingStatus == RoutingStatus.Misrouted,
             ToLegDTOs(cargo.Itinerary));
       }
 

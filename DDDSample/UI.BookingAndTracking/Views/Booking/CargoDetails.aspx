@@ -36,6 +36,12 @@
                     Not routed -
                     <%= Html.ActionLink("Route this cargo", "AssignToRoute", new { Model.TrackingId })%></label>
                 <% } %>
+                <% if (Model.Misrouted)
+                   { %>
+                <label>
+                    Cargo is misrouted -
+                    <%= Html.ActionLink("Reroute this cargo", "AssignToRoute", new { Model.TrackingId })%></label>
+                <% } %>
             </p>
         </fieldset>
     </div>

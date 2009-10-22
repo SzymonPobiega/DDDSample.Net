@@ -37,16 +37,40 @@ namespace DDDSample.Domain.Cargo
          _destination = destination;
       }
 
+      /// <summary>
+      /// Checks whether provided itinerary (a description of transporting steps) satisfies this
+      /// specification.
+      /// </summary>
+      /// <param name="itinerary">An itinerary.</param>
+      /// <returns>True, if cargo can be transported from <see cref="Origin"/> to <see cref="Destination"/>
+      /// before <see cref="ArrivalDeadline"/> using provided itinerary.
+      /// </returns>
+      public virtual bool IsSatisfiedBy(Itinerary itinerary)
+      {
+         return Origin == itinerary.InitialDepartureLocation &&
+                Destination == itinerary.FinalArrivalLocation &&
+                ArrivalDeadline > itinerary.FinalArrivalDate;         
+      }
+
+      /// <summary>
+      /// Date of expected cargo arrival.
+      /// </summary>
       public DateTime ArrivalDeadline
       {
          get { return _arrivalDeadline; }
       }
 
+      /// <summary>
+      /// Location where cargo should be delivered.
+      /// </summary>
       public Location.Location Destination
       {
          get { return _destination; }
       }
 
+      /// <summary>
+      /// Location where cargo should be picked up.
+      /// </summary>
       public Location.Location Origin
       {
          get { return _origin; }
@@ -74,6 +98,6 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       protected RouteSpecification()
       {         
-      }
+      }      
    }
 }

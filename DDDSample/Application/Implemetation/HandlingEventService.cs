@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
-using DDDSample.Domain.Voyage;
 
 namespace DDDSample.Application.Implemetation
 {
@@ -22,7 +21,7 @@ namespace DDDSample.Application.Implemetation
          _locationRepository = locationRepository;
       }
 
-      public void RegisterHandlingEvent(DateTime completionTime, TrackingId trackingId, VoyageNumber voyageNumber, UnLocode unLocode, HandlingEventType type)
+      public void RegisterHandlingEvent(DateTime completionTime, TrackingId trackingId, UnLocode unLocode, HandlingEventType type)
       {
          HandlingHistory handlingHistory = _handlingEventRepository.LookupHandlingHistoryOfCargo(trackingId);
          Location location = _locationRepository.Find(unLocode);

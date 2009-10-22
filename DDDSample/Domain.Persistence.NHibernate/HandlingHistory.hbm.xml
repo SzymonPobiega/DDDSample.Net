@@ -6,7 +6,7 @@
       <generator class="guid"/>
     </id>
     <many-to-one name="Cargo" lazy="proxy" column="CargoId" class="DDDSample.Domain.Cargo.Cargo" not-null="true"/>
-    <bag name="_events" access="field" lazy="true" table="HandlingEvent">
+    <bag name="_events" access="field" lazy="true" table="HandlingEvent" cascade="all-delete-orphan">
       <key column="ParentId"/>
       <composite-element class="HandlingEvent">
         <parent name="_parent"/>

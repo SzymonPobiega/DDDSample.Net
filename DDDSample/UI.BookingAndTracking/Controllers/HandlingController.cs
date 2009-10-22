@@ -25,19 +25,14 @@ namespace UI.BookingAndTracking.Controllers
       }
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult RegisterHandlingEvent(string trackingId, DateTime? completionTime, string voyageNumber, string location, HandlingEventType type)
+      public ActionResult RegisterHandlingEvent(string trackingId, DateTime? completionTime, string location, HandlingEventType type)
       {
          bool validationError = false;
          if (!completionTime.HasValue)
          {
             ViewData.ModelState.AddModelError("completionTime", "Event completion date is required and must be a valid date.");
             validationError = true;            
-         }
-         if (string.IsNullOrEmpty(voyageNumber))
-         {
-            ViewData.ModelState.AddModelError("voyageNumber", "Voyage number must be specified.");
-            validationError = true;
-         }
+         }         
          if (string.IsNullOrEmpty(trackingId))
          {
             ViewData.ModelState.AddModelError("trackingId", "Tracking id must be specified.");
@@ -49,7 +44,7 @@ namespace UI.BookingAndTracking.Controllers
             AddHandlingEventTypes();
             return View();
          }
-         _handlingEventFacade.RegisterHandlingEvent(completionTime.Value, trackingId, voyageNumber, location, type );
+         _handlingEventFacade.RegisterHandlingEvent(completionTime.Value, trackingId, location, type );
          return RedirectToAction("Index", "Home");
       }
       

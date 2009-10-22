@@ -27,12 +27,7 @@
                     <label for="completionTime">Completion time:</label>
                     <%= Html.TextBox("completionTime")%>
                     <%= Html.ValidationMessage("completionTime", "*")%>
-                </p>
-                <p>
-                    <label for="voyageNumber">Voyage number:</label>
-                    <%= Html.TextBox("voyageNumber")%>
-                    <%= Html.ValidationMessage("voyageNumber", "*")%>                    
-                </p>
+                </p>                
                 <p>
                     <label for="destination">Location:</label>
                     <%= Html.DropDownList("location")%>                    

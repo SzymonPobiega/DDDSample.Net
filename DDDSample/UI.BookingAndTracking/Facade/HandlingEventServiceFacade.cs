@@ -6,7 +6,6 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
-using DDDSample.Domain.Voyage;
 
 namespace UI.BookingAndTracking.Facade
 {
@@ -24,12 +23,11 @@ namespace UI.BookingAndTracking.Facade
          _locationRepository = locationRepository;
       }
 
-      public void RegisterHandlingEvent(DateTime completionTime, string trackingId, string voyageNumber, string location, HandlingEventType type)
+      public void RegisterHandlingEvent(DateTime completionTime, string trackingId, string location, HandlingEventType type)
       {
          _handlingEventService.RegisterHandlingEvent(
             completionTime,
-            new TrackingId(trackingId),
-            new VoyageNumber(voyageNumber), 
+            new TrackingId(trackingId),            
             new UnLocode(location),
             type);
       }

@@ -80,9 +80,12 @@ namespace DDDSample.Pathfinder
 
       private IList<String> GetRandomChunkOfLocations(IEnumerable<string> allLocations)
       {
+         int total = allLocations.Count();
+         int chunk = total > 4 ? 1 + _random.Next(5) : total;
          return allLocations.Select(x => new { Value = x, Index = _random.Next(100) })
             .OrderBy(x => x.Index)
             .Select(x => x.Value)
+            .Take(chunk)
             .ToList();
       }
    }
