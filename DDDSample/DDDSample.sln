@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5592DB69-F
 		Libs\Microsoft.Practices.Unity.dll = Libs\Microsoft.Practices.Unity.dll
 		Libs\Microsoft.Practices.Unity.Interception.dll = Libs\Microsoft.Practices.Unity.Interception.dll
 		Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll = Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll
+		Libs\nunit.framework.dll = Libs\nunit.framework.dll
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate", "NHibernate", "{E73BA32A-A565-4D2C-BB59-F8D7DEB80584}"
