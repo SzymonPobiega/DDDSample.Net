@@ -3,14 +3,14 @@ using System.Linq;
 using System.Text;
 using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.Domain.Location;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Domain.Persistence.Tests
 {
-   [TestClass]
+   [TestFixture]
    public class LocationRepositoryTest : PersistenceTest
    {
-      [TestMethod]
+      [Test]
       public void Find_OneSatisfyingItem_ResultReturned()
       {
          using (Scope(true))
@@ -26,7 +26,7 @@ namespace Domain.Persistence.Tests
          Assert.IsNotNull(location);
       }
 
-      [TestMethod]
+      [Test]
       public void Find_NoSatisfyingItems_NullReturned()
       {         
          Location location;
@@ -38,7 +38,7 @@ namespace Domain.Persistence.Tests
          Assert.IsNull(location);
       }
 
-      [TestMethod]
+      [Test]
       [ExpectedException(typeof(NHibernate.NonUniqueResultException))]
       public void Find_ManySatisfyingItems_ExceptionThrown()
       {
@@ -55,7 +55,7 @@ namespace Domain.Persistence.Tests
       }
 
 
-      [TestMethod]
+      [Test]
       public void FindAll_ResultsReturned()
       {
          using (Scope(true))

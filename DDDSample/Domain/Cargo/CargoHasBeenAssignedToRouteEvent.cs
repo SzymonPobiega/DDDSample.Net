@@ -6,7 +6,7 @@ using System.Text;
 namespace DDDSample.Domain.Cargo
 {
    /// <summary>
-   /// Raised after cargo has been assigned to route.
+   /// Raised after cargo has arrived assigned to route.
    /// </summary>
    public sealed class CargoHasBeenAssignedToRouteEvent : DomainEvent<Cargo>
    {

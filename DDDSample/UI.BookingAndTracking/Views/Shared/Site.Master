@@ -23,7 +23,8 @@
                 <ul id="menu">              
                     <li><%= Html.ActionLink("Home", "Index", "Home")%></li>
                     <li><%= Html.ActionLink("Reset database", "Reset", "DatabaseAdmin")%></li>                    
-                    <li><%= Html.ActionLink("Booking", "NewCargo", "Booking")%></li>
+                    <li><%= Html.ActionLink("Tracking", "Track", "Tracking")%></li>
+                    <li><%= Html.ActionLink("Booking", "ListCargos", "Booking")%></li>                    
                     <li><%= Html.ActionLink("Handling", "RegisterHandlingEvent", "Handling")%></li>
                 </ul>
             

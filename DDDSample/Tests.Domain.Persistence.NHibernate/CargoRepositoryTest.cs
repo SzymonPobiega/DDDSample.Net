@@ -5,14 +5,14 @@ using System.Text;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Domain.Persistence.Tests
 {
-   [TestClass]
+   [TestFixture]
    public class CargoRepositoryTest : PersistenceTest
    {
-      [TestMethod]
+      [Test]
       public void Store_EmptyStore_CargoSaved()
       {
          CargoRepository repository = new CargoRepository(SessionFactory);
@@ -30,8 +30,8 @@ namespace Domain.Persistence.Tests
 
          using (Scope(true))
          {
-            IList<Cargo> cargoes = Session.CreateQuery("from DDDSample.Domain.Cargo.Cargo c").List<Cargo>();
-            Assert.AreEqual(1, cargoes.Count);
+            IList<Cargo> cargos = Session.CreateQuery("from DDDSample.Domain.Cargo.Cargo c").List<Cargo>();
+            Assert.AreEqual(1, cargos.Count);
          }
       }      
    }

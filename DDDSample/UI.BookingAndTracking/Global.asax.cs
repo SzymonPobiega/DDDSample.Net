@@ -20,7 +20,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
-namespace UI.BookingAndTracking
+namespace DDDSample.UI.BookingAndTracking
 {
    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
    // visit http://go.microsoft.com/?LinkId=9394801
@@ -59,6 +59,12 @@ namespace UI.BookingAndTracking
              "Details",
              "Booking/CargoDetails/{trackingId}",
              new { controller = "Booking", action = "CargoDetails" }
+         );
+
+         routes.MapRoute(
+             "TrackingDetails",
+             "Tracking/Track/{trackingId}",
+             new { controller = "Tracking", action = "Track" }
          );
 
          routes.MapRoute(

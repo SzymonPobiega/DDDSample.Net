@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.UI;
 
-namespace UI.BookingAndTracking
+namespace DDDSample.UI.BookingAndTracking
 {
    public partial class _Default : Page
    {

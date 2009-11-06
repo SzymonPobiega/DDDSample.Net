@@ -2,24 +2,24 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
+using NUnit.Framework;
 
 namespace Domain.Persistence.Tests
 {
    /// <summary>
    /// Base class for all persistence tests.
    /// </summary>
-   [TestClass]
+   [TestFixture]
    public abstract class PersistenceTest
    {
       protected ISessionFactory SessionFactory { get; private set; }
       protected ISession Session { get { return SessionFactory.GetCurrentSession(); } }
       protected ITransaction Transaction { get { return SessionFactory.GetCurrentSession().Transaction; } }
 
-      [TestInitialize]
+      [SetUp]
       public void Initialize()
       {
          Configuration cfg = new Configuration().Configure();

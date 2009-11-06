@@ -1,6 +1,6 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UI.BookingAndTracking.Facade.CargoRoutingDTO>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<CargoRoutingDTO>" %>
 
-<%@ Import Namespace="UI.BookingAndTracking.Facade" %>
+<%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
 <asp:Content ID="cargoDetailsTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Details for cargo
     <%= Model.TrackingId %>

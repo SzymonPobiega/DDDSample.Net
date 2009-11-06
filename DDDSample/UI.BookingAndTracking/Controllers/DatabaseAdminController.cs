@@ -8,7 +8,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
-namespace UI.BookingAndTracking.Controllers
+namespace DDDSample.UI.BookingAndTracking.Controllers
 {
    [HandleError]
    public class DatabaseAdminController : Controller

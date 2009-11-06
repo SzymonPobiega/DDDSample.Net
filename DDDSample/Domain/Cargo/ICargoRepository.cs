@@ -22,6 +22,11 @@ namespace DDDSample.Domain.Cargo
       /// <returns>Cargo instance if one present, null otherwise.</returns>
       Cargo Find(TrackingId trackingId);
       /// <summary>
+      /// Returns all cargos stored in the repository.
+      /// </summary>
+      /// <returns>A collection of all cargo objects.</returns>
+      IList<Cargo> FindAll();
+      /// <summary>
       /// Returns next, unique tracking id value.
       /// </summary>
       /// <returns>New tracking id.</returns>

@@ -8,10 +8,10 @@ using System.Web.Routing;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 using Microsoft.Practices.ServiceLocation;
-using UI.BookingAndTracking.Facade;
-using UI.BookingAndTracking.Models;
+using DDDSample.UI.BookingAndTracking.Facade;
+using DDDSample.UI.BookingAndTracking.Models;
 
-namespace UI.BookingAndTracking.Controllers
+namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
    public class BookingController : Controller
    {
@@ -20,6 +20,13 @@ namespace UI.BookingAndTracking.Controllers
       public BookingController(BookingServiceFacade bookingFacade)
       {
          _bookingFacade = bookingFacade;         
+      }
+
+      [AcceptVerbs(HttpVerbs.Get)]
+      public ActionResult ListCargos()
+      {
+         ViewData["cargos"] = _bookingFacade.ListAllCargos();
+         return View();
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -113,12 +120,7 @@ namespace UI.BookingAndTracking.Controllers
       public CargoRoutingDTO GetDetailsModel(string trackingId)
       {
          return _bookingFacade.LoadCargoForRouting(trackingId);
-      }
-
-      public Booking GetBookingModel()
-      {
-         return new Booking(_bookingFacade.ListShippingLocations());
-      }
+      }      
       #endregion
    }
 }

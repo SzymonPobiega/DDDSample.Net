@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
 
-namespace UI.BookingAndTracking.Facade
+namespace DDDSample.UI.BookingAndTracking.Facade
 {
    /// <summary>
    /// DTO assembler for <see cref="CargoRoutingDTO"/>.

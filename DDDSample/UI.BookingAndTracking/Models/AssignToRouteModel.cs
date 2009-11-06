@@ -1,10 +1,13 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using UI.BookingAndTracking.Facade;
+using DDDSample.UI.BookingAndTracking.Facade;
 
-namespace UI.BookingAndTracking.Models
+namespace DDDSample.UI.BookingAndTracking.Models
 {
+   /// <summary>
+   /// A model for Assign to Route view.
+   /// </summary>
    public class AssignToRouteModel
    {
       private readonly CargoRoutingDTO _cargo;      

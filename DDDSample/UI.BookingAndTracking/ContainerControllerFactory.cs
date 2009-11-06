@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.ServiceLocation;
 
-namespace UI.BookingAndTracking
+namespace DDDSample.UI.BookingAndTracking
 {
    /// <summary>
    /// A controller factory based on abient DI container.

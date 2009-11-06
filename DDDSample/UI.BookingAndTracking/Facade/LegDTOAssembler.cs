@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 
-namespace UI.BookingAndTracking.Facade
+namespace DDDSample.UI.BookingAndTracking.Facade
 {
    public class LegDTOAssembler
    {

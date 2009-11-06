@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDSample.Domain.Handling;
-using UI.BookingAndTracking.Facade;
+using DDDSample.UI.BookingAndTracking.Facade;
 
-namespace UI.BookingAndTracking.Controllers
+namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
    public class HandlingController : Controller
    {
@@ -17,7 +17,7 @@ namespace UI.BookingAndTracking.Controllers
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
-      public ActionResult RegisterHandlingEvent()
+      public ActionResult RegisterHandlingEvent(string trackingId)
       {
          AddHandlingLocations();
          AddHandlingEventTypes();

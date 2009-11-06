@@ -5,7 +5,13 @@ using System.Text;
 
 namespace DDDSample.Domain.Cargo
 {
-   public class CargoWasMisdirectedEvent
+   /// <summary>
+   /// Raised after cargo has been found to be misdirected.
+   /// </summary>
+   public class CargoWasMisdirectedEvent : DomainEvent<Cargo>
    {
+      public CargoWasMisdirectedEvent(Cargo source) : base(source)
+      {
+      }
    }
 }

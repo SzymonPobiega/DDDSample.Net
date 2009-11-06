@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace UI.BookingAndTracking.Controllers
+namespace DDDSample.UI.BookingAndTracking.Controllers
 {
    [HandleError]
    public class HomeController : Controller

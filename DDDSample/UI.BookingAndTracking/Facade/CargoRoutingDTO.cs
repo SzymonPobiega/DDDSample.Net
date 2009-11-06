@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace UI.BookingAndTracking.Facade
+namespace DDDSample.UI.BookingAndTracking.Facade
 {
    /// <summary>
    /// Data Transfer Object for displaying cargo information in context of assigning route.
@@ -29,6 +29,11 @@ namespace UI.BookingAndTracking.Facade
       public bool Misrouted
       {
          get { return _misrouted; }
+      }
+
+      public bool IsRouted
+      {
+         get { return _legs.Count > 0; }
       }
 
       public IList<LegDTO> Legs

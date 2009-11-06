@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
@@ -38,6 +39,14 @@ namespace DDDSample.Domain.Cargo
       /// <param name="routeSpecification">Route specification.</param>
       public Cargo(TrackingId trackingId, RouteSpecification routeSpecification)
       {
+         if (trackingId == null)
+         {
+            throw new ArgumentNullException("trackingId");
+         }
+         if (routeSpecification == null)
+         {
+            throw new ArgumentNullException("routeSpecification");
+         }
          TrackingId = trackingId;
          RouteSpecification = routeSpecification;
          Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, null);
@@ -49,6 +58,10 @@ namespace DDDSample.Domain.Cargo
       /// <param name="routeSpecification">Route specification.</param>
       public virtual void SpecifyNewRoute(RouteSpecification routeSpecification)
       {
+         if (routeSpecification == null)
+         {
+            throw new ArgumentNullException("routeSpecification");
+         }
          RouteSpecification = routeSpecification;
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
       }
@@ -59,6 +72,10 @@ namespace DDDSample.Domain.Cargo
       /// <param name="itinerary">New itinerary</param>
       public virtual void AssignToRoute(Itinerary itinerary)
       {
+         if (itinerary == null)
+         {
+            throw new ArgumentNullException("itinerary");
+         }
          CargoHasBeenAssignedToRouteEvent @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
@@ -71,6 +88,15 @@ namespace DDDSample.Domain.Cargo
       /// <param name="handlingHistory">A collection of handling events associated with this cargo.</param>
       public virtual void DeriveDeliveryProgress(HandlingHistory handlingHistory)
       {
+         Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, handlingHistory);
+         if (Delivery.IsMisdirected)
+         {
+            DomainEvents.Raise(new CargoWasMisdirectedEvent(this));
+         }
+         else if (Delivery.IsUnloadedAtDestination)
+         {
+            DomainEvents.Raise(new CargoHasArrivedEvent(this));
+         }
       }
       
       protected Cargo()

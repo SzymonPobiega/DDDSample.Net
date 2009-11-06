@@ -6,7 +6,7 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 
-namespace UI.BookingAndTracking.Facade
+namespace DDDSample.UI.BookingAndTracking.Facade
 {
    /// <summary>
    /// Facade for cargo booking services.
@@ -67,6 +67,15 @@ namespace UI.BookingAndTracking.Facade
             throw new ArgumentException("Cargo with specified tracking id not found.");
          }
          return _cargoRoutingAssembler.ToDTO(c);
+      }
+
+      /// <summary>
+      /// Returns a complete list of cargos stored in the system.
+      /// </summary>
+      /// <returns>A collection of cargo DTOs.</returns>
+      public IList<CargoRoutingDTO> ListAllCargos()
+      {
+         return _cargoRepository.FindAll().Select(x => _cargoRoutingAssembler.ToDTO(x)).ToList();
       }
 
       /// <summary>

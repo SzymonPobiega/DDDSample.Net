@@ -1,7 +1,7 @@
 <%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
     Inherits="System.Web.Mvc.ViewPage" %>
 
-<%@ Import Namespace="UI.BookingAndTracking.Models" %>
+<%@ Import Namespace="DDDSample.UI.BookingAndTracking.Models" %>
 <asp:Content ID="bookNewCargoTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Book new cargo
 </asp:Content>

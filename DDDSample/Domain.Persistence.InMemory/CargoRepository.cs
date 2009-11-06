@@ -20,6 +20,11 @@ namespace DDDSample.Domain.Persistence.InMemory
          return _storage.FirstOrDefault(x => x.TrackingId == trackingId);
       }
 
+      public IList<Cargo.Cargo> FindAll()
+      {
+         return new List<Cargo.Cargo>(_storage);
+      }
+
       public TrackingId NextTrackingId()
       {
          return new TrackingId(Guid.NewGuid().ToString("N"));

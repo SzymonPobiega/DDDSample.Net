@@ -5,7 +5,13 @@ using System.Text;
 
 namespace DDDSample.Domain.Cargo
 {
-   public class CargoHasArrivedEvent
+   /// <summary>
+   /// Raised after cargo has arrived at destination.
+   /// </summary>
+   public class CargoHasArrivedEvent : DomainEvent<Cargo>
    {
+      public CargoHasArrivedEvent(Cargo source) : base(source)
+      {
+      }
    }
 }

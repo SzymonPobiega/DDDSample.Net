@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace UI.BookingAndTracking.Facade
+namespace DDDSample.UI.BookingAndTracking.Facade
 {
    public class RouteCandidateDTO
    {

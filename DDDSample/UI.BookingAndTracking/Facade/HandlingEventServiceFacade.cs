@@ -7,7 +7,7 @@ using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 
-namespace UI.BookingAndTracking.Facade
+namespace DDDSample.UI.BookingAndTracking.Facade
 {
    /// <summary>
    /// Facade for cargo handling event service.
