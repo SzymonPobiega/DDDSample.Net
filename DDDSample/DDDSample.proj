@@ -9,8 +9,8 @@
     <Platform>Any CPU</Platform>
   </PropertyGroup>
   <ItemGroup>
-    <TestAssemblies Include="Tests.DDDSample.Domain\bin\$(Configuration)\Tests.DDDSample.Domain.dll"/>
-    <TestAssemblies Include="Tests.DDDSample.Domain.Persistence.NHibernate\bin\$(Configuration)\Tests.DDDSample.Domain.Persistence.dll"/>
+    <TestAssemblies Include="Tests.Domain\bin\$(Configuration)\Tests.DDDSample.Domain.dll"/>
+    <TestAssemblies Include="Tests.Domain.Persistence.NHibernate\bin\$(Configuration)\Tests.DDDSample.Domain.Persistence.dll"/>
     <TestAssemblies Include="Tests.Integration\bin\$(Configuration)\Tests.Integration.dll"/>
   </ItemGroup>
   <ItemGroup>    
