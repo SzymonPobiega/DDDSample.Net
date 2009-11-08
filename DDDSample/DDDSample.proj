@@ -9,6 +9,11 @@
     <Platform>Any CPU</Platform>
   </PropertyGroup>
   <ItemGroup>
+    <TestAssemblies Include="Tests.DDDSample.Domain\bin\$(Configuration)\Tests.DDDSample.Domain.dll"/>
+    <TestAssemblies Include="Tests.DDDSample.Domain.Persistence.NHibernate\bin\$(Configuration)\Tests.DDDSample.Domain.Persistence.dll"/>
+    <TestAssemblies Include="Tests.Integration\bin\$(Configuration)\Tests.Integration.dll"/>
+  </ItemGroup>
+  <ItemGroup>    
     <_SolutionProjectProjects Include="Application\Application.csproj" />
     <_SolutionProjectProjects Include="Domain.Persistence.InMemory\Domain.Persistence.InMemory.csproj" />
     <_SolutionProjectProjects Include="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" />
@@ -640,7 +645,7 @@
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
   </Target>
   <Target Name="Test" DependsOnTargets="Build">
-    <NUnit Assemblies="Tests.Domain\bin\$(Configuration)\Tests.Domain.dll"/>
+    <NUnit Assemblies="@(TestAssemblies)"/>
   </Target>
   <Target Name="Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
     <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />

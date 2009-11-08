@@ -7,8 +7,8 @@
     <ProjectGuid>{41C3E0F5-528E-4703-B321-C0742224BF25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain.Persistence.Tests</RootNamespace>
-    <AssemblyName>Tests.Domain.Persistence</AssemblyName>
+    <RootNamespace>DDDSample.Domain.Persistence.Tests</RootNamespace>
+    <AssemblyName>Tests.DDDSample.Domain.Persistence</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
