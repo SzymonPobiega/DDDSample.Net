@@ -87,7 +87,7 @@
       <Platform>AnyCPU</Platform>
     </BuildLevel1>
     <BuildLevel1 Include="Pathfinder\Pathfinder.csproj">
-      <Configuration>Release</Configuration>
+      <Configuration>Debug</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel1>
     <BuildLevel1 Include="Tests.Domain\Tests.Domain.csproj">
