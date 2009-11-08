@@ -1,11 +1,18 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using NHibernate;
+using NHibernate.ByteCode.LinFu;
 using NHibernate.Cfg;
+using NHibernate.Connection;
+using NHibernate.Context;
+using NHibernate.Dialect;
+using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
+using Environment=NHibernate.Cfg.Environment;
 
 namespace Domain.Persistence.Tests
 {
@@ -15,16 +22,51 @@ namespace Domain.Persistence.Tests
    [TestFixture]
    public abstract class PersistenceTest
    {
-      protected ISessionFactory SessionFactory { get; private set; }
+      private string DatabaseFile;
+      protected ISessionFactory SessionFactory { get; private set; }      
       protected ISession Session { get { return SessionFactory.GetCurrentSession(); } }
       protected ITransaction Transaction { get { return SessionFactory.GetCurrentSession().Transaction; } }
 
       [SetUp]
       public void Initialize()
+      {                  
+         DatabaseFile = GetDbFileName();
+         EnsureDbFileNotExists();
+         
+         Configuration cfg = new Configuration()
+             .AddProperties(new Dictionary<string, string>
+                               {
+                                   { Environment.ConnectionDriver, typeof( SQLite20Driver ).FullName },
+                                   { Environment.Dialect, typeof( SQLiteDialect ).FullName },
+                                   { Environment.ConnectionProvider, typeof( DriverConnectionProvider ).FullName },
+                                   { Environment.ConnectionString, string.Format( "Data Source={0};Version=3;New=True;", DatabaseFile) },
+                                   { Environment.ProxyFactoryFactoryClass, typeof( ProxyFactoryFactory ).AssemblyQualifiedName },
+                                   { Environment.CurrentSessionContextClass, typeof( ThreadStaticSessionContext ).AssemblyQualifiedName },
+                                   { Environment.Hbm2ddlAuto, "create" },
+                                   { Environment.ShowSql, true.ToString() }
+                               });
+         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");         
+         SessionFactory = cfg.BuildSessionFactory();
+      }
+
+      [TearDown]
+      public void TearDownTests()
       {
-         Configuration cfg = new Configuration().Configure();
-         new SchemaExport(cfg).Execute(false, true, false);
-         SessionFactory = cfg.BuildSessionFactory();         
+         SessionFactory.Dispose();
+         EnsureDbFileNotExists();         
+      }
+
+      private static string GetDbFileName()
+      {
+         return Path.GetFullPath(Guid.NewGuid().ToString("N") + ".Test.db");         
+      }
+
+      private void EnsureDbFileNotExists()
+      {
+         if (File.Exists(DatabaseFile))
+         {
+            File.Delete(DatabaseFile);
+         }
       }
 
       protected IDisposable Scope(bool transactional)
@@ -50,21 +92,21 @@ namespace Domain.Persistence.Tests
             {
                session.BeginTransaction();
             }
-            NHibernate.Context.CurrentSessionContext.Bind(session);
+            CurrentSessionContext.Bind(session);
          }
 
          public void Dispose()
          {
-            ISession session = NHibernate.Context.CurrentSessionContext.Unbind(_sessionFactory);
+            ISession session = CurrentSessionContext.Unbind(_sessionFactory);
             if (!IsInExceptionContext())
             {               
                if (session.Transaction != null)
                {
                   session.Transaction.Commit();
                   session.Transaction.Dispose();
-               }
-               session.Dispose();
+               }               
             }
+            session.Close();            
          }
 
          /// <summary>

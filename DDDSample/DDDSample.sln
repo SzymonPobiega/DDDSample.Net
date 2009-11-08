@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 15
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -119,6 +119,10 @@ Global
 		SccProjectUniqueName14 = Pathfinder.Persistence.InMemory\\Pathfinder.Persistence.InMemory.csproj
 		SccProjectName14 = Pathfinder.Persistence.InMemory
 		SccLocalPath14 = Pathfinder.Persistence.InMemory
+		SccProjectUniqueName15 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectTopLevelParentUniqueName15 = DDDSample.sln
+		SccProjectName15 = Tests.Integration
+		SccLocalPath15 = Tests.Integration
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
@@ -149,8 +153,8 @@ Global
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.Build.0 = Release|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.InMemory|Any CPU.ActiveCfg = InMemory|Any CPU
-		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.InMemory|Any CPU.Build.0 = InMemory|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -194,8 +198,8 @@ Global
 		{DAD9D935-83AE-447A-88D9-A5F15666E4CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.InMemory|Any CPU.ActiveCfg = InMemory|Any CPU
-		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.InMemory|Any CPU.Build.0 = InMemory|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.InMemory|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.InMemory|Any CPU.Build.0 = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
