@@ -1,12 +1,12 @@
 ﻿<Project DefaultTargets="Build" ToolsVersion="3.5" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" />
+  <!--<UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" />-->
   <PropertyGroup>
     <_SolutionProjectConfiguration>Debug|Any CPU</_SolutionProjectConfiguration>
     <_SolutionProjectToolsVersion>3.5</_SolutionProjectToolsVersion>
     <_SolutionProjectCacheVersion>3.5</_SolutionProjectCacheVersion>
     
     <Configuration>InMemory</Configuration>
-    <Platform>AnyCPU</Platform>
+    <Platform>Any CPU</Platform>
   </PropertyGroup>
   <ItemGroup>
     <_SolutionProjectProjects Include="Application\Application.csproj" />
