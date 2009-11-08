@@ -91,7 +91,7 @@
       <Platform>AnyCPU</Platform>
     </BuildLevel1>
     <BuildLevel1 Include="Tests.Domain\Tests.Domain.csproj">
-      <Configuration>InMemory</Configuration>
+      <Configuration>Debug</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel1>
     <BuildLevel0 Include="Domain\Domain.csproj">
@@ -99,11 +99,11 @@
       <Platform>AnyCPU</Platform>
     </BuildLevel0>
     <BuildLevel2 Include="Infrastructure.Routing\Infrastructure.Routing.csproj">
-      <Configuration>Release</Configuration>
+      <Configuration>Debug</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel2>
     <BuildLevel2 Include="Pathfinder.Persistence.InMemory\Pathfinder.Persistence.InMemory.csproj">
-      <Configuration>Release</Configuration>
+      <Configuration>Debug</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel2>
     <BuildLevel2 Include="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj">
@@ -111,7 +111,7 @@
       <Platform>AnyCPU</Platform>
     </BuildLevel2>
     <BuildLevel3 Include="Tests.Integration\Tests.Integration.csproj">
-      <Configuration>InMemory</Configuration>
+      <Configuration>Debug</Configuration>
       <Platform>AnyCPU</Platform>
     </BuildLevel3>
     <BuildLevel3 Include="UI.BookingAndTracking\UI.BookingAndTracking.csproj">
@@ -211,14 +211,14 @@
         <ProjectConfiguration Project="{9648B89B-C748-447C-86A1-D125F7053967}">Debug|AnyCPU</ProjectConfiguration>
         <ProjectConfiguration Project="{591BFC07-E7F5-400B-9761-9AF6EF2A3009}">Debug|AnyCPU</ProjectConfiguration>
         <ProjectConfiguration Project="{FCF5B41B-70F3-42FB-8352-C37584105289}">Debug|AnyCPU</ProjectConfiguration>
-        <ProjectConfiguration Project="{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}">InMemory|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}">Debug|AnyCPU</ProjectConfiguration>
         <ProjectConfiguration Project="{41C3E0F5-528E-4703-B321-C0742224BF25}">Debug|AnyCPU</ProjectConfiguration>
-        <ProjectConfiguration Project="{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}">InMemory|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}">Debug|AnyCPU</ProjectConfiguration>
         <ProjectConfiguration Project="{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}">Debug</ProjectConfiguration>
         <ProjectConfiguration Project="{F0820483-BA6F-49D9-9621-F06AA6B1A172}">Debug|AnyCPU</ProjectConfiguration>
-        <ProjectConfiguration Project="{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}">Release|AnyCPU</ProjectConfiguration>
-        <ProjectConfiguration Project="{02B53338-D16B-4051-BA94-503488406CD1}">Release|AnyCPU</ProjectConfiguration>
-        <ProjectConfiguration Project="{DAD9D935-83AE-447A-88D9-A5F15666E4CF}">Release|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{02B53338-D16B-4051-BA94-503488406CD1}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{DAD9D935-83AE-447A-88D9-A5F15666E4CF}">Debug|AnyCPU</ProjectConfiguration>
         <ProjectConfiguration Project="{EB1EA7DE-711C-4477-89E6-296B6D760D3E}">InMemory|AnyCPU</ProjectConfiguration>
       </SolutionConfiguration>
     </CurrentSolutionConfigurationContents>
