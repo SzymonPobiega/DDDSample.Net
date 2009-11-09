@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using DDDSample.Application;
 using DDDSample.Application.Implemetation;
 using DDDSample.Application.SynchronousEventHandlers;
@@ -13,9 +16,15 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using NHibernate;
+using NHibernate.ByteCode.LinFu;
 using NHibernate.Cfg;
+using NHibernate.Connection;
+using NHibernate.Context;
+using NHibernate.Dialect;
+using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
+using Environment=NHibernate.Cfg.Environment;
 
 namespace Tests.Integration
 {
@@ -71,11 +80,12 @@ namespace Tests.Integration
       {
          get { return ServiceLocator.Current.GetInstance<IHandlingEventService>(); }
       }
-
+      
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
       private static ISessionFactory _sessionFactory;
 
+      private string DatabaseFile;
       private ISession _currentSession;
          
       [SetUp]
@@ -83,11 +93,7 @@ namespace Tests.Integration
       {
          _ambientContainer = new UnityContainer();
 
-#if IN_MEMORY
-         ConfigureInMemoryRepositories();
-#elif NHIBERNATE
          ConfigureNHibernateRepositories();
-#endif
 
          _ambientContainer.RegisterType<IBookingService, BookingService>();
          _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
@@ -99,9 +105,14 @@ namespace Tests.Integration
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
          ServiceLocator.SetLocatorProvider(() => _ambientLocator);     
     
-#if NHIBERNATE
          InitializeNHibernate();
-#endif
+      }
+
+      [TearDown]
+      public void TearDownTests()
+      {
+         _sessionFactory.Dispose();
+         EnsureDbFileNotExists();
       }
 
       private static void ConfigureNHibernateRepositories()
@@ -121,18 +132,26 @@ namespace Tests.Integration
             .AddCallHandler<DDDSample.Domain.Persistence.NHibernate.TransactionCallHandler>()
             .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
       }
-
-      private static void ConfigureInMemoryRepositories()
-      {
-         _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.InMemory.LocationRepository>();
-         _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.InMemory.CargoRepository>();
-         _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.InMemory.HandlingEventRepository>();
-      }
-
+      
       private void InitializeNHibernate()
       {
-         Configuration cfg = new Configuration().Configure();
+         DatabaseFile = GetDbFileName();
+         EnsureDbFileNotExists();
 
+         Configuration cfg = new Configuration()
+             .AddProperties(new Dictionary<string, string>
+                               {
+                                   { Environment.ConnectionDriver, typeof( SQLite20Driver ).FullName },
+                                   { Environment.Dialect, typeof( SQLiteDialect ).FullName },
+                                   { Environment.ConnectionProvider, typeof( DriverConnectionProvider ).FullName },
+                                   { Environment.ConnectionString, string.Format( "Data Source={0};Version=3;New=True;", DatabaseFile) },
+                                   { Environment.ProxyFactoryFactoryClass, typeof( ProxyFactoryFactory ).AssemblyQualifiedName },
+                                   { Environment.CurrentSessionContextClass, typeof( ThreadStaticSessionContext ).AssemblyQualifiedName },
+                                   { Environment.Hbm2ddlAuto, "create" },
+                                   { Environment.ShowSql, true.ToString() }
+                               });
+         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
+         
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);         
          new SchemaExport(cfg).Execute(false, true, false);
@@ -158,6 +177,19 @@ namespace Tests.Integration
          _currentSession = _sessionFactory.OpenSession();
          
          NHibernate.Context.ThreadStaticSessionContext.Bind(_currentSession);
-      }       
+      }
+
+      private static string GetDbFileName()
+      {
+         return Path.GetFullPath(Guid.NewGuid().ToString("N") + ".Test.db");
+      }
+
+      private void EnsureDbFileNotExists()
+      {
+         if (File.Exists(DatabaseFile))
+         {
+            File.Delete(DatabaseFile);
+         }
+      }
    }
 }
