@@ -50,6 +50,35 @@ namespace DDDSample.UI.BookingAndTracking.Models
          }
       }
 
+
+      public String NextExpectedActivity
+      {
+         get
+         {
+            HandlingActivity activity = _cargo.Delivery.NextExpectedActivity;
+            if (activity == null)
+            {
+               return "";
+            }
+
+            const string text = "Next expected activity is to ";
+            HandlingEventType type = activity.EventType;
+            if (type == HandlingEventType.Load)
+            {
+               return
+                  text + type.ToString().ToLower() + " cargo onto voyage XXX" +
+                  " in " + activity.Location.Name;
+            }
+            if (type == HandlingEventType.Unload)
+            { 
+               return
+                  text + type.ToString().ToLower() + " cargo off of XXX" +
+                  " in " + activity.Location.Name;
+            }
+            return text + type.ToString().ToLower() + " cargo in " + activity.Location.Name;
+         }
+      }
+
       public string Destination
       {
          get

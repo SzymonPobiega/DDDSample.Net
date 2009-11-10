@@ -24,7 +24,7 @@
     <div id="TrackingDetails">
     <h2><%=Model.StatusText %></h2>
     <p>Estimated time of arrival in <%=Model.Destination %>: <%=Model.Eta %></p>
-    <p>Next expected activity is to load cargo onto voyage 0200T in New York</p>
+    <p><%=Model.NextExpectedActivity %></p>
         
       <h3>Handling History</h3>
         <ul style="list-style-type: none;">

@@ -14,14 +14,24 @@ namespace DDDSample.Domain.Cargo
 #pragma warning restore 661,660
    {
       private readonly TransportStatus _transportStatus;
-      private readonly Location.Location _lastKnownLocation;      
+      private readonly Location.Location _lastKnownLocation;
       private readonly bool _misdirected;
       private readonly DateTime? _eta;
       //private HandlingActivity nextExpectedActivity;
       private readonly bool _isUnloadedAtDestination;
       private readonly RoutingStatus _routingStatus;
       private readonly DateTime _calculatedAt;
-      private readonly HandlingHistory _handlingHistory;      
+      private readonly HandlingHistory _handlingHistory;
+      private readonly HandlingActivity _nextExpectedActivity;
+
+
+      /// <summary>
+      /// Gets next expected activity.
+      /// </summary>
+      public HandlingActivity NextExpectedActivity
+      {
+         get { return _nextExpectedActivity; }
+      }
 
       /// <summary>
       /// Gets status of cargo routing.
@@ -88,7 +98,7 @@ namespace DDDSample.Domain.Cargo
       /// <param name="handlingHistory">Handling history.</param>
       /// <returns>Delivery status description.</returns>
       public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary, HandlingHistory handlingHistory)
-      {         
+      {
          return new Delivery(handlingHistory, itinerary, specification);
       }
 
@@ -105,7 +115,7 @@ namespace DDDSample.Domain.Cargo
          if (routeSpecification == null)
          {
             throw new ArgumentNullException("routeSpecification");
-         }         
+         }
          return new Delivery(_handlingHistory, itinerary, routeSpecification);
       }
 
@@ -117,15 +127,15 @@ namespace DDDSample.Domain.Cargo
          _misdirected = CalculateMisdirectionStatus(itinerary);
          _routingStatus = CalculateRoutingStatus(itinerary, specification);
          _transportStatus = CalculateTransportStatus();
-         _lastKnownLocation = CalculateLastKnownLocation();         
+         _lastKnownLocation = CalculateLastKnownLocation();
          _eta = CalculateEta(itinerary);
-         //this.nextExpectedActivity = calculateNextExpectedActivity(routeSpecification, itinerary);
+         _nextExpectedActivity = CalculateNextExpectedActivity(specification, itinerary);
          _isUnloadedAtDestination = CalculateUnloadedAtDestination(specification);
       }
 
       private bool CalculateUnloadedAtDestination(RouteSpecification specification)
       {
-         return LastEvent != null && 
+         return LastEvent != null &&
                   LastEvent.EventType == HandlingEventType.Unload &&
                   specification.Destination == LastEvent.Location;
       }
@@ -133,7 +143,7 @@ namespace DDDSample.Domain.Cargo
       private DateTime? CalculateEta(Itinerary itinerary)
       {
          return OnTrack ? itinerary.FinalArrivalDate : null;
-      }      
+      }
 
       private Location.Location CalculateLastKnownLocation()
       {
@@ -159,6 +169,45 @@ namespace DDDSample.Domain.Cargo
                return TransportStatus.Claimed;
             default:
                return TransportStatus.Unknown;
+         }
+      }
+
+      private HandlingActivity CalculateNextExpectedActivity(RouteSpecification routeSpecification, Itinerary itinerary)
+      {
+         if (!OnTrack)
+         {
+            return null;
+         }
+
+         if (LastEvent == null)
+         {
+            return new HandlingActivity(HandlingEventType.Receive, routeSpecification.Origin);
+         }
+
+         switch (LastEvent.EventType)
+         {
+            case HandlingEventType.Load:
+
+               Leg lastLeg = itinerary.Legs.FirstOrDefault(x => x.LoadLocation == LastEvent.Location);
+               return lastLeg != null ? new HandlingActivity(HandlingEventType.Unload, lastLeg.UnloadLocation) : null;
+
+            case HandlingEventType.Unload:
+               IEnumerator<Leg> enumerator = itinerary.Legs.GetEnumerator();
+               while (enumerator.MoveNext())
+               {
+                  if (enumerator.Current.UnloadLocation == LastEvent.Location)
+                  {
+                     Leg currentLeg = enumerator.Current;
+                     return enumerator.MoveNext() ? new HandlingActivity(HandlingEventType.Load, enumerator.Current.LoadLocation) : new HandlingActivity(HandlingEventType.Claim, currentLeg.UnloadLocation);
+                  }
+               }
+               return null;
+
+            case HandlingEventType.Receive:
+               Leg firstLeg = itinerary.Legs.First();
+               return new HandlingActivity(HandlingEventType.Load, firstLeg.LoadLocation);
+            default:
+               return null;
          }
       }
 
@@ -192,7 +241,7 @@ namespace DDDSample.Domain.Cargo
 
       #region Infrastructure
       protected Delivery()
-      {         
+      {
       }
 
       protected override IEnumerable<object> GetAtomicValues()
