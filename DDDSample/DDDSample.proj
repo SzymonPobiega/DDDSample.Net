@@ -1,5 +1,5 @@
 ﻿<Project DefaultTargets="Build" ToolsVersion="3.5" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" />
+  <!--<UsingTask TaskName="NUnit" AssemblyFile="$(teamcity_dotnet_nunitlauncher_msbuild_task)" />-->
   <PropertyGroup>
     <_SolutionProjectConfiguration>Debug|Any CPU</_SolutionProjectConfiguration>
     <_SolutionProjectToolsVersion>3.5</_SolutionProjectToolsVersion>
@@ -657,6 +657,12 @@
     </MSBuild>
     <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Integration\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
   </Target>
   <Target Name="Test" DependsOnTargets="Build">
     <NUnit Assemblies="@(TestAssemblies)"/>
@@ -676,6 +682,8 @@
     <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
     <Delete Files="DDDSample.sln.cache" />
+    <Delete Files="Tests.Integration\bin\Debug\System.Data.SQLite.DLL" />
+    <Delete Files="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL" />    
   </Target>
   <Target Name="Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(CollectedBuildOutput)">
     <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
@@ -699,6 +707,12 @@
     </MSBuild>
     <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Integration\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
   </Target>
   <Target Name="Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
     <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
