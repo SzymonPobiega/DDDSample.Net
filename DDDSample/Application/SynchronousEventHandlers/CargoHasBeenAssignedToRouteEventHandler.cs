@@ -26,7 +26,7 @@ namespace DDDSample.Application.SynchronousEventHandlers
          {
             return;
          }
-         HandlingHistory handlingHistory = new HandlingHistory(@event.Source);
+         HandlingHistory handlingHistory = new HandlingHistory(@event.Source.TrackingId);
          _repository.Store(handlingHistory);
       }
    }

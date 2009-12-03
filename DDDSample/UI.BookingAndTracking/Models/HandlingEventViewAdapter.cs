@@ -1,17 +1,17 @@
 using System;
-using System.Globalization;
 using System.Linq;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
+using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {
    public class HandlingEventViewAdapter
    {
-      private readonly HandlingEvent _handlingEvent;
+      private readonly Domain.Handling.HandlingEvent _handlingEvent;
       private readonly Cargo _cargo;
 
-      public HandlingEventViewAdapter(HandlingEvent handlingEvent, Cargo cargo)
+      public HandlingEventViewAdapter(Domain.Handling.HandlingEvent handlingEvent, Cargo cargo)
       {
          _handlingEvent = handlingEvent;
          _cargo = cargo;
@@ -34,7 +34,11 @@ namespace DDDSample.UI.BookingAndTracking.Models
 
       public bool IsExpected
       {
-         get { return _cargo.Itinerary.IsExpected(_handlingEvent); }
+         get { return _cargo.Itinerary.IsExpected(new HandlingEvent(
+            _handlingEvent.EventType,
+            _handlingEvent.Location,
+            _handlingEvent.RegistrationDate,
+            _handlingEvent.CompletionDate)); }
       }
 
       public string Description

@@ -85,10 +85,10 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Updates delivery progress information according to handling history.
       /// </summary>
-      /// <param name="handlingHistory">A collection of handling events associated with this cargo.</param>
-      public virtual void DeriveDeliveryProgress(HandlingHistory handlingHistory)
+      /// <param name="lastHandlingEvent">Most recent handling event.</param>
+      public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent)
       {
-         Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, handlingHistory);
+         Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, lastHandlingEvent);
          if (Delivery.IsMisdirected)
          {
             DomainEvents.Raise(new CargoWasMisdirectedEvent(this));

@@ -15,19 +15,17 @@
       <property name="_isUnloadedAtDestination" column="UnloadedAtDest" not-null="true" access="field"/>
       <property name="_routingStatus" column="RoutingStatus" not-null="true" access="field"/>
       <property name="_transportStatus" column="TransportStatus" not-null="true" access="field"/>              
-      <many-to-one name="_lastKnownLocation" column="LastKnownLocationId" not-null="false" cascade="none" access="field"/>
-      <many-to-one name="_handlingHistory" column="HandlingHistoryId" not-null="false" cascade="none" access="field"/>
-      <!--<component name="nextExpectedActivity" update="true">
-        <many-to-one name="location" column="next_expected_location_id" foreign-key="next_expected_location_fk" cascade="none"/>
-        <property name="type" column="next_expected_handling_event_type">
-          <type name="org.hibernate.type.EnumType">
-            <param name="enumClass">se.citerus.dddsample.domain.model.handling.HandlingEvent$Type</param>
-            <param name="type">12</param>
-            --><!-- 12 is java.sql.Types.VARCHAR --><!--
-          </type>
-        </property>
-        <many-to-one name="voyage" column="next_expected_voyage_id" foreign-key="next_expected_voyage_fk" cascade="none"/>
-      </component>-->
+      <many-to-one name="_lastKnownLocation" column="LastKnownLocationId" not-null="false" cascade="none" access="field"/>      
+      <component name="_lastEvent" update="true" access="field">
+        <property name="_eventType" access="field" column="LastEventType"/>
+        <many-to-one name="_location" column="LastEventLocation" class="DDDSample.Domain.Location.Location" access="field"/>
+        <property name="_registrationDate" access="field" column="LastEventRegistrationDate"/>
+        <property name="_completionDate" access="field" column="LastEventCompletionDate"/>
+      </component>
+      <component name="_nextExpectedActivity" update="true" access="field">
+        <many-to-one name="_location" column="NextExpectedLocationId" cascade="none" access="field"/>
+        <property name="_eventType" column="NextExpectedHandlingEventType" access="field"/>        
+      </component>
     </component>
     <component name="RouteSpecification" class="RouteSpecification">
       <many-to-one name="_origin" column="SpecOriginId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>

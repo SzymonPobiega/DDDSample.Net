@@ -5,6 +5,7 @@ using System.Text;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
+using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
 
 namespace DDDSample.Application.SynchronousEventHandlers
 {
@@ -14,17 +15,21 @@ namespace DDDSample.Application.SynchronousEventHandlers
    /// </summary>
    public class CargoWasHandledEventHandler : IEventHandler<CargoWasHandledEvent>
    {
-      private readonly IHandlingEventRepository _handlingEventRepository;
+      private readonly ICargoRepository _cargoRepository;
 
-      public CargoWasHandledEventHandler(IHandlingEventRepository handlingEventRepository)
+      public CargoWasHandledEventHandler(ICargoRepository cargoRepository)
       {
-         _handlingEventRepository = handlingEventRepository;
+         _cargoRepository = cargoRepository;
       }
 
       public void Handle(CargoWasHandledEvent @event)
-      {                  
-         HandlingHistory handlingHistory = _handlingEventRepository.LookupHandlingHistoryOfCargo(@event.Source.Cargo.TrackingId);
-         @event.Source.Cargo.DeriveDeliveryProgress(handlingHistory);
+      {
+         Cargo cargo = _cargoRepository.Find(@event.Source.TrackingId);                  
+         
+         cargo.DeriveDeliveryProgress(new HandlingEvent(@event.Source.EventType, 
+            @event.Source.Location, 
+            @event.Source.RegistrationDate, 
+            @event.Source.CompletionDate));
       }
    }
 }

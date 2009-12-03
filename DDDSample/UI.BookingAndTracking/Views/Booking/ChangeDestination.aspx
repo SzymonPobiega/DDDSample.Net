@@ -1,4 +1,4 @@
-<%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<UI.BookingAndTracking.Facade.CargoRoutingDTO>" %>
+<%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<DDDSample.UI.BookingAndTracking.Facade.CargoRoutingDTO>" %>
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Models"%>
 
 <asp:Content ID="changeCargoDestinationTitle" ContentPlaceHolderID="TitleContent" runat="server">

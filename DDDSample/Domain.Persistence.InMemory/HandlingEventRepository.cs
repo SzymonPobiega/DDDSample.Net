@@ -22,7 +22,7 @@ namespace DDDSample.Domain.Persistence.InMemory
 
       public void Store(HandlingHistory handlingHistory)
       {
-         _storage[handlingHistory.Cargo.TrackingId] = handlingHistory;
+         _storage[handlingHistory.TrackingId] = handlingHistory;
       }
    }
 }

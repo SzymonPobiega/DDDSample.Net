@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using DDDSample.Domain.Cargo;
 
 namespace DDDSample.Domain.Handling
 {
@@ -11,12 +12,12 @@ namespace DDDSample.Domain.Handling
    /// handling events.
    /// </summary>
    public class HandlingHistory
-   {      
+   {
       private readonly IList<HandlingEvent> _events;
 
-      public HandlingHistory(Cargo.Cargo cargo)
+      public HandlingHistory(TrackingId cargoTrackingId)
       {
-         Cargo = cargo;
+         TrackingId = cargoTrackingId;
          _events = new List<HandlingEvent>();
       }      
 
@@ -43,12 +44,9 @@ namespace DDDSample.Domain.Handling
       }
 
       /// <summary>
-      /// Gets cargo which handling history this object represents.
+      /// Gets tracking id of cargo which this history object belongs to.
       /// </summary>
-      public virtual Cargo.Cargo Cargo
-      {
-         get; protected set;
-      }
+      public virtual TrackingId TrackingId { get; protected set;}      
 
       /// <summary>
       /// Required by NHibernate.

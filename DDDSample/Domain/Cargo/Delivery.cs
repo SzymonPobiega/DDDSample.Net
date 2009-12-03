@@ -5,7 +5,7 @@ using System.Text;
 using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
-{
+{   
    /// <summary>
    /// Description of delivery status.
    /// </summary>
@@ -16,12 +16,11 @@ namespace DDDSample.Domain.Cargo
       private readonly TransportStatus _transportStatus;
       private readonly Location.Location _lastKnownLocation;
       private readonly bool _misdirected;
-      private readonly DateTime? _eta;
-      //private HandlingActivity nextExpectedActivity;
+      private readonly DateTime? _eta;      
       private readonly bool _isUnloadedAtDestination;
       private readonly RoutingStatus _routingStatus;
       private readonly DateTime _calculatedAt;
-      private readonly HandlingHistory _handlingHistory;
+      private readonly HandlingEvent _lastEvent;
       private readonly HandlingActivity _nextExpectedActivity;
 
 
@@ -95,11 +94,11 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       /// <param name="specification">Current route specification.</param>
       /// <param name="itinerary">Current itinerary.</param>
-      /// <param name="handlingHistory">Handling history.</param>
+      /// <param name="lastHandlingEvent">Most recent handling event.</param>
       /// <returns>Delivery status description.</returns>
-      public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary, HandlingHistory handlingHistory)
+      public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary, HandlingEvent lastHandlingEvent)
       {
-         return new Delivery(handlingHistory, itinerary, specification);
+         return new Delivery(lastHandlingEvent, itinerary, specification);
       }
 
       /// <summary>
@@ -116,13 +115,13 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("routeSpecification");
          }
-         return new Delivery(_handlingHistory, itinerary, routeSpecification);
+         return new Delivery(_lastEvent, itinerary, routeSpecification);
       }
 
-      private Delivery(HandlingHistory handlingHistory, Itinerary itinerary, RouteSpecification specification)
+      private Delivery(HandlingEvent lastHandlingEvent, Itinerary itinerary, RouteSpecification specification)
       {
          _calculatedAt = DateTime.Now;
-         _handlingHistory = handlingHistory;
+         _lastEvent = lastHandlingEvent;
 
          _misdirected = CalculateMisdirectionStatus(itinerary);
          _routingStatus = CalculateRoutingStatus(itinerary, specification);
@@ -236,7 +235,7 @@ namespace DDDSample.Domain.Cargo
 
       private HandlingEvent LastEvent
       {
-         get { return _handlingHistory != null ? _handlingHistory.EventsByCompletionTime.Last() : null; }
+         get { return _lastEvent; }
       }
 
       #region Infrastructure
@@ -248,7 +247,7 @@ namespace DDDSample.Domain.Cargo
       {
          yield return _calculatedAt;
          yield return _eta;
-         yield return _handlingHistory;
+         yield return _lastEvent;
          yield return _isUnloadedAtDestination;
          yield return _isUnloadedAtDestination;
          yield return _lastKnownLocation;

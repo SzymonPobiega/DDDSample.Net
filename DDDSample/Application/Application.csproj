@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NHibernate\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\NServiceBus\NServiceBus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -54,6 +58,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
+    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoWasHandledEventHandler.cs" />
+    <Compile Include="AsynchronousEventHandlers\MessageHandlers\AbstractMessageHandler.cs" />
+    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoWasHandledMessageHandler.cs" />
+    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoHasBeenAssignedToRouteMessageHandler.cs" />
+    <Compile Include="AsynchronousEventHandlers\Messages\CargoHasBeenAssignedToRouteMessage.cs" />
+    <Compile Include="AsynchronousEventHandlers\Messages\CargoWasHandledMessage.cs" />
     <Compile Include="Implemetation\HandlingEventService.cs" />
     <Compile Include="SynchronousEventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
     <Compile Include="IBookingService.cs" />

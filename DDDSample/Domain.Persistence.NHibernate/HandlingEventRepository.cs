@@ -17,7 +17,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
       
       public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
       {
-         const string query = @"from DDDSample.Domain.Handling.HandlingHistory h where h.Cargo.TrackingId = :trackingId";
+         const string query = @"from DDDSample.Domain.Handling.HandlingHistory h where h.TrackingId = :trackingId";
          return Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
             .UniqueResult<HandlingHistory>();
       }

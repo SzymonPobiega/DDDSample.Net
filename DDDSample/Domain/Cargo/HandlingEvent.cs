@@ -1,20 +1,22 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
+using DDDSample.Domain.Handling;
+using DDDSample.Domain.Location;
 
-namespace DDDSample.Domain.Handling
+namespace DDDSample.Domain.Cargo
 {
    /// <summary>
-   /// Single cargo handling event.
-   /// </summary>   
-   public class HandlingEvent
+   /// Represents handling event from viewpoint of cargo aggregate
+   /// </summary>
+#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
+   public class HandlingEvent : ValueObject
+#pragma warning restore 661,660
    {
       private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;      
+      private readonly Location.Location _location;
       private readonly DateTime _registrationDate;
       private readonly DateTime _completionDate;
-      protected virtual HandlingHistory _parent { get; set;}
 
       /// <summary>
       /// Creates new event.
@@ -23,13 +25,12 @@ namespace DDDSample.Domain.Handling
       /// <param name="location"></param>
       /// <param name="registrationDate"></param>
       /// <param name="completionDate"></param>
-      public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate, HandlingHistory parent)
+      public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate)
       {
-         _eventType = eventType;
-         _parent = parent;
+         _eventType = eventType;         
          _completionDate = completionDate;
-         _registrationDate = registrationDate;         
-         _location = location;         
+         _registrationDate = registrationDate;
+         _location = location;
       }
 
       /// <summary>
@@ -47,18 +48,13 @@ namespace DDDSample.Domain.Handling
       {
          get { return _registrationDate; }
       }
-      
+
       /// <summary>
-      /// Location where event occured.
+      /// Location UnLocode where event occured.
       /// </summary>
       public Location.Location Location
       {
          get { return _location; }
-      }
-
-      public TrackingId TrackingId
-      {
-         get { return _parent.TrackingId; }
       }
 
       /// <summary>
@@ -68,12 +64,29 @@ namespace DDDSample.Domain.Handling
       {
          get { return _eventType; }
       }
-      
-      /// <summary>
-      /// Required by NHibernate.
-      /// </summary>
+
+      #region Infrastructure
       protected HandlingEvent()
       {         
       }
+
+      protected override IEnumerable<object> GetAtomicValues()
+      {
+         yield return _eventType;
+         yield return _location;
+         yield return _registrationDate;
+         yield return _completionDate;
+      }
+
+      public static bool operator ==(HandlingEvent left, HandlingEvent right)
+      {
+         return EqualOperator(left, right);
+      }
+
+      public static bool operator !=(HandlingEvent left, HandlingEvent right)
+      {
+         return NotEqualOperator(left, right);
+      }
+      #endregion
    }
 }
