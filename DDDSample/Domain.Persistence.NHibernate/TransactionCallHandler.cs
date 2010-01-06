@@ -44,20 +44,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
          sqlConnection.EnlistTransaction(null);
          return result;         
       }
-
-      private ISession BindNHibernateSession()
-      {
-         ISession old = ManagedWebSessionContext.Unbind(HttpContext.Current, _sessionFactory);
-         ManagedWebSessionContext.Bind(HttpContext.Current, _sessionFactory.OpenSession());
-         return old;
-      }
-
-      private void UnbindNHibernateSession(ISession sessionToRestore)
-      {
-         ManagedWebSessionContext.Unbind(HttpContext.Current, _sessionFactory).Dispose();
-         ManagedWebSessionContext.Bind(HttpContext.Current, sessionToRestore);
-      }
-
+      
       public int Order { get; set;}      
    }
 }
