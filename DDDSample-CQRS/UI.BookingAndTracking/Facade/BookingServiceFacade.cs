@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
+using DDDSample.Reporting.Persistence.NHibernate;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -14,15 +15,15 @@ namespace DDDSample.UI.BookingAndTracking.Facade
    public class BookingServiceFacade
    {
       private readonly RouteCandidateDTOAssember _routeCandidateAssembler;
-      private readonly CargoRoutingDTOAssembler _cargoRoutingAssembler;
       private readonly IBookingService _bookingService;
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, ICargoRepository cargoRepository, RouteCandidateDTOAssember routeCandidateAssembler, CargoRoutingDTOAssembler cargoRoutingAssembler)
+      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, ICargoRepository cargoRepository, RouteCandidateDTOAssember routeCandidateAssembler, CargoDataAccess cargoDataAccess)
       {
          _bookingService = bookingService;
-         _cargoRoutingAssembler = cargoRoutingAssembler;
+         _cargoDataAccess = cargoDataAccess;
          _routeCandidateAssembler = routeCandidateAssembler;
          _cargoRepository = cargoRepository;
          _locationRepository = locationRepository;
@@ -59,23 +60,23 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// </summary>
       /// <param name="trackingId">Cargo tracking id.</param>
       /// <returns>DTO.</returns>
-      public CargoRoutingDTO LoadCargoForRouting(string trackingId)
+      public Reporting.Cargo LoadCargoForRouting(string trackingId)
       {
-         Cargo c = _cargoRepository.Find(new TrackingId(trackingId));
+         Reporting.Cargo c = _cargoDataAccess.Find(trackingId);
          if (c == null)
          {
             throw new ArgumentException("Cargo with specified tracking id not found.");
          }
-         return _cargoRoutingAssembler.ToDTO(c);
+         return c;
       }
 
       /// <summary>
       /// Returns a complete list of cargos stored in the system.
       /// </summary>
       /// <returns>A collection of cargo DTOs.</returns>
-      public IList<CargoRoutingDTO> ListAllCargos()
+      public IList<Reporting.Cargo> ListAllCargos()
       {
-         return _cargoRepository.FindAll().Select(x => _cargoRoutingAssembler.ToDTO(x)).ToList();
+         return _cargoDataAccess.FindAll();
       }
 
       /// <summary>

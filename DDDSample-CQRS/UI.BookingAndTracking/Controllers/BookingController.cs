@@ -45,7 +45,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
       [AcceptVerbs(HttpVerbs.Get)]
       public ActionResult ChangeDestination(string trackingId)
       {
-         CargoRoutingDTO cargo = _bookingFacade.LoadCargoForRouting(trackingId);         
+         Reporting.Cargo cargo = _bookingFacade.LoadCargoForRouting(trackingId);         
 
          IList<SelectListItem> shippingLocations = _bookingFacade.ListShippingLocations();
          ViewData["destination"] = shippingLocations.Where(x => x.Value != cargo.Origin).ToList();
@@ -80,7 +80,8 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
             return View();
          }
          string trackingId = _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
-         return RedirectToDetails(trackingId);
+         return RedirectToAction("ListCargos");
+         //return RedirectToDetails(trackingId);
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -117,7 +118,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
             );
       }
 
-      public CargoRoutingDTO GetDetailsModel(string trackingId)
+      public Reporting.Cargo GetDetailsModel(string trackingId)
       {
          return _bookingFacade.LoadCargoForRouting(trackingId);
       }      

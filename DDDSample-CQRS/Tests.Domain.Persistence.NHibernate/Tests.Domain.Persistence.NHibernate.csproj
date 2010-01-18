@@ -88,7 +88,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

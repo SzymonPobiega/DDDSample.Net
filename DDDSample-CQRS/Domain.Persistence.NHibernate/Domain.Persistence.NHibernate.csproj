@@ -48,7 +48,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -62,7 +61,6 @@
     <Compile Include="AbstractRepository.cs" />
     <Compile Include="CargoRepository.cs" />
     <Compile Include="VoyageRepository.cs" />
-    <Compile Include="HandlingEventRepository.cs" />
     <Compile Include="LocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionCallHandler.cs" />
@@ -70,7 +68,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +78,7 @@
     <EmbeddedResource Include="Cargo.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HandlingHistory.hbm.xml" />
+    <EmbeddedResource Include="HandlingEvent.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

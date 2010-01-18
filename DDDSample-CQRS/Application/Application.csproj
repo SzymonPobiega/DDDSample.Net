@@ -58,26 +58,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoWasHandledEventHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\AbstractMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoWasHandledMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoHasBeenAssignedToRouteMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\Messages\CargoHasBeenAssignedToRouteMessage.cs" />
-    <Compile Include="AsynchronousEventHandlers\Messages\CargoWasHandledMessage.cs" />
     <Compile Include="Implemetation\HandlingEventService.cs" />
-    <Compile Include="SynchronousEventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
     <Compile Include="IBookingService.cs" />
     <Compile Include="ICargoInspectionService.cs" />
     <Compile Include="IHandlingEventService.cs" />
     <Compile Include="Implemetation\BookingService.cs" />
-    <Compile Include="SynchronousEventHandlers\CargoWasHandledEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Reporting.Persistence.NHibernate\Reporting.Persistence.NHibernate.csproj">
+      <Project>{5C437BB6-C153-4EE1-9030-F0B52CD926DC}</Project>
+      <Name>Reporting.Persistence.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Reporting\Reporting.csproj">
+      <Project>{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}</Project>
+      <Name>Reporting %28Reporting\Reporting%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

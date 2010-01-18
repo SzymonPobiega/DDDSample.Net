@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DDDSample.Domain" namespace="DDDSample.Domain.Cargo">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.Domain" 
+                   namespace="DDDSample.Domain.Cargo"
+                   auto-import="false" 
+                   schema="domain">
   <class name="Cargo" table="Cargo">
     <id type="Guid">
       <column name="Id" />
@@ -7,32 +11,13 @@
     </id>
     <component name="TrackingId" update="false" class="TrackingId">
       <property name="_idString" column="TrackingId" not-null="true" access="field"/>
-    </component>
-    <component name="Delivery">
-      <property name="_misdirected" column="IsMisdirected" not-null="true" access="field"/>
-      <property name="_eta" column="Eta" not-null="false" access="field"/>
-      <property name="_calculatedAt" column="CalculatedAt" not-null="true" access="field"/>
-      <property name="_isUnloadedAtDestination" column="UnloadedAtDest" not-null="true" access="field"/>
-      <property name="_routingStatus" column="RoutingStatus" not-null="true" access="field"/>
-      <property name="_transportStatus" column="TransportStatus" not-null="true" access="field"/>              
-      <many-to-one name="_lastKnownLocation" column="LastKnownLocationId" not-null="false" cascade="none" access="field"/>      
-      <component name="_lastEvent" update="true" access="field">
-        <property name="_eventType" access="field" column="LastEventType"/>
-        <many-to-one name="_location" column="LastEventLocation" class="DDDSample.Domain.Location.Location" access="field"/>
-        <property name="_registrationDate" access="field" column="LastEventRegistrationDate"/>
-        <property name="_completionDate" access="field" column="LastEventCompletionDate"/>
-      </component>
-      <component name="_nextExpectedActivity" update="true" access="field">
-        <many-to-one name="_location" column="NextExpectedLocationId" cascade="none" access="field"/>
-        <property name="_eventType" column="NextExpectedHandlingEventType" access="field"/>        
-      </component>
-    </component>
-    <component name="RouteSpecification" class="RouteSpecification">
+    </component>    
+    <component name="_routeSpecification" class="RouteSpecification" access="field">
       <many-to-one name="_origin" column="SpecOriginId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>
       <many-to-one name="_destination" column="SpecDestinationId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>      
       <property name="_arrivalDeadline" column="SpecArrivalDeadline" not-null="true" access="field"/>
     </component>
-    <component name="Itinerary" class="Itinerary">         
+    <component name="_itinerary" class="Itinerary" access="field">         
       <list name="_legs" lazy="true" cascade="all" access="field" table="Leg">
         <key column="CargoId"/>
         <index column="LegIndex"/>
@@ -44,5 +29,10 @@
         </composite-element>        
       </list>
     </component>
+    <many-to-one name="_lastHandlingEvent" access="field" class="HandlingEvent" cascade="all-delete-orphan" column="LastHandlingEvent"/>
+    <bag name="_handlingEvents" access="field" lazy="true" cascade="all-delete-orphan">
+      <key column="CargoId"/>
+      <one-to-many class="HandlingEvent"/>
+    </bag>
   </class>
 </hibernate-mapping>

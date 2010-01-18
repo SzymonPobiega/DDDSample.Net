@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.Reporting.Persistence.NHibernate;
 using NHibernate;
 
 namespace DDDSample.Application.Implemetation
@@ -14,13 +15,15 @@ namespace DDDSample.Application.Implemetation
    {
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
+      private readonly CargoDataAccess _cargoDataAccess;
       private readonly IRoutingService _routingService;
 
-      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService)
+      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService, CargoDataAccess cargoDataAccess)
       {
          _locationRepository = locationRepository;
          _cargoRepository = cargoRepository;
          _routingService = routingService;
+         _cargoDataAccess = cargoDataAccess;
       }
 
       public TrackingId BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline)
@@ -39,7 +42,8 @@ namespace DDDSample.Application.Implemetation
       public IList<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId)
       {
          Cargo cargo = _cargoRepository.Find(trackingId);
-         return _routingService.FetchRoutesForSpecification(cargo.RouteSpecification);
+
+         return cargo.RequestPossibleRoutes(_routingService);
       }
 
       public void AssignCargoToRoute(TrackingId trackingId, Itinerary itinerary)
@@ -49,12 +53,11 @@ namespace DDDSample.Application.Implemetation
       }
 
       public void ChangeDestination(TrackingId trackingId, UnLocode destinationUnLocode)
-      {
-         Cargo cargo = _cargoRepository.Find(trackingId);
+      {         
          Location destination = _locationRepository.Find(destinationUnLocode);
-
-         RouteSpecification routeSpecification = new RouteSpecification(cargo.RouteSpecification.Origin, destination, cargo.RouteSpecification.ArrivalDeadline);
-         cargo.SpecifyNewRoute(routeSpecification);
+         
+         Cargo cargo = _cargoRepository.Find(trackingId);
+         cargo.SpecifyNewRoute(destination);
       }
    }
 }

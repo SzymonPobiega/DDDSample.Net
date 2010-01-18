@@ -25,14 +25,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
          const string query = @"from DDDSample.Domain.Cargo.Cargo c where c.TrackingId = :trackingId";
          return Session.CreateQuery(query).SetString("trackingId", trackingId.IdString)
             .UniqueResult<Cargo.Cargo>();
-      }
-
-      public IList<Cargo.Cargo> FindAll()
-      {
-         const string query = @"from DDDSample.Domain.Cargo.Cargo c";
-         return Session.CreateQuery(query)
-            .List<Cargo.Cargo>();
-      }
+      }      
 
       public TrackingId NextTrackingId()
       {

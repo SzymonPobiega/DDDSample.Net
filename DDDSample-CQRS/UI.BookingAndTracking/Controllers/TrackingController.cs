@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.Reporting.Persistence.NHibernate;
 using DDDSample.UI.BookingAndTracking.Models;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers
@@ -13,12 +13,12 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
    public class TrackingController : Controller
    {
       private readonly ICargoRepository _cargoRepository;
-      private readonly IHandlingEventRepository _handlingEventRepository;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public TrackingController(ICargoRepository cargoRepository, IHandlingEventRepository handlingEventRepository)
+      public TrackingController(ICargoRepository cargoRepository, CargoDataAccess cargoDataAccess)
       {
          _cargoRepository = cargoRepository;
-         _handlingEventRepository = handlingEventRepository;
+         _cargoDataAccess = cargoDataAccess;
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -46,14 +46,13 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
     
       public ActionResult Track(string trackingId)
       {
-         Cargo cargo = _cargoRepository.Find(new TrackingId(trackingId));
+         Reporting.Cargo cargo = _cargoDataAccess.Find(trackingId);
          if (cargo == null)
          {
             ViewData.ModelState.AddModelError("trackingId", "Provided tracking id is invalid.");
             return View();
          }
-         HandlingHistory history = _handlingEventRepository.LookupHandlingHistoryOfCargo(new TrackingId(trackingId));
-         return View(new CargoTrackingViewAdapter(cargo, history));         
+         return View(new CargoTrackingViewAdapter(cargo));         
       }
    }
 }

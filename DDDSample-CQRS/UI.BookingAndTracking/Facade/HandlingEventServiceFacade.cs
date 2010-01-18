@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 

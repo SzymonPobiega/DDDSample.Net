@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
 {

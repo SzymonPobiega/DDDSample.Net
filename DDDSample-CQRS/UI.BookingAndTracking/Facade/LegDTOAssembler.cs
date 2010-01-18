@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.Messages;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -18,19 +19,21 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       public Leg FromDTO(LegDTO legDto)
       {
          return new Leg(
-            _locationRepository.Find(new UnLocode(legDto.From)),
-            legDto.LoadTime,
-            _locationRepository.Find(new UnLocode(legDto.To)),
-            legDto.UnloadTime);
+            _locationRepository.Find(new UnLocode(legDto.LoadLocation)),
+            legDto.LoadDate,
+            _locationRepository.Find(new UnLocode(legDto.UnloadLocation)),
+            legDto.UnloadDate);
       }
 
       public LegDTO ToDTO(Leg leg)
       {
-         return new LegDTO("XXX",
-                           leg.LoadLocation.UnLocode.CodeString,
-                           leg.UnloadLocation.UnLocode.CodeString,
-                           leg.LoadDate,
-                           leg.UnloadDate);
+         return new LegDTO
+                   {
+                      LoadLocation = leg.LoadLocation.UnLocode.CodeString,
+                      UnloadLocation = leg.UnloadLocation.UnLocode.CodeString,
+                      LoadDate = leg.LoadDate,
+                      UnloadDate = leg.UnloadDate
+                   };            
       }
    }
 }

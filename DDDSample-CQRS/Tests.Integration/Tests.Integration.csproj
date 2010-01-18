@@ -114,9 +114,9 @@
       <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
       <Name>Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.Persistence.InMemory\Domain.Persistence.InMemory.csproj">
-      <Project>{F0820483-BA6F-49D9-9621-F06AA6B1A172}</Project>
-      <Name>Domain.Persistence.InMemory</Name>
+    <ProjectReference Include="..\Domain.EventHandlers\Domain.EventHandlers.csproj">
+      <Project>{96933641-7218-4216-93D2-FC11708FF0A2}</Project>
+      <Name>Domain.EventHandlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj">
       <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
@@ -124,7 +124,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Routing\Infrastructure.Routing.csproj">
       <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>

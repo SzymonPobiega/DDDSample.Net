@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
 {

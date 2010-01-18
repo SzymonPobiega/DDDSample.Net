@@ -1,42 +1,32 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.Reporting;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {   
    public class CargoTrackingViewAdapter
    {
       private readonly Cargo _cargo;
-      private readonly IList<Domain.Handling.HandlingEvent> _handlingEvents;
-
-      public CargoTrackingViewAdapter(Cargo cargo, HandlingHistory handlingHistory)
+      
+      public CargoTrackingViewAdapter(Cargo cargo)
       {
-         _cargo = cargo;
-         if (handlingHistory != null)
-         {
-            _handlingEvents = handlingHistory.EventsByCompletionTime.ToList();  
-         }
-         else
-         {
-            _handlingEvents = new List<Domain.Handling.HandlingEvent>();
-         }
+         _cargo = cargo;         
       }
 
       public IEnumerable<HandlingEventViewAdapter> HandlingEvents
       {
-         get { return _handlingEvents.Select(x => new HandlingEventViewAdapter(x, _cargo)); }
+         get { return _cargo.DeliveryHistory.Select(x => new HandlingEventViewAdapter(x)); }
       }
 
       public string StatusText
       {
          get
          {                       
-            switch (_cargo.Delivery.TransportStatus)
+            switch (_cargo.CurrentInformation.TransportStatus)
             {
                case TransportStatus.InPort:
-                  return Resources.Messages.cargo_status_IN_PORT.UIFormat(_cargo.Delivery.LastKnownLocation.Name);
+                  return Resources.Messages.cargo_status_IN_PORT.UIFormat(_cargo.CurrentInformation.LastKnownActivity.Location);
                case TransportStatus.OnboardCarrier:
                   return Resources.Messages.cargo_status_ONBOARD_CARRIER.UIFormat("XXX");
                case TransportStatus.Claimed:
@@ -55,27 +45,27 @@ namespace DDDSample.UI.BookingAndTracking.Models
       {
          get
          {
-            HandlingActivity activity = _cargo.Delivery.NextExpectedActivity;
+            HandlingActivity activity = _cargo.CurrentInformation.NextExpectedActivity;
             if (activity == null)
             {
                return "";
             }
 
             const string text = "Next expected activity is to ";
-            HandlingEventType type = activity.EventType;
+            HandlingEventType? type = activity.EventType;
             if (type == HandlingEventType.Load)
             {
                return
                   text + type.ToString().ToLower() + " cargo onto voyage XXX" +
-                  " in " + activity.Location.Name;
+                  " in " + activity.Location;
             }
             if (type == HandlingEventType.Unload)
             { 
                return
                   text + type.ToString().ToLower() + " cargo off of XXX" +
-                  " in " + activity.Location.Name;
+                  " in " + activity.Location;
             }
-            return text + type.ToString().ToLower() + " cargo in " + activity.Location.Name;
+            return text + type.ToString().ToLower() + " cargo in " + activity.Location;
          }
       }
 
@@ -83,7 +73,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
       {
          get
          {
-            return _cargo.RouteSpecification.Destination.Name;
+            return _cargo.Destination;
          }
       }
 
@@ -91,7 +81,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
       {
          get
          {
-            DateTime? eta = _cargo.Delivery.EstimatedTimeOfArrival;
+            DateTime? eta = _cargo.CurrentInformation.EstimatedTimeOfArrival;
             return eta.HasValue ? eta.ToString() : "?";
          }
       }      

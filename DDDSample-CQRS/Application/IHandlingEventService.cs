@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
 
 namespace DDDSample.Application
 {

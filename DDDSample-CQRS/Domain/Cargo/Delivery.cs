@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
 {   
@@ -99,24 +98,7 @@ namespace DDDSample.Domain.Cargo
       public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary, HandlingEvent lastHandlingEvent)
       {
          return new Delivery(lastHandlingEvent, itinerary, specification);
-      }
-
-      /// <summary>
-      /// Creates a new delivery snapshot to reflect changes in routing, i.e. when the route 
-      /// specification or the itinerary has changed but no additional handling of the 
-      /// cargo has been performed.
-      /// </summary>
-      /// <param name="routeSpecification">Current route specification.</param>
-      /// <param name="itinerary">Current itinerary.</param>
-      /// <returns>New delivery status description.</returns>
-      public Delivery UpdateOnRouting(RouteSpecification routeSpecification, Itinerary itinerary)
-      {
-         if (routeSpecification == null)
-         {
-            throw new ArgumentNullException("routeSpecification");
-         }
-         return new Delivery(_lastEvent, itinerary, routeSpecification);
-      }
+      }      
 
       private Delivery(HandlingEvent lastHandlingEvent, Itinerary itinerary, RouteSpecification specification)
       {

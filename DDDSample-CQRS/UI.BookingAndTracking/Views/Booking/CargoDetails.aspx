@@ -1,4 +1,6 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<CargoRoutingDTO>" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<DDDSample.Reporting.Cargo>" %>
+<%@ Import Namespace="DDDSample.Messages"%>
+<%@ Import Namespace="DDDSample.Reporting"%>
 
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
 <asp:Content ID="cargoDetailsTitle" ContentPlaceHolderID="TitleContent" runat="server">
@@ -30,13 +32,13 @@
                 <%= Model.ArrivalDeadline %>
             </p>
             <p>
-                <% if (Model.Legs.Count == 0)
+                <% if (Model.RouteSpecification == null)
                    { %>
                 <label>
                     Not routed -
                     <%= Html.ActionLink("Route this cargo", "AssignToRoute", new { Model.TrackingId })%></label>
                 <% } %>
-                <% if (Model.Misrouted)
+                <% if (Model.CurrentInformation.RoutingStatus == RoutingStatus.Misrouted)
                    { %>
                 <label>
                     Cargo is misrouted -
@@ -45,7 +47,7 @@
             </p>
         </fieldset>
     </div>
-    <% if (Model.Legs.Count != 0)
+    <% if (Model.RouteSpecification != null)
        { %>
     <div>
         <table>
@@ -70,23 +72,23 @@
                 </thead>
                 <tbody>
                     <%                   
-                        foreach (LegDTO leg in Model.Legs)
+                        foreach (LegDTO leg in Model.RouteSpecification)
                         {%>
                     <tr>
                         <td>
-                            <%=leg.VoyageNumber%>
+                            XXX
                         </td>
                         <td>
-                            <%=leg.From%>
+                            <%=leg.LoadLocation%>
                         </td>
                         <td>
-                            <%=leg.LoadTime%>
+                            <%=leg.LoadDate%>
                         </td>
                         <td>
-                            <%=leg.To%>
+                            <%=leg.UnloadLocation%>
                         </td>
                         <td>
-                            <%=leg.UnloadTime%>
+                            <%=leg.UnloadDate%>
                         </td>
                     </tr>
                     <%

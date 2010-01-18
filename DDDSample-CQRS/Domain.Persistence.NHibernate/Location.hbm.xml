@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DDDSample.Domain" namespace="DDDSample.Domain.Location">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.Domain" 
+                   namespace="DDDSample.Domain.Location"
+                   schema="domain">
   <class name="Location" table="Location">
     <id type="Guid">
       <column name="Id" />
@@ -8,11 +11,6 @@
     <component name="UnLocode" update="false" class="UnLocode">
       <property name="_code" column="UnLocode" not-null="true" access="field"/>
     </component>
-    <property name="Name" column="Name" not-null="true"/>
-    <!--<many-to-one name="Container" class="Container" column="ContainerId"/>
-    <bag name="OffersTable" cascade="all-delete-orphan" >
-      <key column="ContainerId"></key>
-      <one-to-many class="Component"/>
-    </bag>-->
+    <property name="Name" column="Name" not-null="true"/>    
   </class>
 </hibernate-mapping>

@@ -1,4 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Import Namespace="DDDSample.Reporting"%>
 
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
 <asp:Content ID="listCargosTitle" ContentPlaceHolderID="TitleContent" runat="server">
@@ -26,7 +27,7 @@
         </thead>
         <tbody>
             <%
-                foreach (CargoRoutingDTO cargo in (IList<CargoRoutingDTO>)ViewData["cargos"])
+                foreach (Cargo cargo in (IList<Cargo>)ViewData["cargos"])
                 {
             %>
             <tr>
@@ -40,7 +41,7 @@
                     <%=cargo.Destination %>
                 </td>
                 <td>
-                    <%=cargo.IsRouted ? "Yes" : "No" %>
+                    <%=cargo.CurrentInformation.RoutingStatus == RoutingStatus.Misrouted ? "Yes" : "No"%>
                 </td>
             </tr>
             <%

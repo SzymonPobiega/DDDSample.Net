@@ -54,10 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargo\Cargo.cs" />
-    <Compile Include="Cargo\CargoHasBeenAssignedToRouteEvent.cs" />
+    <Compile Include="Cargo\CargoRegisteredEvent.cs" />
+    <Compile Include="Cargo\CargoWasAssignedToRouteEvent.cs" />
+    <Compile Include="Cargo\CargoDestinationChangedEvent.cs" />
     <Compile Include="Cargo\Delivery.cs" />
     <Compile Include="Cargo\HandlingActivity.cs" />
-    <Compile Include="Cargo\HandlingEvent.cs" />
     <Compile Include="Cargo\RoutingStatus.cs" />
     <Compile Include="Cargo\TransportStatus.cs" />
     <Compile Include="DomainEvent.cs" />
@@ -65,27 +66,18 @@
     <Compile Include="Cargo\Leg.cs" />
     <Compile Include="Cargo\RouteSpecification.cs" />
     <Compile Include="DomainEvents.cs" />
-    <Compile Include="Handling\HandlingEvent.cs" />
-    <Compile Include="Handling\HandlingHistory.cs" />
-    <Compile Include="Handling\IHandlingEventRepository.cs" />
+    <Compile Include="Cargo\HandlingEvent.cs" />
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IRoutingService.cs" />
     <Compile Include="Location\Location.cs" />
     <Compile Include="Location\ILocationRepository.cs" />
     <Compile Include="Location\UnLocode.cs" />
-    <Compile Include="Cargo\CargoHasArrivedEvent.cs" />
-    <Compile Include="Handling\CargoWasHandledEvent.cs" />
-    <Compile Include="Cargo\CargoWasMisdirectedEvent.cs" />
+    <Compile Include="Cargo\CargoWasHandledEvent.cs" />
     <Compile Include="Cargo\Itinerary.cs" />
     <Compile Include="Cargo\TrackingId.cs" />
-    <Compile Include="Handling\HandlingEventType.cs" />
+    <Compile Include="Cargo\HandlingEventType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueObject.cs" />
-    <Compile Include="Voyage\CarrierMovement.cs" />
-    <Compile Include="Voyage\IVoyageRepository.cs" />
-    <Compile Include="Voyage\Schedule.cs" />
-    <Compile Include="Voyage\Voyage.cs" />
-    <Compile Include="Voyage\VoyageNumber.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

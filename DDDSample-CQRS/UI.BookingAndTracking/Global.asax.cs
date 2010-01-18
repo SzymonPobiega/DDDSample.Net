@@ -6,14 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DDDSample.Application;
-using DDDSample.Application.AsynchronousEventHandlers.Messages;
 using DDDSample.Application.Implemetation;
-using DDDSample.Application.SynchronousEventHandlers;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.Domain.EventHandlers;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
+using DDDSample.Messages;
+using DDDSample.Reporting.MessageHandlers;
 using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
@@ -23,50 +23,30 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
 using NServiceBus;
+using NServiceBus.Faults.InMemory;
 using NServiceBus.ObjectBuilder;
 using NServiceBus.SagaPersisters.NHibernate;
-using Synch = DDDSample.Application.SynchronousEventHandlers;
-using Asynch = DDDSample.Application.AsynchronousEventHandlers;
-using CargoRepository=DDDSample.Domain.Persistence.InMemory.CargoRepository;
-using HandlingEventRepository=DDDSample.Domain.Persistence.InMemory.HandlingEventRepository;
-using LocationRepository=DDDSample.Domain.Persistence.InMemory.LocationRepository;
 
 namespace DDDSample.UI.BookingAndTracking
 {
    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
    // visit http://go.microsoft.com/?LinkId=9394801
 
+   public static class ConfigureInMemoryFaultManager
+   {
+      public static Configure InMemoryFaultManager(this Configure configure)
+      {
+         configure.Configurer.ConfigureComponent<FaultManager>(ComponentCallModelEnum.Singlecall);
+         return configure;
+      }
+   }
+
    public class MvcApplication : HttpApplication
    {
       private static IUnityContainer _ambientContainer;
       private static IServiceLocator _ambientLocator;
       private static ISessionFactory _webSessionFactory;
-
-      [Conditional("IN_MEMORY")]
-      private static void ConfigureInMemory()
-      {
-         _ambientContainer = new UnityContainer();
-         ConfigureInMemoryRepositories(_ambientContainer);
-         ConfigureServices(_ambientContainer);
-         ConfigureSynchEventHandlers(_ambientContainer);
-
-         _ambientLocator = new UnityServiceLocator(_ambientContainer);
-         ServiceLocator.SetLocatorProvider(() => _ambientLocator);
-         ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory());
-      }
-
-      [Conditional("NHIBERNATE")]
-      private static void ConfigureNHibernateSynch()
-      {
-         _ambientContainer = new UnityContainer();
-         ConfigureNHibernateRepositories(_ambientContainer);
-         ConfigureServices(_ambientContainer);
-         ConfigureSynchEventHandlers(_ambientContainer);
-         ConfigureMVC();
-         InitializeNHibernateForWeb(_ambientContainer);
-      }
-
-      [Conditional("NHIBERNATE_ASYNCH")]
+            
       private static void ConfigureNHibernateAsynch()
       {
          _ambientContainer = new UnityContainer();
@@ -86,6 +66,26 @@ namespace DDDSample.UI.BookingAndTracking
 
          ConfigureAsynchEventHandlers(_ambientContainer);
          ConfigureMVC();
+      }
+
+      private static void ConfigureAsynchEventHandlers(IUnityContainer container)
+      {
+         container.RegisterType
+            <IEventHandler<CargoWasAssignedToRouteEvent>,
+               CargoWasAssignedToRouteEventHandler>(
+            "cargoHasBeenAssignedToRouteEventHandler");
+         container.RegisterType
+            <IEventHandler<CargoWasHandledEvent>,
+               CargoWasHandledEventHandler>(
+            "cargoWasHandledEventHandler");
+         container.RegisterType
+            <IEventHandler<CargoRegisteredEvent>,
+               CargoRegisteredEventHandler>(
+            "cargoRegisteredEventHandler");
+         container.RegisterType
+            <IEventHandler<CargoDestinationChangedEvent>,
+               CargoDestinationChangedEventHandler>(
+            "cargoDestinationChangedEventHandler");
       }
 
       public static void RegisterRoutes(RouteCollection routes)
@@ -128,28 +128,7 @@ namespace DDDSample.UI.BookingAndTracking
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
          ServiceLocator.SetLocatorProvider(() => _ambientLocator);
          ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory());
-      }
-
-      private static void ConfigureSynchEventHandlers(IUnityContainer container)
-      {
-         container.RegisterType
-            <IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>(
-            "cargoHasBeenAssignedToRouteEventHandler");
-         container.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>(
-            "cargoWasHandledEventHandler");
-      }
-
-      private static void ConfigureAsynchEventHandlers(IUnityContainer container)
-      {
-         container.RegisterType
-            <IEventHandler<CargoHasBeenAssignedToRouteEvent>,
-               Application.AsynchronousEventHandlers.EventHandlers.CargoHasBeenAssignedToRouteEventHandler>(
-            "cargoHasBeenAssignedToRouteEventHandler");
-         container.RegisterType
-            <IEventHandler<CargoWasHandledEvent>,
-               Application.AsynchronousEventHandlers.EventHandlers.CargoWasHandledEventHandler>(
-            "cargoWasHandledEventHandler");
-      }
+      }      
 
       private static void ConfigureServices(IUnityContainer container)
       {
@@ -160,10 +139,8 @@ namespace DDDSample.UI.BookingAndTracking
 
       protected void Application_Start()
       {
+         log4net.Config.XmlConfigurator.Configure();
          RegisterRoutes(RouteTable.Routes);
-
-         ConfigureInMemory();
-         ConfigureNHibernateSynch();
          ConfigureNHibernateAsynch();
       }
 
@@ -179,26 +156,21 @@ namespace DDDSample.UI.BookingAndTracking
             .UnicastBus()
             .ImpersonateSender(false)
             .LoadMessageHandlers()
-            .DBSubcriptionStorage()                            
+            .DBSubcriptionStorage()
+            .InMemoryFaultManager()
             .CreateBus()
             .Start();
-         bus.Subscribe<CargoHasBeenAssignedToRouteMessage>();
-         bus.Subscribe<CargoWasHandledMessage>();
+         bus.Subscribe<CargoAssignedToRouteMessage>();
+         bus.Subscribe<CargoHandledMessage>();
+         bus.Subscribe<CargoDestinationChangedMessage>();
+         bus.Subscribe<CargoRegisteredMessage>();
          return bus;
-      }
-
-      private static void ConfigureInMemoryRepositories(IUnityContainer container)
+      }      
+      
+      private static void ConfigureNHibernateRepositories(IUnityContainer container)
       {
          container.RegisterType<ILocationRepository, LocationRepository>();
          container.RegisterType<ICargoRepository, CargoRepository>();
-         container.RegisterType<IHandlingEventRepository, HandlingEventRepository>();
-      }
-
-      private static void ConfigureNHibernateRepositories(IUnityContainer container)
-      {
-         container.RegisterType<ILocationRepository, Domain.Persistence.NHibernate.LocationRepository>();
-         container.RegisterType<ICargoRepository, Domain.Persistence.NHibernate.CargoRepository>();
-         container.RegisterType<IHandlingEventRepository, Domain.Persistence.NHibernate.HandlingEventRepository>();
 
          container.AddNewExtension<Interception>();
          container.Configure<Interception>()
@@ -214,7 +186,7 @@ namespace DDDSample.UI.BookingAndTracking
          Configuration cfg = new Configuration().Configure();
          cfg.AddProperties(new Dictionary<string, string>
                               {
-                                 {"current_session_context_class", "NHibernate.Context.ManagedWebSessionContext"}
+                                 {"current_session_context_class", "NHibernate.Context.WebSessionContext"}
                               });
          _webSessionFactory = cfg.BuildSessionFactory();
          container.RegisterInstance(_webSessionFactory);
@@ -237,8 +209,6 @@ namespace DDDSample.UI.BookingAndTracking
          WireUpSessionLifecycle();
       }
 
-      [Conditional("NHIBERNATE")]
-      [Conditional("NHIBERNATE_ASYNCH")]
       private void WireUpSessionLifecycle()
       {
          PreRequestHandlerExecute += BindNHibernateSession;
@@ -247,12 +217,12 @@ namespace DDDSample.UI.BookingAndTracking
       
       private static void BindNHibernateSession(object sender, EventArgs e)
       {
-         ManagedWebSessionContext.Bind(HttpContext.Current, _webSessionFactory.OpenSession());
+         CurrentSessionContext.Bind(_webSessionFactory.OpenSession());
       }
       
       private static void UnbindNHibernateSession(object sender, EventArgs e)
       {
-         ManagedWebSessionContext.Unbind(HttpContext.Current, _webSessionFactory).Dispose();
+         CurrentSessionContext.Unbind(_webSessionFactory).Dispose();
       }
    }
 

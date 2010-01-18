@@ -1,67 +1,63 @@
 using System;
 using System.Linq;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
+using DDDSample.Reporting;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {
    public class HandlingEventViewAdapter
    {
-      private readonly Domain.Handling.HandlingEvent _handlingEvent;
-      private readonly Cargo _cargo;
+      private readonly Delivery _handlingEvent;
 
-      public HandlingEventViewAdapter(Domain.Handling.HandlingEvent handlingEvent, Cargo cargo)
+      public HandlingEventViewAdapter(Delivery handlingEvent)
       {
          _handlingEvent = handlingEvent;
-         _cargo = cargo;
       }
 
       public string Location
       {
-         get { return _handlingEvent.Location.Name; }
+         get { return _handlingEvent.LastKnownActivity.Location; }
       }
 
       public string Time
       {
-         get { return _handlingEvent.CompletionDate.ToString(); }
+         get { return _handlingEvent.CalculatedAt.ToString(); }
       }
 
       public string Type
       {
-         get { return _handlingEvent.EventType.ToString(); }
+         get { return _handlingEvent.LastKnownActivity.EventType.ToString(); }
       }
 
       public bool IsExpected
       {
-         get { return _cargo.Itinerary.IsExpected(new HandlingEvent(
-            _handlingEvent.EventType,
-            _handlingEvent.Location,
-            _handlingEvent.RegistrationDate,
-            _handlingEvent.CompletionDate)); }
+         get { return !_handlingEvent.IsMisdirected; }
       }
 
       public string Description
       {
          get
          {            
-            switch (_handlingEvent.EventType)
+            if (_handlingEvent.LastKnownActivity == null)
+            {
+               return "Registered";
+            }
+            switch (_handlingEvent.LastKnownActivity.EventType)
             {
                case HandlingEventType.Load:
-                  return Resources.Messages.eventDescription_LOAD.UIFormat("XXX", _handlingEvent.Location.Name,
-                                                                           _handlingEvent.CompletionDate);
+                  return Resources.Messages.eventDescription_LOAD.UIFormat("XXX", _handlingEvent.LastKnownActivity.Location,
+                                                                           _handlingEvent.CalculatedAt);
                case HandlingEventType.Unload:
-                  return Resources.Messages.eventDescription_UNLOAD.UIFormat("XXX", _handlingEvent.Location.Name,
-                                                                           _handlingEvent.CompletionDate);
+                  return Resources.Messages.eventDescription_UNLOAD.UIFormat("XXX", _handlingEvent.LastKnownActivity.Location,
+                                                                           _handlingEvent.CalculatedAt);
                case HandlingEventType.Receive:
-                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.Location.Name,
-                                                                           _handlingEvent.CompletionDate);
+                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.LastKnownActivity.Location,
+                                                                           _handlingEvent.CalculatedAt);
                case HandlingEventType.Claim:
-                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.Location.Name,
-                                                                           _handlingEvent.CompletionDate);
+                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.LastKnownActivity.Location,
+                                                                           _handlingEvent.CalculatedAt);
                case HandlingEventType.Customs:
-                  return Resources.Messages.eventDescription_CUSTOMS.UIFormat(_handlingEvent.Location.Name,
-                                                                           _handlingEvent.CompletionDate);
+                  return Resources.Messages.eventDescription_CUSTOMS.UIFormat(_handlingEvent.LastKnownActivity.Location,
+                                                                           _handlingEvent.CalculatedAt);
             }
             throw new NotSupportedException();
          }

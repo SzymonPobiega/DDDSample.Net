@@ -4,10 +4,9 @@ using System.IO;
 using System.Text;
 using DDDSample.Application;
 using DDDSample.Application.Implemetation;
-using DDDSample.Application.SynchronousEventHandlers;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.Domain.EventHandlers;
 using DDDSample.Domain.Location;
 using DDDSample.Pathfinder;
 using Infrastructure.Routing;
@@ -66,11 +65,6 @@ namespace Tests.Integration
          get { return ServiceLocator.Current.GetInstance<ILocationRepository>(); }
       }
 
-      public static IHandlingEventRepository HandlingEventRepository
-      {
-         get { return ServiceLocator.Current.GetInstance<IHandlingEventRepository>(); }
-      }
-
       public static IBookingService BookingService
       {
          get { return ServiceLocator.Current.GetInstance<IBookingService>(); }
@@ -99,7 +93,7 @@ namespace Tests.Integration
          _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
          _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
 
-         _ambientContainer.RegisterType<IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>("cargoHasBeenAssignedToRouteEventHandler");
+         _ambientContainer.RegisterType<IEventHandler<CargoWasAssignedToRouteEvent>, CargoWasAssignedToRouteEventHandler>("cargoHasBeenAssignedToRouteEventHandler");
          _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");
 
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
@@ -119,7 +113,6 @@ namespace Tests.Integration
       {
          _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
          _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
-         _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
 
          _ambientContainer.AddNewExtension<Interception>();
 

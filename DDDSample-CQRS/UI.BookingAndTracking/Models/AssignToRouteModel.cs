@@ -10,16 +10,16 @@ namespace DDDSample.UI.BookingAndTracking.Models
    /// </summary>
    public class AssignToRouteModel
    {
-      private readonly CargoRoutingDTO _cargo;      
+      private readonly Reporting.Cargo _cargo;      
       private readonly IList<RouteCandidateDTO> _routeCandidates;
 
-      public AssignToRouteModel(CargoRoutingDTO cargo, IList<RouteCandidateDTO> routeCandidates)
+      public AssignToRouteModel(Reporting.Cargo cargo, IList<RouteCandidateDTO> routeCandidates)
       {
          _routeCandidates = routeCandidates;
          _cargo = cargo;
       }
 
-      public CargoRoutingDTO Cargo
+      public Reporting.Cargo Cargo
       {
          get { return _cargo; }
       }

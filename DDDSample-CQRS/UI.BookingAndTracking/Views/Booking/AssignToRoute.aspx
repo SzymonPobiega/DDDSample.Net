@@ -1,5 +1,6 @@
 <%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
     Inherits="System.Web.Mvc.ViewPage<AssignToRouteModel>" %>
+<%@ Import Namespace="DDDSample.Messages"%>
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Models" %>
 <asp:Content ID="changeCargoDestinationTitle" ContentPlaceHolderID="TitleContent"
@@ -48,29 +49,28 @@
                 <%
                    int legIndex = 0;
                     foreach (LegDTO leg in routeCandidate.Legs)
-                    {%>
-                    <%=Html.Hidden("Legs["+legIndex+"].VoyageNumber", leg.VoyageNumber) %>
-                    <%=Html.Hidden("Legs["+legIndex+"].From", leg.From) %>
-                    <%=Html.Hidden("Legs["+legIndex+"].LoadTime", leg.LoadTime) %>
-                    <%=Html.Hidden("Legs["+legIndex+"].To", leg.To) %>
-                    <%=Html.Hidden("Legs["+legIndex+"].UnloadTime", leg.UnloadTime) %>                    
+                    {%>                    
+                    <%=Html.Hidden("Legs[" + legIndex + "].LoadLocation", leg.LoadLocation)%>
+                    <%=Html.Hidden("Legs[" + legIndex + "].LoadDate", leg.LoadDate)%>
+                    <%=Html.Hidden("Legs[" + legIndex + "].UnloadLocation", leg.UnloadLocation)%>
+                    <%=Html.Hidden("Legs[" + legIndex + "].UnloadDate", leg.UnloadDate)%>                    
                     <%
                        legIndex++; %>
                 <tr>
                     <td>
-                        <%=leg.VoyageNumber%>
+                        XXX
                     </td>
                     <td>
-                        <%=leg.From%>
+                        <%=leg.LoadLocation%>
                     </td>
                     <td>
-                        <%=leg.LoadTime%>
+                        <%=leg.LoadDate%>
                     </td>
                     <td>
-                        <%=leg.To%>
+                        <%=leg.UnloadLocation%>
                     </td>
                     <td>
-                        <%=leg.UnloadTime%>
+                        <%=leg.UnloadDate%>
                     </td>
                 </tr>
                 <%
