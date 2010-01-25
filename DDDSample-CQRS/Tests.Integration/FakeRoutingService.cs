@@ -10,7 +10,7 @@ namespace Tests.Integration
    {           
       public IList<Itinerary> FetchRoutesForSpecification(RouteSpecification routeSpecification)
       {
-         if (routeSpecification.Origin == ScenarioTest.HONGKONG) {
+         if (routeSpecification.Destination == ScenarioTest.STOCKHOLM) {
             // Hongkong - NYC - Chicago - Stockholm, initial routing
             return new List<Itinerary>{
                                          new Itinerary(new List<Leg>{
@@ -23,8 +23,8 @@ namespace Tests.Integration
             // Tokyo - Hamburg - Stockholm, rerouting misdirected cargo from Tokyo 
             return new List<Itinerary>{
                                          new Itinerary(new List<Leg>{
-                                                                       new Leg(ScenarioTest.TOKYO, new DateTime(2009,3,8), ScenarioTest.HAMBURG, new DateTime(2009,3,12)),
-                                                                       new Leg(ScenarioTest.HAMBURG, new DateTime(2009,3,14), ScenarioTest.STOCKHOLM, new DateTime(2009,3,15))
+                                                                       new Leg(ScenarioTest.HONGKONG, new DateTime(2009,3,8), ScenarioTest.HAMBURG, new DateTime(2009,3,12)),
+                                                                       new Leg(ScenarioTest.HAMBURG, new DateTime(2009,3,14), ScenarioTest.GOETEBORG, new DateTime(2009,3,15))
                                                                     })
                                       };
          }

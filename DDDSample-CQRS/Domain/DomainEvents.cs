@@ -46,7 +46,7 @@ namespace DDDSample.Domain
          {
             handler.Handle(eventArgs);
          }
-         foreach (Action action in Actions)
+         foreach (Delegate action in Actions)
          {
             Action<T> typedAction = action as Action<T>;
             if (typedAction != null)

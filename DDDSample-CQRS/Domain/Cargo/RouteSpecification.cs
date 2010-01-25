@@ -47,8 +47,8 @@ namespace DDDSample.Domain.Cargo
       /// </returns>
       public virtual bool IsSatisfiedBy(Itinerary itinerary)
       {
-         return Origin == itinerary.InitialDepartureLocation &&
-                Destination == itinerary.FinalArrivalLocation &&
+         return Origin.UnLocode == itinerary.InitialDepartureLocation.UnLocode &&
+                Destination.UnLocode == itinerary.FinalArrivalLocation.UnLocode &&
                 ArrivalDeadline > itinerary.FinalArrivalDate;         
       }
 

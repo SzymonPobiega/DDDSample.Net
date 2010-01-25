@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using NUnit.Framework;
@@ -16,7 +17,7 @@ namespace Tests.Integration
          /* Test setup: A cargo should be shipped from Hongkong to Stockholm,
             and it should arrive in no more than two weeks. */
          Location origin = HONGKONG;
-         Location destination = STOCKHOLM;
+         Location destination = STOCKHOLM;         
          DateTime arrivalDeadline = new DateTime(2009, 3, 18);
 
          /* Use case 1: booking
@@ -35,12 +36,7 @@ namespace Tests.Integration
             Tracking the cargo basically amounts to presenting information extracted from
             the cargo aggregate in a suitable way. */
          Cargo cargo = CargoRepository.Find(trackingId);
-         Assert.IsNotNull(cargo);
-         Assert.AreEqual(TransportStatus.NotReceived, cargo.Delivery.TransportStatus);
-         Assert.AreEqual(RoutingStatus.NotRouted, cargo.Delivery.RoutingStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         Assert.IsNull(cargo.Delivery.EstimatedTimeOfArrival);
-         //Assert.IsNull(cargo.Delivery.NextExpectedActivity);
+         Assert.IsNotNull(cargo);         
 
          /* Use case 2: routing
 
@@ -52,13 +48,18 @@ namespace Tests.Integration
             The cargo is then assigned to the selected route, described by an itinerary. */
          IList<Itinerary> itineraries = BookingService.RequestPossibleRoutesForCargo(trackingId);
          Itinerary itinerary = SelectPreferedItinerary(itineraries);
-         cargo.AssignToRoute(itinerary);
 
-         Assert.AreEqual(TransportStatus.NotReceived, cargo.Delivery.TransportStatus);
-         Assert.AreEqual(RoutingStatus.Routed, cargo.Delivery.RoutingStatus);
-         Assert.IsNotNull(cargo.Delivery.EstimatedTimeOfArrival);
-         //Assert.AreEqual(new HandlingActivity(RECEIVE, HONGKONG), cargo.Delivery.nextExpectedActivity());
-
+         using (DomainEvents.Register<CargoWasAssignedToRouteEvent>(x =>
+                                         {
+                                            Assert.AreEqual(TransportStatus.NotReceived, x.Delivery.TransportStatus);
+                                            Assert.AreEqual(RoutingStatus.Routed, x.Delivery.RoutingStatus);
+                                            Assert.IsNotNull(x.Delivery.EstimatedTimeOfArrival);
+                                            Assert.AreEqual(new HandlingActivity(HandlingEventType.Receive, HONGKONG), x.Delivery.NextExpectedActivity);
+                                         }))
+         {
+            BookingService.AssignCargoToRoute(trackingId, itinerary);            
+         }
+         
          /*
            Use case 3: handling
 
@@ -73,24 +74,31 @@ namespace Tests.Integration
 
            Handling begins: cargo is received in Hongkong.
            */
-         HandlingEventService.RegisterHandlingEvent(
-            new DateTime(2009, 3, 1), trackingId, HONGKONG.UnLocode, HandlingEventType.Receive
-            );
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  Assert.AreEqual(TransportStatus.InPort, x.Delivery.TransportStatus);
+                                                                  Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
+                                                               }))
+         {
+            HandlingEventService.RegisterHandlingEvent(
+               new DateTime(2009, 3, 1), trackingId, HONGKONG.UnLocode, HandlingEventType.Receive
+               );   
+         }
 
-         Assert.AreEqual(TransportStatus.InPort, cargo.Delivery.TransportStatus);
-         Assert.AreEqual(HONGKONG, cargo.Delivery.LastKnownLocation);
-
-         // Next event: Load onto voyage CM003 in Hongkong
-         HandlingEventService.RegisterHandlingEvent(
-            new DateTime(2009, 3, 3), trackingId, HONGKONG.UnLocode, HandlingEventType.Load
-            );
-
-         // Check current state - should be ok
-         //Assert.AreEqual(v100, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(HONGKONG, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.OnboardCarrier, cargo.Delivery.TransportStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         //Assert.AreEqual(new HandlingActivity(UNLOAD, NEWYORK, v100), cargo.Delivery.nextExpectedActivity());
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         {
+            // Check current state - should be ok            
+            Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
+            Assert.AreEqual(TransportStatus.OnboardCarrier, x.Delivery.TransportStatus);
+            Assert.IsFalse(x.Delivery.IsMisdirected);
+            Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, NEWYORK), x.Delivery.NextExpectedActivity);
+         }))
+         {
+            // Next event: Load onto voyage CM003 in Hongkong
+            HandlingEventService.RegisterHandlingEvent(
+               new DateTime(2009, 3, 3), trackingId, HONGKONG.UnLocode, HandlingEventType.Load
+               );
+         }                   
 
 
          /*
@@ -113,101 +121,126 @@ namespace Tests.Integration
          //{
          //}
 
-
-         // Cargo is now (incorrectly) unloaded in Tokyo
-         HandlingEventService.RegisterHandlingEvent(
-            new DateTime(2009, 3, 5), trackingId, TOKYO.UnLocode, HandlingEventType.Unload
-            );
-
-         // Check current state - cargo is misdirected!
-         //Assert.AreEqual(NONE, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(TOKYO, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.InPort, cargo.Delivery.TransportStatus);
-         Assert.IsTrue(cargo.Delivery.IsMisdirected);
-         //Assert.IsNull(cargo.Delivery.nextExpectedActivity());
-
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  // Check current state - cargo is misdirected!
+                                                                  Assert.AreEqual(TOKYO, x.Delivery.LastKnownLocation);
+                                                                  Assert.AreEqual(TransportStatus.InPort, x.Delivery.TransportStatus);
+                                                                  Assert.IsTrue(x.Delivery.IsMisdirected);
+                                                                  Assert.IsNull(x.Delivery.NextExpectedActivity);
+                                                               }))
+         {
+            // Cargo is now (incorrectly) unloaded in Tokyo
+            HandlingEventService.RegisterHandlingEvent(
+               new DateTime(2009, 3, 5), trackingId, TOKYO.UnLocode, HandlingEventType.Unload
+               );
+         }
 
          // -- Cargo needs to be rerouted --
 
          // TODO cleaner reroute from "earliest location from where the new route originates"
 
-         // Specify a new route, this time from Tokyo (where it was incorrectly unloaded) to Stockholm
-         RouteSpecification fromTokyo = new RouteSpecification(TOKYO, STOCKHOLM, arrivalDeadline);
-         cargo.SpecifyNewRoute(fromTokyo);
-
-         // The old itinerary does not satisfy the new specification
-         Assert.AreEqual(RoutingStatus.Misrouted, cargo.Delivery.RoutingStatus);
-         //Assert.IsNull(cargo.Delivery.nextExpectedActivity());
-
+         // Specify a new route, this time to Goeteborg.
+         using (DomainEvents.Register<CargoDestinationChangedEvent>(x =>
+                                                               {
+                                                                  // The old itinerary does not satisfy the new specification
+                                                                  Assert.AreEqual(RoutingStatus.Misrouted, x.Delivery.RoutingStatus);
+                                                                  Assert.IsNull(x.Delivery.NextExpectedActivity);
+                                                               }))
+         {
+            cargo.SpecifyNewRoute(GOETEBORG);
+         }
+         
          // Repeat procedure of selecting one out of a number of possible routes satisfying the route spec
          IList<Itinerary> newItineraries = BookingService.RequestPossibleRoutesForCargo(cargo.TrackingId);
          Itinerary newItinerary = SelectPreferedItinerary(newItineraries);
-         cargo.AssignToRoute(newItinerary);
 
-         // New itinerary should satisfy new route
-         Assert.AreEqual(RoutingStatus.Routed, cargo.Delivery.RoutingStatus);
-
-         // TODO we can't handle the face that after a reroute, the cargo isn't misdirected anymore
-         //Assert.IsFalse(cargo.isMisdirected());
-         //Assert.AreEqual(new HandlingActivity(LOAD, TOKYO), cargo.nextExpectedActivity());
-
-
+         using (DomainEvents.Register<CargoWasAssignedToRouteEvent>(x =>
+                                                                       {
+                                                                          // New itinerary should satisfy new route
+                                                                          Assert.AreEqual(RoutingStatus.Routed, x.Delivery.RoutingStatus);
+                                                                          Assert.IsTrue(x.Delivery.IsMisdirected);                                                                          
+                                                                       }))
+         {
+            BookingService.AssignCargoToRoute(trackingId, newItinerary);            
+         }
+         
          // -- Cargo has been rerouted, shipping continues --
 
 
          // Load in Tokyo
-         HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 8), trackingId, TOKYO.UnLocode, HandlingEventType.Load);
-
-         // Check current state - should be ok
-         //Assert.AreEqual(v300, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(TOKYO, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.OnboardCarrier, cargo.Delivery.TransportStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         //Assert.AreEqual(new HandlingActivity(UNLOAD, HAMBURG, v300), cargo.Delivery.nextExpectedActivity());
-
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  // Check current state - should be ok
+                                                                  Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
+                                                                  Assert.AreEqual(TransportStatus.OnboardCarrier, x.Delivery.TransportStatus);
+                                                                  Assert.IsFalse(x.Delivery.IsMisdirected);
+                                                                  Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, HAMBURG), x.Delivery.NextExpectedActivity);  
+                                                               }))
+         {
+            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 8), trackingId, HONGKONG.UnLocode,
+                                                       HandlingEventType.Load);
+         }
+         
          // Unload in Hamburg
-         HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 12), trackingId, HAMBURG.UnLocode, HandlingEventType.Unload);
-
-         // Check current state - should be ok
-         //Assert.AreEqual(NONE, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(HAMBURG, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.InPort, cargo.Delivery.TransportStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         //Assert.AreEqual(new HandlingActivity(LOAD, HAMBURG, v400), cargo.Delivery.nextExpectedActivity());
-
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  // Check current state - should be ok
+                                                                  Assert.AreEqual(HAMBURG, x.Delivery.LastKnownLocation);
+                                                                  Assert.AreEqual(TransportStatus.InPort, x.Delivery.TransportStatus);
+                                                                  Assert.IsFalse(x.Delivery.IsMisdirected);
+                                                                  Assert.AreEqual(new HandlingActivity(HandlingEventType.Load, HAMBURG), x.Delivery.NextExpectedActivity);
+                                                               }))
+         {
+            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 12), trackingId, HAMBURG.UnLocode,
+                                                       HandlingEventType.Unload);
+         }         
 
          // Load in Hamburg
-         HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 14), trackingId, HAMBURG.UnLocode, HandlingEventType.Load);
-
-         // Check current state - should be ok
-         //Assert.AreEqual(v400, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(HAMBURG, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.OnboardCarrier, cargo.Delivery.TransportStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         //Assert.AreEqual(new HandlingActivity(UNLOAD, STOCKHOLM, v400), cargo.Delivery.nextExpectedActivity());
-
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  // Check current state - should be ok
+                                                                  Assert.AreEqual(HAMBURG, x.Delivery.LastKnownLocation);
+                                                                  Assert.AreEqual(TransportStatus.OnboardCarrier, x.Delivery.TransportStatus);
+                                                                  Assert.IsFalse(x.Delivery.IsMisdirected);
+                                                                  Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, GOETEBORG), x.Delivery.NextExpectedActivity);
+                                                               }))
+         {
+            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 14), trackingId, HAMBURG.UnLocode,
+                                                       HandlingEventType.Load);
+         }         
 
          // Unload in Stockholm
-         HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 15), trackingId, STOCKHOLM.UnLocode, HandlingEventType.Unload);
-
-         // Check current state - should be ok
-         //Assert.AreEqual(NONE, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(STOCKHOLM, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.InPort, cargo.Delivery.TransportStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         //Assert.AreEqual(new HandlingActivity(CLAIM, STOCKHOLM), cargo.Delivery.nextExpectedActivity());
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  // Check current state - should be ok
+                                                                  Assert.AreEqual(GOETEBORG, x.Delivery.LastKnownLocation);
+                                                                  Assert.AreEqual(TransportStatus.InPort, x.Delivery.TransportStatus);
+                                                                  Assert.IsFalse(x.Delivery.IsMisdirected);
+                                                                  Assert.AreEqual(new HandlingActivity(HandlingEventType.Claim, GOETEBORG), x.Delivery.NextExpectedActivity);
+                                                               }))
+         {
+            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 15), trackingId, GOETEBORG.UnLocode,
+                                                       HandlingEventType.Unload);
+         }
+         
 
          // Finally, cargo is claimed in Stockholm. This ends the cargo lifecycle from our perspective.
-         HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 16), trackingId, STOCKHOLM.UnLocode, HandlingEventType.Claim);
-
-         // Check current state - should be ok
-         //Assert.AreEqual(NONE, cargo.Delivery.currentVoyage());
-         Assert.AreEqual(STOCKHOLM, cargo.Delivery.LastKnownLocation);
-         Assert.AreEqual(TransportStatus.Claimed, cargo.Delivery.TransportStatus);
-         Assert.IsFalse(cargo.Delivery.IsMisdirected);
-         //Assert.IsNull(cargo.Delivery.nextExpectedActivity());
+         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+                                                               {
+                                                                  // Check current state - should be ok
+                                                                  Assert.AreEqual(GOETEBORG, x.Delivery.LastKnownLocation);
+                                                                  Assert.AreEqual(TransportStatus.Claimed, x.Delivery.TransportStatus);
+                                                                  Assert.IsFalse(x.Delivery.IsMisdirected);
+                                                                  Assert.IsNull(x.Delivery.NextExpectedActivity);
+                                                               }))
+         {
+            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 16), trackingId, GOETEBORG.UnLocode,
+                                                       HandlingEventType.Claim);
+         }
+         
       }
-      private Itinerary SelectPreferedItinerary(IList<Itinerary> itineraries)
+      private static Itinerary SelectPreferedItinerary(IList<Itinerary> itineraries)
       {
          return itineraries.First();
       }      

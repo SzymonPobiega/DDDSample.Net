@@ -155,8 +155,8 @@ namespace DDDSample.UI.BookingAndTracking
             .PurgeOnStartup(false)
             .UnicastBus()
             .ImpersonateSender(false)
-            .LoadMessageHandlers()
-            .DBSubcriptionStorage()
+            .LoadMessageHandlers()            
+            .DBSubcriptionStorageWithSQLiteAndAutomaticSchemaGeneration()            
             .InMemoryFaultManager()
             .CreateBus()
             .Start();

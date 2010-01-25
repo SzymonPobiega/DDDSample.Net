@@ -15,7 +15,7 @@
 
         <div id="header">
             <div id="title">
-                <h1>DDDSample.Net</h1>
+                <h1>DDDSample.Net (CQRS)</h1>
             </div>                         
             
             <div id="menucontainer">
