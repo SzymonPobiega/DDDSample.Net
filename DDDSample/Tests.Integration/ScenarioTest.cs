@@ -84,8 +84,7 @@ namespace Tests.Integration
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
       private static ISessionFactory _sessionFactory;
-
-      private string DatabaseFile;
+      
       private ISession _currentSession;
          
       [SetUp]
@@ -111,8 +110,7 @@ namespace Tests.Integration
       [TearDown]
       public void TearDownTests()
       {
-         _sessionFactory.Dispose();
-         EnsureDbFileNotExists();
+         _sessionFactory.Dispose();         
       }
 
       private static void ConfigureNHibernateRepositories()
@@ -129,67 +127,58 @@ namespace Tests.Integration
             .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
 
             .AddPolicy("Transactions")
-            .AddCallHandler<DDDSample.Domain.Persistence.NHibernate.TransactionCallHandler>()
+            .AddCallHandler<LocalTransactionCallHandler>()
             .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
       }
-      
-      private void InitializeNHibernate()
-      {
-         DatabaseFile = GetDbFileName();
-         EnsureDbFileNotExists();
 
+      private void InitializeNHibernate()
+      {         
          Configuration cfg = new Configuration()
-             .AddProperties(new Dictionary<string, string>
-                               {
-                                   { Environment.ConnectionDriver, typeof( SQLite20Driver ).FullName },
-                                   { Environment.Dialect, typeof( SQLiteDialect ).FullName },
-                                   { Environment.ConnectionProvider, typeof( DriverConnectionProvider ).FullName },
-                                   { Environment.ConnectionString, string.Format( "Data Source={0};Version=3;New=True;", DatabaseFile) },
-                                   { Environment.ProxyFactoryFactoryClass, typeof( ProxyFactoryFactory ).AssemblyQualifiedName },
-                                   { Environment.CurrentSessionContextClass, typeof( ThreadStaticSessionContext ).AssemblyQualifiedName },
-                                   { Environment.Hbm2ddlAuto, "create" },
-                                   { Environment.ShowSql, true.ToString() }
-                               });
+            .AddProperties(new Dictionary<string, string>
+                              {
+                                 {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
+                                 {Environment.Dialect, typeof (SQLiteDialect).FullName},
+                                 {Environment.ConnectionProvider, typeof (DriverConnectionProvider).FullName},
+                                 {Environment.ConnectionString, "Data Source=:memory:;Version=3;New=True;"},
+                                 {
+                                    Environment.ProxyFactoryFactoryClass,
+                                    typeof (ProxyFactoryFactory).AssemblyQualifiedName
+                                    },
+                                 {
+                                    Environment.CurrentSessionContextClass,
+                                    typeof (ThreadStaticSessionContext).AssemblyQualifiedName
+                                    },
+                                 {Environment.ReleaseConnections,"on_close"},
+                                 {Environment.Hbm2ddlAuto, "create"},
+                                 {Environment.ShowSql, true.ToString()}
+                              });
          cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
-         
+
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);         
-         new SchemaExport(cfg).Execute(false, true, false);
-         
-         using (ISession session = _sessionFactory.OpenSession())
-         {
-            session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
-            session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
-            session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
-            session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
-            session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
-            session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
-            session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
-            session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
-            session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
-            session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
-            session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
-            session.Save(new Location(new UnLocode("USNYC"), "New York"));
-            session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
-            session.Flush();
-         }
 
-         _currentSession = _sessionFactory.OpenSession();
-         
-         NHibernate.Context.ThreadStaticSessionContext.Bind(_currentSession);
-      }
+         ISession session = _sessionFactory.OpenSession();
 
-      private static string GetDbFileName()
-      {
-         return Path.GetFullPath(Guid.NewGuid().ToString("N") + ".Test.db");
-      }
+         new SchemaExport(cfg).Execute(false, true, false, session.Connection, Console.Out);
 
-      private void EnsureDbFileNotExists()
-      {
-         if (File.Exists(DatabaseFile))
-         {
-            File.Delete(DatabaseFile);
-         }
+         session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
+         session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
+         session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
+         session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
+         session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
+         session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
+         session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
+         session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
+         session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
+         session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
+         session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
+         session.Save(new Location(new UnLocode("USNYC"), "New York"));
+         session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
+         session.Flush();
+
+         _currentSession = session;
+
+         CurrentSessionContext.Bind(_currentSession);
       }
    }
 }

@@ -214,7 +214,7 @@ namespace DDDSample.UI.BookingAndTracking
          Configuration cfg = new Configuration().Configure();
          cfg.AddProperties(new Dictionary<string, string>
                               {
-                                 {"current_session_context_class", "NHibernate.Context.ManagedWebSessionContext"}
+                                 {"current_session_context_class", "NHibernate.Context.WebSessionContext"}
                               });
          _webSessionFactory = cfg.BuildSessionFactory();
          container.RegisterInstance(_webSessionFactory);
@@ -247,12 +247,16 @@ namespace DDDSample.UI.BookingAndTracking
       
       private static void BindNHibernateSession(object sender, EventArgs e)
       {
-         ManagedWebSessionContext.Bind(HttpContext.Current, _webSessionFactory.OpenSession());
+         CurrentSessionContext.Bind(_webSessionFactory.OpenSession());
       }
       
       private static void UnbindNHibernateSession(object sender, EventArgs e)
       {
-         ManagedWebSessionContext.Unbind(HttpContext.Current, _webSessionFactory).Dispose();
+         ISession session = CurrentSessionContext.Unbind(_webSessionFactory);
+         if (session!= null)
+         {
+            session.Dispose();
+         }
       }
    }
 
