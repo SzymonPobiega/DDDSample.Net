@@ -930,7 +930,7 @@
       <Output TaskParameter="TargetOutputs" ItemName="Tests_IntegrationBuildOutput" />
     </MSBuild>
     <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
-          DestinationFiles="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL">
+          DestinationFiles="Tests.Integration\bin\Debug\System.Data.SQLite.DLL">
     </Copy>
   </Target>
   <Target Name="Tests\Tests_Integration:Clean" DependsOnTargets="Application:Clean;Domain\Domain_EventHandlers:Clean;Domain\Domain_Persistence_NHibernate:Clean;Domain\Domain:Clean;Infrastructure\Infrastructure_Routing:Clean;Infrastructure\Pathfinder:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
@@ -956,7 +956,7 @@
       <Output TaskParameter="TargetOutputs" ItemName="Tests_IntegrationBuildOutput" />
     </MSBuild>
     <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
-          DestinationFiles="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL">
+          DestinationFiles="Tests.Integration\bin\Debug\System.Data.SQLite.DLL">
     </Copy>
   </Target>
   <Target Name="Tests\Tests_Integration:Publish" DependsOnTargets="Application:Publish;Domain\Domain_EventHandlers:Publish;Domain\Domain_Persistence_NHibernate:Publish;Domain\Domain:Publish;Infrastructure\Infrastructure_Routing:Publish;Infrastructure\Pathfinder:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
