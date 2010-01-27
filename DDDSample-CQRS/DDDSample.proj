@@ -23,8 +23,7 @@
     <_SolutionProjectProjects Include="Messages\Messages.csproj" />
     <_SolutionProjectProjects Include="Pathfinder.Persistence.InMemory\Pathfinder.Persistence.InMemory.csproj" />
     <_SolutionProjectProjects Include="Pathfinder\Pathfinder.csproj" />
-    <_SolutionProjectProjects Include="Reporting.MessageHandlers\Reporting.MessageHandlers.csproj" />
-    <_SolutionProjectProjects Include="Setup\Setup.vdproj" />
+    <_SolutionProjectProjects Include="Reporting.MessageHandlers\Reporting.MessageHandlers.csproj" />    
     <_SolutionProjectProjects Include="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" />
     <_SolutionProjectProjects Include="Tests.Domain\Tests.Domain.csproj" />
     <_SolutionProjectProjects Include="Tests.Integration\Tests.Integration.csproj" />
@@ -1198,8 +1197,7 @@
       <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
     </MSBuild>
     <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
-    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
-    <CallTarget Targets="Setup" RunEachTargetSeparately="true" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />    
     <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
       <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
     </MSBuild>
@@ -1227,8 +1225,7 @@
   <Target Name="Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
     <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
     <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
-    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
-    <CallTarget Targets="Setup:Clean" RunEachTargetSeparately="true" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />    
     <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
     <Message Text="Projekt „%(SkipLevel1.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel1) != ''" />
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel1.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel1) != ''" />
@@ -1248,8 +1245,7 @@
       <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
     </MSBuild>
     <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
-    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
-    <CallTarget Targets="Setup:Rebuild" RunEachTargetSeparately="true" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />    
     <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
       <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
     </MSBuild>
@@ -1274,8 +1270,7 @@
   <Target Name="Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
     <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
     <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
-    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
-    <CallTarget Targets="Setup:Publish" RunEachTargetSeparately="true" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />    
     <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
     <Message Text="Projekt „%(SkipLevel1.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel1) != ''" />
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel1.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel1) != ''" />
