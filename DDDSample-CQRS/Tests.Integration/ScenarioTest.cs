@@ -82,8 +82,7 @@ namespace Tests.Integration
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
       private static ISessionFactory _sessionFactory;
-
-      private string DatabaseFile;
+      
       private ISession _currentSession;
          
       [SetUp]
@@ -108,7 +107,6 @@ namespace Tests.Integration
       {
          _sessionFactory.GetCurrentSession().Close();
          _sessionFactory.Dispose();
-         //EnsureDbFileNotExists();
       }
 
       private static void ConfigureNHibernateRepositories()
@@ -184,18 +182,5 @@ namespace Tests.Integration
 
          CurrentSessionContext.Bind(_currentSession);
       }
-
-      //private static string GetDbFileName()
-      //{
-      //   return Path.GetFullPath(Guid.NewGuid().ToString("N") + ".Test.db");
-      //}
-
-      //private void EnsureDbFileNotExists()
-      //{
-      //   if (File.Exists(DatabaseFile))
-      //   {
-      //      File.Delete(DatabaseFile);
-      //   }
-      //}
    }
 }
