@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Application.AsynchronousEventHandlers.MessageHandlers;
 using DDDSample.Messages;
-using DDDSample.Reporting.Persistence.NHibernate;
-using NHibernate;
 
 namespace DDDSample.Reporting.MessageHandlers
 {
@@ -15,31 +12,29 @@ namespace DDDSample.Reporting.MessageHandlers
    /// </summary>
    public class CargoHandledMessageHandler : AbstractMessageHandler<CargoHandledMessage>
    {
-      private readonly CargoDataAccess _cargoDataAccess;
-
-      public CargoHandledMessageHandler(CargoDataAccess cargoDataAccess, ISessionFactory sessionFactory) : base(sessionFactory)
-      {
-         _cargoDataAccess = cargoDataAccess;
-      }
-
       protected override void DoHandle(CargoHandledMessage message)
-      {         
-         HandlingActivity lastKnownActivity = new HandlingActivity((HandlingEventType)message.LastKnownEventType, message.LastKnownLocation);
-         HandlingActivity nextExpectedActivity = null;
-         if (message.NextExpectedEventType.HasValue && message.NextExpectedLocation != null)
+      {
+         HandlingEventType lastKnownEvent = (HandlingEventType)message.LastKnownEventType;
+         HandlingEventType? nextExpectedEvent = null;
+         if (message.NextExpectedEventType != null)
          {
-            nextExpectedActivity = new HandlingActivity((HandlingEventType)message.NextExpectedEventType, message.NextExpectedLocation);
+            nextExpectedEvent = (HandlingEventType) message.NextExpectedEventType;
          }         
-         Cargo cargo = _cargoDataAccess.Find(message.TrackingId);
+         ReportingDataContext context = new ReportingDataContext();
+         Cargo cargo = context.Cargos.First(x => x.TrackingId == message.TrackingId);
          cargo.UpdateHistory(
-            nextExpectedActivity, 
-            lastKnownActivity,
+            nextExpectedEvent,
+            message.NextExpectedLocation,
+            lastKnownEvent,
+            message.LastKnownLocation,
             (RoutingStatus)message.RoutingStatus,
             (TransportStatus)message.TransportStatus,
             message.EstimatedTimeOfArrival,
             message.IsUnloaded,
             message.IsMisdirected,
-            message.CalculatedAt);            
+            message.CalculatedAt);  
+         
+         context.SubmitChanges();
       }
    }
 }

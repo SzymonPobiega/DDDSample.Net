@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSample.Reporting.Persistence.NHibernate;
-using NHibernate;
 
 namespace DDDSample.Application.Implemetation
 {
@@ -15,15 +13,13 @@ namespace DDDSample.Application.Implemetation
    {
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
-      private readonly CargoDataAccess _cargoDataAccess;
       private readonly IRoutingService _routingService;
 
-      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService, CargoDataAccess cargoDataAccess)
+      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService)
       {
          _locationRepository = locationRepository;
          _cargoRepository = cargoRepository;
          _routingService = routingService;
-         _cargoDataAccess = cargoDataAccess;
       }
 
       public TrackingId BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline)

@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
-using DDDSample.Reporting.Persistence.NHibernate;
+using DDDSample.Reporting;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -16,15 +16,11 @@ namespace DDDSample.UI.BookingAndTracking.Facade
    {
       private readonly RouteCandidateDTOAssember _routeCandidateAssembler;
       private readonly IBookingService _bookingService;
-      private readonly ILocationRepository _locationRepository;
-      private readonly CargoDataAccess _cargoDataAccess;
 
-      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, RouteCandidateDTOAssember routeCandidateAssembler, CargoDataAccess cargoDataAccess)
+      public BookingServiceFacade(IBookingService bookingService, RouteCandidateDTOAssember routeCandidateAssembler)
       {
          _bookingService = bookingService;
-         _cargoDataAccess = cargoDataAccess;
          _routeCandidateAssembler = routeCandidateAssembler;
-         _locationRepository = locationRepository;
       }      
 
       /// <summary>
@@ -34,7 +30,8 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <returns>DTO.</returns>
       public Reporting.Cargo LoadCargoForRouting(string trackingId)
       {
-         Reporting.Cargo c = _cargoDataAccess.Find(trackingId);
+         ReportingDataContext context = new ReportingDataContext();
+         Reporting.Cargo c = context.Cargos.FirstOrDefault(x => x.TrackingId == trackingId);
          if (c == null)
          {
             throw new ArgumentException("Cargo with specified tracking id not found.");
@@ -49,7 +46,8 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <returns>A list of shipping locations.</returns>
       public IList<SelectListItem> ListShippingLocations()
       {
-         return _locationRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode.CodeString }).ToList();
+         ReportingDataContext context = new ReportingDataContext();
+         return context.Locations.Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode }).ToList();
       }
 
       /// <summary>
@@ -58,7 +56,8 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <returns>A collection of cargo DTOs.</returns>
       public IList<Reporting.Cargo> ListAllCargos()
       {
-         return _cargoDataAccess.FindAll();
+         ReportingDataContext context = new ReportingDataContext();
+         return context.Cargos.ToList();
       }
 
       /// <summary>

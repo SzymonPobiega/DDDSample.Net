@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Application.AsynchronousEventHandlers.MessageHandlers;
 using DDDSample.Messages;
-using DDDSample.Reporting.Persistence.NHibernate;
-using NHibernate;
 
 namespace DDDSample.Reporting.MessageHandlers
 {
@@ -15,18 +12,13 @@ namespace DDDSample.Reporting.MessageHandlers
    /// </summary>
    public class CargoAssignedToRouteMessageHandler : AbstractMessageHandler<CargoAssignedToRouteMessage>
    {
-      private readonly CargoDataAccess _cargoDataAccess;
-
-      public CargoAssignedToRouteMessageHandler(CargoDataAccess cargoDataAccess, ISessionFactory sessionFactory)
-         : base(sessionFactory)
-      {
-         _cargoDataAccess = cargoDataAccess;
-      }
-
       protected override void DoHandle(CargoAssignedToRouteMessage message)
       {
-         Cargo cargo = _cargoDataAccess.Find(message.TrackingId);
+         ReportingDataContext context = new ReportingDataContext();
+         Cargo cargo = context.Cargos.First(x => x.TrackingId == message.TrackingId);
          cargo.RouteSpecification = message.Legs;         
+
+         context.SubmitChanges();
       }
    }
 }

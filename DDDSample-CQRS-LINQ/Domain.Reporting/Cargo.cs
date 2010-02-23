@@ -1,33 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using DDDSample.Messages;
 
 namespace DDDSample.Reporting
 {
-   public class Cargo
+   public partial class Cargo
    {      
-      public virtual string TrackingId { get; protected set; }
-
-      public virtual string Origin { get; protected set; }
-      public virtual string Destination { get; protected set; }
-      public virtual DateTime ArrivalDeadline { get; protected set; }
-      public virtual Delivery CurrentInformation { get; protected set; }
-
-      public virtual List<LegDTO> RouteSpecification { get; set; }
-
-      private readonly IList<Delivery> _history;            
-
       public Cargo(string trackingId, string origin, string destination, DateTime arrivalDeadline)
-      {         
+         : this()
+      {
+         Id = Guid.NewGuid();
          TrackingId = trackingId;
          Origin = origin;
          Destination = destination;
          ArrivalDeadline = arrivalDeadline;
-
-         _history = new List<Delivery>();
-         UpdateHistory(null, null, RoutingStatus.NotRouted, TransportStatus.NotReceived, null, false, false,
+         UpdateHistory(null, null, null, null, RoutingStatus.NotRouted, TransportStatus.NotReceived, null, false, false,
                        DateTime.Now);                  
       }
 
@@ -39,20 +29,17 @@ namespace DDDSample.Reporting
          RouteSpecification = null;
       }
 
-      public virtual void UpdateHistory(HandlingActivity nextExpectedActivity, HandlingActivity lastKnownActivity, RoutingStatus routingStatus, TransportStatus transportStatus, DateTime? estimatedTimeOfArrival, bool isUnloadedAtDestination, bool isMisdirected, DateTime calculatedAt)
+      public virtual void UpdateHistory(HandlingEventType? nextExpectedEvent, string nextExpectedLocation, HandlingEventType? lastKnownEvent, string lastKnownLocation, RoutingStatus routingStatus, TransportStatus transportStatus, DateTime? estimatedTimeOfArrival, bool isUnloadedAtDestination, bool isMisdirected, DateTime calculatedAt)
       {
-         Delivery delivery = new Delivery(this, nextExpectedActivity, lastKnownActivity, routingStatus, transportStatus, estimatedTimeOfArrival, isUnloadedAtDestination, isMisdirected, calculatedAt);
-         _history.Add(delivery);
+         Delivery delivery = new Delivery(this, nextExpectedEvent, nextExpectedLocation, lastKnownEvent, lastKnownLocation, routingStatus, transportStatus, estimatedTimeOfArrival, isUnloadedAtDestination, isMisdirected, calculatedAt);
+         DeliveryHistory.Add(delivery);
          CurrentInformation = delivery;
       }
 
-      public virtual IEnumerable<Delivery> DeliveryHistory
+      public Delivery CurrentInformation
       {
-         get { return _history; }
-      }
-
-      protected Cargo()
-      {         
+         get { return _Deliveries.Single(x => x.Id == CurrentInformationId); }
+         set { CurrentInformationId = value.Id; }
       }
    }
 }

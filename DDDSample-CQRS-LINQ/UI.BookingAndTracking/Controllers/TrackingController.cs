@@ -5,22 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using DDDSample.Domain.Cargo;
-using DDDSample.Reporting.Persistence.NHibernate;
+using DDDSample.Reporting;
 using DDDSample.UI.BookingAndTracking.Models;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers
 {
    public class TrackingController : Controller
-   {
-      private readonly ICargoRepository _cargoRepository;
-      private readonly CargoDataAccess _cargoDataAccess;
-
-      public TrackingController(ICargoRepository cargoRepository, CargoDataAccess cargoDataAccess)
-      {
-         _cargoRepository = cargoRepository;
-         _cargoDataAccess = cargoDataAccess;
-      }
-
+   {      
       [AcceptVerbs(HttpVerbs.Get)]
       [ActionName("Track")]
       public ActionResult TrackGet(string trackingId)
@@ -46,7 +37,8 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
     
       public ActionResult Track(string trackingId)
       {
-         Reporting.Cargo cargo = _cargoDataAccess.Find(trackingId);
+         ReportingDataContext context = new ReportingDataContext();
+         Reporting.Cargo cargo = context.Cargos.FirstOrDefault(x => x.TrackingId == trackingId);
          if (cargo == null)
          {
             ViewData.ModelState.AddModelError("trackingId", "Provided tracking id is invalid.");

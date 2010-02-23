@@ -91,6 +91,7 @@ namespace DDDSample.UI.BookingAndTracking
       public static void RegisterRoutes(RouteCollection routes)
       {
          routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+         routes.IgnoreRoute("Content/*");
 
          routes.MapRoute(
             "Details",

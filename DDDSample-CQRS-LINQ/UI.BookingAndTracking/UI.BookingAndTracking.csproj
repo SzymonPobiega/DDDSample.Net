@@ -122,6 +122,9 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data.SQLite, Version=1.0.65.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Data.SQLite.DLL</HintPath>
@@ -176,19 +179,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\jquery-ui-1.7.2.custom.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -228,10 +218,6 @@
       <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
       <Name>Domain.Persistence.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.Reporting.Persistence.NHibernate\Reporting.Persistence.NHibernate.csproj">
-      <Project>{5C437BB6-C153-4EE1-9030-F0B52CD926DC}</Project>
-      <Name>Reporting.Persistence.NHibernate</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain.Reporting\Reporting.csproj">
       <Project>{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}</Project>
       <Name>Reporting %28Reporting\Reporting%29</Name>
@@ -260,10 +246,37 @@
     </Content>
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\tick.png" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\images\ui-icons_f9bd01_256x240.png" />
     <Content Include="sqlite3.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Booking\ListCargos.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

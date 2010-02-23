@@ -15,7 +15,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
 
       public string Location
       {
-         get { return _handlingEvent.LastKnownActivity.Location; }
+         get { return _handlingEvent.LastKnownLocation; }
       }
 
       public string Time
@@ -25,7 +25,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
 
       public string Type
       {
-         get { return _handlingEvent.LastKnownActivity.EventType.ToString(); }
+         get { return _handlingEvent.LastKnownEventType.ToString(); }
       }
 
       public bool IsExpected
@@ -37,26 +37,26 @@ namespace DDDSample.UI.BookingAndTracking.Models
       {
          get
          {            
-            if (_handlingEvent.LastKnownActivity == null)
+            if (_handlingEvent.LastKnownEventType == null)
             {
                return "Registered";
             }
-            switch (_handlingEvent.LastKnownActivity.EventType)
+            switch (_handlingEvent.LastKnownEventType)
             {
                case HandlingEventType.Load:
-                  return Resources.Messages.eventDescription_LOAD.UIFormat("XXX", _handlingEvent.LastKnownActivity.Location,
+                  return Resources.Messages.eventDescription_LOAD.UIFormat("XXX", _handlingEvent.LastKnownLocation,
                                                                            _handlingEvent.CalculatedAt);
                case HandlingEventType.Unload:
-                  return Resources.Messages.eventDescription_UNLOAD.UIFormat("XXX", _handlingEvent.LastKnownActivity.Location,
+                  return Resources.Messages.eventDescription_UNLOAD.UIFormat("XXX", _handlingEvent.LastKnownLocation,
                                                                            _handlingEvent.CalculatedAt);
                case HandlingEventType.Receive:
-                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.LastKnownActivity.Location,
+                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.LastKnownLocation,
                                                                            _handlingEvent.CalculatedAt);
                case HandlingEventType.Claim:
-                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.LastKnownActivity.Location,
+                  return Resources.Messages.eventDescription_RECEIVE.UIFormat(_handlingEvent.LastKnownLocation,
                                                                            _handlingEvent.CalculatedAt);
                case HandlingEventType.Customs:
-                  return Resources.Messages.eventDescription_CUSTOMS.UIFormat(_handlingEvent.LastKnownActivity.Location,
+                  return Resources.Messages.eventDescription_CUSTOMS.UIFormat(_handlingEvent.LastKnownLocation,
                                                                            _handlingEvent.CalculatedAt);
             }
             throw new NotSupportedException();

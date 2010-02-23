@@ -66,10 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Reporting.Persistence.NHibernate\Reporting.Persistence.NHibernate.csproj">
-      <Project>{5C437BB6-C153-4EE1-9030-F0B52CD926DC}</Project>
-      <Name>Reporting.Persistence.NHibernate</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain.Reporting\Reporting.csproj">
       <Project>{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}</Project>
       <Name>Reporting %28Reporting\Reporting%29</Name>

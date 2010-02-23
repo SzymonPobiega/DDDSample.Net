@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +16,10 @@ namespace DDDSample.UI.BookingAndTracking
    {
       protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
       {
+         if (controllerType == null)
+         {
+            return base.GetControllerInstance(requestContext, controllerType);
+         }
          return (IController)ServiceLocator.Current.GetInstance(controllerType);
       }
    }

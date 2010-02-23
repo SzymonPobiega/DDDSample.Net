@@ -26,7 +26,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
             switch (_cargo.CurrentInformation.TransportStatus)
             {
                case TransportStatus.InPort:
-                  return Resources.Messages.cargo_status_IN_PORT.UIFormat(_cargo.CurrentInformation.LastKnownActivity.Location);
+                  return Resources.Messages.cargo_status_IN_PORT.UIFormat(_cargo.CurrentInformation.LastKnownLocation);
                case TransportStatus.OnboardCarrier:
                   return Resources.Messages.cargo_status_ONBOARD_CARRIER.UIFormat("XXX");
                case TransportStatus.Claimed:
@@ -45,27 +45,27 @@ namespace DDDSample.UI.BookingAndTracking.Models
       {
          get
          {
-            HandlingActivity activity = _cargo.CurrentInformation.NextExpectedActivity;
-            if (activity == null)
+            string location = _cargo.CurrentInformation.NextExpectedLocation;
+            HandlingEventType? eventType = _cargo.CurrentInformation.NextExpectedEventType;
+            if (eventType == null)
             {
                return "";
             }
 
             const string text = "Next expected activity is to ";
-            HandlingEventType? type = activity.EventType;
-            if (type == HandlingEventType.Load)
+            if (eventType == HandlingEventType.Load)
             {
                return
-                  text + type.ToString().ToLower() + " cargo onto voyage XXX" +
-                  " in " + activity.Location;
+                  text + eventType.ToString().ToLower() + " cargo onto voyage XXX" +
+                  " in " + location;
             }
-            if (type == HandlingEventType.Unload)
+            if (eventType == HandlingEventType.Unload)
             { 
                return
-                  text + type.ToString().ToLower() + " cargo off of XXX" +
-                  " in " + activity.Location;
+                  text + eventType.ToString().ToLower() + " cargo off of XXX" +
+                  " in " + eventType;
             }
-            return text + type.ToString().ToLower() + " cargo in " + activity.Location;
+            return text + eventType.ToString().ToLower() + " cargo in " + location;
          }
       }
 
@@ -81,7 +81,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
       {
          get
          {
-            DateTime? eta = _cargo.CurrentInformation.EstimatedTimeOfArrival;
+            DateTime? eta = _cargo.CurrentInformation.Eta;
             return eta.HasValue ? eta.ToString() : "?";
          }
       }      

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database Name="DDDSampleCQRS" Class="ReportingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=SIMON-HP;Initial Catalog=DDDSampleCQRS;Integrated Security=True" SettingsObjectName="DDDSample.Reporting.Properties.Settings" SettingsPropertyName="DDDSampleCQRSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="domain.Location" Member="Locations">
+    <Type Name="Location">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UnLocode" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="reporting.Cargo" Member="Cargos">
+    <Type Name="Cargo">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TrackingId" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Origin" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Destination" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ArrivalDeadline" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="RoteSpecification" Member="RouteSpecification" Storage="_RoteSpecification" Type="List&lt;DDDSample.Messages.LegDTO&gt;" DbType="VarBinary(8000)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CurrentInformation" Member="CurrentInformationId" Storage="_CurrentInformation" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Association Name="Cargo_Delivery" Member="DeliveryHistory" Storage="_Deliveries" ThisKey="Id" OtherKey="CargoId" Type="Delivery" />
+    </Type>
+  </Table>
+  <Table Name="reporting.Delivery" Member="Deliveries">
+    <Type Name="Delivery">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CargoId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="IsMisdirected" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Eta" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CalculatedAt" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UnloadedAtDest" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RoutingStatus" Type="RoutingStatus" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransportStatus" Type="TransportStatus" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NextExpectedEventType" Type="HandlingEventType?" DbType="Int" CanBeNull="true" />
+      <Column Name="NextExpectedLocation" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LastKnownEventType" Type="HandlingEventType?" DbType="Int" CanBeNull="true" />
+      <Column Name="LastKnownLocation" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Cargo_Delivery" Member="Cargo" ThisKey="CargoId" OtherKey="Id" Type="Cargo" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
