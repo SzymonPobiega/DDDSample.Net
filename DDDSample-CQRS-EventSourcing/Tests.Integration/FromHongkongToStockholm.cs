@@ -49,7 +49,7 @@ namespace Tests.Integration
          IList<Itinerary> itineraries = BookingService.RequestPossibleRoutesForCargo(trackingId);
          Itinerary itinerary = SelectPreferedItinerary(itineraries);
 
-         using (DomainEvents.Register<CargoWasAssignedToRouteEvent>(x =>
+         using (DomainEvents.Register<CargoAssignedToRouteEvent>(x =>
                                          {
                                             Assert.AreEqual(TransportStatus.NotReceived, x.Delivery.TransportStatus);
                                             Assert.AreEqual(RoutingStatus.Routed, x.Delivery.RoutingStatus);
@@ -74,7 +74,7 @@ namespace Tests.Integration
 
            Handling begins: cargo is received in Hongkong.
            */
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   Assert.AreEqual(TransportStatus.InPort, x.Delivery.TransportStatus);
                                                                   Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
@@ -85,7 +85,7 @@ namespace Tests.Integration
                );   
          }
 
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
          {
             // Check current state - should be ok            
             Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
@@ -121,7 +121,7 @@ namespace Tests.Integration
          //{
          //}
 
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   // Check current state - cargo is misdirected!
                                                                   Assert.AreEqual(TOKYO, x.Delivery.LastKnownLocation);
@@ -155,7 +155,7 @@ namespace Tests.Integration
          IList<Itinerary> newItineraries = BookingService.RequestPossibleRoutesForCargo(cargo.TrackingId);
          Itinerary newItinerary = SelectPreferedItinerary(newItineraries);
 
-         using (DomainEvents.Register<CargoWasAssignedToRouteEvent>(x =>
+         using (DomainEvents.Register<CargoAssignedToRouteEvent>(x =>
                                                                        {
                                                                           // New itinerary should satisfy new route
                                                                           Assert.AreEqual(RoutingStatus.Routed, x.Delivery.RoutingStatus);
@@ -169,7 +169,7 @@ namespace Tests.Integration
 
 
          // Load in Tokyo
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
@@ -183,7 +183,7 @@ namespace Tests.Integration
          }
          
          // Unload in Hamburg
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(HAMBURG, x.Delivery.LastKnownLocation);
@@ -197,7 +197,7 @@ namespace Tests.Integration
          }         
 
          // Load in Hamburg
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(HAMBURG, x.Delivery.LastKnownLocation);
@@ -211,7 +211,7 @@ namespace Tests.Integration
          }         
 
          // Unload in Stockholm
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(GOETEBORG, x.Delivery.LastKnownLocation);
@@ -226,7 +226,7 @@ namespace Tests.Integration
          
 
          // Finally, cargo is claimed in Stockholm. This ends the cargo lifecycle from our perspective.
-         using (DomainEvents.Register<CargoWasHandledEvent>(x =>
+         using (DomainEvents.Register<CargoHandledEvent>(x =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(GOETEBORG, x.Delivery.LastKnownLocation);

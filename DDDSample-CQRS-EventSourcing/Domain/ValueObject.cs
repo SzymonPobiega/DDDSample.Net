@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace DDDSample.Domain
-{   
+{
    /// <summary>
    /// Base class for Value Objects.
    /// </summary>

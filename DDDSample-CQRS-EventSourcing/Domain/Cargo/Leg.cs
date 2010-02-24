@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.Domain.Location;
 
 namespace DDDSample.Domain.Cargo
 {   
    /// <summary>
    /// Represents one step of an itinerary.
    /// </summary>
+   [Serializable]
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class Leg : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly Location.Location _loadLocation;
-      private readonly Location.Location _unloadLocation;
+      private readonly UnLocode _loadLocation;
+      private readonly UnLocode _unloadLocation;
 
       private readonly DateTime _loadDate;
       private readonly DateTime _unloadDate;
@@ -25,7 +27,7 @@ namespace DDDSample.Domain.Cargo
       /// <param name="loadDate">Date and time when cargo is supposed to be loaded</param>
       /// <param name="unloadLocation">Location where cargo is supposed to be unloaded.</param>
       /// <param name="unloadDate">Date and time when cargo is supposed to be unloaded.</param>
-      public Leg(Location.Location loadLocation, DateTime loadDate, Location.Location unloadLocation, DateTime unloadDate)
+      public Leg(UnLocode loadLocation, DateTime loadDate, UnLocode unloadLocation, DateTime unloadDate)
       {
          _loadLocation = loadLocation;
          _unloadDate = unloadDate;
@@ -36,7 +38,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets location where cargo is supposed to be loaded.
       /// </summary>
-      public Location.Location LoadLocation
+      public UnLocode LoadLocation
       {
          get { return _loadLocation; }
       }
@@ -44,7 +46,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets location where cargo is supposed to be unloaded.
       /// </summary>
-      public Location.Location UnloadLocation
+      public UnLocode UnloadLocation
       {
          get { return _unloadLocation; }
       }

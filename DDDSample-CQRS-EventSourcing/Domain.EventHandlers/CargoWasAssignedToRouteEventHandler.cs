@@ -8,9 +8,9 @@ using NServiceBus;
 namespace DDDSample.Domain.EventHandlers
 {
    /// <summary>
-   /// Handles <see cref="CargoWasAssignedToRouteEvent"/> by publishing corresponding message on the bus.
+   /// Handles <see cref="CargoAssignedToRouteEvent"/> by publishing corresponding message on the bus.
    /// </summary>
-   public class CargoWasAssignedToRouteEventHandler : IEventHandler<CargoWasAssignedToRouteEvent>
+   public class CargoWasAssignedToRouteEventHandler : IEventHandler<CargoAssignedToRouteEvent>
    {
       private readonly IBus _bus;
 
@@ -19,7 +19,7 @@ namespace DDDSample.Domain.EventHandlers
          _bus = bus;
       }
 
-      public void Handle(CargoWasAssignedToRouteEvent @event)
+      public void Handle(CargoAssignedToRouteEvent @event)
       {
          _bus.Publish(new CargoAssignedToRouteMessage
                          {

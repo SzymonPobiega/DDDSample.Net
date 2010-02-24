@@ -12,6 +12,7 @@ namespace DDDSample.Domain.Location
    /// http://www.unece.org/cefact/locode/
    /// http://www.unece.org/cefact/locode/DocColumnDescription.htm#LOCODE
    /// </summary>
+   [Serializable]
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class UnLocode : ValueObject
 #pragma warning restore 661,660

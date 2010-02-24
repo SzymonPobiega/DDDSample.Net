@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.Domain.Location;
 
 namespace DDDSample.Domain.Cargo
 {   
    /// <summary>
    /// Description of delivery status.
    /// </summary>
+   [Serializable]
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class Delivery : ValueObject
 #pragma warning restore 661,660
    {
       private readonly TransportStatus _transportStatus;
-      private readonly Location.Location _lastKnownLocation;
+      private readonly UnLocode _lastKnownLocation;
       private readonly bool _misdirected;
       private readonly DateTime? _eta;      
       private readonly bool _isUnloadedAtDestination;
@@ -66,7 +68,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets last known location of this cargo.
       /// </summary>
-      public Location.Location LastKnownLocation
+      public UnLocode LastKnownLocation
       {
          get { return _lastKnownLocation; }
       }
@@ -88,37 +90,60 @@ namespace DDDSample.Domain.Cargo
       }
 
       /// <summary>
-      /// Creates a new delivery snapshot based on the complete handling history of a cargo, as well 
-      /// as its route specification and itinerary.
+      /// Creates a new delivery snapshot based only on route specification and itinerary.
       /// </summary>
       /// <param name="specification">Current route specification.</param>
       /// <param name="itinerary">Current itinerary.</param>
-      /// <param name="lastHandlingEvent">Most recent handling event.</param>
       /// <returns>Delivery status description.</returns>
-      public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary, HandlingEvent lastHandlingEvent)
+      public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary)
       {
-         return new Delivery(lastHandlingEvent, itinerary, specification);
-      }      
+         return new Delivery(null, itinerary, specification);
+      }
+
+      /// <summary>
+      /// Creates a new delivery snapshot based on the previous (current) one and (possibly changed)
+      /// specification and itinerary.
+      /// </summary>
+      /// <param name="specification">Current route specification.</param>
+      /// <param name="itinerary">Current itinerary.</param>
+      /// <returns>Delivery status description.</returns>
+      public Delivery Derive(RouteSpecification specification, Itinerary itinerary)
+      {
+         return new Delivery(_lastEvent, itinerary, specification);
+      }
+
+      /// <summary>
+      /// Creates a new delivery snapshot based on route specification, itinerary and last processed
+      /// handling event.
+      /// </summary>
+      /// <param name="specification">Current route specification.</param>
+      /// <param name="itinerary">Current itinerary.</param>
+      /// <param name="lastEvent">Last processed handling event.</param>
+      /// <returns>Delivery status description.</returns>
+      public static Delivery DerivedFrom(RouteSpecification specification, Itinerary itinerary, HandlingEvent lastEvent)
+      {
+         return new Delivery(lastEvent, itinerary, specification);
+      }
 
       private Delivery(HandlingEvent lastHandlingEvent, Itinerary itinerary, RouteSpecification specification)
       {
          _calculatedAt = DateTime.Now;
          _lastEvent = lastHandlingEvent;
 
-         _misdirected = CalculateMisdirectionStatus(itinerary);
+         _misdirected = CalculateMisdirectionStatus(itinerary, lastHandlingEvent);
          _routingStatus = CalculateRoutingStatus(itinerary, specification);
-         _transportStatus = CalculateTransportStatus();
-         _lastKnownLocation = CalculateLastKnownLocation();
+         _transportStatus = CalculateTransportStatus(lastHandlingEvent);
+         _lastKnownLocation = CalculateLastKnownLocation(lastHandlingEvent);
          _eta = CalculateEta(itinerary);
-         _nextExpectedActivity = CalculateNextExpectedActivity(specification, itinerary);
-         _isUnloadedAtDestination = CalculateUnloadedAtDestination(specification);
+         _nextExpectedActivity = CalculateNextExpectedActivity(specification, itinerary, lastHandlingEvent);
+         _isUnloadedAtDestination = CalculateUnloadedAtDestination(specification, lastHandlingEvent);
       }
 
-      private bool CalculateUnloadedAtDestination(RouteSpecification specification)
+      private static bool CalculateUnloadedAtDestination(RouteSpecification specification, HandlingEvent lastHandlingEvent)
       {
-         return LastEvent != null &&
-                  LastEvent.EventType == HandlingEventType.Unload &&
-                  specification.Destination == LastEvent.Location;
+         return lastHandlingEvent != null &&
+                  lastHandlingEvent.EventType == HandlingEventType.Unload &&
+                  specification.Destination == lastHandlingEvent.Location;
       }
 
       private DateTime? CalculateEta(Itinerary itinerary)
@@ -126,19 +151,19 @@ namespace DDDSample.Domain.Cargo
          return OnTrack ? itinerary.FinalArrivalDate : null;
       }
 
-      private Location.Location CalculateLastKnownLocation()
+      private static UnLocode CalculateLastKnownLocation(HandlingEvent lastHandlingEvent)
       {
-         return LastEvent != null ? LastEvent.Location : null;
+         return lastHandlingEvent != null ? lastHandlingEvent.Location : null;
       }
 
-      private TransportStatus CalculateTransportStatus()
+      private static TransportStatus CalculateTransportStatus(HandlingEvent lastHandlingEvent)
       {
-         if (LastEvent == null)
+         if (lastHandlingEvent == null)
          {
             return TransportStatus.NotReceived;
          }
 
-         switch (LastEvent.EventType)
+         switch (lastHandlingEvent.EventType)
          {
             case HandlingEventType.Load:
                return TransportStatus.OnboardCarrier;
@@ -153,30 +178,30 @@ namespace DDDSample.Domain.Cargo
          }
       }
 
-      private HandlingActivity CalculateNextExpectedActivity(RouteSpecification routeSpecification, Itinerary itinerary)
+      private HandlingActivity CalculateNextExpectedActivity(RouteSpecification routeSpecification, Itinerary itinerary, HandlingEvent lastHandlingEvent)
       {
          if (!OnTrack)
          {
             return null;
          }
 
-         if (LastEvent == null)
+         if (lastHandlingEvent == null)
          {
             return new HandlingActivity(HandlingEventType.Receive, routeSpecification.Origin);
          }
 
-         switch (LastEvent.EventType)
+         switch (lastHandlingEvent.EventType)
          {
             case HandlingEventType.Load:
 
-               Leg lastLeg = itinerary.Legs.FirstOrDefault(x => x.LoadLocation == LastEvent.Location);
+               Leg lastLeg = itinerary.Legs.FirstOrDefault(x => x.LoadLocation == lastHandlingEvent.Location);
                return lastLeg != null ? new HandlingActivity(HandlingEventType.Unload, lastLeg.UnloadLocation) : null;
 
             case HandlingEventType.Unload:
                IEnumerator<Leg> enumerator = itinerary.Legs.GetEnumerator();
                while (enumerator.MoveNext())
                {
-                  if (enumerator.Current.UnloadLocation == LastEvent.Location)
+                  if (enumerator.Current.UnloadLocation == lastHandlingEvent.Location)
                   {
                      Leg currentLeg = enumerator.Current;
                      return enumerator.MoveNext() ? new HandlingActivity(HandlingEventType.Load, enumerator.Current.LoadLocation) : new HandlingActivity(HandlingEventType.Claim, currentLeg.UnloadLocation);
@@ -201,23 +226,18 @@ namespace DDDSample.Domain.Cargo
          return specification.IsSatisfiedBy(itinerary) ? RoutingStatus.Routed : RoutingStatus.Misrouted;
       }
 
-      private bool CalculateMisdirectionStatus(Itinerary itinerary)
+      private static bool CalculateMisdirectionStatus(Itinerary itinerary, HandlingEvent lastEvent)
       {
-         if (LastEvent == null)
+         if (lastEvent == null)
          {
             return false;
          }
-         return !itinerary.IsExpected(LastEvent);
+         return !itinerary.IsExpected(lastEvent);
       }
 
       private bool OnTrack
       {
          get { return RoutingStatus == RoutingStatus.Routed && !IsMisdirected; }
-      }
-
-      private HandlingEvent LastEvent
-      {
-         get { return _lastEvent; }
       }
 
       #region Infrastructure

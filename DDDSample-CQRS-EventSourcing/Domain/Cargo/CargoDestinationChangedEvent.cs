@@ -10,17 +10,13 @@ namespace DDDSample.Domain.Cargo
    /// </summary>
    public class CargoDestinationChangedEvent
    {
-      private readonly Cargo _cargo;
       private readonly Delivery _delivery;
-      private readonly RouteSpecification _oldSpecification;
       private readonly RouteSpecification _newSpecification;
 
-      public CargoDestinationChangedEvent(Cargo cargo, RouteSpecification oldSpecification, RouteSpecification newSpecification, Delivery delivery)
+      public CargoDestinationChangedEvent(RouteSpecification newSpecification, Delivery delivery)
       {
-         _cargo = cargo;
          _delivery = delivery;
          _newSpecification = newSpecification;
-         _oldSpecification = oldSpecification;
       }
 
       public Delivery Delivery
@@ -31,16 +27,6 @@ namespace DDDSample.Domain.Cargo
       public RouteSpecification NewSpecification
       {
          get { return _newSpecification; }
-      }
-
-      public RouteSpecification OldSpecification
-      {
-         get { return _oldSpecification; }
-      }
-
-      public Cargo Cargo
-      {
-         get { return _cargo; }
       }
    }
 }

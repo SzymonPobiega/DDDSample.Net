@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.Domain.Location;
 
 namespace DDDSample.Domain.Cargo
 {
@@ -9,6 +10,7 @@ namespace DDDSample.Domain.Cargo
    /// Specifies steps required to transport a cargo from its origin to destination.
    /// </summary>
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
+   [Serializable]
    public class Itinerary : ValueObject
 #pragma warning restore 661,660
    {
@@ -34,17 +36,17 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets the location of first departure according to this itinerary.
       /// </summary>
-      public virtual Location.Location InitialDepartureLocation
+      public virtual UnLocode InitialDepartureLocation
       {
-         get { return IsEmpty ? Location.Location.Unknown : _legs.First().LoadLocation; }
+         get { return IsEmpty ? Location.Location.Unknown.UnLocode : _legs.First().LoadLocation; }
       }
 
       /// <summary>
       /// Gets the location of last arrival according to this itinerary.
       /// </summary>
-      public virtual Location.Location FinalArrivalLocation
+      public virtual UnLocode FinalArrivalLocation
       {
-         get { return IsEmpty ? Location.Location.Unknown : _legs.Last().UnloadLocation; }         
+         get { return IsEmpty ? Location.Location.Unknown.UnLocode : _legs.Last().UnloadLocation; }         
       }
 
       /// <summary>

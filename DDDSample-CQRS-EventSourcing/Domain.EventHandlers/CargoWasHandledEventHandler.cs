@@ -9,10 +9,10 @@ using NServiceBus;
 namespace DDDSample.Domain.EventHandlers
 {
    /// <summary>
-   /// Handles <see cref="CargoWasHandledEvent"/> and synchronizes <see cref="Cargo"/> aggregate
+   /// Handles <see cref="CargoHandledEvent"/> and synchronizes <see cref="Cargo"/> aggregate
    /// according to up-to-date handling history information.
    /// </summary>
-   public class CargoWasHandledEventHandler : IEventHandler<CargoWasHandledEvent>
+   public class CargoWasHandledEventHandler : IEventHandler<CargoHandledEvent>
    {
       private readonly IBus _bus;
 
@@ -21,7 +21,7 @@ namespace DDDSample.Domain.EventHandlers
          _bus = bus;
       }
 
-      public void Handle(CargoWasHandledEvent @event)
+      public void Handle(CargoHandledEvent @event)
       {
          HandlingActivity nextExpectedActivity = @event.Delivery.NextExpectedActivity;
          _bus.Publish(new CargoHandledMessage

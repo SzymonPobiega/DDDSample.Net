@@ -71,11 +71,11 @@ namespace DDDSample.UI.BookingAndTracking
       private static void ConfigureAsynchEventHandlers(IUnityContainer container)
       {
          container.RegisterType
-            <IEventHandler<CargoWasAssignedToRouteEvent>,
+            <IEventHandler<CargoAssignedToRouteEvent>,
                CargoWasAssignedToRouteEventHandler>(
             "cargoHasBeenAssignedToRouteEventHandler");
          container.RegisterType
-            <IEventHandler<CargoWasHandledEvent>,
+            <IEventHandler<CargoHandledEvent>,
                CargoWasHandledEventHandler>(
             "cargoWasHandledEventHandler");
          container.RegisterType

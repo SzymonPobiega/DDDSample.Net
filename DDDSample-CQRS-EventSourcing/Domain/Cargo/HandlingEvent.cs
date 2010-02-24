@@ -1,19 +1,20 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DDDSample.Domain.Location;
 
 namespace DDDSample.Domain.Cargo
 {
    /// <summary>
    /// Single cargo handling event.
    /// </summary>   
+   [Serializable]
    public class HandlingEvent
    {      
       private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;      
+      private readonly UnLocode _location;      
       private readonly DateTime _registrationDate;
       private readonly DateTime _completionDate;
-      private readonly Cargo _parent;
 
       /// <summary>
       /// Creates new event.
@@ -22,10 +23,9 @@ namespace DDDSample.Domain.Cargo
       /// <param name="location"></param>
       /// <param name="registrationDate"></param>
       /// <param name="completionDate"></param>
-      public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate, Cargo parent)
+      public HandlingEvent(HandlingEventType eventType, UnLocode location, DateTime registrationDate, DateTime completionDate)
       {
          _eventType = eventType;
-         _parent = parent;
          _completionDate = completionDate;
          _registrationDate = registrationDate;         
          _location = location;         
@@ -50,16 +50,11 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Location where event occured.
       /// </summary>
-      public virtual Location.Location Location
+      public virtual UnLocode Location
       {
          get { return _location; }
       }
-
-      public virtual TrackingId TrackingId
-      {
-         get { return _parent.TrackingId; }
-      }
-
+      
       /// <summary>
       /// Type of the event.
       /// </summary>

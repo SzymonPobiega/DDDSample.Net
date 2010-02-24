@@ -53,9 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregateRoot.cs" />
     <Compile Include="Cargo\Cargo.cs" />
     <Compile Include="Cargo\CargoRegisteredEvent.cs" />
-    <Compile Include="Cargo\CargoWasAssignedToRouteEvent.cs" />
+    <Compile Include="Cargo\CargoAssignedToRouteEvent.cs" />
     <Compile Include="Cargo\CargoDestinationChangedEvent.cs" />
     <Compile Include="Cargo\Delivery.cs" />
     <Compile Include="Cargo\HandlingActivity.cs" />
@@ -67,12 +68,13 @@
     <Compile Include="Cargo\RouteSpecification.cs" />
     <Compile Include="DomainEvents.cs" />
     <Compile Include="Cargo\HandlingEvent.cs" />
+    <Compile Include="IBus.cs" />
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IRoutingService.cs" />
     <Compile Include="Location\Location.cs" />
     <Compile Include="Location\ILocationRepository.cs" />
     <Compile Include="Location\UnLocode.cs" />
-    <Compile Include="Cargo\CargoWasHandledEvent.cs" />
+    <Compile Include="Cargo\CargoHandledEvent.cs" />
     <Compile Include="Cargo\Itinerary.cs" />
     <Compile Include="Cargo\TrackingId.cs" />
     <Compile Include="Cargo\HandlingEventType.cs" />

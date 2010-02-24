@@ -9,15 +9,16 @@ namespace DDDSample.Domain.Cargo
    /// <summary>
    /// Contains information about a route: its origin, destination and arrival deadline.
    /// </summary>
+   [Serializable]
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class RouteSpecification : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly Location.Location _origin;
-      private readonly Location.Location _destination;
+      private readonly UnLocode _origin;
+      private readonly UnLocode _destination;
       private readonly DateTime _arrivalDeadline;
 
-      public RouteSpecification(Location.Location origin, Location.Location destination, DateTime arrivalDeadline)
+      public RouteSpecification(UnLocode origin, UnLocode destination, DateTime arrivalDeadline)
       {
          if (origin == null)
          {
@@ -47,8 +48,8 @@ namespace DDDSample.Domain.Cargo
       /// </returns>
       public virtual bool IsSatisfiedBy(Itinerary itinerary)
       {
-         return Origin.UnLocode == itinerary.InitialDepartureLocation.UnLocode &&
-                Destination.UnLocode == itinerary.FinalArrivalLocation.UnLocode &&
+         return Origin == itinerary.InitialDepartureLocation &&
+                Destination == itinerary.FinalArrivalLocation &&
                 ArrivalDeadline > itinerary.FinalArrivalDate;         
       }
 
@@ -63,7 +64,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Location where cargo should be delivered.
       /// </summary>
-      public Location.Location Destination
+      public UnLocode Destination
       {
          get { return _destination; }
       }
@@ -71,7 +72,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Location where cargo should be picked up.
       /// </summary>
-      public Location.Location Origin
+      public UnLocode Origin
       {
          get { return _origin; }
       }

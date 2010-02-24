@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DDDSample.Domain.Location;
 
 namespace DDDSample.Domain.Cargo
 {
@@ -9,13 +10,14 @@ namespace DDDSample.Domain.Cargo
    /// happen to a cargo in the future.
    /// </summary>
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
+   [Serializable]
    public class HandlingActivity : ValueObject
 #pragma warning restore 661,660
    {
       private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;
+      private readonly UnLocode _location;
 
-      public HandlingActivity(HandlingEventType eventType, Location.Location location)
+      public HandlingActivity(HandlingEventType eventType, UnLocode location)
       {
          if (location == null)
          {
@@ -30,7 +32,7 @@ namespace DDDSample.Domain.Cargo
          get { return _eventType; }
       }
 
-      public Location.Location Location
+      public UnLocode Location
       {
          get { return _location; }
       }
@@ -38,7 +40,7 @@ namespace DDDSample.Domain.Cargo
       protected override IEnumerable<object> GetAtomicValues()
       {
          yield return EventType;
-         yield return Location.UnLocode;
+         yield return Location;
       }
 
       public static bool operator ==(HandlingActivity left, HandlingActivity right)

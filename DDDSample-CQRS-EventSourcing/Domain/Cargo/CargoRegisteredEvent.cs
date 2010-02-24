@@ -10,14 +10,14 @@ namespace DDDSample.Domain.Cargo
    /// </summary>
    public class CargoRegisteredEvent
    {
-      private readonly Cargo _cargo;
+      private readonly TrackingId _trackingId;
       private readonly Delivery _delivery;
       private readonly RouteSpecification _routeSpecification;
 
-      public CargoRegisteredEvent(Cargo cargo, RouteSpecification routeSpecification, Delivery delivery)
+      public CargoRegisteredEvent(TrackingId trackingId, RouteSpecification routeSpecification, Delivery delivery)
       {
-         _cargo = cargo;
          _routeSpecification = routeSpecification;
+         _trackingId = trackingId;
          _delivery = delivery;         
       }
 
@@ -30,10 +30,10 @@ namespace DDDSample.Domain.Cargo
       {
          get { return _routeSpecification; }
       }
-      
-      public Cargo Cargo
+
+      public TrackingId TrackingId
       {
-         get { return _cargo; }
+         get { return _trackingId; }
       }
    }
 }
