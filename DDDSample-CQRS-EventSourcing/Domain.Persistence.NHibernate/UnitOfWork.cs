@@ -29,8 +29,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
       }
 
       public void Track(IAggregateRoot root)
-      {
-         root.Id = Guid.NewGuid();
+      {         
          _trackedObjects.Add(root);
       }
 

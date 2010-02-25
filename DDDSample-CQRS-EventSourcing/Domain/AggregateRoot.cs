@@ -66,11 +66,8 @@ namespace DDDSample.Domain
          }
       }
 
-      [NonSerialized] 
-      private List<object> _events;
-      [NonSerialized]
-      private Guid _id;
-      [NonSerialized]
-      private int _version;      
+      [NonSerialized] private List<object> _events;
+      [NonSerialized] private Guid _id = Guid.NewGuid();
+      [NonSerialized] private int _version;
    }
 }

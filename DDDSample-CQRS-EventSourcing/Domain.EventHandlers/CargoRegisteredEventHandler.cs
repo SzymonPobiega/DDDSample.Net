@@ -21,9 +21,10 @@ namespace DDDSample.Domain.EventHandlers
 
       public void Handle(Cargo.Cargo source, CargoRegisteredEvent @event)
       {
-         _bus.Publish(new CargoRegisteredMessage()
+         _bus.Publish(new CargoRegisteredMessage
                          {
                             CargoId = source.Id,
+                            TrackingId = @event.TrackingId.IdString,
                             Origin = @event.RouteSpecification.Origin.CodeString,
                             Destination = @event.RouteSpecification.Destination.CodeString,
                             ArrivalDeadline = @event.RouteSpecification.ArrivalDeadline
