@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Implemetation\HandlingEventService.cs" />
     <Compile Include="IBookingService.cs" />
-    <Compile Include="ICargoInspectionService.cs" />
     <Compile Include="IHandlingEventService.cs" />
     <Compile Include="Implemetation\BookingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

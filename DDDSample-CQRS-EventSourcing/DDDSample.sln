@@ -55,8 +55,6 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder.Persistence.InMemory", "Pathfinder.Persistence.InMemory\Pathfinder.Persistence.InMemory.csproj", "{DAD9D935-83AE-447A-88D9-A5F15666E4CF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{EB1EA7DE-711C-4477-89E6-296B6D760D3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporting", "Domain.Reporting\Reporting.csproj", "{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}"
@@ -77,7 +75,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 15
+		SccNumberOfProjects = 14
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -106,34 +104,30 @@ Global
 		SccProjectTopLevelParentUniqueName7 = DDDSample.sln
 		SccProjectName7 = Pathfinder
 		SccLocalPath7 = Pathfinder
-		SccProjectUniqueName8 = Pathfinder.Persistence.InMemory\\Pathfinder.Persistence.InMemory.csproj
+		SccProjectUniqueName8 = Tests.Integration\\Tests.Integration.csproj
 		SccProjectTopLevelParentUniqueName8 = DDDSample.sln
-		SccProjectName8 = Pathfinder.Persistence.InMemory
-		SccLocalPath8 = Pathfinder.Persistence.InMemory
-		SccProjectUniqueName9 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectName8 = Tests.Integration
+		SccLocalPath8 = Tests.Integration
+		SccProjectUniqueName9 = Domain.Reporting.Persistence.NHibernate\\Reporting.Persistence.NHibernate.csproj
 		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
-		SccProjectName9 = Tests.Integration
-		SccLocalPath9 = Tests.Integration
-		SccProjectUniqueName10 = Domain.Reporting.Persistence.NHibernate\\Reporting.Persistence.NHibernate.csproj
+		SccProjectName9 = Domain.Reporting.Persistence.NHibernate
+		SccLocalPath9 = Domain.Reporting.Persistence.NHibernate
+		SccProjectUniqueName10 = Reporting.MessageHandlers\\Reporting.MessageHandlers.csproj
 		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
-		SccProjectName10 = Domain.Reporting.Persistence.NHibernate
-		SccLocalPath10 = Domain.Reporting.Persistence.NHibernate
-		SccProjectUniqueName11 = Reporting.MessageHandlers\\Reporting.MessageHandlers.csproj
+		SccProjectName10 = Reporting.MessageHandlers
+		SccLocalPath10 = Reporting.MessageHandlers
+		SccProjectUniqueName11 = Domain.Reporting\\Reporting.csproj
 		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
-		SccProjectName11 = Reporting.MessageHandlers
-		SccLocalPath11 = Reporting.MessageHandlers
-		SccProjectUniqueName12 = Domain.Reporting\\Reporting.csproj
+		SccProjectName11 = Domain.Reporting
+		SccLocalPath11 = Domain.Reporting
+		SccProjectUniqueName12 = Messages\\Messages.csproj
 		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
-		SccProjectName12 = Domain.Reporting
-		SccLocalPath12 = Domain.Reporting
-		SccProjectUniqueName13 = Messages\\Messages.csproj
+		SccProjectName12 = Messages
+		SccLocalPath12 = Messages
+		SccProjectUniqueName13 = Domain.EventHandlers\\Domain.EventHandlers.csproj
 		SccProjectTopLevelParentUniqueName13 = DDDSample.sln
-		SccProjectName13 = Messages
-		SccLocalPath13 = Messages
-		SccProjectUniqueName14 = Domain.EventHandlers\\Domain.EventHandlers.csproj
-		SccProjectTopLevelParentUniqueName14 = DDDSample.sln
-		SccProjectName14 = Domain.EventHandlers
-		SccLocalPath14 = Domain.EventHandlers
+		SccProjectName13 = Domain.EventHandlers
+		SccLocalPath13 = Domain.EventHandlers
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
@@ -169,10 +163,6 @@ Global
 		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAD9D935-83AE-447A-88D9-A5F15666E4CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAD9D935-83AE-447A-88D9-A5F15666E4CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAD9D935-83AE-447A-88D9-A5F15666E4CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAD9D935-83AE-447A-88D9-A5F15666E4CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -209,9 +199,8 @@ Global
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E} = {34B41F94-5227-4533-B102-75A87FF61AE3}
 		{E73BA32A-A565-4D2C-BB59-F8D7DEB80584} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
 		{797E78FB-2CA6-427B-9EAC-9392B67CACCC} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
-		{02B53338-D16B-4051-BA94-503488406CD1} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
-		{DAD9D935-83AE-447A-88D9-A5F15666E4CF} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
 		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
+		{02B53338-D16B-4051-BA94-503488406CD1} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
 		{5C437BB6-C153-4EE1-9030-F0B52CD926DC} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
 		{905DD567-8314-4E57-A6BC-91CAD38CD7F9} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
 		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
