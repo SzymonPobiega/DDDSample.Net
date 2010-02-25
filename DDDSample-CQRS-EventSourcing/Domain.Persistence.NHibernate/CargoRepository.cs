@@ -8,23 +8,16 @@ namespace DDDSample.Domain.Persistence.NHibernate
    /// <summary>
    /// Cargo repository implementation based on NHibernate.
    /// </summary>
-   public class CargoRepository : AbstractRepository, ICargoRepository
-   {
-      public CargoRepository(ISessionFactory sessionFactory)
-         : base(sessionFactory)
-      {
-      }
-
+   public class CargoRepository : ICargoRepository
+   {      
       public void Store(Cargo.Cargo cargo)
       {
-         Session.Save(cargo);
+         UnitOfWork.Current.Track(cargo);
       }
 
-      public Cargo.Cargo Find(TrackingId trackingId)
+      public Cargo.Cargo Find(Guid id)
       {
-         const string query = @"from DDDSample.Domain.Cargo.Cargo c where c.TrackingId = :trackingId";
-         return Session.CreateQuery(query).SetString("trackingId", trackingId.IdString)
-            .UniqueResult<Cargo.Cargo>();
+         return (Cargo.Cargo)UnitOfWork.Current.LoadById(id);
       }      
 
       public TrackingId NextTrackingId()

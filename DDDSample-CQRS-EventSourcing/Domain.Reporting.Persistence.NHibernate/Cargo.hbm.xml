@@ -4,9 +4,9 @@
                    namespace="DDDSample.Reporting" 
                    auto-import="false">
   <class name="Cargo" table="Cargo" schema="reporting">
-    <id type="Guid">
+    <id type="Guid" name="Id">
       <column name="Id" />
-      <generator class="guid"></generator>
+      <generator class="assigned"></generator>
     </id>
     <property name="TrackingId" unique="false"/>
     <property name="Origin" not-null="true"/>

@@ -27,6 +27,11 @@ namespace DDDSample.Reporting.Persistence.NHibernate
             .UniqueResult<Cargo>();
       }
 
+      public Cargo Find(Guid cargoId)
+      {
+         return _sessionFactory.GetCurrentSession().Get<Cargo>(cargoId);
+      }
+
       public IList<Cargo> FindAll()
       {
          const string query = @"from DDDSample.Reporting.Cargo c";

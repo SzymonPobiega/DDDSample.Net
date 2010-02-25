@@ -10,7 +10,7 @@ namespace DDDSample.Domain.EventHandlers
    /// <summary>
    /// Handles <see cref="CargoDestinationChangedEvent"/> by publishing corresponding message on the bus.
    /// </summary>
-   public class CargoDestinationChangedEventHandler : IEventHandler<CargoDestinationChangedEvent>
+   public class CargoDestinationChangedEventHandler : IEventHandler<Cargo.Cargo, CargoDestinationChangedEvent>
    {
       private readonly IBus _bus;
 
@@ -19,13 +19,13 @@ namespace DDDSample.Domain.EventHandlers
          _bus = bus;
       }
 
-      public void Handle(CargoDestinationChangedEvent @event)
+      public void Handle(Cargo.Cargo source, CargoDestinationChangedEvent @event)
       {
          _bus.Publish(new CargoDestinationChangedMessage
                          {
-                            TrackingId = @event.Cargo.TrackingId.IdString,
-                            Origin = @event.NewSpecification.Origin.Name,
-                            Destination = @event.NewSpecification.Destination.Name,
+                            CargoId = source.Id,
+                            Origin = @event.NewSpecification.Origin.CodeString,
+                            Destination = @event.NewSpecification.Destination.CodeString,
                             ArrivalDeadline = @event.NewSpecification.ArrivalDeadline
                          });
       }

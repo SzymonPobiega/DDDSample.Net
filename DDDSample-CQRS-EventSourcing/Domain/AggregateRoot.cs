@@ -2,13 +2,22 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
-using Microsoft.Practices.ServiceLocation;
 
 namespace DDDSample.Domain
 {
-   public abstract class AggregateRoot
-   {
-      protected void Apply(object @event)
+   [Serializable]
+   public abstract class AggregateRoot : IAggregateRoot
+   {      
+      protected void Publish<TAggregate, TEvent>(TAggregate @this, TEvent @event)
+         where TAggregate : AggregateRoot
+         where TEvent : Event<TAggregate>
+      {
+         Apply(@event);
+         _events.Add(@event);
+         Bus.Publish(@this, @event);
+      }
+
+      private void Apply(object @event)
       {
          if (@event == null)
          {
@@ -25,18 +34,36 @@ namespace DDDSample.Domain
          methodInfo.Invoke(this, new[] { @event });
       }
 
-      protected void Publish(object @event)
-      {
-         Apply(@event);
-         ServiceLocator.Current.GetInstance<IBus>().Publish(@event);
-      }
-
-      public void LoadFromEventStream(IEnumerable<object> events)
+      void IAggregateRoot.LoadFromEventStream(IEnumerable<object> events)
       {
          foreach (object @event in events)
          {
             Apply(@event);
          }
       }
+
+      public Guid Id
+      {
+         get { return _id; }
+         set { _id = value; }
+      }
+
+      int IAggregateRoot.Version
+      {
+         get { return _version; }
+         set { _version = value; }
+      }
+
+      ICollection<object> IAggregateRoot.Events
+      {
+         get { return _events; }
+      }
+
+      [NonSerialized]
+      private readonly List<object> _events = new List<object>();
+      [NonSerialized]
+      private Guid _id;
+      [NonSerialized]
+      private int _version;      
    }
 }

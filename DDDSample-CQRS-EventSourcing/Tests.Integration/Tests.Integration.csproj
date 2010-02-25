@@ -125,6 +125,14 @@
       <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
       <Name>Domain.Persistence.NHibernate</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain.Reporting.Persistence.NHibernate\Reporting.Persistence.NHibernate.csproj">
+      <Project>{5C437BB6-C153-4EE1-9030-F0B52CD926DC}</Project>
+      <Name>Reporting.Persistence.NHibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Reporting\Reporting.csproj">
+      <Project>{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}</Project>
+      <Name>Reporting %28Reporting\Reporting%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain %28Domain\Domain%29</Name>

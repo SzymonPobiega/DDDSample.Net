@@ -25,7 +25,7 @@ namespace DDDSample.Reporting.MessageHandlers
 
       protected override void DoHandle(CargoAssignedToRouteMessage message)
       {
-         Cargo cargo = _cargoDataAccess.Find(message.TrackingId);
+         Cargo cargo = _cargoDataAccess.Find(message.CargoId);
          cargo.RouteSpecification = message.Legs;         
       }
    }

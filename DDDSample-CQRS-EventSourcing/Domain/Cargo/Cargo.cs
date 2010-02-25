@@ -33,7 +33,7 @@ namespace DDDSample.Domain.Cargo
             throw new ArgumentNullException("routeSpecification");
          }
 
-         Publish(new CargoRegisteredEvent(trackingId, routeSpecification,
+         Publish(this, new CargoRegisteredEvent(trackingId, routeSpecification,
                                         Delivery.DerivedFrom(_routeSpecification, _itinerary)));         
       }
 
@@ -50,7 +50,7 @@ namespace DDDSample.Domain.Cargo
          RouteSpecification routeSpecification = new RouteSpecification(_routeSpecification.Origin, destination,
                                                                         _routeSpecification.ArrivalDeadline);
 
-         Publish(new CargoDestinationChangedEvent(routeSpecification,
+         Publish(this, new CargoDestinationChangedEvent(routeSpecification,
                                                 _deliveryStatus.Derive(routeSpecification, _itinerary)));         
       }
 
@@ -65,7 +65,7 @@ namespace DDDSample.Domain.Cargo
             throw new ArgumentNullException("itinerary");
          }
 
-         Publish(new CargoAssignedToRouteEvent(itinerary, _deliveryStatus.Derive(_routeSpecification, itinerary)));
+         Publish(this, new CargoAssignedToRouteEvent(itinerary, _deliveryStatus.Derive(_routeSpecification, itinerary)));
       }      
 
       /// <summary>
@@ -79,7 +79,7 @@ namespace DDDSample.Domain.Cargo
       {
          HandlingEvent @event = new HandlingEvent(eventType, location, registrationDate, completionDate);
          
-         Publish(new CargoHandledEvent(Delivery.DerivedFrom(_routeSpecification, _itinerary, @event)));
+         Publish(this, new CargoHandledEvent(Delivery.DerivedFrom(_routeSpecification, _itinerary, @event)));
       }
 
       /// <summary>

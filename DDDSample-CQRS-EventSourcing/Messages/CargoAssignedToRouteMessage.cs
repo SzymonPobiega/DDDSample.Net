@@ -12,7 +12,7 @@ namespace DDDSample.Messages
    [Serializable]
    public class CargoAssignedToRouteMessage : IMessage
    {
-      public string TrackingId { get; set; }
+      public Guid CargoId { get; set; }
       public List<LegDTO> Legs { get; set; }
    }
 }

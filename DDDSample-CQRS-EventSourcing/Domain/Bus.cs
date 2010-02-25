@@ -9,7 +9,7 @@ namespace DDDSample.Domain
    /// <summary>
    /// Provides logic for raising and handling domain events.
    /// </summary>
-   public static class DomainEvents
+   public static class Bus
    {
       [ThreadStatic]
       private static List<Delegate> _actions;
@@ -30,7 +30,9 @@ namespace DDDSample.Domain
       /// </summary>
       /// <param name="callback">Procedura osbługi zdarzenia.</param>
       /// <returns></returns>
-      public static IDisposable Register<T>(Action<T> callback)
+      public static IDisposable Register<TAggregate, TEvent>(Action<TAggregate, TEvent> callback)
+         where TAggregate : AggregateRoot
+         where TEvent : Event<TAggregate>
       {
          Actions.Add(callback);
          return new DomainEventRegistrationRemover(() => Actions.Remove(callback));
@@ -39,19 +41,21 @@ namespace DDDSample.Domain
       /// <summary>
       /// Sygnalizuje zdarzenie.
       /// </summary>
-      public static void Raise<T>(T eventArgs)
+      public static void Publish<TAggregate, TEvent>(TAggregate source, TEvent @event)
+         where TAggregate : AggregateRoot
+         where TEvent : Event<TAggregate>
       {
-         IEnumerable<IEventHandler<T>> registeredHandlers = ServiceLocator.Current.GetAllInstances<IEventHandler<T>>();
-         foreach (IEventHandler<T> handler in registeredHandlers)
+         IEnumerable<IEventHandler<TAggregate, TEvent>> registeredHandlers = ServiceLocator.Current.GetAllInstances<IEventHandler<TAggregate, TEvent>>();
+         foreach (IEventHandler<TAggregate, TEvent> handler in registeredHandlers)
          {
-            handler.Handle(eventArgs);
+            handler.Handle(source, @event);
          }
          foreach (Delegate action in Actions)
          {
-            Action<T> typedAction = action as Action<T>;
+            Action<TAggregate, TEvent> typedAction = action as Action<TAggregate, TEvent>;
             if (typedAction != null)
             {
-               typedAction(eventArgs);
+               typedAction(source, @event);
             }
          }
       }

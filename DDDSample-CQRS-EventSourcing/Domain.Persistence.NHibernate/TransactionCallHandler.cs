@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Transactions;
@@ -23,17 +24,17 @@ namespace DDDSample.Domain.Persistence.NHibernate
 
       public IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
       {
-         IMethodReturn result;
-         using (TransactionScope tx = new TransactionScope())
+         Debug.Assert(UnitOfWork.Current == null);
+         UnitOfWork.Current = new UnitOfWork(_sessionFactory);
+
+         IMethodReturn result = getNext()(input, getNext);
+
+         if (result.Exception == null)
          {
-            result = getNext()(input, getNext);
-            if (result.Exception == null)
-            {
-               _sessionFactory.GetCurrentSession().Flush();
-               tx.Complete();
-            }
-         }         
-         CurrentSessionContext.Bind(_sessionFactory.OpenSession());
+            UnitOfWork.Current.Commit();
+         }
+         UnitOfWork.Current.Rollback();
+         UnitOfWork.Current = null;         
          return result;      
       }
 

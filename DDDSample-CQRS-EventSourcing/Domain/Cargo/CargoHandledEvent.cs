@@ -8,7 +8,8 @@ namespace DDDSample.Domain.Cargo
    /// <summary>
    /// Signals that a cargo was handled.
    /// </summary>
-   public class CargoHandledEvent
+   [Serializable]
+   public class CargoHandledEvent : Event<Cargo>
    {
       private readonly Delivery _delivery;
 

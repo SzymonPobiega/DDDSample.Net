@@ -8,7 +8,9 @@ using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.EventHandlers;
 using DDDSample.Domain.Location;
+using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.Pathfinder;
+using DDDSample.Reporting.Persistence.NHibernate;
 using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
@@ -30,33 +32,33 @@ namespace Tests.Integration
    [TestFixture]
    public abstract class ScenarioTest
    {
-      public static Location HONGKONG
+      public static UnLocode HONGKONG
       {
-         get { return LocationRepository.Find(new UnLocode("CNHKG")); }
+         get { return new UnLocode("CNHKG"); }
       }
-      public static Location STOCKHOLM
+      public static UnLocode STOCKHOLM
       {
-         get { return LocationRepository.Find(new UnLocode("SESTO")); }
+         get { return new UnLocode("SESTO"); }
       }
-      public static Location TOKYO
+      public static UnLocode TOKYO
       {
-         get { return LocationRepository.Find(new UnLocode("JNTKO")); }
+         get { return new UnLocode("JNTKO"); }
       }
-      public static Location HAMBURG
+      public static UnLocode HAMBURG
       {
-         get { return LocationRepository.Find(new UnLocode("DEHAM")); }
+         get { return new UnLocode("DEHAM"); }
       }
-      public static Location NEWYORK
+      public static UnLocode NEWYORK
       {
-         get { return LocationRepository.Find(new UnLocode("USNYC")); }
+         get { return new UnLocode("USNYC"); }
       }
-      public static Location CHICAGO
+      public static UnLocode CHICAGO
       {
-         get { return LocationRepository.Find(new UnLocode("USCHI")); }
+         get { return new UnLocode("USCHI"); }
       }
-      public static Location GOETEBORG
+      public static UnLocode GOETEBORG
       {
-         get { return LocationRepository.Find(new UnLocode("SEGOT")); }
+         get { return new UnLocode("SEGOT"); }
       }
 
       public static ICargoRepository CargoRepository
@@ -74,6 +76,11 @@ namespace Tests.Integration
          get { return ServiceLocator.Current.GetInstance<IBookingService>(); }
       }
 
+      public static CargoDataAccess CargoDataAccess
+      {
+         get { return ServiceLocator.Current.GetInstance<CargoDataAccess>(); }
+      }
+
       public static IHandlingEventService HandlingEventService
       {
          get { return ServiceLocator.Current.GetInstance<IHandlingEventService>(); }
@@ -82,12 +89,15 @@ namespace Tests.Integration
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
       private static ISessionFactory _sessionFactory;
-      
-      private ISession _currentSession;
+
+      private string DatabaseFile;
          
       [SetUp]
       public void Initialize()
       {
+         DatabaseFile = GetDbFileName();
+         EnsureDbFileNotExists();
+
          _ambientContainer = new UnityContainer();
 
          ConfigureNHibernateRepositories();
@@ -105,14 +115,27 @@ namespace Tests.Integration
       [TearDown]
       public void TearDownTests()
       {
-         _sessionFactory.GetCurrentSession().Close();
          _sessionFactory.Dispose();
+         EnsureDbFileNotExists();         
+      }
+
+      private static string GetDbFileName()
+      {
+         return Path.GetFullPath(Guid.NewGuid().ToString("N") + ".Test.db");
+      }
+
+      private void EnsureDbFileNotExists()
+      {
+         if (File.Exists(DatabaseFile))
+         {
+            File.Delete(DatabaseFile);
+         }
       }
 
       private static void ConfigureNHibernateRepositories()
       {
-         _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
-         _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
+         _ambientContainer.RegisterType<ILocationRepository, LocationRepository>();
+         _ambientContainer.RegisterType<ICargoRepository, CargoRepository>();
 
          _ambientContainer.AddNewExtension<Interception>();
 
@@ -122,25 +145,19 @@ namespace Tests.Integration
             .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
 
             .AddPolicy("Transactions")
-            .AddCallHandler<LocalTransactionCallHandler>()
+            .AddCallHandler<TransactionCallHandler>()
             .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
       }
 
       private void InitializeNHibernate()
-      {
-         //DatabaseFile = GetDbFileName();
-         //EnsureDbFileNotExists();
-
+      {         
          Configuration cfg = new Configuration()
             .AddProperties(new Dictionary<string, string>
                               {
                                  {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
                                  {Environment.Dialect, typeof (SQLiteDialect).FullName},
                                  {Environment.ConnectionProvider, typeof (DriverConnectionProvider).FullName},
-                                 {
-                                    Environment.ConnectionString,
-                                    "Data Source=:memory:;Version=3;New=True;"
-                                    },
+                                 { Environment.ConnectionString, string.Format( "Data Source={0};Version=3;New=True;", DatabaseFile) },
                                  {
                                     Environment.ProxyFactoryFactoryClass,
                                     typeof (ProxyFactoryFactory).AssemblyQualifiedName
@@ -148,8 +165,7 @@ namespace Tests.Integration
                                  {
                                     Environment.CurrentSessionContextClass,
                                     typeof (ThreadStaticSessionContext).AssemblyQualifiedName
-                                    },
-                                 {Environment.ReleaseConnections,"on_close"},
+                                    },                                 
                                  {Environment.Hbm2ddlAuto, "create"},
                                  {Environment.ShowSql, true.ToString()}
                               });
@@ -158,29 +174,10 @@ namespace Tests.Integration
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);         
 
-         ISession session = _sessionFactory.OpenSession();
+         new SchemaExport(cfg).Execute(false, true, false);
 
-         new SchemaExport(cfg).Execute(false, true, false, session.Connection, Console.Out);
-
-         session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
-         session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
-         session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
-         session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
-         session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
-         session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
-         session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
-         session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
-         session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
-         session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
-         session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
-         session.Save(new Location(new UnLocode("USNYC"), "New York"));
-         session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
-         session.Flush();
-
-
-         _currentSession = session;
-
-         CurrentSessionContext.Bind(_currentSession);
+         ISession ambientSession = _sessionFactory.OpenSession();
+         CurrentSessionContext.Bind(ambientSession);
       }
    }
 }

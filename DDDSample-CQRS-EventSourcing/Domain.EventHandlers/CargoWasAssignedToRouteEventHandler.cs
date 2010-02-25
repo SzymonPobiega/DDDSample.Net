@@ -10,7 +10,7 @@ namespace DDDSample.Domain.EventHandlers
    /// <summary>
    /// Handles <see cref="CargoAssignedToRouteEvent"/> by publishing corresponding message on the bus.
    /// </summary>
-   public class CargoWasAssignedToRouteEventHandler : IEventHandler<CargoAssignedToRouteEvent>
+   public class CargoWasAssignedToRouteEventHandler : IEventHandler<Cargo.Cargo, CargoAssignedToRouteEvent>
    {
       private readonly IBus _bus;
 
@@ -19,11 +19,11 @@ namespace DDDSample.Domain.EventHandlers
          _bus = bus;
       }
 
-      public void Handle(CargoAssignedToRouteEvent @event)
+      public void Handle(Cargo.Cargo source, CargoAssignedToRouteEvent @event)
       {
          _bus.Publish(new CargoAssignedToRouteMessage
                          {
-                            TrackingId = @event.Cargo.TrackingId.IdString,
+                            CargoId = source.Id,
                             Legs = @event.NewItinerary.Legs.Select(x => ConvertLegToDto(x)).ToList()
                          });
       }
@@ -33,9 +33,9 @@ namespace DDDSample.Domain.EventHandlers
          return new LegDTO
                    {
                       LoadDate = x.LoadDate,
-                      LoadLocation = x.LoadLocation.Name,
+                      LoadLocation = x.LoadLocation.CodeString,
                       UnloadDate = x.UnloadDate,
-                      UnloadLocation = x.UnloadLocation.Name
+                      UnloadLocation = x.UnloadLocation.CodeString
                    };
       }
    }

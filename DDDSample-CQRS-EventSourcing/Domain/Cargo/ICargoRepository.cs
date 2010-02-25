@@ -18,9 +18,9 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Finds cargo by its trancking id.
       /// </summary>
-      /// <param name="trackingId">Tracking id of a cargo.</param>
+      /// <param name="id">Primary key of a cargo.</param>
       /// <returns>Cargo instance if one present, null otherwise.</returns>
-      Cargo Find(TrackingId trackingId);      
+      Cargo Find(Guid id);      
       /// <summary>
       /// Returns next, unique tracking id value.
       /// </summary>

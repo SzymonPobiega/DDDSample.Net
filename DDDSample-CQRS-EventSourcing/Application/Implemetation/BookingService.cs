@@ -13,51 +13,44 @@ namespace DDDSample.Application.Implemetation
    /// </summary>
    public class BookingService : IBookingService
    {
-      private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
       private readonly CargoDataAccess _cargoDataAccess;
       private readonly IRoutingService _routingService;
 
-      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService, CargoDataAccess cargoDataAccess)
+      public BookingService(ICargoRepository cargoRepository, IRoutingService routingService, CargoDataAccess cargoDataAccess)
       {
-         _locationRepository = locationRepository;
          _cargoRepository = cargoRepository;
          _routingService = routingService;
          _cargoDataAccess = cargoDataAccess;
       }
 
-      public TrackingId BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline)
+      public Guid BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline, out TrackingId trackingId)
       {
-         Location origin = _locationRepository.Find(originUnLocode);
-         Location destination = _locationRepository.Find(destinationUnLocode);
-
-         RouteSpecification routeSpecification = new RouteSpecification(origin, destination, arrivalDeadline);
-         TrackingId trackingId = _cargoRepository.NextTrackingId();
+         RouteSpecification routeSpecification = new RouteSpecification(originUnLocode, destinationUnLocode, arrivalDeadline);
+         trackingId = _cargoRepository.NextTrackingId();
          Cargo cargo = new Cargo(trackingId, routeSpecification);
 
          _cargoRepository.Store(cargo);
-         return trackingId;
+         return cargo.Id;
       }
 
-      public IList<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId)
+      public IList<Itinerary> RequestPossibleRoutesForCargo(Guid cargoId)
       {
-         Cargo cargo = _cargoRepository.Find(trackingId);
+         Cargo cargo = _cargoRepository.Find(cargoId);
 
          return cargo.RequestPossibleRoutes(_routingService);
       }
 
-      public void AssignCargoToRoute(TrackingId trackingId, Itinerary itinerary)
+      public void AssignCargoToRoute(Guid cargoId, Itinerary itinerary)
       {
-         Cargo cargo = _cargoRepository.Find(trackingId);
+         Cargo cargo = _cargoRepository.Find(cargoId);
          cargo.AssignToRoute(itinerary);
       }
 
-      public void ChangeDestination(TrackingId trackingId, UnLocode destinationUnLocode)
+      public void ChangeDestination(Guid cargoId, UnLocode destinationUnLocode)
       {         
-         Location destination = _locationRepository.Find(destinationUnLocode);
-         
-         Cargo cargo = _cargoRepository.Find(trackingId);
-         cargo.SpecifyNewRoute(destination);
+         Cargo cargo = _cargoRepository.Find(cargoId);
+         cargo.SpecifyNewRoute(destinationUnLocode);
       }
    }
 }

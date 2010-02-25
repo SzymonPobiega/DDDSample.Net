@@ -8,7 +8,8 @@ namespace DDDSample.Domain.Cargo
    /// Signals that either new cargo instance was registered in the system or route specification
    /// was changed for an existing cargo.
    /// </summary>
-   public class CargoDestinationChangedEvent
+   [Serializable]
+   public class CargoDestinationChangedEvent : Event<Cargo>
    {
       private readonly Delivery _delivery;
       private readonly RouteSpecification _newSpecification;

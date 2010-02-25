@@ -8,6 +8,7 @@ namespace DDDSample.Domain
    /// <summary>
    /// Base class for Value Objects.
    /// </summary>
+   [Serializable]
    public abstract class ValueObject      
    {
       /// <summary>

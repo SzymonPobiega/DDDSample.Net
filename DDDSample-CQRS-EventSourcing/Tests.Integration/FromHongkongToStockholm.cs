@@ -16,28 +16,18 @@ namespace Tests.Integration
       {
          /* Test setup: A cargo should be shipped from Hongkong to Stockholm,
             and it should arrive in no more than two weeks. */
-         Location origin = HONGKONG;
-         Location destination = STOCKHOLM;         
+         UnLocode origin = HONGKONG;
+         UnLocode destination = STOCKHOLM;         
          DateTime arrivalDeadline = new DateTime(2009, 3, 18);
 
          /* Use case 1: booking
 
             A new cargo is booked, and the unique tracking id is assigned to the cargo. */
-         TrackingId trackingId = BookingService.BookNewCargo(
-            origin.UnLocode, destination.UnLocode, arrivalDeadline
+         TrackingId trackingId;
+         Guid cargoId = BookingService.BookNewCargo(
+            origin, destination, arrivalDeadline, out trackingId
             );
-
-         /* The tracking id can be used to lookup the cargo in the repository.
-
-            Important: The cargo, and thus the domain model, is responsible for determining
-            the status of the cargo, whether it is on the right track or not and so on.
-            This is core domain logic.
-
-            Tracking the cargo basically amounts to presenting information extracted from
-            the cargo aggregate in a suitable way. */
-         Cargo cargo = CargoRepository.Find(trackingId);
-         Assert.IsNotNull(cargo);         
-
+         
          /* Use case 2: routing
 
             A number of possible routes for this cargo is requested and may be
@@ -46,10 +36,10 @@ namespace Tests.Integration
             but this test simply uses an arbitrary selection to mimic that process.
 
             The cargo is then assigned to the selected route, described by an itinerary. */
-         IList<Itinerary> itineraries = BookingService.RequestPossibleRoutesForCargo(trackingId);
+         IList<Itinerary> itineraries = BookingService.RequestPossibleRoutesForCargo(cargoId);
          Itinerary itinerary = SelectPreferedItinerary(itineraries);
 
-         using (DomainEvents.Register<CargoAssignedToRouteEvent>(x =>
+         using (Bus.Register<Cargo, CargoAssignedToRouteEvent>((s,x) =>
                                          {
                                             Assert.AreEqual(TransportStatus.NotReceived, x.Delivery.TransportStatus);
                                             Assert.AreEqual(RoutingStatus.Routed, x.Delivery.RoutingStatus);
@@ -57,7 +47,7 @@ namespace Tests.Integration
                                             Assert.AreEqual(new HandlingActivity(HandlingEventType.Receive, HONGKONG), x.Delivery.NextExpectedActivity);
                                          }))
          {
-            BookingService.AssignCargoToRoute(trackingId, itinerary);            
+            BookingService.AssignCargoToRoute(cargoId, itinerary);            
          }
          
          /*
@@ -74,18 +64,18 @@ namespace Tests.Integration
 
            Handling begins: cargo is received in Hongkong.
            */
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   Assert.AreEqual(TransportStatus.InPort, x.Delivery.TransportStatus);
                                                                   Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(
-               new DateTime(2009, 3, 1), trackingId, HONGKONG.UnLocode, HandlingEventType.Receive
+            HandlingEventService.RegisterHandlingEvent(cargoId,
+               new DateTime(2009, 3, 1), HONGKONG, HandlingEventType.Receive
                );   
          }
 
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
          {
             // Check current state - should be ok            
             Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
@@ -95,8 +85,8 @@ namespace Tests.Integration
          }))
          {
             // Next event: Load onto voyage CM003 in Hongkong
-            HandlingEventService.RegisterHandlingEvent(
-               new DateTime(2009, 3, 3), trackingId, HONGKONG.UnLocode, HandlingEventType.Load
+            HandlingEventService.RegisterHandlingEvent(cargoId,
+               new DateTime(2009, 3, 3), HONGKONG, HandlingEventType.Load
                );
          }                   
 
@@ -121,7 +111,7 @@ namespace Tests.Integration
          //{
          //}
 
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   // Check current state - cargo is misdirected!
                                                                   Assert.AreEqual(TOKYO, x.Delivery.LastKnownLocation);
@@ -131,8 +121,8 @@ namespace Tests.Integration
                                                                }))
          {
             // Cargo is now (incorrectly) unloaded in Tokyo
-            HandlingEventService.RegisterHandlingEvent(
-               new DateTime(2009, 3, 5), trackingId, TOKYO.UnLocode, HandlingEventType.Unload
+            HandlingEventService.RegisterHandlingEvent(cargoId,
+               new DateTime(2009, 3, 5), TOKYO, HandlingEventType.Unload
                );
          }
 
@@ -141,35 +131,35 @@ namespace Tests.Integration
          // TODO cleaner reroute from "earliest location from where the new route originates"
 
          // Specify a new route, this time to Goeteborg.
-         using (DomainEvents.Register<CargoDestinationChangedEvent>(x =>
+         using (Bus.Register<Cargo, CargoDestinationChangedEvent>((s, x) =>
                                                                {
                                                                   // The old itinerary does not satisfy the new specification
                                                                   Assert.AreEqual(RoutingStatus.Misrouted, x.Delivery.RoutingStatus);
                                                                   Assert.IsNull(x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            cargo.SpecifyNewRoute(GOETEBORG);
+            BookingService.ChangeDestination(cargoId, GOETEBORG);
          }
          
          // Repeat procedure of selecting one out of a number of possible routes satisfying the route spec
-         IList<Itinerary> newItineraries = BookingService.RequestPossibleRoutesForCargo(cargo.TrackingId);
+         IList<Itinerary> newItineraries = BookingService.RequestPossibleRoutesForCargo(cargoId);
          Itinerary newItinerary = SelectPreferedItinerary(newItineraries);
 
-         using (DomainEvents.Register<CargoAssignedToRouteEvent>(x =>
+         using (Bus.Register<Cargo, CargoAssignedToRouteEvent>((s, x) =>
                                                                        {
                                                                           // New itinerary should satisfy new route
                                                                           Assert.AreEqual(RoutingStatus.Routed, x.Delivery.RoutingStatus);
                                                                           Assert.IsTrue(x.Delivery.IsMisdirected);                                                                          
                                                                        }))
          {
-            BookingService.AssignCargoToRoute(trackingId, newItinerary);            
+            BookingService.AssignCargoToRoute(cargoId, newItinerary);            
          }
          
          // -- Cargo has been rerouted, shipping continues --
 
 
          // Load in Tokyo
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
@@ -178,12 +168,12 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, HAMBURG), x.Delivery.NextExpectedActivity);  
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 8), trackingId, HONGKONG.UnLocode,
+            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 8), HONGKONG,
                                                        HandlingEventType.Load);
          }
          
          // Unload in Hamburg
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(HAMBURG, x.Delivery.LastKnownLocation);
@@ -192,12 +182,12 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Load, HAMBURG), x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 12), trackingId, HAMBURG.UnLocode,
+            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 12), HAMBURG,
                                                        HandlingEventType.Unload);
          }         
 
          // Load in Hamburg
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(HAMBURG, x.Delivery.LastKnownLocation);
@@ -206,12 +196,12 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, GOETEBORG), x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 14), trackingId, HAMBURG.UnLocode,
+            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 14), HAMBURG,
                                                        HandlingEventType.Load);
          }         
 
          // Unload in Stockholm
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(GOETEBORG, x.Delivery.LastKnownLocation);
@@ -220,13 +210,13 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Claim, GOETEBORG), x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 15), trackingId, GOETEBORG.UnLocode,
+            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 15), GOETEBORG,
                                                        HandlingEventType.Unload);
          }
          
 
          // Finally, cargo is claimed in Stockholm. This ends the cargo lifecycle from our perspective.
-         using (DomainEvents.Register<CargoHandledEvent>(x =>
+         using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
                                                                {
                                                                   // Check current state - should be ok
                                                                   Assert.AreEqual(GOETEBORG, x.Delivery.LastKnownLocation);
@@ -235,7 +225,7 @@ namespace Tests.Integration
                                                                   Assert.IsNull(x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(new DateTime(2009, 3, 16), trackingId, GOETEBORG.UnLocode,
+            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 16), GOETEBORG,
                                                        HandlingEventType.Claim);
          }
          

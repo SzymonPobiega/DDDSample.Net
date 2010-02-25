@@ -90,6 +90,14 @@ namespace DDDSample.Domain.Cargo
       }
 
       /// <summary>
+      /// Gets type of last recorded event.
+      /// </summary>
+      public HandlingEventType? LastEventType
+      {
+         get { return _lastEvent != null ? _lastEvent.EventType : (HandlingEventType?)null; }
+      }
+
+      /// <summary>
       /// Creates a new delivery snapshot based only on route specification and itinerary.
       /// </summary>
       /// <param name="specification">Current route specification.</param>

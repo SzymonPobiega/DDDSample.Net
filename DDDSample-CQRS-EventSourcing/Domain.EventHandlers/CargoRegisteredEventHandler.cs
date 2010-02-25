@@ -10,7 +10,7 @@ namespace DDDSample.Domain.EventHandlers
    /// <summary>
    /// Handles <see cref="CargoRegisteredEvent"/> by publishing corresponding message on the bus.
    /// </summary>
-   public class CargoRegisteredEventHandler : IEventHandler<CargoRegisteredEvent>
+   public class CargoRegisteredEventHandler : IEventHandler<Cargo.Cargo, CargoRegisteredEvent>
    {
       private readonly IBus _bus;
 
@@ -19,13 +19,13 @@ namespace DDDSample.Domain.EventHandlers
          _bus = bus;
       }
 
-      public void Handle(CargoRegisteredEvent @event)
+      public void Handle(Cargo.Cargo source, CargoRegisteredEvent @event)
       {
          _bus.Publish(new CargoRegisteredMessage()
                          {
-                            TrackingId = @event.Cargo.TrackingId.IdString,
-                            Origin = @event.RouteSpecification.Origin.Name,
-                            Destination = @event.RouteSpecification.Destination.Name,
+                            CargoId = source.Id,
+                            Origin = @event.RouteSpecification.Origin.CodeString,
+                            Destination = @event.RouteSpecification.Destination.CodeString,
                             ArrivalDeadline = @event.RouteSpecification.ArrivalDeadline
                          });
       }

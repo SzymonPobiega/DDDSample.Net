@@ -11,36 +11,34 @@ namespace Infrastructure.Routing
 {
    public class RoutingService : IRoutingService
    {
-      private readonly ILocationRepository _locatinRepository;
-      private readonly GraphTraversalService _graphTraversalService;      
+      private readonly GraphTraversalService _graphTravesrsalService;      
 
-      public RoutingService(ILocationRepository locatinRepository, GraphTraversalService graphTraversalService)
+      public RoutingService(GraphTraversalService graphTraversalService)
       {
-         _locatinRepository = locatinRepository;
-         _graphTraversalService = graphTraversalService;
+         _graphTravesrsalService = graphTraversalService;
       }
 
       public IList<Itinerary> FetchRoutesForSpecification(RouteSpecification routeSpecification)
       {
-         IList<TransitPath> paths = _graphTraversalService.FindShortestPaths(
-            routeSpecification.Origin.UnLocode.CodeString,
-            routeSpecification.Destination.UnLocode.CodeString,
+         IList<TransitPath> paths = _graphTravesrsalService.FindShortestPaths(
+            routeSpecification.Origin.CodeString,
+            routeSpecification.Destination.CodeString,
             new Constraints(routeSpecification.ArrivalDeadline));
 
          return paths.Select(x => ToItinerary(x)).ToList();
       }      
 
-      private Itinerary ToItinerary(TransitPath path)
+      private static Itinerary ToItinerary(TransitPath path)
       {
          return new Itinerary(path.Edges.Select(x => ToLeg(x)));
       }
 
-      private Leg ToLeg(TransitEdge edge)
+      private static Leg ToLeg(TransitEdge edge)
       {
          return new Leg(
-            _locatinRepository.Find(new UnLocode(edge.From)), 
+            new UnLocode(edge.From), 
             edge.FromDate,
-            _locatinRepository.Find(new UnLocode(edge.To)),
+            new UnLocode(edge.To),
             edge.ToDate);
       }
    }

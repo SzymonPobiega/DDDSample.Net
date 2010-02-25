@@ -12,7 +12,7 @@ namespace DDDSample.Messages
    [Serializable]
    public class CargoHandledMessage : IMessage
    {
-      public string TrackingId { get; set; }
+      public Guid CargoId { get; set; }
       public DateTime CalculatedAt { get; set; }
 
       public int? NextExpectedEventType { get; set; }

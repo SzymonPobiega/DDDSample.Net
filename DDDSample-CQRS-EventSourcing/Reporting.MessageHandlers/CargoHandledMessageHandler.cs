@@ -30,7 +30,7 @@ namespace DDDSample.Reporting.MessageHandlers
          {
             nextExpectedActivity = new HandlingActivity((HandlingEventType)message.NextExpectedEventType, message.NextExpectedLocation);
          }         
-         Cargo cargo = _cargoDataAccess.Find(message.TrackingId);
+         Cargo cargo = _cargoDataAccess.Find(message.CargoId);
          cargo.UpdateHistory(
             nextExpectedActivity, 
             lastKnownActivity,

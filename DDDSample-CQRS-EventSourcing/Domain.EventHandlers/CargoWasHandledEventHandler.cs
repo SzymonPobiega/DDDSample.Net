@@ -12,7 +12,7 @@ namespace DDDSample.Domain.EventHandlers
    /// Handles <see cref="CargoHandledEvent"/> and synchronizes <see cref="Cargo"/> aggregate
    /// according to up-to-date handling history information.
    /// </summary>
-   public class CargoWasHandledEventHandler : IEventHandler<CargoHandledEvent>
+   public class CargoWasHandledEventHandler : IEventHandler<Cargo.Cargo, CargoHandledEvent>
    {
       private readonly IBus _bus;
 
@@ -21,12 +21,12 @@ namespace DDDSample.Domain.EventHandlers
          _bus = bus;
       }
 
-      public void Handle(CargoHandledEvent @event)
+      public void Handle(Cargo.Cargo source, CargoHandledEvent @event)
       {
          HandlingActivity nextExpectedActivity = @event.Delivery.NextExpectedActivity;
          _bus.Publish(new CargoHandledMessage
                          {
-                            TrackingId = @event.Cargo.TrackingId.IdString,
+                            CargoId = source.Id,
                             CalculatedAt = @event.Delivery.CalculatedAt,
                             EstimatedTimeOfArrival = @event.Delivery.EstimatedTimeOfArrival,
                             IsMisdirected = @event.Delivery.IsMisdirected,
@@ -36,9 +36,9 @@ namespace DDDSample.Domain.EventHandlers
                             NextExpectedEventType =
                                nextExpectedActivity != null ? (int?) nextExpectedActivity.EventType : null,
                             NextExpectedLocation =
-                               nextExpectedActivity != null ? nextExpectedActivity.Location.UnLocode.CodeString : null,
-                            LastKnownEventType = (int)@event.EventType,
-                            LastKnownLocation = @event.Delivery.LastKnownLocation.UnLocode.CodeString
+                               nextExpectedActivity != null ? nextExpectedActivity.Location.CodeString : null,
+                            LastKnownEventType = (int)@event.Delivery.LastEventType,
+                            LastKnownLocation = @event.Delivery.LastKnownLocation.CodeString
                          });
       }
    }

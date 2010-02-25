@@ -20,7 +20,7 @@ namespace DDDSample.Reporting.MessageHandlers
 
       protected override void DoHandle(CargoRegisteredMessage message)
       {
-         Cargo cargo = new Cargo(message.TrackingId, message.Origin, message.Destination, message.ArrivalDeadline);
+         Cargo cargo = new Cargo(message.CargoId, message.TrackingId, message.Origin, message.Destination, message.ArrivalDeadline);
          _cargoDataAccess.Store(cargo);
       }
    }

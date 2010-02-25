@@ -62,13 +62,13 @@
     <Compile Include="Cargo\HandlingActivity.cs" />
     <Compile Include="Cargo\RoutingStatus.cs" />
     <Compile Include="Cargo\TransportStatus.cs" />
-    <Compile Include="DomainEvent.cs" />
     <Compile Include="Cargo\ICargoRepository.cs" />
     <Compile Include="Cargo\Leg.cs" />
     <Compile Include="Cargo\RouteSpecification.cs" />
-    <Compile Include="DomainEvents.cs" />
+    <Compile Include="Bus.cs" />
     <Compile Include="Cargo\HandlingEvent.cs" />
-    <Compile Include="IBus.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IRoutingService.cs" />
     <Compile Include="Location\Location.cs" />

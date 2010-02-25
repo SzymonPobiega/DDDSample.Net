@@ -23,6 +23,6 @@ namespace DDDSample.Application
       /// <exception cref="CannotCreateHandlingEventException">if a handling event that represents 
       /// an actual event that's relevant to a cargo we're tracking can't be created from the 
       /// parameters </exception>
-      void RegisterHandlingEvent(DateTime completionTime, TrackingId trackingId, UnLocode unLocode, HandlingEventType type);
+      void RegisterHandlingEvent(Guid cargoId, DateTime completionTime, UnLocode unLocode, HandlingEventType type);
    }
 }

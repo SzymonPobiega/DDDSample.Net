@@ -18,25 +18,26 @@ namespace DDDSample.Application
       /// <param name="origin">Cargo origin UN locode.</param>
       /// <param name="destination">Cargo destination UN locode.</param>
       /// <param name="arrivalDeadline">Arrival deadline.</param>
+      /// <param name="id"></param>
       /// <returns>Cargo tracing id for referencing this cargo.</returns>
-      TrackingId BookNewCargo(UnLocode origin, UnLocode destination, DateTime arrivalDeadline);
+      Guid BookNewCargo(UnLocode origin, UnLocode destination, DateTime arrivalDeadline, out TrackingId id);
       /// <summary>
       /// Requests a list of itineraries describing possible routes for this cargo.
       /// </summary>
-      /// <param name="trackingId">Cargo tracking id.</param>
+      /// <param name="id">Cargo tracking id.</param>
       /// <returns>A list of possible itineraries for this cargo.</returns>
-      IList<Itinerary> RequestPossibleRoutesForCargo(TrackingId trackingId);
+      IList<Itinerary> RequestPossibleRoutesForCargo(Guid id);
       /// <summary>
-      /// Assigns cargo identified by <paramref name="trackingId"/> to a new route.
+      /// Assigns cargo identified by <paramref name="id"/> to a new route.
       /// </summary>
       /// <param name="itinerary">Itinerary describing the selected route.</param>
-      /// <param name="trackingId">cargo tracking id.</param>
-      void AssignCargoToRoute(TrackingId trackingId, Itinerary itinerary);
+      /// <param name="id">cargo tracking id.</param>
+      void AssignCargoToRoute(Guid id, Itinerary itinerary);
       /// <summary>
       /// Changes the destination of a cargo.
       /// </summary>
-      /// <param name="trackingId">Cargo tracking id.</param>
+      /// <param name="id">Cargo tracking id.</param>
       /// <param name="unLocode">UN locode of new destination.</param>
-      void ChangeDestination(TrackingId trackingId, UnLocode unLocode);
+      void ChangeDestination(Guid id, UnLocode unLocode);
    }
 }

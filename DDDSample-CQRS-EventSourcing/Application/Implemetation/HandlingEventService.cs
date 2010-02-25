@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.Reporting.Persistence.NHibernate;
 
 namespace DDDSample.Application.Implemetation
 {
@@ -11,20 +12,20 @@ namespace DDDSample.Application.Implemetation
    /// </summary>
    public class HandlingEventService : IHandlingEventService
    {
+      private readonly CargoDataAccess _cargoDataAccess;
       private readonly ICargoRepository _cargoRepository;
-      private readonly ILocationRepository _locationRepository;
 
-      public HandlingEventService(ILocationRepository locationRepository, ICargoRepository cargoRepository)
+      public HandlingEventService(ICargoRepository cargoRepository, CargoDataAccess cargoDataAccess)
       {
-         _locationRepository = locationRepository;
+         _cargoDataAccess = cargoDataAccess;
          _cargoRepository = cargoRepository;
       }
 
-      public void RegisterHandlingEvent(DateTime completionTime, TrackingId trackingId, UnLocode unLocode, HandlingEventType type)
+      public void RegisterHandlingEvent(Guid cargoId, DateTime completionTime, UnLocode unLocode, HandlingEventType type)
       {
-         Cargo cargo = _cargoRepository.Find(trackingId);                  
-         Location location = _locationRepository.Find(unLocode);
-         cargo.RegisterHandlingEvent(type, location, DateTime.Now, completionTime);
+         Cargo cargo = _cargoRepository.Find(cargoId);   
+               
+         cargo.RegisterHandlingEvent(type, unLocode, DateTime.Now, completionTime);
       }
    }
 }
