@@ -9,9 +9,7 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.EventHandlers;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
-using DDDSample.Pathfinder;
 using DDDSample.Reporting.Persistence.NHibernate;
-using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -103,7 +101,6 @@ namespace Tests.Integration
          ConfigureNHibernateRepositories();
 
          _ambientContainer.RegisterType<IBookingService, BookingService>();
-         _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
          _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
          
          _ambientLocator = new UnityServiceLocator(_ambientContainer);

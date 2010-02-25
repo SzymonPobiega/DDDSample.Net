@@ -59,18 +59,7 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       public IList<Reporting.Cargo> ListAllCargos()
       {
          return _cargoDataAccess.FindAll();
-      }
-
-      /// <summary>
-      /// Fetches all possible routes for delivering cargo with provided tracking id.
-      /// </summary>
-      /// <param name="trackingId">Cargo tracking id.</param>
-      /// <returns>Possible delivery routes</returns>
-      public IList<RouteCandidateDTO> RequestPossibleRoutesForCargo(String trackingId)
-      {
-         return _bookingService.RequestPossibleRoutesForCargo(new TrackingId(trackingId))
-            .Select(x => _routeCandidateAssembler.ToDTO(x)).ToList();
-      }
+      }     
 
       /// <summary>
       /// Changes destination of an existing cargo.
@@ -79,7 +68,8 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <param name="destination">New destination UnLocode in string format.</param>
       public void ChangeDestination(string trackingId, string destination)
       {
-         _bookingService.ChangeDestination(new TrackingId(trackingId), new UnLocode(destination));
+         Guid cargoId = _cargoDataAccess.Find(trackingId).Id;
+         _bookingService.ChangeDestination(cargoId, new UnLocode(destination));
       }
 
       /// <summary>
@@ -88,14 +78,13 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <param name="origin">Origin of a cargo in UnLocode format.</param>
       /// <param name="destination">Destination of a cargo in UnLocode format.</param>
       /// <param name="arrivalDeadline">Arrival deadline.</param>
-      /// <returns>Cargo tracking id.</returns>
-      public string BookNewCargo(string origin, string destination, DateTime arrivalDeadline)
+      public void BookNewCargo(string origin, string destination, DateTime arrivalDeadline)
       {
-         return _bookingService.BookNewCargo(
+         TrackingId trackingId;
+         _bookingService.BookNewCargo(
             new UnLocode(origin),
             new UnLocode(destination),
-            arrivalDeadline)
-            .IdString;
+            arrivalDeadline, out trackingId);          
       }      
 
       /// <summary>
@@ -105,7 +94,8 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <param name="route">Route definition.</param>
       public void AssignCargoToRoute(String trackingId, RouteCandidateDTO route)
       {
-         _bookingService.AssignCargoToRoute(new TrackingId(trackingId), _routeCandidateAssembler.FromDTO(route));
+         Guid cargoId = _cargoDataAccess.Find(trackingId).Id;
+         _bookingService.AssignCargoToRoute(cargoId, _routeCandidateAssembler.FromDTO(route));
       }
    }
 }

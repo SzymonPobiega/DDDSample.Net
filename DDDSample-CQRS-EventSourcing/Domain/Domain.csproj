@@ -70,7 +70,6 @@
     <Compile Include="Event.cs" />
     <Compile Include="IAggregateRoot.cs" />
     <Compile Include="IEventHandler.cs" />
-    <Compile Include="IRoutingService.cs" />
     <Compile Include="Location\Location.cs" />
     <Compile Include="Location\ILocationRepository.cs" />
     <Compile Include="Location\UnLocode.cs" />

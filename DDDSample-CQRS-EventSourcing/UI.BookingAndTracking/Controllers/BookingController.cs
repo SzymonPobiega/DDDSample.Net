@@ -15,11 +15,13 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
    public class BookingController : Controller
    {
+      private readonly RoutingFacade _routingFacade;
       private readonly BookingServiceFacade _bookingFacade;
 
-      public BookingController(BookingServiceFacade bookingFacade)
+      public BookingController(BookingServiceFacade bookingFacade, RoutingFacade routingFacade)
       {
-         _bookingFacade = bookingFacade;         
+         _bookingFacade = bookingFacade;
+         _routingFacade = routingFacade;
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -79,9 +81,8 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
             AddShipingLocations();
             return View();
          }
-         string trackingId = _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
+         _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
          return RedirectToAction("ListCargos");
-         //return RedirectToDetails(trackingId);
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -112,9 +113,10 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
 
       public AssignToRouteModel GetAssignToRouteModel(string trackingId)
       {
+         Reporting.Cargo cargo = _bookingFacade.LoadCargoForRouting(trackingId);
          return new AssignToRouteModel(
-            _bookingFacade.LoadCargoForRouting(trackingId),
-            _bookingFacade.RequestPossibleRoutesForCargo(trackingId)
+            cargo,
+            _routingFacade.FetchRoutesForSpecification(cargo.Origin, cargo.Destination, cargo.ArrivalDeadline)
             );
       }
 

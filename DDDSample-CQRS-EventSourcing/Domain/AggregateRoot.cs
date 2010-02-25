@@ -13,7 +13,7 @@ namespace DDDSample.Domain
          where TEvent : Event<TAggregate>
       {
          Apply(@event);
-         _events.Add(@event);
+         ((IAggregateRoot)this).Events.Add(@event);
          Bus.Publish(@this, @event);
       }
 
@@ -56,11 +56,18 @@ namespace DDDSample.Domain
 
       ICollection<object> IAggregateRoot.Events
       {
-         get { return _events; }
+         get
+         {
+            if (_events == null)
+            {
+               _events = new List<object>();
+            }
+            return _events;
+         }
       }
 
-      [NonSerialized]
-      private readonly List<object> _events = new List<object>();
+      [NonSerialized] 
+      private List<object> _events;
       [NonSerialized]
       private Guid _id;
       [NonSerialized]

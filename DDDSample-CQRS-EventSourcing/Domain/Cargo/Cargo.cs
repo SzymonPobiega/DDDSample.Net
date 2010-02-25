@@ -80,17 +80,7 @@ namespace DDDSample.Domain.Cargo
          HandlingEvent @event = new HandlingEvent(eventType, location, registrationDate, completionDate);
          
          Publish(this, new CargoHandledEvent(Delivery.DerivedFrom(_routeSpecification, _itinerary, @event)));
-      }
-
-      /// <summary>
-      /// Returns a collection of routes which comply to this cargo's route specification.
-      /// </summary>
-      /// <param name="routingService">Routing service to use for searching for possible routes.</param>
-      /// <returns></returns>
-      public virtual IList<Itinerary> RequestPossibleRoutes(IRoutingService routingService)
-      {
-         return routingService.FetchRoutesForSpecification(_routeSpecification);
-      }
+      }      
 
       private void OnCargoRegistered(CargoRegisteredEvent @event)
       {
@@ -111,7 +101,7 @@ namespace DDDSample.Domain.Cargo
          _deliveryStatus = @event.Delivery;
       }
 
-      private void OnCargoHandler(CargoHandledEvent @event)
+      private void OnCargoHandled(CargoHandledEvent @event)
       {
          _deliveryStatus = @event.Delivery;
       }

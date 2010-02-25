@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSample.Reporting.Persistence.NHibernate;
-using NHibernate;
 
 namespace DDDSample.Application.Implemetation
 {
@@ -14,14 +11,10 @@ namespace DDDSample.Application.Implemetation
    public class BookingService : IBookingService
    {
       private readonly ICargoRepository _cargoRepository;
-      private readonly CargoDataAccess _cargoDataAccess;
-      private readonly IRoutingService _routingService;
 
-      public BookingService(ICargoRepository cargoRepository, IRoutingService routingService, CargoDataAccess cargoDataAccess)
+      public BookingService(ICargoRepository cargoRepository)
       {
          _cargoRepository = cargoRepository;
-         _routingService = routingService;
-         _cargoDataAccess = cargoDataAccess;
       }
 
       public Guid BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline, out TrackingId trackingId)
@@ -32,14 +25,7 @@ namespace DDDSample.Application.Implemetation
 
          _cargoRepository.Store(cargo);
          return cargo.Id;
-      }
-
-      public IList<Itinerary> RequestPossibleRoutesForCargo(Guid cargoId)
-      {
-         Cargo cargo = _cargoRepository.Find(cargoId);
-
-         return cargo.RequestPossibleRoutes(_routingService);
-      }
+      }      
 
       public void AssignCargoToRoute(Guid cargoId, Itinerary itinerary)
       {

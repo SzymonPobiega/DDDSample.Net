@@ -53,8 +53,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Routing", "Infrastructure.Routing\Infrastructure.Routing.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder.Persistence.InMemory", "Pathfinder.Persistence.InMemory\Pathfinder.Persistence.InMemory.csproj", "{DAD9D935-83AE-447A-88D9-A5F15666E4CF}"
@@ -79,7 +77,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 16
+		SccNumberOfProjects = 15
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -104,42 +102,38 @@ Global
 		SccProjectUniqueName6 = Setup\\Setup.vdproj
 		SccProjectName6 = Setup
 		SccLocalPath6 = Setup
-		SccProjectUniqueName7 = Infrastructure.Routing\\Infrastructure.Routing.csproj
+		SccProjectUniqueName7 = Pathfinder\\Pathfinder.csproj
 		SccProjectTopLevelParentUniqueName7 = DDDSample.sln
-		SccProjectName7 = Infrastructure.Routing
-		SccLocalPath7 = Infrastructure.Routing
-		SccProjectUniqueName8 = Pathfinder\\Pathfinder.csproj
+		SccProjectName7 = Pathfinder
+		SccLocalPath7 = Pathfinder
+		SccProjectUniqueName8 = Pathfinder.Persistence.InMemory\\Pathfinder.Persistence.InMemory.csproj
 		SccProjectTopLevelParentUniqueName8 = DDDSample.sln
-		SccProjectName8 = Pathfinder
-		SccLocalPath8 = Pathfinder
-		SccProjectUniqueName9 = Pathfinder.Persistence.InMemory\\Pathfinder.Persistence.InMemory.csproj
+		SccProjectName8 = Pathfinder.Persistence.InMemory
+		SccLocalPath8 = Pathfinder.Persistence.InMemory
+		SccProjectUniqueName9 = Tests.Integration\\Tests.Integration.csproj
 		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
-		SccProjectName9 = Pathfinder.Persistence.InMemory
-		SccLocalPath9 = Pathfinder.Persistence.InMemory
-		SccProjectUniqueName10 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectName9 = Tests.Integration
+		SccLocalPath9 = Tests.Integration
+		SccProjectUniqueName10 = Domain.Reporting.Persistence.NHibernate\\Reporting.Persistence.NHibernate.csproj
 		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
-		SccProjectName10 = Tests.Integration
-		SccLocalPath10 = Tests.Integration
-		SccProjectUniqueName11 = Domain.Reporting.Persistence.NHibernate\\Reporting.Persistence.NHibernate.csproj
+		SccProjectName10 = Domain.Reporting.Persistence.NHibernate
+		SccLocalPath10 = Domain.Reporting.Persistence.NHibernate
+		SccProjectUniqueName11 = Reporting.MessageHandlers\\Reporting.MessageHandlers.csproj
 		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
-		SccProjectName11 = Domain.Reporting.Persistence.NHibernate
-		SccLocalPath11 = Domain.Reporting.Persistence.NHibernate
-		SccProjectUniqueName12 = Reporting.MessageHandlers\\Reporting.MessageHandlers.csproj
+		SccProjectName11 = Reporting.MessageHandlers
+		SccLocalPath11 = Reporting.MessageHandlers
+		SccProjectUniqueName12 = Domain.Reporting\\Reporting.csproj
 		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
-		SccProjectName12 = Reporting.MessageHandlers
-		SccLocalPath12 = Reporting.MessageHandlers
-		SccProjectUniqueName13 = Domain.Reporting\\Reporting.csproj
+		SccProjectName12 = Domain.Reporting
+		SccLocalPath12 = Domain.Reporting
+		SccProjectUniqueName13 = Messages\\Messages.csproj
 		SccProjectTopLevelParentUniqueName13 = DDDSample.sln
-		SccProjectName13 = Domain.Reporting
-		SccLocalPath13 = Domain.Reporting
-		SccProjectUniqueName14 = Messages\\Messages.csproj
+		SccProjectName13 = Messages
+		SccLocalPath13 = Messages
+		SccProjectUniqueName14 = Domain.EventHandlers\\Domain.EventHandlers.csproj
 		SccProjectTopLevelParentUniqueName14 = DDDSample.sln
-		SccProjectName14 = Messages
-		SccLocalPath14 = Messages
-		SccProjectUniqueName15 = Domain.EventHandlers\\Domain.EventHandlers.csproj
-		SccProjectTopLevelParentUniqueName15 = DDDSample.sln
-		SccProjectName15 = Domain.EventHandlers
-		SccLocalPath15 = Domain.EventHandlers
+		SccProjectName14 = Domain.EventHandlers
+		SccLocalPath14 = Domain.EventHandlers
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
@@ -171,10 +165,6 @@ Global
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Release|Any CPU.ActiveCfg = Release
-		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -222,7 +212,6 @@ Global
 		{02B53338-D16B-4051-BA94-503488406CD1} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
 		{DAD9D935-83AE-447A-88D9-A5F15666E4CF} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
 		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
-		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
 		{5C437BB6-C153-4EE1-9030-F0B52CD926DC} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
 		{905DD567-8314-4E57-A6BC-91CAD38CD7F9} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
 		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}

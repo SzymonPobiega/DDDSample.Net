@@ -20,13 +20,7 @@ namespace DDDSample.Application
       /// <param name="arrivalDeadline">Arrival deadline.</param>
       /// <param name="id"></param>
       /// <returns>Cargo tracing id for referencing this cargo.</returns>
-      Guid BookNewCargo(UnLocode origin, UnLocode destination, DateTime arrivalDeadline, out TrackingId id);
-      /// <summary>
-      /// Requests a list of itineraries describing possible routes for this cargo.
-      /// </summary>
-      /// <param name="id">Cargo tracking id.</param>
-      /// <returns>A list of possible itineraries for this cargo.</returns>
-      IList<Itinerary> RequestPossibleRoutesForCargo(Guid id);
+      Guid BookNewCargo(UnLocode origin, UnLocode destination, DateTime arrivalDeadline, out TrackingId id);      
       /// <summary>
       /// Assigns cargo identified by <paramref name="id"/> to a new route.
       /// </summary>

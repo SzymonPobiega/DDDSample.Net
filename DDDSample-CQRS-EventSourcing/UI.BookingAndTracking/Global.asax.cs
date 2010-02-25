@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,8 +12,6 @@ using DDDSample.Domain.EventHandlers;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.Messages;
-using DDDSample.Reporting.MessageHandlers;
-using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -71,19 +68,19 @@ namespace DDDSample.UI.BookingAndTracking
       private static void ConfigureAsynchEventHandlers(IUnityContainer container)
       {
          container.RegisterType
-            <IEventHandler<CargoAssignedToRouteEvent>,
+            <IEventHandler<Cargo, CargoAssignedToRouteEvent>,
                CargoWasAssignedToRouteEventHandler>(
             "cargoHasBeenAssignedToRouteEventHandler");
          container.RegisterType
-            <IEventHandler<CargoHandledEvent>,
+            <IEventHandler<Cargo, CargoHandledEvent>,
                CargoWasHandledEventHandler>(
             "cargoWasHandledEventHandler");
          container.RegisterType
-            <IEventHandler<CargoRegisteredEvent>,
+            <IEventHandler<Cargo, CargoRegisteredEvent>,
                CargoRegisteredEventHandler>(
             "cargoRegisteredEventHandler");
          container.RegisterType
-            <IEventHandler<CargoDestinationChangedEvent>,
+            <IEventHandler<Cargo, CargoDestinationChangedEvent>,
                CargoDestinationChangedEventHandler>(
             "cargoDestinationChangedEventHandler");
       }
@@ -133,7 +130,6 @@ namespace DDDSample.UI.BookingAndTracking
       private static void ConfigureServices(IUnityContainer container)
       {
          container.RegisterType<IBookingService, BookingService>();
-         container.RegisterType<IRoutingService, RoutingService>();
          container.RegisterType<IHandlingEventService, HandlingEventService>();
       }
 

@@ -11,15 +11,15 @@ namespace DDDSample.Domain.Tests.Cargo
    [TestFixture]
    public class ItineraryTest
    {
-      private static readonly Location.Location Krakow = new Location.Location(new UnLocode("PLKRK"), "Krakow");
-      private static readonly Location.Location Warszawa = new Location.Location(new UnLocode("PLWAW"), "Warszawa");
-      private static readonly Location.Location Wroclaw = new Location.Location(new UnLocode("PLWRC"), "Wroclaw");
+      private static readonly UnLocode Krakow = new UnLocode("PLKRK");
+      private static readonly UnLocode Warszawa = new UnLocode("PLWAW");
+      private static readonly UnLocode Wroclaw = new UnLocode("PLWRC");
 
       [Test]
       public void IsExpected_ClaimEvent_Empty_False()
       {
          Itinerary itinerary = new Itinerary(new Leg[] { });
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now);
 
          Assert.IsFalse(itinerary.IsExpected(@event));
       }
@@ -28,7 +28,7 @@ namespace DDDSample.Domain.Tests.Cargo
       public void IsExpected_ReceiveEvent_FirstLegLocationMathesEventLocation_True()
       {
          Itinerary itinerary = new Itinerary(new[]{new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now  )});
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Receive, Krakow, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Receive, Krakow, DateTime.Now, DateTime.Now);
 
          Assert.IsTrue(itinerary.IsExpected(@event));
       }
@@ -37,7 +37,7 @@ namespace DDDSample.Domain.Tests.Cargo
       public void IsExpected_ReceiveEvent_FirstLegLocationDoesntMatchEventLocation_False()
       {
          Itinerary itinerary = new Itinerary(new[] { new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now) });
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Receive, Warszawa, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Receive, Warszawa, DateTime.Now, DateTime.Now);
 
          Assert.IsFalse(itinerary.IsExpected(@event));
       }
@@ -50,7 +50,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Wroclaw, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Wroclaw, DateTime.Now, DateTime.Now);
 
          Assert.IsTrue(itinerary.IsExpected(@event));
       }
@@ -63,7 +63,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Warszawa, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Warszawa, DateTime.Now, DateTime.Now);
 
          Assert.IsFalse(itinerary.IsExpected(@event));
       }
@@ -77,7 +77,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Krakow, DateTime.Now, DateTime.Now, null);         
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Krakow, DateTime.Now, DateTime.Now);         
 
          Assert.IsTrue(itinerary.IsExpected(@event));
       }
@@ -91,7 +91,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Warszawa, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Warszawa, DateTime.Now, DateTime.Now);
 
          Assert.IsTrue(itinerary.IsExpected(@event));
       }
@@ -105,7 +105,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Wroclaw, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Wroclaw, DateTime.Now, DateTime.Now);
 
          Assert.IsFalse(itinerary.IsExpected(@event));
       }
@@ -119,7 +119,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Warszawa, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Warszawa, DateTime.Now, DateTime.Now);
 
          Assert.IsTrue(itinerary.IsExpected(@event));
       }
@@ -133,7 +133,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Wroclaw, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Wroclaw, DateTime.Now, DateTime.Now);
 
          Assert.IsTrue(itinerary.IsExpected(@event));
       }
@@ -147,7 +147,7 @@ namespace DDDSample.Domain.Tests.Cargo
                                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
-         HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Krakow, DateTime.Now, DateTime.Now, null);
+         HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Krakow, DateTime.Now, DateTime.Now);
 
          Assert.IsFalse(itinerary.IsExpected(@event));
       }      

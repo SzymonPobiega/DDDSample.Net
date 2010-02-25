@@ -27,17 +27,16 @@ namespace Tests.Integration
          Guid cargoId = BookingService.BookNewCargo(
             origin, destination, arrivalDeadline, out trackingId
             );
-         
-         /* Use case 2: routing
-
-            A number of possible routes for this cargo is requested and may be
-            presented to the customer in some way for him/her to choose from.
-            Selection could be affected by things like price and time of delivery,
-            but this test simply uses an arbitrary selection to mimic that process.
-
-            The cargo is then assigned to the selected route, described by an itinerary. */
-         IList<Itinerary> itineraries = BookingService.RequestPossibleRoutesForCargo(cargoId);
-         Itinerary itinerary = SelectPreferedItinerary(itineraries);
+                  
+         Itinerary itinerary = new Itinerary(new List<Leg>
+                                                {
+                                                   new Leg(HONGKONG, new DateTime(2009, 3, 03),
+                                                           NEWYORK, new DateTime(2009, 3, 9)),
+                                                   new Leg(NEWYORK, new DateTime(2009, 3, 10),
+                                                           CHICAGO, new DateTime(2009, 3, 14)),
+                                                   new Leg(CHICAGO, new DateTime(2009, 3, 7),
+                                                           STOCKHOLM, new DateTime(2009, 3, 11))
+                                                });
 
          using (Bus.Register<Cargo, CargoAssignedToRouteEvent>((s,x) =>
                                          {
@@ -140,10 +139,14 @@ namespace Tests.Integration
          {
             BookingService.ChangeDestination(cargoId, GOETEBORG);
          }
-         
-         // Repeat procedure of selecting one out of a number of possible routes satisfying the route spec
-         IList<Itinerary> newItineraries = BookingService.RequestPossibleRoutesForCargo(cargoId);
-         Itinerary newItinerary = SelectPreferedItinerary(newItineraries);
+                  
+         Itinerary newItinerary = new Itinerary(new List<Leg>
+                                                   {
+                                                      new Leg(HONGKONG, new DateTime(2009, 3, 8),
+                                                              HAMBURG, new DateTime(2009, 3, 12)),
+                                                      new Leg(HAMBURG, new DateTime(2009, 3, 14),
+                                                              GOETEBORG, new DateTime(2009, 3, 15))
+                                                   });
 
          using (Bus.Register<Cargo, CargoAssignedToRouteEvent>((s, x) =>
                                                                        {

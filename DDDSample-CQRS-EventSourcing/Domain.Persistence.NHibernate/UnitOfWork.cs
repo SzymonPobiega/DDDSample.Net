@@ -72,13 +72,13 @@ namespace DDDSample.Domain.Persistence.NHibernate
             .Add(Expression.Eq("IsSnapshot", true))
             .Add(Expression.Eq("EntityId", id))
             .AddOrder(new Order("SequenceNumber", false))
-            .SetFirstResult(1)
+            .SetFirstResult(0)
             .SetMaxResults(1);         
 
          ICriteria criteria = _readSession.CreateCriteria(typeof(Event))
             .Add(Expression.Eq("EntityId", id))
             .Add(Subqueries.PropertyGe("SequenceNumber", boundaryCriteria))
-            .AddOrder(new Order("SequenceNumber", false));
+            .AddOrder(new Order("SequenceNumber", true));
 
          IList<Event> events = criteria.List<Event>();
          if (events.Count < 1)
@@ -137,7 +137,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
 
       private static bool ShouldPersistSnapshot(IAggregateRoot root)
       {
-         return root.Version % 3 == 0;
+         return root.Version % 3 == 1;
       }
    }
 }

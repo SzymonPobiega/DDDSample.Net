@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
+using DDDSample.Reporting.Persistence.NHibernate;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -15,18 +16,21 @@ namespace DDDSample.UI.BookingAndTracking.Facade
    {      
       private readonly IHandlingEventService _handlingEventService;
       private readonly ILocationRepository _locationRepository;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public HandlingEventServiceFacade(IHandlingEventService handlingEventService, ILocationRepository locationRepository)
+      public HandlingEventServiceFacade(IHandlingEventService handlingEventService, ILocationRepository locationRepository, CargoDataAccess cargoDataAccess)
       {
          _handlingEventService = handlingEventService;
+         _cargoDataAccess = cargoDataAccess;
          _locationRepository = locationRepository;
       }
 
       public void RegisterHandlingEvent(DateTime completionTime, string trackingId, string location, HandlingEventType type)
       {
+         Guid cargoId = _cargoDataAccess.Find(trackingId).Id;
          _handlingEventService.RegisterHandlingEvent(
-            completionTime,
-            new TrackingId(trackingId),            
+            cargoId,
+            completionTime,                        
             new UnLocode(location),
             type);
       }
