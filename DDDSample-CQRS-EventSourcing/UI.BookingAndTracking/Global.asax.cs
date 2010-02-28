@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DDDSample.Application;
-using DDDSample.Application.Implemetation;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.EventHandlers;
@@ -54,10 +52,7 @@ namespace DDDSample.UI.BookingAndTracking
 
          InitializeNHibernateForWeb(_ambientContainer);
          InitializeNHibernateForBus(busContainer);
-
-         ConfigureServices(_ambientContainer);
-         ConfigureServices(busContainer);
-
+         
          IBus bus = InitializeBus(busContainer);
          _ambientContainer.RegisterInstance(bus);
 
@@ -103,7 +98,7 @@ namespace DDDSample.UI.BookingAndTracking
 
          routes.MapRoute(
             "Change destination",
-            "Booking/ChangeDestination/{trackingId}",
+            "Booking/ChangeDestination/{TrackingId}",
             new {controller = "Booking", action = "ChangeDestination"}
             );
 
@@ -125,13 +120,7 @@ namespace DDDSample.UI.BookingAndTracking
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
          ServiceLocator.SetLocatorProvider(() => _ambientLocator);
          ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory());
-      }      
-
-      private static void ConfigureServices(IUnityContainer container)
-      {
-         container.RegisterType<IBookingService, BookingService>();
-         container.RegisterType<IHandlingEventService, HandlingEventService>();
-      }
+      }            
 
       protected void Application_Start()
       {
@@ -168,13 +157,13 @@ namespace DDDSample.UI.BookingAndTracking
          container.RegisterType<ILocationRepository, LocationRepository>();
          container.RegisterType<ICargoRepository, CargoRepository>();
 
-         container.AddNewExtension<Interception>();
-         container.Configure<Interception>()
-            .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-            .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
-            .AddPolicy("Transactions")
-            .AddCallHandler<TransactionCallHandler>()
-            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
+         //container.AddNewExtension<Interception>();
+         //container.Configure<Interception>()
+         //   .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
+         //   .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
+         //   .AddPolicy("Transactions")
+         //   .AddCallHandler<TransactionCallHandler>()
+         //   .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
       }
 
       private static void InitializeNHibernateForWeb(IUnityContainer container)

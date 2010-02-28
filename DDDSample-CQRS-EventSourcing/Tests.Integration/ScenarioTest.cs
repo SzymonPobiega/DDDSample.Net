@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using DDDSample.Application;
-using DDDSample.Application.Implemetation;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.EventHandlers;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.Reporting.Persistence.NHibernate;
@@ -69,21 +66,11 @@ namespace Tests.Integration
          get { return ServiceLocator.Current.GetInstance<ILocationRepository>(); }
       }
 
-      public static IBookingService BookingService
-      {
-         get { return ServiceLocator.Current.GetInstance<IBookingService>(); }
-      }
-
       public static CargoDataAccess CargoDataAccess
       {
          get { return ServiceLocator.Current.GetInstance<CargoDataAccess>(); }
       }
 
-      public static IHandlingEventService HandlingEventService
-      {
-         get { return ServiceLocator.Current.GetInstance<IHandlingEventService>(); }
-      }
-      
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
       private static ISessionFactory _sessionFactory;
@@ -100,9 +87,6 @@ namespace Tests.Integration
 
          ConfigureNHibernateRepositories();
 
-         _ambientContainer.RegisterType<IBookingService, BookingService>();
-         _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
-         
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
          ServiceLocator.SetLocatorProvider(() => _ambientLocator);     
     
@@ -136,14 +120,14 @@ namespace Tests.Integration
 
          _ambientContainer.AddNewExtension<Interception>();
 
-         _ambientContainer.Configure<Interception>()
+         //_ambientContainer.Configure<Interception>()
 
-            .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-            .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
+         //   .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
+         //   .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
 
-            .AddPolicy("Transactions")
-            .AddCallHandler<TransactionCallHandler>()
-            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
+         //   .AddPolicy("Transactions")
+         //   .AddCallHandler<TransactionCallHandler>()
+         //   .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
       }
 
       private void InitializeNHibernate()

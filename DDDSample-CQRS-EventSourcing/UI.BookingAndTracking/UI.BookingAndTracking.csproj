@@ -162,10 +162,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Facade\BookingServiceFacade.cs" />
-    <Compile Include="Facade\HandlingEventServiceFacade.cs" />
-    <Compile Include="Facade\LegDTOAssembler.cs" />
     <Compile Include="Facade\RouteCandidateDTO.cs" />
-    <Compile Include="Facade\RouteCandidateDTOAssember.cs" />
     <Compile Include="Facade\RoutingFacade.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -217,9 +214,13 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj">
-      <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
-      <Name>Application</Name>
+    <ProjectReference Include="..\CommandHandlers\CommandHandlers.csproj">
+      <Project>{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}</Project>
+      <Name>CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{61CC7A31-38A6-4890-A98A-67CBFF243254}</Project>
+      <Name>Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain.EventHandlers\Domain.EventHandlers.csproj">
       <Project>{96933641-7218-4216-93D2-FC11708FF0A2}</Project>

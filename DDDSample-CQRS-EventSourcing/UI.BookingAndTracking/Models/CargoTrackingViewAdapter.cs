@@ -69,6 +69,11 @@ namespace DDDSample.UI.BookingAndTracking.Models
          }
       }
 
+      public string TrackingId
+      {
+         get { return _cargo.TrackingId; }
+      }
+
       public string Destination
       {
          get

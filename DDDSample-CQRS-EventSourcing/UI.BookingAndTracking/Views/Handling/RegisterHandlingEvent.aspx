@@ -11,7 +11,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-        $("#completionTimeDatepicker").datepicker({ altField: '#completionTime' });
+        $("#completionTimeDatepicker").datepicker({ altField: '#command.CompletionTime' });
         });
     </script>
 
@@ -33,22 +33,22 @@
                 <%= Html.ValidationMessage("trackingId", "*")%>
             </p>
             <p>
-                <label for="completionTime">
+                <label for="command.CompletionTime">
                     Completion time:</label>
-                <%= Html.TextBox("completionTime")%>
-                <%= Html.ValidationMessage("completionTime", "*")%>
+                <%= Html.TextBox("command.CompletionTime")%>
+                <%= Html.ValidationMessage("command.CompletionTime", "*")%>
                 <div type="text" id="completionTimeDatepicker">
                 </div>
             </p>
             <p>
-                <label for="destination">
+                <label for="command.Location">
                     Location:</label>
-                <%= Html.DropDownList("location")%>
+                <%= Html.DropDownList("command.Location")%>
             </p>
             <p>
-                <label for="type">
+                <label for="command.Type">
                     Event type:</label>
-                <%= Html.DropDownList("type")%>
+                <%= Html.DropDownList("command.Type")%>
             </p>
             <p>
                 <input type="submit" value="Register" />

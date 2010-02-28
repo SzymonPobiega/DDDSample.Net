@@ -1,5 +1,5 @@
 <%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
-    Inherits="System.Web.Mvc.ViewPage" %>
+    Inherits="System.Web.Mvc.ViewPage<DDDSample.Commands.BookNewCargoCommand>" %>
 
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Models" %>
 <asp:Content ID="bookNewCargoTitle" ContentPlaceHolderID="TitleContent" runat="server">
@@ -9,7 +9,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-        $("#arrivalDeadlineDatepicker").datepicker({ altField: '#arrivalDeadline' });
+        $("#arrivalDeadlineDatepicker").datepicker({ altField: '#ArrivalDeadline' });
         });
     </script>
     
@@ -25,20 +25,20 @@
         <fieldset>
             <legend>Cargo information</legend>
             <p>
-                <label for="origin">
+                <label for="Origin">
                     Origin:</label>
-                <%= Html.DropDownList("origin")%>
+                <%= Html.DropDownList("Origin")%>
             </p>
             <p>
-                <label for="destination">
+                <label for="Destination">
                     Destination:</label>
-                <%= Html.DropDownList("destination")%>
+                <%= Html.DropDownList("Destination")%>
             </p>
             <p>
-                <label for="arrivalDeadline">
+                <label for="ArrivalDeadline">
                     Arrival deadline:</label>
-                <%= Html.TextBox("arrivalDeadline") %>
-                <%= Html.ValidationMessage("arrivalDeadline", "*")%>
+                <%= Html.TextBox("ArrivalDeadline") %>
+                <%= Html.ValidationMessage("ArrivalDeadline", "*")%>
                 <div type="text" id="arrivalDeadlineDatepicker">
                 </div>
             </p>

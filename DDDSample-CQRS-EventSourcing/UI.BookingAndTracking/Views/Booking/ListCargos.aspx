@@ -23,6 +23,7 @@
                 <td>
                     Routed
                 </td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,10 @@
                 </td>
                 <td>
                     <%=cargo.CurrentInformation.RoutingStatus == RoutingStatus.Misrouted ? "Yes" : "No"%>
+                </td>
+                <td>
+                    <%=Html.ActionLink("new handling event", "RegisterHandlingEvent", "Handling", new { trackingId = cargo.TrackingId}, null)%>
+                    <%=Html.ActionLink("track", "Track", "Tracking", new { trackingId = cargo.TrackingId}, null)%>
                 </td>
             </tr>
             <%

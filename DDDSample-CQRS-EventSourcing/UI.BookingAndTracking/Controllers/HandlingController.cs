@@ -2,18 +2,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DDDSample.Commands;
 using DDDSample.Domain.Cargo;
-using DDDSample.UI.BookingAndTracking.Facade;
+using DDDSample.Domain.Location;
+using DDDSample.Reporting.Persistence.NHibernate;
+using NServiceBus;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
    public class HandlingController : Controller
    {
-      private readonly HandlingEventServiceFacade _handlingEventFacade;
+      private readonly IBus _bus;
+      private readonly CargoDataAccess _cargoDataAccess;
+      private readonly ILocationRepository _locationRepository;      
 
-      public HandlingController(HandlingEventServiceFacade handlingEventFacade)
-      {
-         _handlingEventFacade = handlingEventFacade;
+      public HandlingController(IBus bus, CargoDataAccess cargoDataAccess, ILocationRepository locationRepository)
+      {         
+         _cargoDataAccess = cargoDataAccess;
+         _locationRepository = locationRepository;
+         _bus = bus;
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -25,37 +32,39 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
       }
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult RegisterHandlingEvent(string trackingId, DateTime? completionTime, string location, HandlingEventType type)
+      public ActionResult RegisterHandlingEvent(string trackingId, RegisterHandlingEventCommand command)
       {
-         bool validationError = false;
-         if (!completionTime.HasValue)
+         if (command.CompletionTime == DateTime.MinValue)
          {
-            ViewData.ModelState.AddModelError("completionTime", "Event completion date is required and must be a valid date.");
-            validationError = true;            
-         }         
+            ModelState.AddModelError("command.CompletionTime", "Event completion date is required and must be a valid date.");
+         }
          if (string.IsNullOrEmpty(trackingId))
          {
-            ViewData.ModelState.AddModelError("trackingId", "Tracking id must be specified.");
-            validationError = true;
+            ModelState.AddModelError("trackingId", "Tracking id must be specified.");
          }         
-         if (validationError)
+         if (!ModelState.IsValid)
          {
             AddHandlingLocations();
             AddHandlingEventTypes();
             return View();
          }
-         _handlingEventFacade.RegisterHandlingEvent(completionTime.Value, trackingId, location, type );
+         Reporting.Cargo cargo = _cargoDataAccess.Find(trackingId);
+         command.CargoId = cargo.Id;
+         _bus.Publish(command);
          return RedirectToAction("Index", "Home");
       }
       
       #region Utility
       public void AddHandlingLocations()
       {
-         ViewData["location"] = _handlingEventFacade.ListHandlingLocations();
+         ViewData["command.Location"] = 
+            _locationRepository.FindAll()
+            .Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode.CodeString })
+            .ToList();
       }
       public void AddHandlingEventTypes()
       {
-         ViewData["type"] = Enum.GetNames(typeof(HandlingEventType))
+         ViewData["command.Type"] = Enum.GetNames(typeof(HandlingEventType))
             .Select(x => new SelectListItem { Text = x, Value = x});
       }      
       #endregion

@@ -50,10 +50,10 @@
                    int legIndex = 0;
                     foreach (LegDTO leg in routeCandidate.Legs)
                     {%>                    
-                    <%=Html.Hidden("Legs[" + legIndex + "].LoadLocation", leg.LoadLocation)%>
-                    <%=Html.Hidden("Legs[" + legIndex + "].LoadDate", leg.LoadDate)%>
-                    <%=Html.Hidden("Legs[" + legIndex + "].UnloadLocation", leg.UnloadLocation)%>
-                    <%=Html.Hidden("Legs[" + legIndex + "].UnloadDate", leg.UnloadDate)%>                    
+                    <%=Html.Hidden("legs[" + legIndex + "].LoadLocation", leg.LoadLocation)%>
+                    <%=Html.Hidden("legs[" + legIndex + "].LoadDate", leg.LoadDate)%>
+                    <%=Html.Hidden("legs[" + legIndex + "].UnloadLocation", leg.UnloadLocation)%>
+                    <%=Html.Hidden("legs[" + legIndex + "].UnloadDate", leg.UnloadDate)%>                    
                     <%
                        legIndex++; %>
                 <tr>

@@ -6,7 +6,7 @@ using NHibernate;
 using NHibernate.Criterion;
 
 namespace DDDSample.Domain.Persistence.NHibernate
-{   
+{
    public class UnitOfWork
    {      
       private readonly List<IAggregateRoot> _trackedObjects = new List<IAggregateRoot>();

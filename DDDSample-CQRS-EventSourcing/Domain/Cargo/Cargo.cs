@@ -64,6 +64,10 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("itinerary");
          }
+         if (!_routeSpecification.IsSatisfiedBy(itinerary))
+         {
+            throw new InvalidOperationException("Provided itinerary doesn't satisfy this cargo's route specification.");
+         }
 
          Publish(this, new CargoAssignedToRouteEvent(itinerary, _deliveryStatus.Derive(_routeSpecification, itinerary)));
       }      

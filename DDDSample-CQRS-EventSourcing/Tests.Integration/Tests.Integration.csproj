@@ -111,10 +111,6 @@
     <Compile Include="ScenarioTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj">
-      <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
-      <Name>Application</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain.EventHandlers\Domain.EventHandlers.csproj">
       <Project>{96933641-7218-4216-93D2-FC11708FF0A2}</Project>
       <Name>Domain.EventHandlers</Name>

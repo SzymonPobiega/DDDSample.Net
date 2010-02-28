@@ -1,27 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
-using System.Web.Routing;
-using DDDSample.Domain.Location;
-using DDDSample.Application;
-using Microsoft.Practices.ServiceLocation;
+using DDDSample.Commands;
 using DDDSample.UI.BookingAndTracking.Facade;
 using DDDSample.UI.BookingAndTracking.Models;
+using NServiceBus;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
    public class BookingController : Controller
    {
       private readonly RoutingFacade _routingFacade;
+      private readonly IBus _bus;
       private readonly BookingServiceFacade _bookingFacade;
 
-      public BookingController(BookingServiceFacade bookingFacade, RoutingFacade routingFacade)
+      public BookingController(BookingServiceFacade bookingFacade, RoutingFacade routingFacade, IBus bus)
       {
          _bookingFacade = bookingFacade;
          _routingFacade = routingFacade;
+         _bus = bus;
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
@@ -58,43 +56,50 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
       [AcceptVerbs(HttpVerbs.Post)]      
       public ActionResult ChangeDestination(string trackingId, string destination)
       {
-         _bookingFacade.ChangeDestination(trackingId, destination);
+         Reporting.Cargo cargo = _bookingFacade.LoadCargoForRouting(trackingId);
+         _bus.Send(new ChangeDestinationCommand
+                      {
+                         CargoId = cargo.Id,
+                         NewDestination = destination
+                      });
          return RedirectToDetails(trackingId);
       }      
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult NewCargo(string origin, string destination, DateTime? arrivalDeadline)
+      public ActionResult NewCargo(BookNewCargoCommand command)
       {
-         bool validationError = false;
-         if (!arrivalDeadline.HasValue)
+         if (command.ArrivalDeadline == DateTime.MinValue)
          {
-            ViewData.ModelState.AddModelError("arrivalDeadline", "Arrival deadline is required and must be a valid date.");
-            validationError = true;            
+            ModelState.AddModelError("ArrivalDeadline", "Arrival deadline is required and must be a valid date.");            
          }
-         if (origin == destination)
+         if (command.Origin == command.Destination)
          {
-            ViewData.ModelState.AddModelError("destination", "Destination of a cargo must be different from its origin.");
-            validationError = true;            
+            ModelState.AddModelError("Destination", "Destination of a cargo must be different from its origin.");            
          }
-         if (validationError)
+         if (!ModelState.IsValid)
          {
             AddShipingLocations();
             return View();
          }
-         _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
+         _bus.Send(command);
          return RedirectToAction("ListCargos");
       }
 
       [AcceptVerbs(HttpVerbs.Get)]
       public ActionResult AssignToRoute(string trackingId)
-      {
+      {         
          return View(GetAssignToRouteModel(trackingId));
       }
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult AssignToRoute(string trackingId, RouteCandidateDTO routeCandidate)
+      public ActionResult AssignToRoute(string trackingId, List<LegDTO> legs)
       {
-         _bookingFacade.AssignCargoToRoute(trackingId, routeCandidate);
+         Reporting.Cargo cargo = _bookingFacade.LoadCargoForRouting(trackingId);
+         _bus.Send(new AssignCargoToRouteCommand
+                      {
+                         CargoId = cargo.Id,
+                         Legs = legs
+                      });
          return RedirectToDetails(trackingId);
       }
       
