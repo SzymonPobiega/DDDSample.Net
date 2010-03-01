@@ -1,9 +1,13 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DDDSample.Commands;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.Domain.Persistence.NHibernate;
+using Microsoft.Practices.ServiceLocation;
+using NServiceBus;
 using NUnit.Framework;
 
 namespace Tests.Integration
@@ -23,20 +27,28 @@ namespace Tests.Integration
          /* Use case 1: booking
 
             A new cargo is booked, and the unique tracking id is assigned to the cargo. */
-         TrackingId trackingId;
-         Guid cargoId = BookingService.BookNewCargo(
-            origin, destination, arrivalDeadline, out trackingId
-            );
-                  
-         Itinerary itinerary = new Itinerary(new List<Leg>
-                                                {
-                                                   new Leg(HONGKONG, new DateTime(2009, 3, 03),
-                                                           NEWYORK, new DateTime(2009, 3, 9)),
-                                                   new Leg(NEWYORK, new DateTime(2009, 3, 10),
-                                                           CHICAGO, new DateTime(2009, 3, 14)),
-                                                   new Leg(CHICAGO, new DateTime(2009, 3, 7),
-                                                           STOCKHOLM, new DateTime(2009, 3, 11))
-                                                });
+         Guid cargoId = Guid.Empty;
+         using (Bus.Register<Cargo, CargoRegisteredEvent>((s,x) => cargoId = s.Id))
+         {
+            InvokeCommand(new BookNewCargoCommand
+                             {
+                                Origin = origin.CodeString,
+                                Destination = destination.CodeString,
+                                ArrivalDeadline = arrivalDeadline
+                             });
+         }
+
+
+         List<LegDTO> itinerary
+            = new List<LegDTO>
+                 {
+                    new LegDTO(HONGKONG.CodeString, new DateTime(2009, 3, 03),
+                               NEWYORK.CodeString, new DateTime(2009, 3, 9)),
+                    new LegDTO(NEWYORK.CodeString, new DateTime(2009, 3, 10),
+                            CHICAGO.CodeString, new DateTime(2009, 3, 14)),
+                    new LegDTO(CHICAGO.CodeString, new DateTime(2009, 3, 7),
+                            STOCKHOLM.CodeString, new DateTime(2009, 3, 11))
+                 };
 
          using (Bus.Register<Cargo, CargoAssignedToRouteEvent>((s,x) =>
                                          {
@@ -46,7 +58,11 @@ namespace Tests.Integration
                                             Assert.AreEqual(new HandlingActivity(HandlingEventType.Receive, HONGKONG), x.Delivery.NextExpectedActivity);
                                          }))
          {
-            BookingService.AssignCargoToRoute(cargoId, itinerary);            
+            InvokeCommand(new AssignCargoToRouteCommand()
+                             {
+                                CargoId = cargoId,
+                                Legs = itinerary
+                             });
          }
          
          /*
@@ -69,9 +85,7 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(HONGKONG, x.Delivery.LastKnownLocation);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(cargoId,
-               new DateTime(2009, 3, 1), HONGKONG, HandlingEventType.Receive
-               );   
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 1), HONGKONG, HandlingEventType.Receive);   
          }
 
          using (Bus.Register<Cargo, CargoHandledEvent>((s, x) =>
@@ -84,9 +98,7 @@ namespace Tests.Integration
          }))
          {
             // Next event: Load onto voyage CM003 in Hongkong
-            HandlingEventService.RegisterHandlingEvent(cargoId,
-               new DateTime(2009, 3, 3), HONGKONG, HandlingEventType.Load
-               );
+            RegisterHandlingEvent(cargoId,new DateTime(2009, 3, 3), HONGKONG, HandlingEventType.Load);
          }                   
 
 
@@ -120,9 +132,7 @@ namespace Tests.Integration
                                                                }))
          {
             // Cargo is now (incorrectly) unloaded in Tokyo
-            HandlingEventService.RegisterHandlingEvent(cargoId,
-               new DateTime(2009, 3, 5), TOKYO, HandlingEventType.Unload
-               );
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 5), TOKYO, HandlingEventType.Unload);
          }
 
          // -- Cargo needs to be rerouted --
@@ -137,16 +147,20 @@ namespace Tests.Integration
                                                                   Assert.IsNull(x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            BookingService.ChangeDestination(cargoId, GOETEBORG);
+            InvokeCommand(new ChangeDestinationCommand
+                             {
+                                CargoId = cargoId,
+                                NewDestination = GOETEBORG.CodeString
+                             });
          }
-                  
-         Itinerary newItinerary = new Itinerary(new List<Leg>
-                                                   {
-                                                      new Leg(HONGKONG, new DateTime(2009, 3, 8),
-                                                              HAMBURG, new DateTime(2009, 3, 12)),
-                                                      new Leg(HAMBURG, new DateTime(2009, 3, 14),
-                                                              GOETEBORG, new DateTime(2009, 3, 15))
-                                                   });
+
+         var newItinerary = new List<LegDTO>
+                               {
+                                  new LegDTO(HONGKONG.CodeString, new DateTime(2009, 3, 8),
+                                             HAMBURG.CodeString, new DateTime(2009, 3, 12)),
+                                  new LegDTO(HAMBURG.CodeString, new DateTime(2009, 3, 14),
+                                             GOETEBORG.CodeString, new DateTime(2009, 3, 15))
+                               };
 
          using (Bus.Register<Cargo, CargoAssignedToRouteEvent>((s, x) =>
                                                                        {
@@ -155,7 +169,11 @@ namespace Tests.Integration
                                                                           Assert.IsTrue(x.Delivery.IsMisdirected);                                                                          
                                                                        }))
          {
-            BookingService.AssignCargoToRoute(cargoId, newItinerary);            
+            InvokeCommand(new AssignCargoToRouteCommand()
+            {
+               CargoId = cargoId,
+               Legs = newItinerary
+            });    
          }
          
          // -- Cargo has been rerouted, shipping continues --
@@ -171,8 +189,7 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, HAMBURG), x.Delivery.NextExpectedActivity);  
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 8), HONGKONG,
-                                                       HandlingEventType.Load);
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 8), HONGKONG, HandlingEventType.Load);
          }
          
          // Unload in Hamburg
@@ -185,8 +202,7 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Load, HAMBURG), x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 12), HAMBURG,
-                                                       HandlingEventType.Unload);
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 12), HAMBURG, HandlingEventType.Unload);
          }         
 
          // Load in Hamburg
@@ -199,8 +215,7 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Unload, GOETEBORG), x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 14), HAMBURG,
-                                                       HandlingEventType.Load);
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 14), HAMBURG, HandlingEventType.Load);
          }         
 
          // Unload in Stockholm
@@ -213,8 +228,7 @@ namespace Tests.Integration
                                                                   Assert.AreEqual(new HandlingActivity(HandlingEventType.Claim, GOETEBORG), x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 15), GOETEBORG,
-                                                       HandlingEventType.Unload);
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 15), GOETEBORG, HandlingEventType.Unload);
          }
          
 
@@ -228,14 +242,32 @@ namespace Tests.Integration
                                                                   Assert.IsNull(x.Delivery.NextExpectedActivity);
                                                                }))
          {
-            HandlingEventService.RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 16), GOETEBORG,
+            RegisterHandlingEvent(cargoId, new DateTime(2009, 3, 16), GOETEBORG,
                                                        HandlingEventType.Claim);
          }
          
       }
-      private static Itinerary SelectPreferedItinerary(IList<Itinerary> itineraries)
+
+      private static void RegisterHandlingEvent(Guid cargoId, DateTime time, UnLocode location, HandlingEventType eventType)
       {
-         return itineraries.First();
-      }      
+         InvokeCommand(new RegisterHandlingEventCommand
+                          {
+                             CargoId = cargoId,
+                             CompletionTime = time,
+                             Location = location.CodeString,
+                             Type = eventType
+                          });
+      }
+
+
+      private static void InvokeCommand<T>(T command)
+         where T : IMessage
+      {
+         UnitOfWork.Current = new UnitOfWork(_sessionFactory);
+         IMessageHandler<T> handler = ServiceLocator.Current.GetInstance<IMessageHandler<T>>();
+         handler.Handle(command);
+         UnitOfWork.Current.Commit();
+         UnitOfWork.Current = null;
+      }
    }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using DDDSample.CommandHandlers;
+using DDDSample.Commands;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
@@ -19,6 +21,7 @@ using NHibernate.Context;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
+using NServiceBus;
 using NUnit.Framework;
 using Environment=NHibernate.Cfg.Environment;
 
@@ -73,7 +76,7 @@ namespace Tests.Integration
 
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
-      private static ISessionFactory _sessionFactory;
+      protected static ISessionFactory _sessionFactory;
 
       private string DatabaseFile;
          
@@ -118,7 +121,12 @@ namespace Tests.Integration
          _ambientContainer.RegisterType<ILocationRepository, LocationRepository>();
          _ambientContainer.RegisterType<ICargoRepository, CargoRepository>();
 
-         _ambientContainer.AddNewExtension<Interception>();
+         _ambientContainer.RegisterType<IMessageHandler<BookNewCargoCommand>, BookNewCargoCommandHandler>();
+         _ambientContainer.RegisterType<IMessageHandler<AssignCargoToRouteCommand>, AssignCargoToRouteCommandHandler>();
+         _ambientContainer.RegisterType<IMessageHandler<ChangeDestinationCommand>, ChangeDestinationCommandHandler>();
+         _ambientContainer.RegisterType<IMessageHandler<RegisterHandlingEventCommand>, RegisterHandlingEventCommandHandler>();
+
+         //_ambientContainer.AddNewExtension<Interception>();
 
          //_ambientContainer.Configure<Interception>()
 

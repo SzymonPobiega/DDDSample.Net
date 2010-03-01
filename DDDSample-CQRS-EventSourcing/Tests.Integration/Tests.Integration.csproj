@@ -90,6 +90,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NHibernate\NHibernate.ByteCode.LinFu.dll</HintPath>
     </Reference>
+    <Reference Include="NServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\NServiceBus\NServiceBus.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\nunit.framework.dll</HintPath>
@@ -111,6 +115,14 @@
     <Compile Include="ScenarioTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CommandHandlers\CommandHandlers.csproj">
+      <Project>{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}</Project>
+      <Name>CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Commands\Commands.csproj">
+      <Project>{61CC7A31-38A6-4890-A98A-67CBFF243254}</Project>
+      <Name>Commands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.EventHandlers\Domain.EventHandlers.csproj">
       <Project>{96933641-7218-4216-93D2-FC11708FF0A2}</Project>
       <Name>Domain.EventHandlers</Name>

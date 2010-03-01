@@ -77,7 +77,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandHandlers", "CommandH
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 15
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs07.codeplex.com/
 		SccLocalPath0 = .
@@ -127,6 +127,12 @@ Global
 		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
 		SccProjectName12 = Domain.EventHandlers
 		SccLocalPath12 = Domain.EventHandlers
+		SccProjectUniqueName13 = Commands\\Commands.csproj
+		SccProjectName13 = Commands
+		SccLocalPath13 = Commands
+		SccProjectUniqueName14 = CommandHandlers\\CommandHandlers.csproj
+		SccProjectName14 = CommandHandlers
+		SccLocalPath14 = CommandHandlers
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
