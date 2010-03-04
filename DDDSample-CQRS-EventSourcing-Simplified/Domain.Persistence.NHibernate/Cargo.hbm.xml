@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.Domain" 
+                   namespace="DDDSample.Domain.Cargo"
+                   auto-import="false" 
+                   schema="domain">
+  <class name="Cargo" table="Cargo">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"></generator>
+    </id>
+    <component name="TrackingId" update="false" class="TrackingId">
+      <property name="_idString" column="TrackingId" not-null="true" access="field"/>
+    </component>    
+    <component name="_routeSpecification" class="RouteSpecification" access="field">
+      <many-to-one name="_origin" column="SpecOriginId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>
+      <many-to-one name="_destination" column="SpecDestinationId" class="DDDSample.Domain.Location.Location" access="field" not-null="true"/>      
+      <property name="_arrivalDeadline" column="SpecArrivalDeadline" not-null="true" access="field"/>
+    </component>
+    <component name="_itinerary" class="Itinerary" access="field">         
+      <list name="_legs" lazy="true" cascade="all" access="field" table="Leg">
+        <key column="CargoId"/>
+        <index column="LegIndex"/>
+        <composite-element class="Leg">
+          <many-to-one name="_loadLocation" column="LoadLocation" class="DDDSample.Domain.Location.Location" access="field"/>
+          <many-to-one name="_unloadLocation" column="UnloadLocation" class="DDDSample.Domain.Location.Location" access="field"/>
+          <property name="_loadDate" column="LoadDate" access="field"/>
+          <property name="_unloadDate" column="UnloadDate" access="field"/>
+        </composite-element>        
+      </list>
+    </component>
+    <many-to-one name="_lastHandlingEvent" access="field" class="HandlingEvent" cascade="all-delete-orphan" column="LastHandlingEvent"/>
+    <bag name="_handlingEvents" access="field" lazy="true" cascade="all-delete-orphan">
+      <key column="CargoId"/>
+      <one-to-many class="HandlingEvent"/>
+    </bag>
+  </class>
+</hibernate-mapping>

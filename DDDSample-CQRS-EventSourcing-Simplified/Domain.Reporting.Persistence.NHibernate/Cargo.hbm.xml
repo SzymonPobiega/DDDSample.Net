@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.Reporting"
+                   namespace="DDDSample.Reporting" 
+                   auto-import="false">
+  <class name="Cargo" table="Cargo" schema="reporting">
+    <id type="Guid" name="Id">
+      <column name="Id" />
+      <generator class="assigned"></generator>
+    </id>
+    <property name="TrackingId" unique="false"/>
+    <property name="Origin" not-null="true"/>
+    <property name="Destination" not-null="true"/>
+    <property name="ArrivalDeadline" column="ArrivalDeadline" not-null="true"/>
+    <property name="RouteSpecification" column="RoteSpecification" type="Serializable"/>
+    <many-to-one name="CurrentInformation" class="Delivery" cascade="none"/>      
+    <bag name="_history" access="field" inverse="true" cascade="all-delete-orphan" lazy="true" order-by="CalculatedAt">
+      <key column="CargoId"/>
+      <one-to-many class="Delivery"/>
+    </bag>      
+  </class>  
+</hibernate-mapping>

@@ -1,0 +1,217 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.NHibernate", "Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9377EB9-1321-4E3C-9974-71242D75072D}"
+	ProjectSection(SolutionItems) = preProject
+		DDDSample.proj = DDDSample.proj
+		DDDSample.vsmdi = DDDSample.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B41F94-5227-4533-B102-75A87FF61AE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.BookingAndTracking", "UI.BookingAndTracking\UI.BookingAndTracking.csproj", "{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5592DB69-FE64-492B-8C5D-0C0CE7263495}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\log4net.dll = Libs\log4net.dll
+		Libs\Microsoft.Practices.ObjectBuilder2.dll = Libs\Microsoft.Practices.ObjectBuilder2.dll
+		Libs\Microsoft.Practices.ServiceLocation.dll = Libs\Microsoft.Practices.ServiceLocation.dll
+		Libs\Microsoft.Practices.Unity.dll = Libs\Microsoft.Practices.Unity.dll
+		Libs\Microsoft.Practices.Unity.Interception.dll = Libs\Microsoft.Practices.Unity.Interception.dll
+		Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll = Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll
+		Libs\nunit.framework.dll = Libs\nunit.framework.dll
+		Libs\System.Data.SQLite.DLL = Libs\System.Data.SQLite.DLL
+		Libs\System.Data.SQLite.X64.DLL = Libs\System.Data.SQLite.X64.DLL
+		Libs\System.Web.Mvc.dll = Libs\System.Web.Mvc.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate", "NHibernate", "{E73BA32A-A565-4D2C-BB59-F8D7DEB80584}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\NHibernate\Antlr3.Runtime.dll = Libs\NHibernate\Antlr3.Runtime.dll
+		Libs\NHibernate\Iesi.Collections.dll = Libs\NHibernate\Iesi.Collections.dll
+		Libs\NHibernate\LinFu.DynamicProxy.dll = Libs\NHibernate\LinFu.DynamicProxy.dll
+		Libs\NHibernate\NHibernate.ByteCode.LinFu.dll = Libs\NHibernate\NHibernate.ByteCode.LinFu.dll
+		Libs\NHibernate\NHibernate.dll = Libs\NHibernate\NHibernate.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus", "{797E78FB-2CA6-427B-9EAC-9392B67CACCC}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\NServiceBus\NServiceBus.Core.dll = Libs\NServiceBus\NServiceBus.Core.dll
+		Libs\NServiceBus\NServiceBus.dll = Libs\NServiceBus\NServiceBus.dll
+		Libs\NServiceBus\NServiceBus.Host.exe = Libs\NServiceBus\NServiceBus.Host.exe
+		Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll = Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{EB1EA7DE-711C-4477-89E6-296B6D760D3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporting", "Domain.Reporting\Reporting.csproj", "{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporting.Persistence.NHibernate", "Domain.Reporting.Persistence.NHibernate\Reporting.Persistence.NHibernate.csproj", "{5C437BB6-C153-4EE1-9030-F0B52CD926DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages", "Messages\Messages.csproj", "{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.EventHandlers", "Domain.EventHandlers\Domain.EventHandlers.csproj", "{96933641-7218-4216-93D2-FC11708FF0A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporting.MessageHandlers", "Reporting.MessageHandlers\Reporting.MessageHandlers.csproj", "{905DD567-8314-4E57-A6BC-91CAD38CD7F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{5C27C145-AA81-4BB4-A0E9-4047C5BAAD92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reporting", "Reporting", "{E7091029-5BE4-4361-97C1-EB1DD4A7F394}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands", "Commands\Commands.csproj", "{61CC7A31-38A6-4890-A98A-67CBFF243254}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandHandlers", "CommandHandlers\CommandHandlers.csproj", "{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 15
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs07.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Domain.Persistence.NHibernate\\Domain.Persistence.NHibernate.csproj
+		SccProjectTopLevelParentUniqueName1 = DDDSample.sln
+		SccProjectName1 = Domain.Persistence.NHibernate
+		SccLocalPath1 = Domain.Persistence.NHibernate
+		SccProjectUniqueName2 = Domain\\Domain.csproj
+		SccProjectTopLevelParentUniqueName2 = DDDSample.sln
+		SccProjectName2 = Domain
+		SccLocalPath2 = Domain
+		SccProjectUniqueName3 = Tests.Domain\\Tests.Domain.csproj
+		SccProjectTopLevelParentUniqueName3 = DDDSample.sln
+		SccProjectName3 = Tests.Domain
+		SccLocalPath3 = Tests.Domain
+		SccProjectUniqueName4 = UI.BookingAndTracking\\UI.BookingAndTracking.csproj
+		SccProjectName4 = UI.BookingAndTracking
+		SccLocalPath4 = UI.BookingAndTracking
+		SccProjectUniqueName5 = Setup\\Setup.vdproj
+		SccProjectName5 = Setup
+		SccLocalPath5 = Setup
+		SccProjectUniqueName6 = Pathfinder\\Pathfinder.csproj
+		SccProjectTopLevelParentUniqueName6 = DDDSample.sln
+		SccProjectName6 = Pathfinder
+		SccLocalPath6 = Pathfinder
+		SccProjectUniqueName7 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectTopLevelParentUniqueName7 = DDDSample.sln
+		SccProjectName7 = Tests.Integration
+		SccLocalPath7 = Tests.Integration
+		SccProjectUniqueName8 = Domain.Reporting.Persistence.NHibernate\\Reporting.Persistence.NHibernate.csproj
+		SccProjectTopLevelParentUniqueName8 = DDDSample.sln
+		SccProjectName8 = Domain.Reporting.Persistence.NHibernate
+		SccLocalPath8 = Domain.Reporting.Persistence.NHibernate
+		SccProjectUniqueName9 = Reporting.MessageHandlers\\Reporting.MessageHandlers.csproj
+		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
+		SccProjectName9 = Reporting.MessageHandlers
+		SccLocalPath9 = Reporting.MessageHandlers
+		SccProjectUniqueName10 = Domain.Reporting\\Reporting.csproj
+		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
+		SccProjectName10 = Domain.Reporting
+		SccLocalPath10 = Domain.Reporting
+		SccProjectUniqueName11 = Messages\\Messages.csproj
+		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
+		SccProjectName11 = Messages
+		SccLocalPath11 = Messages
+		SccProjectUniqueName12 = Domain.EventHandlers\\Domain.EventHandlers.csproj
+		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
+		SccProjectName12 = Domain.EventHandlers
+		SccLocalPath12 = Domain.EventHandlers
+		SccProjectUniqueName13 = Commands\\Commands.csproj
+		SccProjectName13 = Commands
+		SccLocalPath13 = Commands
+		SccProjectUniqueName14 = CommandHandlers\\CommandHandlers.csproj
+		SccProjectName14 = CommandHandlers
+		SccLocalPath14 = CommandHandlers
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = DDDSample.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Release|Any CPU.ActiveCfg = Release
+		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C437BB6-C153-4EE1-9030-F0B52CD926DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C437BB6-C153-4EE1-9030-F0B52CD926DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C437BB6-C153-4EE1-9030-F0B52CD926DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C437BB6-C153-4EE1-9030-F0B52CD926DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96933641-7218-4216-93D2-FC11708FF0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96933641-7218-4216-93D2-FC11708FF0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96933641-7218-4216-93D2-FC11708FF0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96933641-7218-4216-93D2-FC11708FF0A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{905DD567-8314-4E57-A6BC-91CAD38CD7F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{905DD567-8314-4E57-A6BC-91CAD38CD7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{905DD567-8314-4E57-A6BC-91CAD38CD7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{905DD567-8314-4E57-A6BC-91CAD38CD7F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61CC7A31-38A6-4890-A98A-67CBFF243254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61CC7A31-38A6-4890-A98A-67CBFF243254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61CC7A31-38A6-4890-A98A-67CBFF243254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61CC7A31-38A6-4890-A98A-67CBFF243254}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9AEE86-62BB-45D5-B452-90ECADB8BA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCF5B41B-70F3-42FB-8352-C37584105289} = {5C27C145-AA81-4BB4-A0E9-4047C5BAAD92}
+		{96933641-7218-4216-93D2-FC11708FF0A2} = {5C27C145-AA81-4BB4-A0E9-4047C5BAAD92}
+		{9648B89B-C748-447C-86A1-D125F7053967} = {5C27C145-AA81-4BB4-A0E9-4047C5BAAD92}
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01} = {34B41F94-5227-4533-B102-75A87FF61AE3}
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E} = {34B41F94-5227-4533-B102-75A87FF61AE3}
+		{E73BA32A-A565-4D2C-BB59-F8D7DEB80584} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
+		{797E78FB-2CA6-427B-9EAC-9392B67CACCC} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
+		{4E647270-93DB-49CF-BA64-1ED67A1AC0AC} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
+		{02B53338-D16B-4051-BA94-503488406CD1} = {BEC03AB3-0C4D-4FC9-A640-D23C5C3E7E00}
+		{5C437BB6-C153-4EE1-9030-F0B52CD926DC} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
+		{905DD567-8314-4E57-A6BC-91CAD38CD7F9} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
+		{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8} = {E7091029-5BE4-4361-97C1-EB1DD4A7F394}
+	EndGlobalSection
+EndGlobal
