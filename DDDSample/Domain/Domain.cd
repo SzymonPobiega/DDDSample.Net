@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DDDSample.Domain.Cargo.Cargo" Collapsed="true">
+    <Position X="1.5" Y="0.75" Width="1.5" />
+    <AssociationLine Name="Delivery" Type="DDDSample.Domain.Cargo.Delivery" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.188" Y="1.312" />
+        <Point X="2.188" Y="1.687" />
+        <Point X="1.25" Y="1.687" />
+        <Point X="1.25" Y="2" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Itinerary" Type="DDDSample.Domain.Cargo.Itinerary" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.5" Y="1.312" />
+        <Point X="2.5" Y="1.687" />
+        <Point X="3.5" Y="1.687" />
+        <Point X="3.5" Y="2" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.825" Y="0.172" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAQAAAAAgAAAAIAAAAQAAAAAAAAEAAg=</HashCode>
+      <FileName>Cargo\Cargo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Delivery" />
+      <Property Name="RouteSpecification" />
+      <Property Name="Itinerary" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.Domain.Handling.HandlingHistory" Collapsed="true">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAACAAgAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Handling\HandlingHistory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_events" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DDDSample.Domain.Location.Location" Collapsed="true">
+    <Position X="7.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Location\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Handling.HandlingEvent" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAABAAAIAiAAUAQAAAAAAACAAAAAAEAA=</HashCode>
+      <FileName>Handling\HandlingEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.Delivery" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBAAQECgAABJBAAgAAYwAAAAHAgAAAAAAAgAECAURiA=</HashCode>
+      <FileName>Cargo\Delivery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.RouteSpecification" Collapsed="true">
+    <Position X="1.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAACAAAAAQAAAAAAAAAABEAAAAAAgARiA=</HashCode>
+      <FileName>Cargo\RouteSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.Itinerary" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAAAAAAAAAIgAAAAAAAAAAAQIAAAAIAQiA=</HashCode>
+      <FileName>Cargo\Itinerary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
