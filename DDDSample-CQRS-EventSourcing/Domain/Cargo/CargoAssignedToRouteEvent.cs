@@ -9,7 +9,7 @@ namespace DDDSample.Domain.Cargo
    /// Raised after cargo has arrived assigned to route.
    /// </summary>
    [Serializable]
-   public sealed class CargoAssignedToRouteEvent : Event<Cargo>
+   public class CargoAssignedToRouteEvent : Event<Cargo>
    {
       private readonly Delivery _delivery;
       private readonly Itinerary _newItinerary;
