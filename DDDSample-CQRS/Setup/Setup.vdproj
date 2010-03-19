@@ -238,13 +238,13 @@
         "Entry"
         {
         "MsmKey" = "8:_8B3AD53A577B8BB7DA575EA73636AC13"
-        "OwnerKey" = "8:_C1B47A20BC3693ACD090055ED5F8F6F9"
+        "OwnerKey" = "8:_810ECE0CEB7E4FB6AEEC91249EA9157D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_8B3AD53A577B8BB7DA575EA73636AC13"
-        "OwnerKey" = "8:_810ECE0CEB7E4FB6AEEC91249EA9157D"
+        "OwnerKey" = "8:_C1B47A20BC3693ACD090055ED5F8F6F9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -466,6 +466,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8B3AD53A577B8BB7DA575EA73636AC13"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A65EA26D0FB76C014BA074FF66A9F329"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -635,12 +641,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C1B47A20BC3693ACD090055ED5F8F6F9"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8B3AD53A577B8BB7DA575EA73636AC13"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -1686,7 +1686,7 @@
         {
             "{80453C8E-1031-40EC-8E7A-9762B297303A}:_A0FE2EAA532F49A6972026E9F7446A44"
             {
-            "VirtualDirectory" = "8:DDDSampleNet"
+            "VirtualDirectory" = "8:DDDSampleNet-CQRS"
             "Port" = "3:80"
             "IsApplication" = "11:TRUE"
             "AllowScriptSourceAccess" = "11:FALSE"
@@ -1778,7 +1778,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DDDSample.Net - CQRS"
         "ProductCode" = "8:{5F3BDB26-E0CC-42D5-AB2B-48A391073A2A}"
-        "PackageCode" = "8:{7AFEDAD6-29E3-4437-A92B-B14B9CEE7AC4}"
+        "PackageCode" = "8:{4A3554C5-6AF7-42A3-B5E7-600ED6262C72}"
         "UpgradeCode" = "8:{68B7A336-1687-42E0-9FBC-49ADC159190A}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
