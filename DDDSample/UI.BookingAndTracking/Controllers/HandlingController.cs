@@ -45,7 +45,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
             return View();
          }
          _handlingEventFacade.RegisterHandlingEvent(completionTime.Value, trackingId, location, type );
-         return RedirectToAction("Index", "Home");
+         return RedirectToAction("Track", "Tracking", new {trackingId});
       }
       
       #region Utility

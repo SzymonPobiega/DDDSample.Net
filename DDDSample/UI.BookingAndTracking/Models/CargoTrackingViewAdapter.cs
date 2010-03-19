@@ -9,7 +9,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
    public class CargoTrackingViewAdapter
    {
       private readonly Cargo _cargo;
-      private readonly IList<Domain.Handling.HandlingEvent> _handlingEvents;
+      private readonly IList<Domain.Handling.HandlingEvent> _handlingEvents;      
 
       public CargoTrackingViewAdapter(Cargo cargo, HandlingHistory handlingHistory)
       {
@@ -22,6 +22,11 @@ namespace DDDSample.UI.BookingAndTracking.Models
          {
             _handlingEvents = new List<Domain.Handling.HandlingEvent>();
          }
+      }
+
+      public string TrackingId
+      {
+         get { return _cargo.TrackingId.IdString; }
       }
 
       public IEnumerable<HandlingEventViewAdapter> HandlingEvents

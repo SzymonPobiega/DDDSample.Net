@@ -222,10 +222,6 @@
       <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
       <Name>Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.Persistence.InMemory\Domain.Persistence.InMemory.csproj">
-      <Project>{F0820483-BA6F-49D9-9621-F06AA6B1A172}</Project>
-      <Name>Domain.Persistence.InMemory</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj">
       <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
       <Name>Domain.Persistence.NHibernate</Name>

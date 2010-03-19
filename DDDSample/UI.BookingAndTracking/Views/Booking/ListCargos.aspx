@@ -7,7 +7,7 @@
 <asp:Content ID="listCargosContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>
         List of all cargos. To book a new cargo <%=Html.ActionLink("click here", "NewCargo") %></h2>
-    <table border="1" width="600">        
+    <table border="1" width="800">        
         <thead>
             <tr>
                 <td>
@@ -22,6 +22,7 @@
                 <td>
                     Routed
                 </td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +42,10 @@
                 </td>
                 <td>
                     <%=cargo.IsRouted ? "Yes" : "No" %>
+                </td>
+                <td>
+                    <%=Html.ActionLink("new handling event", "RegisterHandlingEvent", "Handling", new { trackingId = cargo.TrackingId}, null)%>
+                    <%=Html.ActionLink("track", "Track", "Tracking", new { trackingId = cargo.TrackingId}, null)%>
                 </td>
             </tr>
             <%

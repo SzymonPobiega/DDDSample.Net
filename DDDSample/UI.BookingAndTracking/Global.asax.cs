@@ -27,9 +27,6 @@ using NServiceBus.ObjectBuilder;
 using NServiceBus.SagaPersisters.NHibernate;
 using Synch = DDDSample.Application.SynchronousEventHandlers;
 using Asynch = DDDSample.Application.AsynchronousEventHandlers;
-using CargoRepository=DDDSample.Domain.Persistence.InMemory.CargoRepository;
-using HandlingEventRepository=DDDSample.Domain.Persistence.InMemory.HandlingEventRepository;
-using LocationRepository=DDDSample.Domain.Persistence.InMemory.LocationRepository;
 
 namespace DDDSample.UI.BookingAndTracking
 {
@@ -237,8 +234,6 @@ namespace DDDSample.UI.BookingAndTracking
          WireUpSessionLifecycle();
       }
 
-      [Conditional("NHIBERNATE")]
-      [Conditional("NHIBERNATE_ASYNCH")]
       private void WireUpSessionLifecycle()
       {
          PreRequestHandlerExecute += BindNHibernateSession;
