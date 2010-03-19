@@ -14,6 +14,11 @@ namespace DDDSample.UI.BookingAndTracking.Models
          _cargo = cargo;         
       }
 
+      public string TrackingId
+      {
+         get { return _cargo.TrackingId; }
+      }
+
       public IEnumerable<HandlingEventViewAdapter> HandlingEvents
       {
          get { return _cargo.DeliveryHistory.Select(x => new HandlingEventViewAdapter(x)); }

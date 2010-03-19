@@ -43,7 +43,8 @@
                 &nbsp;<%=@event.Description%></p>
             </li>            
             <% } %>
-        </ul>     
+        </ul> 
+        <p><%=Html.ActionLink("Register new handling event", "RegisterHandlingEvent", "Handling", new { trackingId = Model.TrackingId}, null)%></p>    
     </div>
     <% } %>
 </asp:Content>

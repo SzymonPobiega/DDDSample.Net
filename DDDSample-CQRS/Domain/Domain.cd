@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DDDSample.Domain.Cargo.Cargo" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="_itinerary" Type="DDDSample.Domain.Cargo.Itinerary">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.992" Y="0.1" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAIAAiAAAAAAAAAQAkAAAAAAEAAA=</HashCode>
+      <FileName>Cargo\Cargo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_routeSpecification" />
+      <Field Name="_itinerary" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_handlingEvents" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DDDSample.Domain.Location.Location" Collapsed="true">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Location\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.Itinerary" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAAAAAAAAAIgAAAAAAAAAAAQIAAAAIAQiA=</HashCode>
+      <FileName>Cargo\Itinerary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.RouteSpecification" Collapsed="true">
+    <Position X="1.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAACAAAAAQAAAAAAAAAABEAAAAAAgARiA=</HashCode>
+      <FileName>Cargo\RouteSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.HandlingEvent" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAABAAAIAiAAUAQAAAAAAACAAAAAAEAA=</HashCode>
+      <FileName>Cargo\HandlingEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -33,7 +33,7 @@
                 <%= Html.ValidationMessage("trackingId", "*")%>
             </p>
             <p>
-                <label for="completionTime">
+                <label for="command.CompletionTime">
                     Completion time:</label>
                 <%= Html.TextBox("completionTime")%>
                 <%= Html.ValidationMessage("completionTime", "*")%>
@@ -41,12 +41,12 @@
                 </div>
             </p>
             <p>
-                <label for="destination">
+                <label for="command.Location">
                     Location:</label>
                 <%= Html.DropDownList("location")%>
             </p>
             <p>
-                <label for="type">
+                <label for="command.Type">
                     Event type:</label>
                 <%= Html.DropDownList("type")%>
             </p>
