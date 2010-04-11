@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargo\ItineraryTest.cs" />
-    <Compile Include="ValueObjectTest.cs" />
+    <Compile Include="Cargo\ValueObjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
