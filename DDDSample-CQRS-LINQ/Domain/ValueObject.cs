@@ -33,7 +33,7 @@ namespace DDDSample.Domain
       /// <returns></returns>
       protected static bool NotEqualOperator(ValueObject left, ValueObject right)
       {
-         return !(left == right);
+         return !EqualOperator(left,right);
       }
 
       /// <summary>

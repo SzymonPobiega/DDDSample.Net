@@ -47,6 +47,42 @@ namespace Domain.Tests
       }
 
       [Test]
+      public void InequalityOperator_BothNulls_FalseReturned()
+      {
+         FakeValueObject left = null;
+         FakeValueObject right = null;
+         Assert.IsFalse(left != right);
+      }
+      [Test]
+      public void InequalityOperator_LeftNull_TrueReturned()
+      {
+         FakeValueObject left = null;
+         FakeValueObject right = new FakeValueObject("A");
+         Assert.IsTrue(left != right);
+      }
+      [Test]
+      public void InequalityOperator_RightNull_TrueReturned()
+      {
+         FakeValueObject left = new FakeValueObject("A");
+         FakeValueObject right = null;
+         Assert.IsTrue(left != right);
+      }
+      [Test]
+      public void InequalityOperator_NotEqual_TrueReturned()
+      {
+         FakeValueObject left = new FakeValueObject("B");
+         FakeValueObject right = new FakeValueObject("A");
+         Assert.IsTrue(left != right);
+      }
+      [Test]
+      public void InequalityOperator_Equal_FalseReturned()
+      {
+         FakeValueObject left = new FakeValueObject("A");
+         FakeValueObject right = new FakeValueObject("A");
+         Assert.IsFalse(left != right);
+      }
+
+      [Test]
       public void GetHashCode_SingleValue_ThisValueHashCodeReturned()
       {
          string singleValue = "abcd";
