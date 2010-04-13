@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 using NServiceBus;
 
 namespace DDDSample.Application.AsynchronousEventHandlers.Messages

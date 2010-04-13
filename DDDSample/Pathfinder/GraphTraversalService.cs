@@ -9,7 +9,7 @@ namespace DDDSample.Pathfinder
    /// <summary>
    /// A simple implementation of graph traversal service.
    /// </summary>
-   public class GraphTraversalService
+   public class GraphTraversalService : IGraphTraversalService
    {
       private readonly GraphDAO _dao;
       private readonly Random _random = new Random();      
@@ -19,7 +19,7 @@ namespace DDDSample.Pathfinder
          _dao = dao;
       }
 
-      public IList<TransitPath> FindShortestPaths(String originUnLocode,
+      public IList<TransitPath> FindPaths(String originUnLocode,
                                                     String destinationUnLocode,
                                                     Constraints limitations)
       {

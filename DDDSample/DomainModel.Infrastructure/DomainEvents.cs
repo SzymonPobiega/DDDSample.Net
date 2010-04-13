@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.ServiceLocation;
 
-namespace DDDSample.Domain
+namespace DDDSample.DomainModel
 {
    /// <summary>
    /// Provides logic for raising and handling domain events.

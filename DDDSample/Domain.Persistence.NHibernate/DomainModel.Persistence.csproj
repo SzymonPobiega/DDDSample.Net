@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=1.0.0.593, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\NHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.dll</HintPath>
@@ -61,6 +65,8 @@
   <ItemGroup>
     <Compile Include="AbstractRepository.cs" />
     <Compile Include="CargoRepository.cs" />
+    <Compile Include="CustomerAgreementRepository.cs" />
+    <Compile Include="CustomerRepository.cs" />
     <Compile Include="VoyageRepository.cs" />
     <Compile Include="HandlingEventRepository.cs" />
     <Compile Include="LocationRepository.cs" />
@@ -68,9 +74,25 @@
     <Compile Include="TransactionCallHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
+    <ProjectReference Include="..\DomainModel.Infrastructure\DomainModel.Infrastructure.csproj">
+      <Project>{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}</Project>
+      <Name>DomainModel.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Policy\DomainModel.Policy.csproj">
+      <Project>{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}</Project>
+      <Name>DomainModel.Policy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Potential\DomainModel.Potential.csproj">
+      <Project>{214472B7-48D1-4B4F-8865-9381B145D5DA}</Project>
+      <Name>DomainModel.Potential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\DomainModel.Operations.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>DomainModel.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Routing\DomainModel.DecisionSupport.csproj">
+      <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>
+      <Name>DomainModel.DecisionSupport</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -81,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="HandlingHistory.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Customer.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CustomerAgreement.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

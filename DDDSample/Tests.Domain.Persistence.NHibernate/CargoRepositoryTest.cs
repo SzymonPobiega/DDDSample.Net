@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 using NUnit.Framework;
 
 namespace Domain.Persistence.Tests
@@ -25,12 +25,12 @@ namespace Domain.Persistence.Tests
             Location warszawa = new Location(new UnLocode("PLWAW"), "Warszawa");
             Session.Save(warszawa);
 
-            repository.Store(new Cargo(new TrackingId("xxx"),new RouteSpecification(krakow, warszawa, DateTime.Now) ));            
+            repository.Store(new Cargo(new TrackingId("xxx"),new RouteSpecification(krakow, warszawa, DateTime.Now), null));            
          }
 
          using (Scope(true))
          {
-            IList<Cargo> cargos = Session.CreateQuery("from DDDSample.Domain.Cargo.Cargo c").List<Cargo>();
+            IList<Cargo> cargos = Session.CreateQuery("from DDDSample.DomainModel.Operations.Cargo.Cargo c").List<Cargo>();
             Assert.AreEqual(1, cargos.Count);
          }
       }      

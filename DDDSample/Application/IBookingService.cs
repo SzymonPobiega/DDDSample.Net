@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Location;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 
 namespace DDDSample.Application
 {
@@ -15,11 +15,12 @@ namespace DDDSample.Application
       /// <summary>
       /// Registers a new cargo in the tracking system, not yet routed.
       /// </summary>
+      /// <param name="customerLogin">Current user login</param>
       /// <param name="origin">Cargo origin UN locode.</param>
       /// <param name="destination">Cargo destination UN locode.</param>
       /// <param name="arrivalDeadline">Arrival deadline.</param>
       /// <returns>Cargo tracing id for referencing this cargo.</returns>
-      TrackingId BookNewCargo(UnLocode origin, UnLocode destination, DateTime arrivalDeadline);
+      TrackingId BookNewCargo(string customerLogin, UnLocode origin, UnLocode destination, DateTime arrivalDeadline);
       /// <summary>
       /// Requests a list of itineraries describing possible routes for this cargo.
       /// </summary>

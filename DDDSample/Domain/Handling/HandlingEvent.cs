@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
 
-namespace DDDSample.Domain.Handling
+namespace DDDSample.DomainModel.Operations.Handling
 {
    /// <summary>
    /// Single cargo handling event.
@@ -11,7 +11,7 @@ namespace DDDSample.Domain.Handling
    public class HandlingEvent
    {
       private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;      
+      private readonly DomainModel.Potential.Location.Location _location;      
       private readonly DateTime _registrationDate;
       private readonly DateTime _completionDate;
       protected virtual HandlingHistory _parent { get; set;}
@@ -23,7 +23,7 @@ namespace DDDSample.Domain.Handling
       /// <param name="location"></param>
       /// <param name="registrationDate"></param>
       /// <param name="completionDate"></param>
-      public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate, HandlingHistory parent)
+      public HandlingEvent(HandlingEventType eventType, DomainModel.Potential.Location.Location location, DateTime registrationDate, DateTime completionDate, HandlingHistory parent)
       {
          _eventType = eventType;
          _parent = parent;
@@ -51,7 +51,7 @@ namespace DDDSample.Domain.Handling
       /// <summary>
       /// Location where event occured.
       /// </summary>
-      public Location.Location Location
+      public DomainModel.Potential.Location.Location Location
       {
          get { return _location; }
       }

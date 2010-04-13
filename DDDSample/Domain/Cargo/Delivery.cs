@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 
-namespace DDDSample.Domain.Cargo
-{   
-   /// <summary>
-   /// Description of delivery status.
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
+namespace DDDSample.DomainModel.Operations.Cargo
+{
    public class Delivery : ValueObject
 #pragma warning restore 661,660
    {
       private readonly TransportStatus _transportStatus;
-      private readonly Location.Location _lastKnownLocation;
+      private readonly DomainModel.Potential.Location.Location _lastKnownLocation;
       private readonly bool _misdirected;
       private readonly DateTime? _eta;      
       private readonly bool _isUnloadedAtDestination;
@@ -67,7 +63,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets last known location of this cargo.
       /// </summary>
-      public Location.Location LastKnownLocation
+      public DomainModel.Potential.Location.Location LastKnownLocation
       {
          get { return _lastKnownLocation; }
       }
@@ -135,8 +131,8 @@ namespace DDDSample.Domain.Cargo
       private bool CalculateUnloadedAtDestination(RouteSpecification specification)
       {
          return LastEvent != null &&
-                  LastEvent.EventType == HandlingEventType.Unload &&
-                  specification.Destination == LastEvent.Location;
+                LastEvent.EventType == HandlingEventType.Unload &&
+                specification.Destination == LastEvent.Location;
       }
 
       private DateTime? CalculateEta(Itinerary itinerary)
@@ -144,7 +140,7 @@ namespace DDDSample.Domain.Cargo
          return OnTrack ? itinerary.FinalArrivalDate : null;
       }
 
-      private Location.Location CalculateLastKnownLocation()
+      private DomainModel.Potential.Location.Location CalculateLastKnownLocation()
       {
          return LastEvent != null ? LastEvent.Location : null;
       }

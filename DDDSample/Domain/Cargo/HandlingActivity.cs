@@ -1,22 +1,16 @@
 using System;
 using System.Collections.Generic;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 
-namespace DDDSample.Domain.Cargo
+namespace DDDSample.DomainModel.Operations.Cargo
 {
-   /// <summary>
-   /// A handling activity represents how and where a cargo can be handled,
-   /// and can be used to express predictions about what is expected to
-   /// happen to a cargo in the future.
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class HandlingActivity : ValueObject
 #pragma warning restore 661,660
    {
       private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;
+      private readonly DomainModel.Potential.Location.Location _location;
 
-      public HandlingActivity(HandlingEventType eventType, Location.Location location)
+      public HandlingActivity(HandlingEventType eventType, DomainModel.Potential.Location.Location location)
       {
          if (location == null)
          {
@@ -31,7 +25,7 @@ namespace DDDSample.Domain.Cargo
          get { return _eventType; }
       }
 
-      public Location.Location Location
+      public DomainModel.Potential.Location.Location Location
       {
          get { return _location; }
       }

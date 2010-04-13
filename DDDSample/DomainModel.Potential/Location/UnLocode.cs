@@ -4,15 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace DDDSample.Domain.Location
+namespace DDDSample.DomainModel.Potential.Location
 {
-   /// <summary>
-   /// United nations location code.
-   /// 
-   /// http://www.unece.org/cefact/locode/
-   /// http://www.unece.org/cefact/locode/DocColumnDescription.htm#LOCODE
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class UnLocode : ValueObject
 #pragma warning restore 661,660
    {

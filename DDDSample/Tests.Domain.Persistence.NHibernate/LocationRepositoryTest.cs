@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DDDSample.Domain.Persistence.NHibernate;
-using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Potential.Location;
 using NUnit.Framework;
 
 namespace Domain.Persistence.Tests

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Potential.Customer;
 
-namespace DDDSample.Domain.Cargo
+namespace DDDSample.DomainModel.Operations.Cargo
 {
    /// <summary>
    /// Cargo.
@@ -33,11 +33,17 @@ namespace DDDSample.Domain.Cargo
       public virtual Delivery Delivery { get; protected set; }
 
       /// <summary>
+      /// Gets the ordering customer of this cargo.
+      /// </summary>
+      public virtual Customer OrderingCustomer { get; protected set; }
+
+      /// <summary>
       /// Creates new <see cref="Cargo"/> object with provided tracking id and route specification.
       /// </summary>
       /// <param name="trackingId">Tracking id of this cargo.</param>
       /// <param name="routeSpecification">Route specification.</param>
-      public Cargo(TrackingId trackingId, RouteSpecification routeSpecification)
+      /// <param name="orderingCustomer">Customer who ordered this cargo.</param>
+      public Cargo(TrackingId trackingId, RouteSpecification routeSpecification, Customer orderingCustomer)
       {
          if (trackingId == null)
          {
@@ -47,6 +53,7 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("routeSpecification");
          }
+         OrderingCustomer = orderingCustomer;
          TrackingId = trackingId;
          RouteSpecification = routeSpecification;
          Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, null);

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Potential.Location;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace DDDSample.Domain.Persistence.NHibernate
 {
@@ -14,17 +16,17 @@ namespace DDDSample.Domain.Persistence.NHibernate
       {
       }
 
-      public Location.Location Find(UnLocode locode)
-      {
-         const string query = @"from DDDSample.Domain.Location.Location l where l.UnLocode = :unLocode";
-         return Session.CreateQuery(query).SetString("unLocode",locode.CodeString)
-            .UniqueResult<Location.Location>();
+      public DomainModel.Potential.Location.Location Find(UnLocode locode)
+      {         
+         return Session.CreateCriteria(typeof(DomainModel.Potential.Location.Location))
+            .Add(Restrictions.Eq("UnLocode", locode))
+            .UniqueResult<DomainModel.Potential.Location.Location>();
       }
 
-      public IList<Location.Location> FindAll()
-      {
-         const string query = @"from DDDSample.Domain.Location.Location l";
-         return Session.CreateQuery(query).List<Location.Location>();
+      public IList<DomainModel.Potential.Location.Location> FindAll()
+      {         
+         return Session.CreateCriteria(typeof(DomainModel.Potential.Location.Location))
+            .List<DomainModel.Potential.Location.Location>();
       }
    }
 }

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="DDDSample.DomainModel.Potential"
+                   namespace="DDDSample.DomainModel.Potential.Customer">
+  <class name="Customer" table="Customer">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"></generator>
+    </id>    
+    <property name="Name"/>
+    <property name="AssociatedLogin"/>
+  </class>
+</hibernate-mapping>

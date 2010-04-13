@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DDDSample.Domain.Cargo
+namespace DDDSample.DomainModel.Operations.Cargo
 {
    /// <summary>
    /// Raised after cargo has arrived assigned to route.
    /// </summary>
-   public sealed class CargoHasBeenAssignedToRouteEvent : DomainEvent<Cargo>
+   public sealed class CargoHasBeenAssignedToRouteEvent : DomainEvent<DomainModel.Operations.Cargo.Cargo>
    {
       private readonly Itinerary _oldItinerary;
 
-      public CargoHasBeenAssignedToRouteEvent(Cargo source, Itinerary oldItinerary) : base(source)
+      public CargoHasBeenAssignedToRouteEvent(DomainModel.Operations.Cargo.Cargo source, Itinerary oldItinerary) : base(source)
       {
          _oldItinerary = oldItinerary;
       }

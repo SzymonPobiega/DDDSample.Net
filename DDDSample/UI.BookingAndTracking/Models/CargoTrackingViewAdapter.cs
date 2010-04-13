@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using HandlingEvent=DDDSample.DomainModel.Operations.Handling.HandlingEvent;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {   
    public class CargoTrackingViewAdapter
    {
       private readonly Cargo _cargo;
-      private readonly IList<Domain.Handling.HandlingEvent> _handlingEvents;      
+      private readonly IList<HandlingEvent> _handlingEvents;      
 
       public CargoTrackingViewAdapter(Cargo cargo, HandlingHistory handlingHistory)
       {
@@ -20,7 +21,7 @@ namespace DDDSample.UI.BookingAndTracking.Models
          }
          else
          {
-            _handlingEvents = new List<Domain.Handling.HandlingEvent>();
+            _handlingEvents = new List<HandlingEvent>();
          }
       }
 

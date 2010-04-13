@@ -1,20 +1,16 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Handling;
 
-namespace DDDSample.Domain.Cargo
+namespace DDDSample.DomainModel.Operations.Cargo
 {
-   /// <summary>
-   /// Represents handling event from viewpoint of cargo aggregate
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class HandlingEvent : ValueObject
 #pragma warning restore 661,660
    {
       private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;
+      private readonly DomainModel.Potential.Location.Location _location;
       private readonly DateTime _registrationDate;
       private readonly DateTime _completionDate;
 
@@ -25,7 +21,7 @@ namespace DDDSample.Domain.Cargo
       /// <param name="location"></param>
       /// <param name="registrationDate"></param>
       /// <param name="completionDate"></param>
-      public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate)
+      public HandlingEvent(HandlingEventType eventType, DomainModel.Potential.Location.Location location, DateTime registrationDate, DateTime completionDate)
       {
          _eventType = eventType;         
          _completionDate = completionDate;
@@ -52,7 +48,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Location UnLocode where event occured.
       /// </summary>
-      public Location.Location Location
+      public DomainModel.Potential.Location.Location Location
       {
          get { return _location; }
       }

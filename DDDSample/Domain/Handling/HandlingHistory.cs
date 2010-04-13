@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 
-namespace DDDSample.Domain.Handling
+namespace DDDSample.DomainModel.Operations.Handling
 {
    /// <summary>
    /// Contains information about cargo handling history. Enables registration of cargo
@@ -28,7 +29,7 @@ namespace DDDSample.Domain.Handling
       /// <param name="location">Location where event occured.</param>
       /// <param name="registrationDate">Date when event was registered.</param>
       /// <param name="completionDate">Date when action represented by the event was completed.</param>
-      public virtual void RegisterHandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate)
+      public virtual void RegisterHandlingEvent(HandlingEventType eventType, Location location, DateTime registrationDate, DateTime completionDate)
       {         
          HandlingEvent @event = new HandlingEvent(eventType, location, registrationDate, completionDate,this);
          _events.Add(@event);

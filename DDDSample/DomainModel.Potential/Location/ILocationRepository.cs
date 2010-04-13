@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.DomainModel.Potential.Location;
 
 namespace DDDSample.Domain.Location
 {
@@ -15,11 +16,11 @@ namespace DDDSample.Domain.Location
       /// </summary>
       /// <param name="locode"></param>
       /// <returns>A location identified by a given <see cref="UnLocode"/></returns>
-      Location Find(UnLocode locode);
+      DomainModel.Potential.Location.Location Find(UnLocode locode);
       /// <summary>
       /// Finds all locations.
       /// </summary>
       /// <returns>A collection of all defined locations.</returns>
-      IList<Location> FindAll();
+      IList<DomainModel.Potential.Location.Location> FindAll();
    }
 }

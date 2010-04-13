@@ -1,7 +1,8 @@
 using System;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace DDDSample.Domain.Persistence.NHibernate
 {
@@ -16,9 +17,9 @@ namespace DDDSample.Domain.Persistence.NHibernate
       }
       
       public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
-      {
-         const string query = @"from DDDSample.Domain.Handling.HandlingHistory h where h.TrackingId = :trackingId";
-         return Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
+      {         
+         return Session.CreateCriteria(typeof(HandlingHistory))
+            .Add(Restrictions.Eq("TrackingId", cargoTrackingId))            
             .UniqueResult<HandlingHistory>();
       }
 

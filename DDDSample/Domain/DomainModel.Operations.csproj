@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FCF5B41B-70F3-42FB-8352-C37584105289}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DDDSample.DomainModel.Operations</RootNamespace>
+    <AssemblyName>DDDSample.DomainModel.Operations</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cargo\Cargo.cs" />
+    <Compile Include="Cargo\CargoHasBeenAssignedToRouteEvent.cs" />
+    <Compile Include="Cargo\Delivery.cs" />
+    <Compile Include="Cargo\HandlingActivity.cs" />
+    <Compile Include="Cargo\HandlingEvent.cs" />
+    <Compile Include="Cargo\RoutingStatus.cs" />
+    <Compile Include="Cargo\TransportStatus.cs" />
+    <Compile Include="Cargo\ICargoRepository.cs" />
+    <Compile Include="Cargo\Leg.cs" />
+    <Compile Include="Cargo\RouteSpecification.cs" />
+    <Compile Include="Handling\HandlingEvent.cs" />
+    <Compile Include="Handling\HandlingHistory.cs" />
+    <Compile Include="Handling\IHandlingEventRepository.cs" />
+    <Compile Include="Cargo\CargoHasArrivedEvent.cs" />
+    <Compile Include="Handling\CargoWasHandledEvent.cs" />
+    <Compile Include="Cargo\CargoWasMisdirectedEvent.cs" />
+    <Compile Include="Cargo\Itinerary.cs" />
+    <Compile Include="Cargo\TrackingId.cs" />
+    <Compile Include="Handling\HandlingEventType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Domain.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainModel.Infrastructure\DomainModel.Infrastructure.csproj">
+      <Project>{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}</Project>
+      <Name>DomainModel.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Potential\DomainModel.Potential.csproj">
+      <Project>{214472B7-48D1-4B4F-8865-9381B145D5DA}</Project>
+      <Name>DomainModel.Potential</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

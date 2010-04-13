@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DDDSample.Application.AsynchronousEventHandlers.Messages;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 using NHibernate;
-using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
+using HandlingEvent=DDDSample.DomainModel.Operations.Cargo.HandlingEvent;
 
 namespace DDDSample.Application.AsynchronousEventHandlers.MessageHandlers
 {

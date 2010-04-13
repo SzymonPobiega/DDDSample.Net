@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="DDDSample.Domain" namespace="DDDSample.Domain.Location">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.DomainModel.Potential" 
+                   namespace="DDDSample.DomainModel.Potential.Location">
   <class name="Location" table="Location">
     <id type="Guid">
       <column name="Id" />

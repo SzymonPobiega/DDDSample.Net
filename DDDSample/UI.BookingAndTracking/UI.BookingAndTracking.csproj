@@ -222,17 +222,33 @@
       <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
       <Name>Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj">
+    <ProjectReference Include="..\Domain.Persistence.NHibernate\DomainModel.Persistence.csproj">
       <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
-      <Name>Domain.Persistence.NHibernate</Name>
+      <Name>DomainModel.Persistence</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
+    <ProjectReference Include="..\DomainModel.Infrastructure\DomainModel.Infrastructure.csproj">
+      <Project>{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}</Project>
+      <Name>DomainModel.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Policy\DomainModel.Policy.csproj">
+      <Project>{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}</Project>
+      <Name>DomainModel.Policy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Potential\DomainModel.Potential.csproj">
+      <Project>{214472B7-48D1-4B4F-8865-9381B145D5DA}</Project>
+      <Name>DomainModel.Potential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\DomainModel.Operations.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>DomainModel.Operations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Routing\Infrastructure.Routing.csproj">
+    <ProjectReference Include="..\Infrastructure.Routing\DomainModel.DecisionSupport.csproj">
       <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>
-      <Name>Infrastructure.Routing</Name>
+      <Name>DomainModel.DecisionSupport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
+      <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>
+      <Name>Pathfinder</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

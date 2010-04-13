@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
 
-namespace DDDSample.Domain.Handling
+namespace DDDSample.DomainModel.Operations.Handling
 {
    /// <summary>
    /// Provides access to cargo handling history.

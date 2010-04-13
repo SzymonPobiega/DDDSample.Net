@@ -8,8 +8,8 @@
     <ProjectGuid>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Infrastructure.Routing</RootNamespace>
-    <AssemblyName>Infrastructure.Routing</AssemblyName>
+    <RootNamespace>DDDSample.DomainModel.DecisionSupport</RootNamespace>
+    <AssemblyName>DDDSample.DomainModel.DecisionSupport</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -50,12 +50,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoutingService.cs" />
+    <Compile Include="Routing\IRoutingService.cs" />
+    <Compile Include="Routing\RoutingService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
+    <ProjectReference Include="..\DomainModel.Infrastructure\DomainModel.Infrastructure.csproj">
+      <Project>{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}</Project>
+      <Name>DomainModel.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Policy\DomainModel.Policy.csproj">
+      <Project>{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}</Project>
+      <Name>DomainModel.Policy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Potential\DomainModel.Potential.csproj">
+      <Project>{214472B7-48D1-4B4F-8865-9381B145D5DA}</Project>
+      <Name>DomainModel.Potential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\DomainModel.Operations.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
+      <Name>DomainModel.Operations</Name>
     </ProjectReference>
     <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
       <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>

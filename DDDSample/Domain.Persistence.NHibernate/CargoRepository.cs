@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
 using NHibernate;
+using NHibernate.Criterion;
 
 namespace DDDSample.Domain.Persistence.NHibernate
 {
@@ -15,23 +16,22 @@ namespace DDDSample.Domain.Persistence.NHibernate
       {
       }
 
-      public void Store(Cargo.Cargo cargo)
+      public void Store(DomainModel.Operations.Cargo.Cargo cargo)
       {
          Session.Save(cargo);
       }
 
-      public Cargo.Cargo Find(TrackingId trackingId)
-      {
-         const string query = @"from DDDSample.Domain.Cargo.Cargo c where c.TrackingId = :trackingId";
-         return Session.CreateQuery(query).SetString("trackingId", trackingId.IdString)
-            .UniqueResult<Cargo.Cargo>();
+      public DomainModel.Operations.Cargo.Cargo Find(TrackingId trackingId)
+      {         
+         return Session.CreateCriteria(typeof(Cargo))
+            .Add(Restrictions.Eq("TrackingId", trackingId))
+            .UniqueResult<DomainModel.Operations.Cargo.Cargo>();
       }
 
-      public IList<Cargo.Cargo> FindAll()
+      public IList<DomainModel.Operations.Cargo.Cargo> FindAll()
       {
-         const string query = @"from DDDSample.Domain.Cargo.Cargo c";
-         return Session.CreateQuery(query)
-            .List<Cargo.Cargo>();
+         return Session.CreateCriteria(typeof(Cargo))
+            .List<DomainModel.Operations.Cargo.Cargo>();
       }
 
       public TrackingId NextTrackingId()

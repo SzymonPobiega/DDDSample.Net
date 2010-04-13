@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using DDDSample.Application.AsynchronousEventHandlers.Messages;
 using DDDSample.Domain;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
 using NServiceBus;
 
 namespace DDDSample.Application.AsynchronousEventHandlers.EventHandlers

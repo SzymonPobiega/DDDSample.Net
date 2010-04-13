@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DDDSample.Domain.Cargo
-{   
-   /// <summary>
-   /// Represents one step of an itinerary.
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
+namespace DDDSample.DomainModel.Operations.Cargo
+{
    public class Leg : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly Location.Location _loadLocation;
-      private readonly Location.Location _unloadLocation;
+      private readonly DomainModel.Potential.Location.Location _loadLocation;
+      private readonly DomainModel.Potential.Location.Location _unloadLocation;
 
       private readonly DateTime _loadDate;
       private readonly DateTime _unloadDate;
@@ -25,7 +21,7 @@ namespace DDDSample.Domain.Cargo
       /// <param name="loadDate">Date and time when cargo is supposed to be loaded</param>
       /// <param name="unloadLocation">Location where cargo is supposed to be unloaded.</param>
       /// <param name="unloadDate">Date and time when cargo is supposed to be unloaded.</param>
-      public Leg(Location.Location loadLocation, DateTime loadDate, Location.Location unloadLocation, DateTime unloadDate)
+      public Leg(DomainModel.Potential.Location.Location loadLocation, DateTime loadDate, DomainModel.Potential.Location.Location unloadLocation, DateTime unloadDate)
       {
          _loadLocation = loadLocation;
          _unloadDate = unloadDate;
@@ -36,7 +32,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets location where cargo is supposed to be loaded.
       /// </summary>
-      public Location.Location LoadLocation
+      public DomainModel.Potential.Location.Location LoadLocation
       {
          get { return _loadLocation; }
       }
@@ -44,7 +40,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Gets location where cargo is supposed to be unloaded.
       /// </summary>
-      public Location.Location UnloadLocation
+      public DomainModel.Potential.Location.Location UnloadLocation
       {
          get { return _unloadLocation; }
       }
@@ -88,5 +84,5 @@ namespace DDDSample.Domain.Cargo
       {
       }
       #endregion
-   }   
+   }
 }

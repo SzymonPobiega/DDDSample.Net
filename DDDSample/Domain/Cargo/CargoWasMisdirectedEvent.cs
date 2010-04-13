@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DDDSample.Domain.Cargo
+namespace DDDSample.DomainModel.Operations.Cargo
 {
    /// <summary>
    /// Raised after cargo has been found to be misdirected.
    /// </summary>
-   public class CargoWasMisdirectedEvent : DomainEvent<Cargo>
+   public class CargoWasMisdirectedEvent : DomainEvent<DomainModel.Operations.Cargo.Cargo>
    {
-      public CargoWasMisdirectedEvent(Cargo source) : base(source)
+      public CargoWasMisdirectedEvent(DomainModel.Operations.Cargo.Cargo source) : base(source)
       {
       }
    }

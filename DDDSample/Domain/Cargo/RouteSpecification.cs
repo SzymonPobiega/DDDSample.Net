@@ -4,20 +4,16 @@ using System.Linq;
 using System.Text;
 using DDDSample.Domain.Location;
 
-namespace DDDSample.Domain.Cargo
+namespace DDDSample.DomainModel.Operations.Cargo
 {
-   /// <summary>
-   /// Contains information about a route: its origin, destination and arrival deadline.
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
    public class RouteSpecification : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly Location.Location _origin;
-      private readonly Location.Location _destination;
+      private readonly DomainModel.Potential.Location.Location _origin;
+      private readonly DomainModel.Potential.Location.Location _destination;
       private readonly DateTime _arrivalDeadline;
 
-      public RouteSpecification(Location.Location origin, Location.Location destination, DateTime arrivalDeadline)
+      public RouteSpecification(DomainModel.Potential.Location.Location origin, DomainModel.Potential.Location.Location destination, DateTime arrivalDeadline)
       {
          if (origin == null)
          {
@@ -63,7 +59,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Location where cargo should be delivered.
       /// </summary>
-      public Location.Location Destination
+      public DomainModel.Potential.Location.Location Destination
       {
          get { return _destination; }
       }
@@ -71,7 +67,7 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Location where cargo should be picked up.
       /// </summary>
-      public Location.Location Origin
+      public DomainModel.Potential.Location.Location Origin
       {
          get { return _origin; }
       }

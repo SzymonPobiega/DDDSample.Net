@@ -2,19 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 using NUnit.Framework;
-using HandlingEventType = DDDSample.Domain.Handling.HandlingEventType;
+using HandlingEventType = DDDSample.DomainModel.Operations.Handling.HandlingEventType;
 
 namespace DDDSample.Domain.Tests.Cargo
 {
    [TestFixture]
    public class ItineraryTest
    {
-      private static readonly Location.Location Krakow = new Location.Location(new UnLocode("PLKRK"), "Krakow");
-      private static readonly Location.Location Warszawa = new Location.Location(new UnLocode("PLWAW"), "Warszawa");
-      private static readonly Location.Location Wroclaw = new Location.Location(new UnLocode("PLWRC"), "Wroclaw");
+      private static readonly DomainModel.Potential.Location.Location Krakow = new DomainModel.Potential.Location.Location(new UnLocode("PLKRK"), "Krakow");
+      private static readonly DomainModel.Potential.Location.Location Warszawa = new DomainModel.Potential.Location.Location(new UnLocode("PLWAW"), "Warszawa");
+      private static readonly DomainModel.Potential.Location.Location Wroclaw = new DomainModel.Potential.Location.Location(new UnLocode("PLWRC"), "Wroclaw");
 
       [Test]
       public void IsExpected_ClaimEvent_Empty_False()

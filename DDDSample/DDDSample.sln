@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.NHibernate", "Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Persistence", "Domain.Persistence.NHibernate\DomainModel.Persistence.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{591BFC07-E7F5-400B-9761-9AF6EF2A3009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Operations", "Domain\DomainModel.Operations.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}"
 EndProject
@@ -39,6 +39,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate", "NHibernate", "{E73BA32A-A565-4D2C-BB59-F8D7DEB80584}"
 	ProjectSection(SolutionItems) = preProject
 		Libs\NHibernate\Antlr3.Runtime.dll = Libs\NHibernate\Antlr3.Runtime.dll
+		Libs\NHibernate\FluentNHibernate.dll = Libs\NHibernate\FluentNHibernate.dll
 		Libs\NHibernate\Iesi.Collections.dll = Libs\NHibernate\Iesi.Collections.dll
 		Libs\NHibernate\LinFu.DynamicProxy.dll = Libs\NHibernate\LinFu.DynamicProxy.dll
 		Libs\NHibernate\NHibernate.ByteCode.LinFu.dll = Libs\NHibernate\NHibernate.ByteCode.LinFu.dll
@@ -55,11 +56,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Routing", "Infrastructure.Routing\Infrastructure.Routing.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.DecisionSupport", "Infrastructure.Routing\DomainModel.DecisionSupport.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{EB1EA7DE-711C-4477-89E6-296B6D760D3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Potential", "DomainModel.Potential\DomainModel.Potential.csproj", "{214472B7-48D1-4B4F-8865-9381B145D5DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Infrastructure", "DomainModel.Infrastructure\DomainModel.Infrastructure.csproj", "{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C103219F-A2B7-4A26-B7DA-7C64E95139FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Policy", "DomainModel.Policy\DomainModel.Policy.csproj", "{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -70,120 +81,178 @@ Global
 		SccProjectUniqueName1 = Application\\Application.csproj
 		SccProjectName1 = Application
 		SccLocalPath1 = Application
-		SccProjectUniqueName2 = Domain\\Domain.csproj
-		SccProjectName2 = Domain
-		SccLocalPath2 = Domain
-		SccProjectUniqueName3 = Tests.Application\\Tests.Application.csproj
-		SccProjectTopLevelParentUniqueName3 = DDDSample.sln
-		SccProjectName3 = Tests.Application
-		SccLocalPath3 = Tests.Application
-		SccProjectUniqueName4 = Tests.Domain\\Tests.Domain.csproj
+		SccProjectUniqueName2 = Tests.Domain\\Tests.Domain.csproj
+		SccProjectTopLevelParentUniqueName2 = DDDSample.sln
+		SccProjectName2 = Tests.Domain
+		SccLocalPath2 = Tests.Domain
+		SccProjectUniqueName3 = UI.BookingAndTracking\\UI.BookingAndTracking.csproj
+		SccProjectName3 = UI.BookingAndTracking
+		SccLocalPath3 = UI.BookingAndTracking
+		SccProjectUniqueName4 = Setup\\Setup.vdproj
 		SccProjectTopLevelParentUniqueName4 = DDDSample.sln
-		SccProjectName4 = Tests.Domain
-		SccLocalPath4 = Tests.Domain
-		SccProjectUniqueName5 = Tests.UI.BookingAndTracking\\Tests.UI.BookingAndTracking.csproj
+		SccProjectName4 = Setup
+		SccLocalPath4 = Setup
+		SccProjectUniqueName5 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
 		SccProjectTopLevelParentUniqueName5 = DDDSample.sln
-		SccProjectName5 = Tests.UI.BookingAndTracking
-		SccLocalPath5 = Tests.UI.BookingAndTracking
-		SccProjectUniqueName6 = Tests.UI.EventLogger\\Tests.UI.EventLogger.csproj
+		SccProjectName5 = Tests.Domain.Persistence.NHibernate
+		SccLocalPath5 = Tests.Domain.Persistence.NHibernate
+		SccProjectUniqueName6 = Pathfinder\\Pathfinder.csproj
 		SccProjectTopLevelParentUniqueName6 = DDDSample.sln
-		SccProjectName6 = Tests.UI.EventLogger
-		SccLocalPath6 = Tests.UI.EventLogger
-		SccProjectUniqueName7 = UI.BookingAndTracking\\UI.BookingAndTracking.csproj
-		SccProjectName7 = UI.BookingAndTracking
-		SccLocalPath7 = UI.BookingAndTracking
-		SccProjectUniqueName8 = Setup\\Setup.vdproj
-		SccProjectName8 = Setup
-		SccLocalPath8 = Setup
-		SccProjectUniqueName9 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
+		SccProjectName6 = Pathfinder
+		SccLocalPath6 = Pathfinder
+		SccProjectUniqueName7 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectTopLevelParentUniqueName7 = DDDSample.sln
+		SccProjectName7 = Tests.Integration
+		SccLocalPath7 = Tests.Integration
+		SccProjectUniqueName8 = DomainModel.Potential\\DomainModel.Potential.csproj
+		SccProjectTopLevelParentUniqueName8 = DDDSample.sln
+		SccProjectName8 = DomainModel.Potential
+		SccLocalPath8 = DomainModel.Potential
+		SccProjectUniqueName9 = Infrastructure.Routing\\DomainModel.DecisionSupport.csproj
 		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
-		SccProjectName9 = Tests.Domain.Persistence.NHibernate
-		SccLocalPath9 = Tests.Domain.Persistence.NHibernate
-		SccProjectUniqueName10 = Domain.Persistence.NHibernate\\Domain.Persistence.NHibernate.csproj
-		SccProjectName10 = Domain.Persistence.NHibernate
-		SccLocalPath10 = Domain.Persistence.NHibernate
-		SccProjectUniqueName11 = Infrastructure.Routing\\Infrastructure.Routing.csproj
-		SccProjectName11 = Infrastructure.Routing
-		SccLocalPath11 = Infrastructure.Routing
-		SccProjectUniqueName12 = Pathfinder\\Pathfinder.csproj
-		SccProjectName12 = Pathfinder
-		SccLocalPath12 = Pathfinder
-		SccProjectUniqueName13 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectName9 = Infrastructure.Routing
+		SccLocalPath9 = Infrastructure.Routing
+		SccProjectUniqueName10 = Domain\\DomainModel.Operations.csproj
+		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
+		SccProjectName10 = Domain
+		SccLocalPath10 = Domain
+		SccProjectUniqueName11 = DomainModel.Infrastructure\\DomainModel.Infrastructure.csproj
+		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
+		SccProjectName11 = DomainModel.Infrastructure
+		SccLocalPath11 = DomainModel.Infrastructure
+		SccProjectUniqueName12 = Domain.Persistence.NHibernate\\DomainModel.Persistence.csproj
+		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
+		SccProjectName12 = Domain.Persistence.NHibernate
+		SccLocalPath12 = Domain.Persistence.NHibernate
+		SccProjectUniqueName13 = DomainModel.Policy\\DomainModel.Policy.csproj
 		SccProjectTopLevelParentUniqueName13 = DDDSample.sln
-		SccProjectName13 = Tests.Integration
-		SccLocalPath13 = Tests.Integration
+		SccProjectName13 = DomainModel.Policy
+		SccLocalPath13 = DomainModel.Policy
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		NHibernate|Any CPU = NHibernate|Any CPU
 		NHibernateAsynch|Any CPU = NHibernateAsynch|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9648B89B-C748-447C-86A1-D125F7053967}.Release|Any CPU.Build.0 = Release|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF5B41B-70F3-42FB-8352-C37584105289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41C3E0F5-528E-4703-B321-C0742224BF25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.NHibernateAsynch|Any CPU.ActiveCfg = NHibernateAsynch|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.NHibernateAsynch|Any CPU.Build.0 = NHibernateAsynch|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.Build.0 = Debug
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.NHibernate|Any CPU.ActiveCfg = Debug
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.NHibernateAsynch|Any CPU.ActiveCfg = Debug
 		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Release|Any CPU.ActiveCfg = Release
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02B53338-D16B-4051-BA94-503488406CD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.NHibernate|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.NHibernate|Any CPU.Build.0 = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.NHibernateAsynch|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.NHibernateAsynch|Any CPU.Build.0 = Debug|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.NHibernate|Any CPU.ActiveCfg = Release|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.NHibernate|Any CPU.Build.0 = Release|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.NHibernateAsynch|Any CPU.ActiveCfg = Release|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.NHibernateAsynch|Any CPU.Build.0 = Release|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214472B7-48D1-4B4F-8865-9381B145D5DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.NHibernate|Any CPU.ActiveCfg = Release|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.NHibernate|Any CPU.Build.0 = Release|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.NHibernateAsynch|Any CPU.ActiveCfg = Release|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.NHibernateAsynch|Any CPU.Build.0 = Release|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.NHibernate|Any CPU.ActiveCfg = Release|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.NHibernate|Any CPU.Build.0 = Release|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.NHibernateAsynch|Any CPU.ActiveCfg = Release|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.NHibernateAsynch|Any CPU.Build.0 = Release|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{02B53338-D16B-4051-BA94-503488406CD1} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{9648B89B-C748-447C-86A1-D125F7053967} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{214472B7-48D1-4B4F-8865-9381B145D5DA} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{FCF5B41B-70F3-42FB-8352-C37584105289} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
 		{41C3E0F5-528E-4703-B321-C0742224BF25} = {34B41F94-5227-4533-B102-75A87FF61AE3}
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01} = {34B41F94-5227-4533-B102-75A87FF61AE3}
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E} = {34B41F94-5227-4533-B102-75A87FF61AE3}

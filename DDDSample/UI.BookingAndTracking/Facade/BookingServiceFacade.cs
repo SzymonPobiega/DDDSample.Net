@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -37,7 +38,7 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <returns>Cargo tracking id.</returns>
       public string BookNewCargo(string origin, string destination, DateTime arrivalDeadline)
       {
-         return _bookingService.BookNewCargo(
+         return _bookingService.BookNewCargo(null,
             new UnLocode(origin),
             new UnLocode(destination),
             arrivalDeadline)

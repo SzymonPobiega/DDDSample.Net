@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DDDSample.Domain;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
+using DDDSample.DomainModel;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using HandlingEvent=DDDSample.DomainModel.Operations.Cargo.HandlingEvent;
 
 namespace DDDSample.Application.SynchronousEventHandlers
 {

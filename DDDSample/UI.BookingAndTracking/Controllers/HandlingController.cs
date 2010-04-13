@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 using DDDSample.UI.BookingAndTracking.Facade;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers

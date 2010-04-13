@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace DDDSample.Domain
+namespace DDDSample.DomainModel
 {
    /// <summary>
    /// Handles events of class <typeparamref name="T"/>.

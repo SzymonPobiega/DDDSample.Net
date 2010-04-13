@@ -6,11 +6,16 @@ using DDDSample.Application;
 using DDDSample.Application.Implemetation;
 using DDDSample.Application.SynchronousEventHandlers;
 using DDDSample.Domain;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel;
+using DDDSample.DomainModel.DecisionSupport.Routing;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Policy.Commitments;
+using DDDSample.DomainModel.Policy.Routing;
+using DDDSample.DomainModel.Potential.Customer;
+using DDDSample.DomainModel.Potential.Location;
 using DDDSample.Pathfinder;
-using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
@@ -95,7 +100,8 @@ namespace Tests.Integration
          ConfigureNHibernateRepositories();
 
          _ambientContainer.RegisterType<IBookingService, BookingService>();
-         _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
+         _ambientContainer.RegisterType<IRoutingService, RoutingService>();
+         _ambientContainer.RegisterType<IGraphTraversalService, FakeGraphTraversalService>();
          _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
 
          _ambientContainer.RegisterType<IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>("cargoHasBeenAssignedToRouteEventHandler");
@@ -118,6 +124,8 @@ namespace Tests.Integration
          _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
          _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
          _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
+         _ambientContainer.RegisterType<ICustomerRepository, DDDSample.Domain.Persistence.NHibernate.CustomerRepository>();
+         _ambientContainer.RegisterType<ICustomerAgreementRepository, DDDSample.Domain.Persistence.NHibernate.CustomerAgreementRepository>();
 
          _ambientContainer.AddNewExtension<Interception>();
 
@@ -133,8 +141,8 @@ namespace Tests.Integration
 
       private void InitializeNHibernate()
       {         
-         Configuration cfg = new Configuration()
-            .AddProperties(new Dictionary<string, string>
+         Configuration cfg = new Configuration();
+            cfg.AddProperties(new Dictionary<string, string>
                               {
                                  {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
                                  {Environment.Dialect, typeof (SQLiteDialect).FullName},
@@ -174,6 +182,10 @@ namespace Tests.Integration
          session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
          session.Save(new Location(new UnLocode("USNYC"), "New York"));
          session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
+
+         var customer = new Customer("Szymon Pobiega", "simon");
+         session.Save(customer);
+         session.Save(new CustomerAgreement(customer, new FastestRoutingPolicy()));
          session.Flush();
 
          _currentSession = session;

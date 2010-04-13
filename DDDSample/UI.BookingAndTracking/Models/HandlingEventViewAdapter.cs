@@ -1,17 +1,17 @@
 using System;
 using System.Linq;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using HandlingEvent=DDDSample.DomainModel.Operations.Cargo.HandlingEvent;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {
    public class HandlingEventViewAdapter
    {
-      private readonly Domain.Handling.HandlingEvent _handlingEvent;
+      private readonly DomainModel.Operations.Handling.HandlingEvent _handlingEvent;
       private readonly Cargo _cargo;
 
-      public HandlingEventViewAdapter(Domain.Handling.HandlingEvent handlingEvent, Cargo cargo)
+      public HandlingEventViewAdapter(DomainModel.Operations.Handling.HandlingEvent handlingEvent, Cargo cargo)
       {
          _handlingEvent = handlingEvent;
          _cargo = cargo;

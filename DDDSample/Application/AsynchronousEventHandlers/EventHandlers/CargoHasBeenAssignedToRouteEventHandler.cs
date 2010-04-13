@@ -3,7 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Application.AsynchronousEventHandlers.Messages;
 using DDDSample.Domain;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel;
+using DDDSample.DomainModel.Operations.Cargo;
 using NServiceBus;
 
 namespace DDDSample.Application.AsynchronousEventHandlers.EventHandlers

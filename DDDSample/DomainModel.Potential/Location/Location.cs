@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DDDSample.Domain.Location
+namespace DDDSample.DomainModel.Potential.Location
 {
    /// <summary>
    /// A location is our model is stops on a journey, such as cargo

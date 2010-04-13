@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Potential.Location;
 using NUnit.Framework;
 
 namespace Tests.Integration
@@ -23,7 +23,7 @@ namespace Tests.Integration
          /* Use case 1: booking
 
             A new cargo is booked, and the unique tracking id is assigned to the cargo. */
-         TrackingId trackingId = BookingService.BookNewCargo(
+         TrackingId trackingId = BookingService.BookNewCargo("simon",
             origin.UnLocode, destination.UnLocode, arrivalDeadline
             );
 
