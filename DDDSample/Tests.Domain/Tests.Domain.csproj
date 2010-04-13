@@ -70,7 +70,7 @@
       <Project>{214472B7-48D1-4B4F-8865-9381B145D5DA}</Project>
       <Name>DomainModel.Potential</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain\DomainModel.Operations.csproj">
+    <ProjectReference Include="..\DomainModel.Operations\DomainModel.Operations.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>DomainModel.Operations</Name>
     </ProjectReference>

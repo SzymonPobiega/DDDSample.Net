@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Persistence", "Domain.Persistence.NHibernate\DomainModel.Persistence.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Persistence", "DomainModel.Persistence\DomainModel.Persistence.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{591BFC07-E7F5-400B-9761-9AF6EF2A3009}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Operations", "Domain\DomainModel.Operations.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Operations", "DomainModel.Operations\DomainModel.Operations.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}"
 EndProject
@@ -56,7 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.DecisionSupport", "Infrastructure.Routing\DomainModel.DecisionSupport.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.DecisionSupport", "DomainModel.DecisionSupport\DomainModel.DecisionSupport.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
 EndProject
