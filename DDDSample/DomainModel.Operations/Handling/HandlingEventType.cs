@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.DomainModel.Potential.Voyage;
 
 namespace DDDSample.DomainModel.Operations.Handling
 {
@@ -23,7 +24,7 @@ namespace DDDSample.DomainModel.Operations.Handling
    public static class HandlingEventTypeExtensions
    {
       /// <summary>
-      /// Checks if this <see cref="HandlingEventType"/> requires specyfying a <see cref="DDDSample.Domain.Voyage.Voyage"/>
+      /// Checks if this <see cref="HandlingEventType"/> requires specyfying a <see cref="Voyage"/>
       /// object when constructing new <see cref="HandlingEvent"/>.
       /// </summary>
       /// <param name="eventType">Event type value.</param>
@@ -33,7 +34,7 @@ namespace DDDSample.DomainModel.Operations.Handling
          return eventType == HandlingEventType.Load || eventType == HandlingEventType.Unload;
       }
       /// <summary>
-      /// Checks if this <see cref="HandlingEventType"/> prohibits specyfying a <see cref="DDDSample.Domain.Voyage.Voyage"/>
+      /// Checks if this <see cref="HandlingEventType"/> prohibits specyfying a <see cref="Voyage"/>
       /// object when constructing new <see cref="HandlingEvent"/>.
       /// </summary>
       /// <param name="eventType">Event type value.</param>
