@@ -7,6 +7,7 @@ namespace DDDSample.Pathfinder
    {
       IList<TransitPath> FindPaths(String originUnLocode,
                                    String destinationUnLocode,
+                                   IList<TransitEdge> graphEdges,
                                    Constraints limitations);
    }
 }

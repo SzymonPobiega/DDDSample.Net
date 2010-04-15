@@ -16,6 +16,6 @@ namespace DDDSample.DomainModel.Potential.Voyage
       ///// <param name="voyageNumber">Identifier.</param>
       ///// <returns>Requested voyage of null, if not found.</returns>
       //Voyage Find(VoyageNumber voyageNumber);
-      IList<Voyage> FindEndingBefore(DateTime deadline);
+      IList<Voyage> FindBeginingBefore(DateTime deadline);
    }
 }
