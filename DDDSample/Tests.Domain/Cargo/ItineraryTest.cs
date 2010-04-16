@@ -28,7 +28,7 @@ namespace DDDSample.Domain.Tests.Cargo
       [Test]
       public void IsExpected_ReceiveEvent_FirstLegLocationMathesEventLocation_True()
       {
-         Itinerary itinerary = new Itinerary(new[]{new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now  )});
+         Itinerary itinerary = new Itinerary(new[]{new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now  )});
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Receive, Krakow, DateTime.Now, DateTime.Now);
 
          Assert.IsTrue(itinerary.IsExpected(@event));
@@ -37,7 +37,7 @@ namespace DDDSample.Domain.Tests.Cargo
       [Test]
       public void IsExpected_ReceiveEvent_FirstLegLocationDoesntMatchEventLocation_False()
       {
-         Itinerary itinerary = new Itinerary(new[] { new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now) });
+         Itinerary itinerary = new Itinerary(new[] { new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now) });
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Receive, Warszawa, DateTime.Now, DateTime.Now);
 
          Assert.IsFalse(itinerary.IsExpected(@event));
@@ -48,8 +48,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Wroclaw, DateTime.Now, DateTime.Now);
 
@@ -61,8 +61,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Claim, Warszawa, DateTime.Now, DateTime.Now);
 
@@ -74,8 +74,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Krakow, DateTime.Now, DateTime.Now);         
@@ -88,8 +88,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Warszawa, DateTime.Now, DateTime.Now);
@@ -102,8 +102,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Load, Wroclaw, DateTime.Now, DateTime.Now);
@@ -116,8 +116,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Warszawa, DateTime.Now, DateTime.Now);
@@ -130,8 +130,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Wroclaw, DateTime.Now, DateTime.Now);
@@ -144,8 +144,8 @@ namespace DDDSample.Domain.Tests.Cargo
       {
          Itinerary itinerary = new Itinerary(new[]
                                                 {
-                                                   new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                                   new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                                   new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                                   new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                                 });
 
          HandlingEvent @event = new HandlingEvent(HandlingEventType.Unload, Krakow, DateTime.Now, DateTime.Now);

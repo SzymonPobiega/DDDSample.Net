@@ -10,12 +10,19 @@ namespace DDDSample.DomainModel.Potential.Voyage
       private readonly TransportLeg _transportLeg;
       private readonly DateTime _departureTime;
       private readonly DateTime _arrivalTime;
+      private readonly decimal _pricePerCargo;
 
-      public CarrierMovement(TransportLeg transportLeg, DateTime departureTime, DateTime arrivalTime)
+      public CarrierMovement(TransportLeg transportLeg, DateTime departureTime, DateTime arrivalTime, decimal pricePerCargo)
       {
          _transportLeg = transportLeg;
+         _pricePerCargo = pricePerCargo;
          _arrivalTime = arrivalTime;
          _departureTime = departureTime;
+      }
+
+      public decimal PricePerCargo
+      {
+         get { return _pricePerCargo; }
       }
 
       public DateTime DepartureTime

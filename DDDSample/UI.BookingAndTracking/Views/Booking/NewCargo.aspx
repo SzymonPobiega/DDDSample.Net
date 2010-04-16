@@ -25,6 +25,11 @@
         <fieldset>
             <legend>Cargo information</legend>
             <p>
+                <label for="orderingCustomer">
+                    Ordering customer:</label>
+                <%= Html.DropDownList("orderingCustomer")%>
+            </p>
+            <p>
                 <label for="origin">
                     Origin:</label>
                 <%= Html.DropDownList("origin")%>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DDDSample.DomainModel.Persistence;
 using DDDSample.DomainModel.Potential.Location;
 using NHibernate;
 using NHibernate.Cfg;
@@ -21,19 +22,10 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          ISessionFactory sessionFactory = cfg.BuildSessionFactory();
          using (ISession session = sessionFactory.OpenSession())
          {
-            session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
-            session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
-            session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
-            session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
-            session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
-            session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
-            session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
-            session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
-            session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
-            session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
-            session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
-            session.Save(new Location(new UnLocode("USNYC"), "New York"));
-            session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
+            SampleLocations.CreateLocations(session);
+            SampleTransportLegs.CreateTransportLegs(session);
+            SampleVoyages.CreateVoyages(session);
+            SampleCustomers.CreateCustomers(session);
             session.Flush();
          }
 

@@ -110,9 +110,6 @@
     <Compile Include="FromHongkongToStockholm.cs" />
     <Compile Include="LocalTransactionCallHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleLocations.cs" />
-    <Compile Include="SampleTransportLegs.cs" />
-    <Compile Include="SampleVoyages.cs" />
     <Compile Include="ScenarioTest.cs" />
   </ItemGroup>
   <ItemGroup>

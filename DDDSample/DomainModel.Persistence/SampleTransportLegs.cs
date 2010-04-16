@@ -1,7 +1,7 @@
 using DDDSample.DomainModel.Potential.Voyage;
 using NHibernate;
 
-namespace Tests.Integration
+namespace DDDSample.DomainModel.Persistence
 {
    public static class SampleTransportLegs
    {

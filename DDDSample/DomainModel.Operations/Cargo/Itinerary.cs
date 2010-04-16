@@ -53,6 +53,15 @@ namespace DDDSample.DomainModel.Operations.Cargo
       }
 
       /// <summary>
+      /// Calculates total cost of this itinerary.
+      /// </summary>
+      /// <returns>Total cost.</returns>
+      public virtual decimal CalculateTotalCost()
+      {
+         return _legs.Sum(x => x.CalculateCost());
+      }
+
+      /// <summary>
       /// Checks whether provided event is expected according to this itinerary specification.
       /// </summary>
       /// <param name="event">A handling event.</param>

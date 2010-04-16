@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Persistence", "DomainModel.Persistence\DomainModel.Persistence.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
@@ -108,26 +107,26 @@ Global
 		SccProjectTopLevelParentUniqueName8 = DDDSample.sln
 		SccProjectName8 = DomainModel.Potential
 		SccLocalPath8 = DomainModel.Potential
-		SccProjectUniqueName9 = Infrastructure.Routing\\DomainModel.DecisionSupport.csproj
+		SccProjectUniqueName9 = DomainModel.Infrastructure\\DomainModel.Infrastructure.csproj
 		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
-		SccProjectName9 = Infrastructure.Routing
-		SccLocalPath9 = Infrastructure.Routing
-		SccProjectUniqueName10 = Domain\\DomainModel.Operations.csproj
+		SccProjectName9 = DomainModel.Infrastructure
+		SccLocalPath9 = DomainModel.Infrastructure
+		SccProjectUniqueName10 = DomainModel.Policy\\DomainModel.Policy.csproj
 		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
-		SccProjectName10 = Domain
-		SccLocalPath10 = Domain
-		SccProjectUniqueName11 = DomainModel.Infrastructure\\DomainModel.Infrastructure.csproj
+		SccProjectName10 = DomainModel.Policy
+		SccLocalPath10 = DomainModel.Policy
+		SccProjectUniqueName11 = DomainModel.DecisionSupport\\DomainModel.DecisionSupport.csproj
 		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
-		SccProjectName11 = DomainModel.Infrastructure
-		SccLocalPath11 = DomainModel.Infrastructure
-		SccProjectUniqueName12 = Domain.Persistence.NHibernate\\DomainModel.Persistence.csproj
+		SccProjectName11 = DomainModel.DecisionSupport
+		SccLocalPath11 = DomainModel.DecisionSupport
+		SccProjectUniqueName12 = DomainModel.Operations\\DomainModel.Operations.csproj
 		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
-		SccProjectName12 = Domain.Persistence.NHibernate
-		SccLocalPath12 = Domain.Persistence.NHibernate
-		SccProjectUniqueName13 = DomainModel.Policy\\DomainModel.Policy.csproj
+		SccProjectName12 = DomainModel.Operations
+		SccLocalPath12 = DomainModel.Operations
+		SccProjectUniqueName13 = DomainModel.Persistence\\DomainModel.Persistence.csproj
 		SccProjectTopLevelParentUniqueName13 = DDDSample.sln
-		SccProjectName13 = DomainModel.Policy
-		SccLocalPath13 = DomainModel.Policy
+		SccProjectName13 = DomainModel.Persistence
+		SccLocalPath13 = DomainModel.Persistence
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi

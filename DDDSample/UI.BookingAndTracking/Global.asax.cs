@@ -18,6 +18,7 @@ using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
 using DDDSample.DomainModel.Policy.Commitments;
 using DDDSample.DomainModel.Potential.Customer;
+using DDDSample.DomainModel.Potential.Voyage;
 using DDDSample.Pathfinder;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
@@ -182,6 +183,7 @@ namespace DDDSample.UI.BookingAndTracking
          container.RegisterType<IHandlingEventRepository, HandlingEventRepository>();
          container.RegisterType<ICustomerRepository, CustomerRepository>();
          container.RegisterType<ICustomerAgreementRepository, CustomerAgreementRepository>();
+         container.RegisterType<IVoyageRepository, VoyageRepository>();
 
          container.AddNewExtension<Interception>();
          container.Configure<Interception>()

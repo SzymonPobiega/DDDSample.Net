@@ -8,8 +8,8 @@
     <ProjectGuid>{9648B89B-C748-447C-86A1-D125F7053967}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DDDSample.Domain.Persistence.NHibernate</RootNamespace>
-    <AssemblyName>DDDSample.Domain.Persistence.NHibernate</AssemblyName>
+    <RootNamespace>DDDSample.DomainModel.Persistence</RootNamespace>
+    <AssemblyName>DDDSample.DomainModel.Persistence</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -67,6 +67,10 @@
     <Compile Include="CargoRepository.cs" />
     <Compile Include="CustomerAgreementRepository.cs" />
     <Compile Include="CustomerRepository.cs" />
+    <Compile Include="SampleCustomers.cs" />
+    <Compile Include="SampleLocations.cs" />
+    <Compile Include="SampleTransportLegs.cs" />
+    <Compile Include="SampleVoyages.cs" />
     <Compile Include="VoyageRepository.cs" />
     <Compile Include="HandlingEventRepository.cs" />
     <Compile Include="LocationRepository.cs" />

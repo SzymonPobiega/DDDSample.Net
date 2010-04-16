@@ -55,7 +55,8 @@ namespace DDDSample.DomainModel.DecisionSupport.Routing
       private IEnumerable<Leg> CreateLegs(IEnumerable<TransitEdge> pathEdges)
       {         
          var enumerator = pathEdges.GetEnumerator();
-         while (enumerator.MoveNext())
+         enumerator.MoveNext();
+         while (true)
          {
             TransitEdge first = enumerator.Current;
             TransitEdge last = enumerator.Current;
@@ -64,18 +65,17 @@ namespace DDDSample.DomainModel.DecisionSupport.Routing
             {
                last = enumerator.Current;
             }
-            yield return ToLeg(first, last);
+            yield return ToLeg((Voyage)first.Key, first, last);
             if (!hasMore)
             {
                break;
-            }
+            }            
          }
       }
 
-      private Leg ToLeg(TransitEdge first, TransitEdge last)
+      private Leg ToLeg(Voyage voyage, TransitEdge first, TransitEdge last)
       {
-         return new Leg(
-            _locatinRepository.Find(new UnLocode(first.From)), 
+         return new Leg(voyage, _locatinRepository.Find(new UnLocode(first.From)), 
             first.FromDate,
             _locatinRepository.Find(new UnLocode(last.To)),
             last.ToDate);

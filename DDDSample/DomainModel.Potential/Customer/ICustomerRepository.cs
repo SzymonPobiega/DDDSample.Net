@@ -5,6 +5,7 @@ namespace DDDSample.DomainModel.Potential.Customer
 {
    public interface ICustomerRepository
    {
-      Customer Find(string userLogin);      
+      Customer Find(string userLogin);
+      IList<Customer> FindAll();
    }
 }

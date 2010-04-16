@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Persistence;
 using DDDSample.DomainModel.Potential.Location;
 using NUnit.Framework;
 
@@ -23,7 +24,7 @@ namespace Tests.Integration
          /* Use case 1: booking
 
             A new cargo is booked, and the unique tracking id is assigned to the cargo. */
-         TrackingId trackingId = BookingService.BookNewCargo("simon",
+         TrackingId trackingId = BookingService.BookNewCargo("c1",
             origin.UnLocode, destination.UnLocode, arrivalDeadline
             );
 

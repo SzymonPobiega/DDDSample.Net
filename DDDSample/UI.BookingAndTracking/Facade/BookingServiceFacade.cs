@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DDDSample.Domain.Location;
 using DDDSample.Application;
 using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Customer;
 using DDDSample.DomainModel.Potential.Location;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
@@ -19,10 +20,12 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       private readonly IBookingService _bookingService;
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
+      private readonly ICustomerRepository _customerRepository;
 
-      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, ICargoRepository cargoRepository, RouteCandidateDTOAssember routeCandidateAssembler, CargoRoutingDTOAssembler cargoRoutingAssembler)
+      public BookingServiceFacade(IBookingService bookingService, ILocationRepository locationRepository, ICargoRepository cargoRepository, RouteCandidateDTOAssember routeCandidateAssembler, CargoRoutingDTOAssembler cargoRoutingAssembler, ICustomerRepository customerRepository)
       {
          _bookingService = bookingService;
+         _customerRepository = customerRepository;
          _cargoRoutingAssembler = cargoRoutingAssembler;
          _routeCandidateAssembler = routeCandidateAssembler;
          _cargoRepository = cargoRepository;
@@ -32,13 +35,14 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <summary>
       /// Books new cargo for specified origin, destination and arrival deadline.
       /// </summary>
+      /// <param name="customerLogin">Login of booking customer.</param>
       /// <param name="origin">Origin of a cargo in UnLocode format.</param>
       /// <param name="destination">Destination of a cargo in UnLocode format.</param>
       /// <param name="arrivalDeadline">Arrival deadline.</param>
       /// <returns>Cargo tracking id.</returns>
-      public string BookNewCargo(string origin, string destination, DateTime arrivalDeadline)
+      public string BookNewCargo(string customerLogin, string origin, string destination, DateTime arrivalDeadline)
       {
-         return _bookingService.BookNewCargo(null,
+         return _bookingService.BookNewCargo(customerLogin,
             new UnLocode(origin),
             new UnLocode(destination),
             arrivalDeadline)
@@ -53,6 +57,16 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       public IList<SelectListItem> ListShippingLocations()
       {
          return _locationRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode.CodeString }).ToList();
+      }
+
+      /// <summary>
+      /// Returns a list of all customers in format acceptable by MVC framework 
+      /// drop down list.
+      /// </summary>
+      /// <returns>A list of customers.</returns>
+      public IList<SelectListItem> ListCustomers()
+      {
+         return _customerRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.AssociatedLogin }).ToList();
       }
 
       /// <summary>

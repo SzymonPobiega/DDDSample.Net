@@ -20,6 +20,7 @@
           <many-to-one name="_transportLeg" column="TransportLegId" class="TransportLeg" access="field"/>          
           <property name="_arrivalTime" column="ArrivalTime" access="field"/>
           <property name="_departureTime" column="DepartureTime" access="field"/>
+          <property name="_pricePerCargo" column="PricePerCargo" access="field"/>
         </composite-element>
       </list>
     </component>

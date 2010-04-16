@@ -45,7 +45,7 @@ namespace Domain.Persistence.Tests
                                    { Environment.Hbm2ddlAuto, "create" },
                                    { Environment.ShowSql, true.ToString() }
                                });
-         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");         
+         cfg.AddAssembly("DDDSample.DomainModel.Persistence");         
          SessionFactory = cfg.BuildSessionFactory();
       }
 

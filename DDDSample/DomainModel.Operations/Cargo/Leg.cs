@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.DomainModel.Potential.Location;
+using DDDSample.DomainModel.Potential.Voyage;
 
 namespace DDDSample.DomainModel.Operations.Cargo
 {
    public class Leg : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly DomainModel.Potential.Location.Location _loadLocation;
-      private readonly DomainModel.Potential.Location.Location _unloadLocation;
+      private readonly Potential.Voyage.Voyage _voyage;
+
+      private readonly Potential.Location.Location _loadLocation;
+      private readonly Potential.Location.Location _unloadLocation;
 
       private readonly DateTime _loadDate;
       private readonly DateTime _unloadDate;
@@ -17,16 +21,65 @@ namespace DDDSample.DomainModel.Operations.Cargo
       /// <summary>
       /// Creates new leg instance.
       /// </summary>
+      /// <param name="voyage">Voyage</param>
       /// <param name="loadLocation">Location where cargo is supposed to be loaded.</param>
       /// <param name="loadDate">Date and time when cargo is supposed to be loaded</param>
       /// <param name="unloadLocation">Location where cargo is supposed to be unloaded.</param>
       /// <param name="unloadDate">Date and time when cargo is supposed to be unloaded.</param>
-      public Leg(DomainModel.Potential.Location.Location loadLocation, DateTime loadDate, DomainModel.Potential.Location.Location unloadLocation, DateTime unloadDate)
+      public Leg(Voyage voyage, Location loadLocation, DateTime loadDate, Location unloadLocation, DateTime unloadDate)
       {
          _loadLocation = loadLocation;
+         _voyage = voyage;
          _unloadDate = unloadDate;
          _unloadLocation = unloadLocation;
          _loadDate = loadDate;
+      }
+
+      /// <summary>
+      /// Calculates cost of transporting cargo via this leg.
+      /// </summary>
+      public decimal CalculateCost()
+      {
+         var movements = _voyage.Schedule.CarrierMovements;
+         int firstMovementIndex = GetFirstMovementIndex(movements);
+         int lastMovementIndex = GetLastMovementIndex(movements);
+         var thisLegMovementCount = lastMovementIndex - firstMovementIndex + 1;
+
+         var thisLegMovements = movements
+            .Skip(firstMovementIndex)
+            .Take(thisLegMovementCount);
+
+         return thisLegMovements.Sum(x => x.PricePerCargo);
+      }
+
+      private int GetLastMovementIndex(IList<CarrierMovement> movements)
+      {
+         var lastMovement = movements.Single(IsLastMovementOfLeg);
+         return movements.IndexOf(lastMovement);
+      }
+
+      private int GetFirstMovementIndex(IList<CarrierMovement> movements)
+      {
+         var firstMovement = movements.Single(IsFirstMovementOfLeg);
+         return movements.IndexOf(firstMovement);
+      }
+
+      private bool IsFirstMovementOfLeg(CarrierMovement x)
+      {
+         return x.DepartureTime == LoadDate && x.TransportLeg.DepartureLocation == LoadLocation;
+      }
+
+      private bool IsLastMovementOfLeg(CarrierMovement x)
+      {
+         return x.ArrivalTime == UnloadDate && x.TransportLeg.ArrivalLocation == UnloadLocation;
+      }
+
+      /// <summary>
+      /// Gets voyage.
+      /// </summary>
+      public Voyage Voyage
+      {
+         get { return _voyage; }
       }
 
       /// <summary>
@@ -83,6 +136,7 @@ namespace DDDSample.DomainModel.Operations.Cargo
       protected Leg()
       {
       }
+
       #endregion
    }
 }

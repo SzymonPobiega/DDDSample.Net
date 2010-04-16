@@ -18,8 +18,7 @@ namespace DDDSample.UI.BookingAndTracking.Facade
 
       public Leg FromDTO(LegDTO legDto)
       {
-         return new Leg(
-            _locationRepository.Find(new UnLocode(legDto.From)),
+         return new Leg(null, _locationRepository.Find(new UnLocode(legDto.From)),
             legDto.LoadTime,
             _locationRepository.Find(new UnLocode(legDto.To)),
             legDto.UnloadTime);

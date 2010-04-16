@@ -11,6 +11,7 @@ using DDDSample.DomainModel;
 using DDDSample.DomainModel.DecisionSupport.Routing;
 using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Persistence;
 using DDDSample.DomainModel.Policy.Commitments;
 using DDDSample.DomainModel.Policy.Routing;
 using DDDSample.DomainModel.Potential.Customer;
@@ -137,7 +138,7 @@ namespace Tests.Integration
                                  {Environment.Hbm2ddlAuto, "create"},
                                  {Environment.ShowSql, true.ToString()}
                               });
-         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
+         cfg.AddAssembly("DDDSample.DomainModel.Persistence");
 
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);         
@@ -149,10 +150,7 @@ namespace Tests.Integration
          SampleLocations.CreateLocations(session);
          SampleTransportLegs.CreateTransportLegs(session);
          SampleVoyages.CreateVoyages(session);
-         
-         var customer = new Customer("Szymon Pobiega", "simon");
-         session.Save(customer);
-         session.Save(new CustomerAgreement(customer, new FastestRoutingPolicy()));
+         SampleCustomers.CreateCustomers(session);
          session.Flush();
 
          _currentSession = session;
