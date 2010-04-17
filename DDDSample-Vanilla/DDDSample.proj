@@ -472,6 +472,12 @@
     <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
   </Target>
   <Target Name="Test" DependsOnTargets="Build">
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Integration\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
     <NUnit Assemblies="@(TestAssemblies)"/>
   </Target>
 </Project>
