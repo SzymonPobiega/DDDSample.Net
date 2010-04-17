@@ -8,7 +8,7 @@ using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
 using HandlingEvent=DDDSample.DomainModel.Operations.Cargo.HandlingEvent;
 
-namespace DDDSample.Application.SynchronousEventHandlers
+namespace DDDSample.Application.EventHandlers
 {
    /// <summary>
    /// Handles <see cref="CargoWasHandledEvent"/> and synchronizes <see cref="Cargo"/> aggregate
@@ -28,9 +28,9 @@ namespace DDDSample.Application.SynchronousEventHandlers
          Cargo cargo = _cargoRepository.Find(@event.Source.TrackingId);                  
          
          cargo.DeriveDeliveryProgress(new HandlingEvent(@event.Source.EventType, 
-            @event.Source.Location, 
-            @event.Source.RegistrationDate, 
-            @event.Source.CompletionDate));
+                                                        @event.Source.Location, 
+                                                        @event.Source.RegistrationDate, 
+                                                        @event.Source.CompletionDate));
       }
    }
 }

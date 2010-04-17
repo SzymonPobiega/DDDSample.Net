@@ -58,20 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoWasHandledEventHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\AbstractMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoWasHandledMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoHasBeenAssignedToRouteMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\Messages\CargoHasBeenAssignedToRouteMessage.cs" />
-    <Compile Include="AsynchronousEventHandlers\Messages\CargoWasHandledMessage.cs" />
-    <Compile Include="Implemetation\HandlingEventService.cs" />
-    <Compile Include="SynchronousEventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
-    <Compile Include="IBookingService.cs" />
-    <Compile Include="ICargoInspectionService.cs" />
-    <Compile Include="IHandlingEventService.cs" />
-    <Compile Include="Implemetation\BookingService.cs" />
-    <Compile Include="SynchronousEventHandlers\CargoWasHandledEventHandler.cs" />
+    <Compile Include="Services\HandlingEventService.cs" />
+    <Compile Include="EventHandlers\CargoHasBeenAssignedToRouteEventHandler.cs" />
+    <Compile Include="Services\IBookingService.cs" />
+    <Compile Include="Services\IHandlingEventService.cs" />
+    <Compile Include="Services\BookingService.cs" />
+    <Compile Include="EventHandlers\CargoWasHandledEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

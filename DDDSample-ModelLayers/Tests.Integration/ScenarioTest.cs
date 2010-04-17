@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using DDDSample.Application;
-using DDDSample.Application.Implemetation;
-using DDDSample.Application.SynchronousEventHandlers;
+using DDDSample.Application.EventHandlers;
+using DDDSample.Application.Services;
 using DDDSample.Domain;
 using DDDSample.Domain.Location;
 using DDDSample.DomainModel;

@@ -5,7 +5,7 @@ using System.Text;
 using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Potential.Location;
 
-namespace DDDSample.Application
+namespace DDDSample.Application.Services
 {
    /// <summary>
    /// Cargo booking service.

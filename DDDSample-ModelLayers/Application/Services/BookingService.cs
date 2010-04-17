@@ -7,7 +7,7 @@ using DDDSample.DomainModel.Potential.Customer;
 using DDDSample.DomainModel.Potential.Location;
 using NHibernate;
 
-namespace DDDSample.Application.Implemetation
+namespace DDDSample.Application.Services
 {
    /// <summary>
    /// Implementation of <see cref="IBookingService"/>.

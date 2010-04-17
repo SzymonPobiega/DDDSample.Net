@@ -6,7 +6,7 @@ using DDDSample.DomainModel;
 using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
 
-namespace DDDSample.Application.SynchronousEventHandlers
+namespace DDDSample.Application.EventHandlers
 {
    /// <summary>
    /// Handles <see cref="CargoHasBeenAssignedToRouteEvent"/> and creates corresponding handling history event.
