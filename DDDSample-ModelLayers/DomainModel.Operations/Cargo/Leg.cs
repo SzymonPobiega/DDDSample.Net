@@ -7,13 +7,14 @@ using DDDSample.DomainModel.Potential.Voyage;
 
 namespace DDDSample.DomainModel.Operations.Cargo
 {
+#pragma warning disable 660,661
    public class Leg : ValueObject
-#pragma warning restore 661,660
+#pragma warning restore 660,661
    {
-      private readonly Potential.Voyage.Voyage _voyage;
+      private readonly Voyage _voyage;
 
-      private readonly Potential.Location.Location _loadLocation;
-      private readonly Potential.Location.Location _unloadLocation;
+      private readonly Location _loadLocation;
+      private readonly Location _unloadLocation;
 
       private readonly DateTime _loadDate;
       private readonly DateTime _unloadDate;
@@ -85,7 +86,7 @@ namespace DDDSample.DomainModel.Operations.Cargo
       /// <summary>
       /// Gets location where cargo is supposed to be loaded.
       /// </summary>
-      public DomainModel.Potential.Location.Location LoadLocation
+      public Location LoadLocation
       {
          get { return _loadLocation; }
       }
@@ -93,7 +94,7 @@ namespace DDDSample.DomainModel.Operations.Cargo
       /// <summary>
       /// Gets location where cargo is supposed to be unloaded.
       /// </summary>
-      public DomainModel.Potential.Location.Location UnloadLocation
+      public Location UnloadLocation
       {
          get { return _unloadLocation; }
       }
@@ -121,6 +122,7 @@ namespace DDDSample.DomainModel.Operations.Cargo
          yield return _unloadLocation;
          yield return _loadDate;
          yield return _unloadDate;
+         yield return _voyage;
       }
 
       public static bool operator ==(Leg left, Leg right)

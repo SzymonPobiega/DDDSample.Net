@@ -22,5 +22,10 @@ namespace DDDSample.Domain.Persistence.NHibernate
             .Add(Restrictions.Le("Schedule._departureTime", deadline))
             .List<Voyage>();
       }
+
+      public Voyage Find(Guid voyageId)
+      {
+         return Session.Get<Voyage>(voyageId);
+      }
    }
 }

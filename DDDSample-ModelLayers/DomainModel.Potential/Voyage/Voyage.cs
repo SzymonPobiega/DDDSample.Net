@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace DDDSample.DomainModel.Potential.Voyage
@@ -7,6 +8,11 @@ namespace DDDSample.DomainModel.Potential.Voyage
    /// </summary>
    public class Voyage
    {
+      /// <summary>
+      /// Gets unique id of this voyage.
+      /// </summary>
+      public virtual Guid Id { get; protected set; }      
+
       /// <summary>
       /// Gets (non-unique) voyage number associated with this voyage.
       /// </summary>

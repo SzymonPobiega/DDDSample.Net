@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="Decision support">
+    <Position X="0.5" Y="0.5" Height="0.531" Width="1.127" />
+  </Comment>
+  <Comment CommentText="Policy">
+    <Position X="0.5" Y="1.74" Height="0.5" Width="1.127" />
+  </Comment>
+  <Comment CommentText="Operations">
+    <Position X="0.5" Y="3.01" Height="0.5" Width="1.169" />
+  </Comment>
+  <Comment CommentText="Potential">
+    <Position X="0.5" Y="4.448" Height="0.531" Width="1.148" />
+  </Comment>
+  <Class Name="DDDSample.DomainModel.Operations.Cargo.Cargo" Collapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <AssociationLine Name="OrderingCustomer" Type="DDDSample.DomainModel.Potential.Customer.Customer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.015" Y="0.3" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Itinerary" />
+      <Property Name="OrderingCustomer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Customer.Customer" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Location.Location" Collapsed="true">
+    <Position X="8.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Voyage.Voyage" Collapsed="true">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="DDDSample.DomainModel.Policy.Commitments.CustomerAgreement" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <AssociationLine Name="RoutingPolicy" Type="DDDSample.DomainModel.Policy.Routing.IRoutingPolicy">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.204" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Subject" Type="DDDSample.DomainModel.Potential.Customer.Customer">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.1" Y="2.122" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="RoutingPolicy" />
+      <Property Name="Subject" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Operations.Cargo.Itinerary" Collapsed="true">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsCollectionAssociation>
+      <Property Name="Legs" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Operations.Cargo.Leg" Collapsed="true">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <AssociationLine Name="Voyage" Type="DDDSample.DomainModel.Potential.Voyage.Voyage" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="3.691" />
+        <Point X="8" Y="4.066" />
+        <Point X="7" Y="4.066" />
+        <Point X="7" Y="4.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.4" Y="0.383" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="LoadLocation" Type="DDDSample.DomainModel.Potential.Location.Location" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="3.25" />
+        <Point X="9.531" Y="3.25" />
+        <Point X="9.531" Y="4.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.369" Y="1.258" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="UnloadLocation" Type="DDDSample.DomainModel.Potential.Location.Location" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="3.5" />
+        <Point X="9.141" Y="3.5" />
+        <Point X="9.141" Y="4.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.234" Y="0.143" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Voyage" />
+      <Property Name="LoadLocation" />
+      <Property Name="UnloadLocation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Operations.Handling.HandlingEvent" Collapsed="true">
+    <Position X="10" Y="3" Width="1.5" />
+    <AssociationLine Name="Location" Type="DDDSample.DomainModel.Potential.Location.Location" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.812" Y="3.562" />
+        <Point X="10.812" Y="3.937" />
+        <Point X="9.922" Y="3.937" />
+        <Point X="9.922" Y="4.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.888" Y="0.256" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Location" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="DDDSample.DomainModel.DecisionSupport.Routing.IRoutingService" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DDDSample.DomainModel.Policy.Routing.IRoutingPolicy" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

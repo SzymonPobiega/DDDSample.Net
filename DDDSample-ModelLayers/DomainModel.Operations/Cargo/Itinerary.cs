@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Potential.Location;
 
 namespace DDDSample.DomainModel.Operations.Cargo
 {
+#pragma warning disable 660,661
    public class Itinerary : ValueObject
-#pragma warning restore 661,660
+#pragma warning restore 660,661
    {
       private readonly IList<Leg> _legs;
 
@@ -31,17 +32,17 @@ namespace DDDSample.DomainModel.Operations.Cargo
       /// <summary>
       /// Gets the location of first departure according to this itinerary.
       /// </summary>
-      public virtual DomainModel.Potential.Location.Location InitialDepartureLocation
+      public virtual Location InitialDepartureLocation
       {
-         get { return IsEmpty ? DomainModel.Potential.Location.Location.Unknown : _legs.First().LoadLocation; }
+         get { return IsEmpty ? Location.Unknown : _legs.First().LoadLocation; }
       }
 
       /// <summary>
       /// Gets the location of last arrival according to this itinerary.
       /// </summary>
-      public virtual DomainModel.Potential.Location.Location FinalArrivalLocation
+      public virtual Location FinalArrivalLocation
       {
-         get { return IsEmpty ? DomainModel.Potential.Location.Location.Unknown : _legs.Last().UnloadLocation; }         
+         get { return IsEmpty ? Location.Unknown : _legs.Last().UnloadLocation; }         
       }
 
       /// <summary>
