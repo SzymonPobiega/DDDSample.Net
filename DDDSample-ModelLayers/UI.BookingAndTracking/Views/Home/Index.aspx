@@ -2,7 +2,7 @@
 <%@ Import Namespace="System.Reflection"%>
 
 <asp:Content ID="indexTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    DDDSample.Net 0.5
+    DDDSample.Net 0.8
 </asp:Content>
 
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContent" runat="server">
