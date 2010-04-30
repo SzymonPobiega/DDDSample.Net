@@ -9,7 +9,7 @@ namespace DDDSample.Domain.Cargo
    /// Represents one step of an itinerary.
    /// </summary>
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
-   public class Leg : ValueObject
+   public class Leg : ValueObject, IAggregateMember<Cargo>
 #pragma warning restore 661,660
    {
       private readonly Location.Location _loadLocation;

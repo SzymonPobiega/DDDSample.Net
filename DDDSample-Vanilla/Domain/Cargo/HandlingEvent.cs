@@ -10,7 +10,7 @@ namespace DDDSample.Domain.Cargo
    /// Represents handling event from viewpoint of cargo aggregate
    /// </summary>
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
-   public class HandlingEvent : ValueObject
+   public class HandlingEvent : ValueObject, IAggregateMember<Cargo>
 #pragma warning restore 661,660
    {
       private readonly HandlingEventType _eventType;

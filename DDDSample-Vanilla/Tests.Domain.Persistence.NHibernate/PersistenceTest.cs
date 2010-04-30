@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using NHibernate;
-using NHibernate.ByteCode.LinFu;
+using NHibernate.ByteCode.Castle;
 using NHibernate.Cfg;
 using NHibernate.Connection;
 using NHibernate.Context;

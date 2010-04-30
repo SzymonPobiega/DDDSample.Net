@@ -11,14 +11,15 @@ namespace DDDSample.Domain.Handling
    /// Contains information about cargo handling history. Enables registration of cargo
    /// handling events.
    /// </summary>
-   public class HandlingHistory
+   public class HandlingHistory : IAggregateRoot<HandlingHistory>
    {
-      private readonly IList<HandlingEvent> _events;
+      public virtual Guid Id { get; protected set; }
+      protected  virtual IList<HandlingEvent> Events { get; set;}
 
       public HandlingHistory(TrackingId cargoTrackingId)
       {
          TrackingId = cargoTrackingId;
-         _events = new List<HandlingEvent>();
+         Events = new List<HandlingEvent>();
       }      
 
       /// <summary>
@@ -31,7 +32,7 @@ namespace DDDSample.Domain.Handling
       public virtual void RegisterHandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate)
       {         
          HandlingEvent @event = new HandlingEvent(eventType, location, registrationDate, completionDate,this);
-         _events.Add(@event);
+         Events.Add(@event);
          DomainEvents.Raise(new CargoWasHandledEvent(@event));
       }
 
@@ -40,7 +41,7 @@ namespace DDDSample.Domain.Handling
       /// </summary>
       public virtual IEnumerable<HandlingEvent> EventsByCompletionTime
       {
-         get { return _events.OrderBy(x => x.CompletionDate);}
+         get { return Events.OrderBy(x => x.CompletionDate);}
       }
 
       /// <summary>

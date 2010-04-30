@@ -10,8 +10,9 @@ namespace DDDSample.Domain.Cargo
    /// <summary>
    /// Cargo.
    /// </summary>
-   public class Cargo
-   {      
+   public class Cargo : IAggregateRoot<Cargo>
+   {
+      public virtual Guid Id { get; protected set; }
       /// <summary>
       /// Gets the tracking id of this cargo.
       /// </summary>

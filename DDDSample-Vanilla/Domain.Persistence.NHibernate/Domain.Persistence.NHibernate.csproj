@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=1.0.0.636, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\NHibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.dll</HintPath>
@@ -61,7 +65,8 @@
   <ItemGroup>
     <Compile Include="AbstractRepository.cs" />
     <Compile Include="CargoRepository.cs" />
-    <Compile Include="VoyageRepository.cs" />
+    <Compile Include="IntraAggregateEntityCollectionConvention.cs" />
+    <Compile Include="IntraAggregateEntityReferenceConvention.cs" />
     <Compile Include="HandlingEventRepository.cs" />
     <Compile Include="LocationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,15 +77,6 @@
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Location.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Cargo.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="HandlingHistory.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

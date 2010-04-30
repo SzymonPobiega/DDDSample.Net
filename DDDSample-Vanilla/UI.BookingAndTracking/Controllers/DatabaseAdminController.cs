@@ -15,7 +15,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
    {      
       public ActionResult Reset()
       {
-         Configuration cfg = new Configuration().Configure();
+         Configuration cfg = MvcApplication.InitializeNHibernate(x => x);
          new SchemaExport(cfg).Execute(false, true, false);         
 
          ISessionFactory sessionFactory = cfg.BuildSessionFactory();

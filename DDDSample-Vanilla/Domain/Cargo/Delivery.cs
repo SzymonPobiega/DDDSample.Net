@@ -10,13 +10,13 @@ namespace DDDSample.Domain.Cargo
    /// Description of delivery status.
    /// </summary>
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
-   public class Delivery : ValueObject
+   public class Delivery : ValueObject, IAggregateMember<Cargo>
 #pragma warning restore 661,660
    {
       private readonly TransportStatus _transportStatus;
       private readonly Location.Location _lastKnownLocation;
-      private readonly bool _misdirected;
-      private readonly DateTime? _eta;      
+      private readonly bool _isMisdirected;
+      private readonly DateTime? _estimatedTimeOfArrival;      
       private readonly bool _isUnloadedAtDestination;
       private readonly RoutingStatus _routingStatus;
       private readonly DateTime _calculatedAt;
@@ -61,7 +61,7 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       public DateTime? EstimatedTimeOfArrival
       {
-         get { return _eta; }
+         get { return _estimatedTimeOfArrival; }
       }
 
       /// <summary>
@@ -85,7 +85,7 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       public bool IsMisdirected
       {
-         get { return _misdirected; }
+         get { return _isMisdirected; }
       }
 
       /// <summary>
@@ -123,11 +123,11 @@ namespace DDDSample.Domain.Cargo
          _calculatedAt = DateTime.Now;
          _lastEvent = lastHandlingEvent;
 
-         _misdirected = CalculateMisdirectionStatus(itinerary);
+         _isMisdirected = CalculateMisdirectionStatus(itinerary);
          _routingStatus = CalculateRoutingStatus(itinerary, specification);
          _transportStatus = CalculateTransportStatus();
          _lastKnownLocation = CalculateLastKnownLocation();
-         _eta = CalculateEta(itinerary);
+         _estimatedTimeOfArrival = CalculateEta(itinerary);
          _nextExpectedActivity = CalculateNextExpectedActivity(specification, itinerary);
          _isUnloadedAtDestination = CalculateUnloadedAtDestination(specification);
       }
@@ -246,12 +246,12 @@ namespace DDDSample.Domain.Cargo
       protected override IEnumerable<object> GetAtomicValues()
       {
          yield return _calculatedAt;
-         yield return _eta;
+         yield return _estimatedTimeOfArrival;
          yield return _lastEvent;
          yield return _isUnloadedAtDestination;
          yield return _isUnloadedAtDestination;
          yield return _lastKnownLocation;
-         yield return _misdirected;
+         yield return _isMisdirected;
          yield return _routingStatus;
          yield return _transportStatus;
       }

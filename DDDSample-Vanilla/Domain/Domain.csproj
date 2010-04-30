@@ -68,6 +68,7 @@
     <Compile Include="Handling\HandlingEvent.cs" />
     <Compile Include="Handling\HandlingHistory.cs" />
     <Compile Include="Handling\IHandlingEventRepository.cs" />
+    <Compile Include="IAggregateMember.cs" />
     <Compile Include="IEventHandler.cs" />
     <Compile Include="IRoutingService.cs" />
     <Compile Include="Location\Location.cs" />

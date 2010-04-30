@@ -9,14 +9,18 @@ using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
+using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.Pathfinder;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using NHibernate;
-using NHibernate.ByteCode.LinFu;
+using NHibernate.ByteCode.Castle;
 using NHibernate.Cfg;
 using NHibernate.Connection;
 using NHibernate.Context;
@@ -25,6 +29,7 @@ using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using Environment=NHibernate.Cfg.Environment;
+using HandlingEvent=DDDSample.Domain.Handling.HandlingEvent;
 
 namespace Tests.Integration
 {
@@ -132,27 +137,47 @@ namespace Tests.Integration
       }
 
       private void InitializeNHibernate()
-      {         
-         Configuration cfg = new Configuration()
-            .AddProperties(new Dictionary<string, string>
-                              {
-                                 {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
-                                 {Environment.Dialect, typeof (SQLiteDialect).FullName},
-                                 {Environment.ConnectionProvider, typeof (DriverConnectionProvider).FullName},
-                                 {Environment.ConnectionString, "Data Source=:memory:;Version=3;New=True;"},
-                                 {
-                                    Environment.ProxyFactoryFactoryClass,
-                                    typeof (ProxyFactoryFactory).AssemblyQualifiedName
-                                    },
-                                 {
-                                    Environment.CurrentSessionContextClass,
-                                    typeof (ThreadStaticSessionContext).AssemblyQualifiedName
-                                    },
-                                 {Environment.ReleaseConnections,"on_close"},
-                                 {Environment.Hbm2ddlAuto, "create"},
-                                 {Environment.ShowSql, true.ToString()}
-                              });
-         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
+      {
+         Configuration cfg = Fluently.Configure()
+            .Database(SQLiteConfiguration.Standard
+                         .ProxyFactoryFactory<ProxyFactoryFactory>()
+                         .CurrentSessionContext<ThreadStaticSessionContext>()
+                         .ShowSql()
+                         .InMemory())
+            .Mappings(m => m.AutoMappings
+                              .Add(AutoMap.AssemblyOf<Location>()
+                                      .Where(t => typeof(IEntity).IsAssignableFrom(t))
+                                      .Setup(s =>
+                                                {
+                                                   s.IsComponentType =
+                                                      type => typeof(ValueObject).IsAssignableFrom(type);
+                                                   s.GetComponentColumnPrefix =
+                                                      property => property.PropertyType.Name + "_";
+                                                })
+                                                .Conventions.AddFromAssemblyOf<IntraAggregateEntityCollectionConvention>()
+                                                ))
+            .ExposeConfiguration(x => x.AddAssembly("DDDSample.Domain.Persistence.NHibernate"))
+            .BuildConfiguration();
+         //Configuration cfg = new Configuration()
+         //   .AddProperties(new Dictionary<string, string>
+         //                     {
+         //                        {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
+         //                        {Environment.Dialect, typeof (SQLiteDialect).FullName},
+         //                        {Environment.ConnectionProvider, typeof (DriverConnectionProvider).FullName},
+         //                        {Environment.ConnectionString, "Data Source=:memory:;Version=3;New=True;"},
+         //                        {
+         //                           Environment.ProxyFactoryFactoryClass,
+         //                           typeof (ProxyFactoryFactory).AssemblyQualifiedName
+         //                           },
+         //                        {
+         //                           Environment.CurrentSessionContextClass,
+         //                           typeof (ThreadStaticSessionContext).AssemblyQualifiedName
+         //                           },
+         //                        {Environment.ReleaseConnections,"on_close"},
+         //                        {Environment.Hbm2ddlAuto, "create"},
+         //                        {Environment.ShowSql, true.ToString()}
+         //                     });
+         //cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
 
          _sessionFactory = cfg.BuildSessionFactory();
          _ambientContainer.RegisterInstance(_sessionFactory);         

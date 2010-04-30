@@ -10,7 +10,7 @@ namespace DDDSample.Domain.Cargo
    /// Specifies steps required to transport a cargo from its origin to destination.
    /// </summary>
 #pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
-   public class Itinerary : ValueObject
+   public class Itinerary : ValueObject, IAggregateMember<Cargo>
 #pragma warning restore 661,660
    {
       private readonly IList<Leg> _legs;

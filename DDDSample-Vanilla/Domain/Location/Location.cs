@@ -11,8 +11,9 @@ namespace DDDSample.Domain.Location
    /// 
    /// It is uniquely identified by a UN Locode.
    /// </summary>
-   public class Location
+   public class Location : IAggregateRoot<Location>
    {
+      public virtual Guid Id { get; protected set; }
       /// <summary>
       /// Gets the <see cref="UnLocode"/> for this location.
       /// </summary>

@@ -14,12 +14,16 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using Infrastructure.Routing;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using NHibernate;
+using NHibernate.ByteCode.LinFu;
 using NHibernate.Cfg;
 using NHibernate.Context;
 using NServiceBus;
@@ -208,22 +212,42 @@ namespace DDDSample.UI.BookingAndTracking
 
       private static void InitializeNHibernateForWeb(IUnityContainer container)
       {
-         Configuration cfg = new Configuration().Configure();
-         cfg.AddProperties(new Dictionary<string, string>
-                              {
-                                 {"current_session_context_class", "NHibernate.Context.WebSessionContext"}
-                              });
+         //Configuration cfg = new Configuration().Configure();
+         //cfg.AddProperties(new Dictionary<string, string>
+         //                     {
+         //                        {"current_session_context_class", "NHibernate.Context.WebSessionContext"}
+         //                     });
+         Configuration cfg = InitializeNHibernate(x => x.CurrentSessionContext<WebSessionContext>());
          _webSessionFactory = cfg.BuildSessionFactory();
          container.RegisterInstance(_webSessionFactory);
       }
 
+      public static Configuration InitializeNHibernate(Func<SQLiteConfiguration, SQLiteConfiguration> configCallback)
+      {
+         return Fluently.Configure()
+            .Database(configCallback(SQLiteConfiguration.Standard
+                         .ProxyFactoryFactory<ProxyFactoryFactory>()                         
+                         .ShowSql()
+                         .UsingFile(@"|DataDirectory|\dddsample.sqlite")))
+            .Mappings(m => m.AutoMappings
+                              .Add(AutoMap.AssemblyOf<Location>()
+                                      .Where(t => typeof(IEntity).IsAssignableFrom(t))
+                                      .Setup(s =>
+                                                {
+                                                   s.IsComponentType =
+                                                      type => typeof(ValueObject).IsAssignableFrom(type);
+                                                   s.GetComponentColumnPrefix =
+                                                      property => property.PropertyType.Name + "_";
+                                                })
+                                      .Conventions.AddFromAssemblyOf<IntraAggregateEntityCollectionConvention>()
+                              ))
+            .ExposeConfiguration(x => x.AddAssembly("DDDSample.Domain.Persistence.NHibernate"))
+            .BuildConfiguration();
+      }
+
       private static void InitializeNHibernateForBus(IUnityContainer container)
       {
-         Configuration cfg = new Configuration().Configure();
-         cfg.AddProperties(new Dictionary<string, string>
-                              {
-                                 {"current_session_context_class", "NHibernate.Context.ThreadStaticSessionContext"}
-                              });
+         Configuration cfg = InitializeNHibernate(x => x.CurrentSessionContext<ThreadStaticSessionContext>());
          ISessionFactory factory = cfg.BuildSessionFactory();
          container.RegisterInstance(factory);
       }

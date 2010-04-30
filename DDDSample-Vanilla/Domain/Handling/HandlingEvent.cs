@@ -8,13 +8,11 @@ namespace DDDSample.Domain.Handling
    /// <summary>
    /// Single cargo handling event.
    /// </summary>   
-   public class HandlingEvent
+   public class HandlingEvent : IEntity<HandlingHistory>
    {
-      private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;      
-      private readonly DateTime _registrationDate;
-      private readonly DateTime _completionDate;
-      protected virtual HandlingHistory _parent { get; set;}
+      public virtual Guid Id { get; protected set; }
+
+      protected virtual HandlingHistory HandlingHistory { get; set;}
 
       /// <summary>
       /// Creates new event.
@@ -25,50 +23,39 @@ namespace DDDSample.Domain.Handling
       /// <param name="completionDate"></param>
       public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate, HandlingHistory parent)
       {
-         _eventType = eventType;
-         _parent = parent;
-         _completionDate = completionDate;
-         _registrationDate = registrationDate;         
-         _location = location;         
+         EventType = eventType;
+         HandlingHistory = parent;
+         CompletionDate = completionDate;
+         RegistrationDate = registrationDate;         
+         Location = location;         
       }
 
       /// <summary>
       /// Date when action represented by the event was completed.
       /// </summary>
-      public DateTime CompletionDate
-      {
-         get { return _completionDate; }
-      }
+      public virtual DateTime CompletionDate { get; protected set; }
 
       /// <summary>
       /// Date when event was registered.
       /// </summary>
-      public DateTime RegistrationDate
-      {
-         get { return _registrationDate; }
-      }
-      
+      public virtual DateTime RegistrationDate { get; protected set; }
+
       /// <summary>
       /// Location where event occured.
       /// </summary>
-      public Location.Location Location
-      {
-         get { return _location; }
-      }
-
-      public TrackingId TrackingId
-      {
-         get { return _parent.TrackingId; }
-      }
+      public virtual Location.Location Location { get; protected set; }
 
       /// <summary>
       /// Type of the event.
       /// </summary>
-      public HandlingEventType EventType
+      public virtual HandlingEventType EventType { get; protected set; }
+
+      public virtual TrackingId TrackingId
       {
-         get { return _eventType; }
+         get { return HandlingHistory.TrackingId; }
       }
-      
+
+
       /// <summary>
       /// Required by NHibernate.
       /// </summary>
