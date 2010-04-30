@@ -1,0 +1,483 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_SolutionProjectConfiguration>Debug|Any CPU</_SolutionProjectConfiguration>
+    <_SolutionProjectToolsVersion>3.5</_SolutionProjectToolsVersion>
+    <_SolutionProjectCacheVersion>3.5</_SolutionProjectCacheVersion>
+
+    <Configuration>Debug</Configuration>
+    <Platform>Any CPU</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <TestAssemblies Include="Tests.Domain\bin\Debug\Tests.DDDSample.Domain.dll"/>
+    <TestAssemblies Include="Tests.Domain.Persistence.NHibernate\bin\Debug\Tests.DDDSample.Domain.Persistence.dll"/>
+    <TestAssemblies Include="Tests.Integration\bin\Debug\Tests.Integration.dll"/>
+  </ItemGroup>
+  <ItemGroup>
+    <_SolutionProjectProjects Include="Application\Application.csproj" />
+    <_SolutionProjectProjects Include="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" />
+    <_SolutionProjectProjects Include="Domain\Domain.csproj" />
+    <_SolutionProjectProjects Include="Infrastructure.Routing\Infrastructure.Routing.csproj" />
+    <_SolutionProjectProjects Include="Pathfinder\Pathfinder.csproj" />
+    <_SolutionProjectProjects Include="Setup\Setup.vdproj" />
+    <_SolutionProjectProjects Include="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" />
+    <_SolutionProjectProjects Include="Tests.Domain\Tests.Domain.csproj" />
+    <_SolutionProjectProjects Include="Tests.Integration\Tests.Integration.csproj" />
+    <_SolutionProjectProjects Include="UI.BookingAndTracking\UI.BookingAndTracking.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <BuildLevel1 Include="Application\Application.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel1 Include="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel1 Include="Pathfinder\Pathfinder.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel1 Include="Tests.Domain\Tests.Domain.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel0 Include="Domain\Domain.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel0>
+    <BuildLevel2 Include="Infrastructure.Routing\Infrastructure.Routing.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel2>
+    <BuildLevel2 Include="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel2>
+    <BuildLevel3 Include="Tests.Integration\Tests.Integration.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel3>
+    <BuildLevel3 Include="UI.BookingAndTracking\UI.BookingAndTracking.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel3>
+  </ItemGroup>
+  <ItemGroup Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+    <BuildLevel1 Include="Application\Application.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel1 Include="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel1 Include="Pathfinder\Pathfinder.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel1 Include="Tests.Domain\Tests.Domain.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel1>
+    <BuildLevel0 Include="Domain\Domain.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel0>
+    <BuildLevel2 Include="Infrastructure.Routing\Infrastructure.Routing.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel2>
+    <BuildLevel2 Include="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel2>
+    <BuildLevel3 Include="Tests.Integration\Tests.Integration.csproj">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel3>
+    <BuildLevel3 Include="UI.BookingAndTracking\UI.BookingAndTracking.csproj">
+      <Configuration>NHibernateAsynch</Configuration>
+      <Platform>AnyCPU</Platform>
+    </BuildLevel3>
+  </ItemGroup>
+  <UsingTask TaskName="Microsoft.Build.Tasks.CreateTemporaryVCProject" AssemblyName="Microsoft.Build.Tasks.v3.5, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <UsingTask TaskName="Microsoft.Build.Tasks.ResolveVCProjectOutput" AssemblyName="Microsoft.Build.Tasks.v3.5, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <PropertyGroup Condition=" '$(Configuration)' == '' ">
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == '' ">
+    <Platform>Any CPU</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(AspNetConfiguration)' == '') ">
+    <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SolutionDir>C:\Users\simon\Documents\Visual Studio 2008\Projects\DDDSample\DDDSample-Vanilla\</SolutionDir>
+    <SolutionExt>.sln</SolutionExt>
+    <SolutionFileName>DDDSample.sln</SolutionFileName>
+    <SolutionName>DDDSample</SolutionName>
+    <SolutionPath>C:\Users\simon\Documents\Visual Studio 2008\Projects\DDDSample\DDDSample-Vanilla\DDDSample.sln</SolutionPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' != '2.0'">v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{9648B89B-C748-447C-86A1-D125F7053967}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{591BFC07-E7F5-400B-9761-9AF6EF2A3009}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{FCF5B41B-70F3-42FB-8352-C37584105289}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{41C3E0F5-528E-4703-B321-C0742224BF25}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}">Debug</ProjectConfiguration>
+        <ProjectConfiguration Project="{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{02B53338-D16B-4051-BA94-503488406CD1}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{EB1EA7DE-711C-4477-89E6-296B6D760D3E}">Debug|AnyCPU</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+        <ProjectConfiguration Project="{9648B89B-C748-447C-86A1-D125F7053967}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{591BFC07-E7F5-400B-9761-9AF6EF2A3009}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{FCF5B41B-70F3-42FB-8352-C37584105289}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{41C3E0F5-528E-4703-B321-C0742224BF25}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}">NHibernateAsynch|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}">Debug</ProjectConfiguration>
+        <ProjectConfiguration Project="{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{02B53338-D16B-4051-BA94-503488406CD1}">Debug|AnyCPU</ProjectConfiguration>
+        <ProjectConfiguration Project="{EB1EA7DE-711C-4477-89E6-296B6D760D3E}">Debug|AnyCPU</ProjectConfiguration>
+      </SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <Target Name="ValidateSolutionConfiguration">
+    <Error Text="Określona konfiguracja rozwiązania „$(Configuration)|$(Platform)” jest nieprawidłowa. Określ prawidłową konfigurację rozwiązania przy użyciu właściwości Configuration i Platform (np. MSBuild.exe Solution.sln /p:Configuration=Debug /p:Platform=&quot;Any CPU&quot;) lub pozostaw te właściwości puste, aby użyć domyślnej konfiguracji rozwiązania." Code="MSB4126" HelpKeyword="MSBuild.SolutionInvalidSolutionConfiguration" Condition="('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' != 'true')" />
+    <Warning Text="Określona konfiguracja rozwiązania „$(Configuration)|$(Platform)” jest nieprawidłowa. Określ prawidłową konfigurację rozwiązania przy użyciu właściwości Configuration i Platform (np. MSBuild.exe Solution.sln /p:Configuration=Debug /p:Platform=&quot;Any CPU&quot;) lub pozostaw te właściwości puste, aby użyć domyślnej konfiguracji rozwiązania." Code="MSB4126" HelpKeyword="MSBuild.SolutionInvalidSolutionConfiguration" Condition="('$(CurrentSolutionConfigurationContents)' == '') and ('$(SkipInvalidConfigurations)' == 'true')" />
+    <Message Text="Tworzenie konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="'$(CurrentSolutionConfigurationContents)' != ''" />
+  </Target>
+  <Target Name="ValidateToolsVersions">
+    <Error Text="Wersja narzędzi „$(MSBuildToolsVersion)” rozwiązania nie obsługuje kompilowania projektów przy użyciu innej wersji narzędzi." Code="MSB4149" HelpKeyword="MSBuild.SolutionToolsVersionDoesNotSupportProjectToolsVersion" Condition="'$(MSBuildToolsVersion)' == '2.0' and ('$(ProjectToolsVersion)' != '2.0' and '$(ProjectToolsVersion)' != '')" />
+  </Target>
+  <Target Name="Domain_Persistence_NHibernate" DependsOnTargets="Domain" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Domain_Persistence_NHibernateBuildOutput)">
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Domain_Persistence_NHibernate:Clean" DependsOnTargets="Domain:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Domain_Persistence_NHibernate:Rebuild" DependsOnTargets="Domain:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Domain_Persistence_NHibernateBuildOutput)">
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Domain_Persistence_NHibernate:Publish" DependsOnTargets="Domain:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Application" DependsOnTargets="Domain" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(ApplicationBuildOutput)">
+    <MSBuild Projects="Application\Application.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="ApplicationBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Application\Application.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="ApplicationBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Application:Clean" DependsOnTargets="Domain:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Application\Application.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Application\Application.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Application:Rebuild" DependsOnTargets="Domain:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(ApplicationBuildOutput)">
+    <MSBuild Projects="Application\Application.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="ApplicationBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Application\Application.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="ApplicationBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Application:Publish" DependsOnTargets="Domain:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Application\Application.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Application\Application.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Domain" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(DomainBuildOutput)">
+    <MSBuild Projects="Domain\Domain.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="DomainBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Domain\Domain.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="DomainBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Domain:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Domain\Domain.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Domain\Domain.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Domain:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(DomainBuildOutput)">
+    <MSBuild Projects="Domain\Domain.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="DomainBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Domain\Domain.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="DomainBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Domain:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Domain\Domain.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Domain\Domain.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Tests\Tests_Domain" DependsOnTargets="Domain" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tests_DomainBuildOutput)">
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_DomainBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_DomainBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tests\Tests_Domain:Clean" DependsOnTargets="Domain:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Tests\Tests_Domain:Rebuild" DependsOnTargets="Domain:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tests_DomainBuildOutput)">
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_DomainBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_DomainBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tests\Tests_Domain:Publish" DependsOnTargets="Domain:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tests.Domain\Tests.Domain.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Tests\Tests_Domain_Persistence_NHibernate" DependsOnTargets="Domain_Persistence_NHibernate;Domain" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tests_Domain_Persistence_NHibernateBuildOutput)">
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tests\Tests_Domain_Persistence_NHibernate:Clean" DependsOnTargets="Domain_Persistence_NHibernate:Clean;Domain:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Tests\Tests_Domain_Persistence_NHibernate:Rebuild" DependsOnTargets="Domain_Persistence_NHibernate:Rebuild;Domain:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tests_Domain_Persistence_NHibernateBuildOutput)">
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_Domain_Persistence_NHibernateBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tests\Tests_Domain_Persistence_NHibernate:Publish" DependsOnTargets="Domain_Persistence_NHibernate:Publish;Domain:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="UI_BookingAndTracking" DependsOnTargets="Application;Domain_Persistence_NHibernate;Domain;Infrastructure_Routing" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(UI_BookingAndTrackingBuildOutput)">
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="UI_BookingAndTrackingBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Properties="Configuration=NHibernateAsynch; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="UI_BookingAndTrackingBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="UI_BookingAndTracking:Clean" DependsOnTargets="Application:Clean;Domain_Persistence_NHibernate:Clean;Domain:Clean;Infrastructure_Routing:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Targets="Clean" Properties="Configuration=NHibernateAsynch; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="UI_BookingAndTracking:Rebuild" DependsOnTargets="Application:Rebuild;Domain_Persistence_NHibernate:Rebuild;Domain:Rebuild;Infrastructure_Routing:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(UI_BookingAndTrackingBuildOutput)">
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="UI_BookingAndTrackingBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Targets="Rebuild" Properties="Configuration=NHibernateAsynch; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="UI_BookingAndTrackingBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="UI_BookingAndTracking:Publish" DependsOnTargets="Application:Publish;Domain_Persistence_NHibernate:Publish;Domain:Publish;Infrastructure_Routing:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="UI.BookingAndTracking\UI.BookingAndTracking.csproj" Targets="Publish" Properties="Configuration=NHibernateAsynch; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Setup" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „Debug|Any CPU”." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „DebugAsynch|Any CPU”." Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Setup:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „Debug|Any CPU”." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „DebugAsynch|Any CPU”." Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Setup:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „Debug|Any CPU”." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „DebugAsynch|Any CPU”." Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Setup:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „Debug|Any CPU”." Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <Message Text="Projekt „Setup” nie został wybrany do skompilowania w konfiguracji rozwiązania „DebugAsynch|Any CPU”." Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Infrastructure_Routing" DependsOnTargets="Domain;Pathfinder" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Infrastructure_RoutingBuildOutput)">
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Infrastructure_RoutingBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Infrastructure_RoutingBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Infrastructure_Routing:Clean" DependsOnTargets="Domain:Clean;Pathfinder:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Infrastructure_Routing:Rebuild" DependsOnTargets="Domain:Rebuild;Pathfinder:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Infrastructure_RoutingBuildOutput)">
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Infrastructure_RoutingBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Infrastructure_RoutingBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Infrastructure_Routing:Publish" DependsOnTargets="Domain:Publish;Pathfinder:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Infrastructure.Routing\Infrastructure.Routing.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Pathfinder" DependsOnTargets="Domain" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(PathfinderBuildOutput)">
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="PathfinderBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="PathfinderBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Pathfinder:Clean" DependsOnTargets="Domain:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Pathfinder:Rebuild" DependsOnTargets="Domain:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(PathfinderBuildOutput)">
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="PathfinderBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="PathfinderBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Pathfinder:Publish" DependsOnTargets="Domain:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Pathfinder\Pathfinder.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Tests\Tests_Integration" DependsOnTargets="Application;Domain_Persistence_NHibernate;Domain;Infrastructure_Routing;Pathfinder" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tests_IntegrationBuildOutput)">
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_IntegrationBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_IntegrationBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tests\Tests_Integration:Clean" DependsOnTargets="Application:Clean;Domain_Persistence_NHibernate:Clean;Domain:Clean;Infrastructure_Routing:Clean;Pathfinder:Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Targets="Clean" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Tests\Tests_Integration:Rebuild" DependsOnTargets="Application:Rebuild;Domain_Persistence_NHibernate:Rebuild;Domain:Rebuild;Infrastructure_Routing:Rebuild;Pathfinder:Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(Tests_IntegrationBuildOutput)">
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_IntegrationBuildOutput" />
+    </MSBuild>
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Targets="Rebuild" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') ">
+      <Output TaskParameter="TargetOutputs" ItemName="Tests_IntegrationBuildOutput" />
+    </MSBuild>
+  </Target>
+  <Target Name="Tests\Tests_Integration:Publish" DependsOnTargets="Application:Publish;Domain_Persistence_NHibernate:Publish;Domain:Publish;Infrastructure_Routing:Publish;Pathfinder:Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') " />
+    <MSBuild Projects="Tests.Integration\Tests.Integration.csproj" Targets="Publish" Properties="Configuration=Debug; Platform=AnyCPU; BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" Condition=" ('$(Configuration)' == 'DebugAsynch') and ('$(Platform)' == 'Any CPU') " />
+  </Target>
+  <Target Name="Build" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(CollectedBuildOutput)">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Setup" RunEachTargetSeparately="true" />
+    <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel1.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel1) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel1.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel1) != ''" />
+    <MSBuild Condition="@(BuildLevel2) != ''" Projects="@(BuildLevel2)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel2.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel2) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel2.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel2) != ''" />
+    <MSBuild Condition="@(BuildLevel3) != ''" Projects="@(BuildLevel3)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
+  </Target>
+  <Target Name="Clean" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Setup:Clean" RunEachTargetSeparately="true" />
+    <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel1.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel1) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel1.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel1) != ''" />
+    <MSBuild Condition="@(BuildLevel2) != ''" Projects="@(BuildLevel2)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel2.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel2) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel2.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel2) != ''" />
+    <MSBuild Condition="@(BuildLevel3) != ''" Projects="@(BuildLevel3)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Clean" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
+    <Delete Files="DDDSample.sln.cache" />
+  </Target>
+  <Target Name="Rebuild" Condition="'$(CurrentSolutionConfigurationContents)' != ''" Outputs="@(CollectedBuildOutput)">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Setup:Rebuild" RunEachTargetSeparately="true" />
+    <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel1.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel1) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel1.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel1) != ''" />
+    <MSBuild Condition="@(BuildLevel2) != ''" Projects="@(BuildLevel2)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel2.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel2) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel2.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel2) != ''" />
+    <MSBuild Condition="@(BuildLevel3) != ''" Projects="@(BuildLevel3)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Rebuild" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)">
+      <Output TaskParameter="TargetOutputs" ItemName="CollectedBuildOutput" />
+    </MSBuild>
+    <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
+  </Target>
+  <Target Name="Publish" Condition="'$(CurrentSolutionConfigurationContents)' != ''">
+    <MSBuild Condition="@(BuildLevel0) != ''" Projects="@(BuildLevel0)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel0.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel0) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel0.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel0) != ''" />
+    <CallTarget Targets="Setup:Publish" RunEachTargetSeparately="true" />
+    <MSBuild Condition="@(BuildLevel1) != ''" Projects="@(BuildLevel1)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel1.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel1) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel1.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel1) != ''" />
+    <MSBuild Condition="@(BuildLevel2) != ''" Projects="@(BuildLevel2)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel2.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel2) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel2.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel2) != ''" />
+    <MSBuild Condition="@(BuildLevel3) != ''" Projects="@(BuildLevel3)" Properties="Configuration=%(Configuration); Platform=%(Platform); BuildingSolutionFile=true; CurrentSolutionConfigurationContents=$(CurrentSolutionConfigurationContents); SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)" Targets="Publish" ToolsVersion="$(ProjectToolsVersion)" BuildInParallel="true" UnloadProjectsOnCompletion="$(UnloadProjectsOnCompletion)" UseResultsCache="$(UseResultsCache)" />
+    <Message Text="Projekt „%(SkipLevel3.Identity)” nie został wybrany do skompilowania w konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Condition="@(SkipLevel3) != ''" />
+    <Warning Text="Konfiguracja projektu „%(MissingConfigLevel3.Identity)” nie została określona w pliku rozwiązania dla konfiguracji rozwiązania „$(Configuration)|$(Platform)”." Code="MSB4121" HelpKeyword="MSBuild.SolutionProjectConfigurationMissing" Condition="@(MissingConfigLevel3) != ''" />
+  </Target>
+  <Target Name="Test" DependsOnTargets="Build">
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Domain.Persistence.NHibernate\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
+    <Copy SourceFiles="Libs\System.Data.SQLite.X64.DLL"
+          DestinationFiles="Tests.Integration\bin\Debug\System.Data.SQLite.DLL">
+    </Copy>
+    <NUnit Assemblies="@(TestAssemblies)"/>
+  </Target>
+</Project>

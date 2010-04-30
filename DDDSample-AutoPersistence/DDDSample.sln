@@ -1,0 +1,161 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.NHibernate", "Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{591BFC07-E7F5-400B-9761-9AF6EF2A3009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9377EB9-1321-4E3C-9974-71242D75072D}"
+	ProjectSection(SolutionItems) = preProject
+		DDDSample.proj = DDDSample.proj
+		DDDSample.vsmdi = DDDSample.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain.Persistence.NHibernate", "Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj", "{41C3E0F5-528E-4703-B321-C0742224BF25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B41F94-5227-4533-B102-75A87FF61AE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.BookingAndTracking", "UI.BookingAndTracking\UI.BookingAndTracking.csproj", "{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5592DB69-FE64-492B-8C5D-0C0CE7263495}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\log4net.dll = Libs\log4net.dll
+		Libs\Microsoft.Practices.ObjectBuilder2.dll = Libs\Microsoft.Practices.ObjectBuilder2.dll
+		Libs\Microsoft.Practices.ServiceLocation.dll = Libs\Microsoft.Practices.ServiceLocation.dll
+		Libs\Microsoft.Practices.Unity.dll = Libs\Microsoft.Practices.Unity.dll
+		Libs\Microsoft.Practices.Unity.Interception.dll = Libs\Microsoft.Practices.Unity.Interception.dll
+		Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll = Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll
+		Libs\nunit.framework.dll = Libs\nunit.framework.dll
+		Libs\System.Data.SQLite.DLL = Libs\System.Data.SQLite.DLL
+		Libs\System.Data.SQLite.X64.DLL = Libs\System.Data.SQLite.X64.DLL
+		Libs\System.Web.Mvc.dll = Libs\System.Web.Mvc.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NHibernate", "NHibernate", "{E73BA32A-A565-4D2C-BB59-F8D7DEB80584}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\NHibernate\Antlr3.Runtime.dll = Libs\NHibernate\Antlr3.Runtime.dll
+		Libs\NHibernate\Iesi.Collections.dll = Libs\NHibernate\Iesi.Collections.dll
+		Libs\NHibernate\LinFu.DynamicProxy.dll = Libs\NHibernate\LinFu.DynamicProxy.dll
+		Libs\NHibernate\NHibernate.ByteCode.LinFu.dll = Libs\NHibernate\NHibernate.ByteCode.LinFu.dll
+		Libs\NHibernate\NHibernate.dll = Libs\NHibernate\NHibernate.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus", "{797E78FB-2CA6-427B-9EAC-9392B67CACCC}"
+	ProjectSection(SolutionItems) = preProject
+		Libs\NServiceBus\NServiceBus.Core.dll = Libs\NServiceBus\NServiceBus.Core.dll
+		Libs\NServiceBus\NServiceBus.dll = Libs\NServiceBus\NServiceBus.dll
+		Libs\NServiceBus\NServiceBus.Host.exe = Libs\NServiceBus\NServiceBus.Host.exe
+		Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll = Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Routing", "Infrastructure.Routing\Infrastructure.Routing.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{EB1EA7DE-711C-4477-89E6-296B6D760D3E}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 11
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs07.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Application\\Application.csproj
+		SccProjectName1 = Application
+		SccLocalPath1 = Application
+		SccProjectUniqueName2 = Domain\\Domain.csproj
+		SccProjectName2 = Domain
+		SccLocalPath2 = Domain
+		SccProjectUniqueName3 = Tests.Domain\\Tests.Domain.csproj
+		SccProjectTopLevelParentUniqueName3 = DDDSample.sln
+		SccProjectName3 = Tests.Domain
+		SccLocalPath3 = Tests.Domain
+		SccProjectUniqueName4 = UI.BookingAndTracking\\UI.BookingAndTracking.csproj
+		SccProjectName4 = UI.BookingAndTracking
+		SccLocalPath4 = UI.BookingAndTracking
+		SccProjectUniqueName5 = Setup\\Setup.vdproj
+		SccProjectName5 = Setup
+		SccLocalPath5 = Setup
+		SccProjectUniqueName6 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
+		SccProjectTopLevelParentUniqueName6 = DDDSample.sln
+		SccProjectName6 = Tests.Domain.Persistence.NHibernate
+		SccLocalPath6 = Tests.Domain.Persistence.NHibernate
+		SccProjectUniqueName7 = Domain.Persistence.NHibernate\\Domain.Persistence.NHibernate.csproj
+		SccProjectName7 = Domain.Persistence.NHibernate
+		SccLocalPath7 = Domain.Persistence.NHibernate
+		SccProjectUniqueName8 = Infrastructure.Routing\\Infrastructure.Routing.csproj
+		SccProjectName8 = Infrastructure.Routing
+		SccLocalPath8 = Infrastructure.Routing
+		SccProjectUniqueName9 = Pathfinder\\Pathfinder.csproj
+		SccProjectName9 = Pathfinder
+		SccLocalPath9 = Pathfinder
+		SccProjectUniqueName10 = Tests.Integration\\Tests.Integration.csproj
+		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
+		SccProjectName10 = Tests.Integration
+		SccLocalPath10 = Tests.Integration
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = DDDSample.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugAsynch|Any CPU = DebugAsynch|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{9648B89B-C748-447C-86A1-D125F7053967}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{591BFC07-E7F5-400B-9761-9AF6EF2A3009}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCF5B41B-70F3-42FB-8352-C37584105289}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C3E0F5-528E-4703-B321-C0742224BF25}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.DebugAsynch|Any CPU.ActiveCfg = NHibernateAsynch|Any CPU
+		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.DebugAsynch|Any CPU.Build.0 = NHibernateAsynch|Any CPU
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.DebugAsynch|Any CPU.ActiveCfg = Debug
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B53338-D16B-4051-BA94-503488406CD1}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E}.DebugAsynch|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41C3E0F5-528E-4703-B321-C0742224BF25} = {34B41F94-5227-4533-B102-75A87FF61AE3}
+		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01} = {34B41F94-5227-4533-B102-75A87FF61AE3}
+		{EB1EA7DE-711C-4477-89E6-296B6D760D3E} = {34B41F94-5227-4533-B102-75A87FF61AE3}
+		{E73BA32A-A565-4D2C-BB59-F8D7DEB80584} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
+		{797E78FB-2CA6-427B-9EAC-9392B67CACCC} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
+	EndGlobalSection
+EndGlobal
