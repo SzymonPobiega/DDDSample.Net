@@ -17,9 +17,20 @@ namespace DDDSample.Domain.Persistence.NHibernate
       
       public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
       {
-         const string query = @"from DDDSample.Domain.Handling.HandlingHistory h where h.TrackingId = :trackingId";
-         return Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
-            .UniqueResult<HandlingHistory>();
+         const string query = @"from DDDSample.Domain.Handling.HandlingEvent e where e.Cargo.TrackingId = :trackingId";
+         var events = Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
+            .List<HandlingEvent>();
+         return new HandlingHistory(events);
+      }
+
+      public void Store(HandlingEvent handlingEvent)
+      {
+         Session.Save(handlingEvent);
+      }
+
+      public HandlingEvent Find(Guid uniqueId)
+      {
+         return Session.Get<HandlingEvent>(uniqueId);
       }
 
       public void Store(HandlingHistory handlingHistory)

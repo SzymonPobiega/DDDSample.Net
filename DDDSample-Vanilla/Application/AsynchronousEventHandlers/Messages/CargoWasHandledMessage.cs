@@ -13,10 +13,6 @@ namespace DDDSample.Application.AsynchronousEventHandlers.Messages
    [Serializable]
    public class CargoWasHandledMessage : IMessage
    {
-      public string TrackingId { get; set; }
-      public HandlingEventType EventType { get; set; }
-      public string Location { get; set; }
-      public DateTime RegistrationDate { get; set; }
-      public DateTime CompletionDate { get; set; }
+      public Guid EventUniqueId { get; set; }
    }
 }

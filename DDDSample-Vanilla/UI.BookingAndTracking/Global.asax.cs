@@ -129,19 +129,12 @@ namespace DDDSample.UI.BookingAndTracking
 
       private static void ConfigureSynchEventHandlers(IUnityContainer container)
       {
-         container.RegisterType
-            <IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>(
-            "cargoHasBeenAssignedToRouteEventHandler");
          container.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>(
             "cargoWasHandledEventHandler");
       }
 
       private static void ConfigureAsynchEventHandlers(IUnityContainer container)
-      {
-         container.RegisterType
-            <IEventHandler<CargoHasBeenAssignedToRouteEvent>,
-               Application.AsynchronousEventHandlers.EventHandlers.CargoHasBeenAssignedToRouteEventHandler>(
-            "cargoHasBeenAssignedToRouteEventHandler");
+      {         
          container.RegisterType
             <IEventHandler<CargoWasHandledEvent>,
                Application.AsynchronousEventHandlers.EventHandlers.CargoWasHandledEventHandler>(
@@ -179,7 +172,6 @@ namespace DDDSample.UI.BookingAndTracking
             .DBSubcriptionStorage()                            
             .CreateBus()
             .Start();
-         bus.Subscribe<CargoHasBeenAssignedToRouteMessage>();
          bus.Subscribe<CargoWasHandledMessage>();
          return bus;
       }

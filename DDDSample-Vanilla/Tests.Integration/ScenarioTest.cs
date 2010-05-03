@@ -97,8 +97,7 @@ namespace Tests.Integration
          _ambientContainer.RegisterType<IBookingService, BookingService>();
          _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
          _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
-
-         _ambientContainer.RegisterType<IEventHandler<CargoHasBeenAssignedToRouteEvent>, CargoHasBeenAssignedToRouteEventHandler>("cargoHasBeenAssignedToRouteEventHandler");
+         
          _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");
 
          _ambientLocator = new UnityServiceLocator(_ambientContainer);

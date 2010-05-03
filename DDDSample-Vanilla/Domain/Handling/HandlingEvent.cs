@@ -10,11 +10,30 @@ namespace DDDSample.Domain.Handling
    /// </summary>   
    public class HandlingEvent
    {
-      private readonly HandlingEventType _eventType;
-      private readonly Location.Location _location;      
-      private readonly DateTime _registrationDate;
-      private readonly DateTime _completionDate;
-      protected virtual HandlingHistory _parent { get; set;}
+      /// <summary>
+      /// Cargo which this handling event is concerned.
+      /// </summary>
+      public virtual Cargo.Cargo Cargo { get; set;}
+      /// <summary>
+      /// Type of the event.
+      /// </summary>
+      public virtual HandlingEventType EventType { get; set; }
+      /// <summary>
+      /// Location where event occured.
+      /// </summary>
+      public virtual Location.Location Location { get; set; }
+      /// <summary>
+      /// Date when event was registered.
+      /// </summary>
+      public virtual DateTime RegistrationDate { get; set; }
+      /// <summary>
+      /// Date when action represented by the event was completed.
+      /// </summary>
+      public virtual DateTime CompletionDate { get; set; }
+      /// <summary>
+      /// Unique id of this event.
+      /// </summary>
+      public virtual Guid Id { get; protected set; }
 
       /// <summary>
       /// Creates new event.
@@ -23,52 +42,19 @@ namespace DDDSample.Domain.Handling
       /// <param name="location"></param>
       /// <param name="registrationDate"></param>
       /// <param name="completionDate"></param>
-      public HandlingEvent(HandlingEventType eventType, Location.Location location, DateTime registrationDate, DateTime completionDate, HandlingHistory parent)
+      /// <param name="cargo"></param>
+      public HandlingEvent(HandlingEventType eventType, Location.Location location, 
+         DateTime registrationDate, DateTime completionDate, Cargo.Cargo cargo)
       {
-         _eventType = eventType;
-         _parent = parent;
-         _completionDate = completionDate;
-         _registrationDate = registrationDate;         
-         _location = location;         
+         EventType = eventType;
+         Location = location;
+         RegistrationDate = registrationDate;
+         CompletionDate = completionDate;
+         Cargo = cargo;
+
+         DomainEvents.Raise(new CargoWasHandledEvent(this));
       }
 
-      /// <summary>
-      /// Date when action represented by the event was completed.
-      /// </summary>
-      public DateTime CompletionDate
-      {
-         get { return _completionDate; }
-      }
-
-      /// <summary>
-      /// Date when event was registered.
-      /// </summary>
-      public DateTime RegistrationDate
-      {
-         get { return _registrationDate; }
-      }
-      
-      /// <summary>
-      /// Location where event occured.
-      /// </summary>
-      public Location.Location Location
-      {
-         get { return _location; }
-      }
-
-      public TrackingId TrackingId
-      {
-         get { return _parent.TrackingId; }
-      }
-
-      /// <summary>
-      /// Type of the event.
-      /// </summary>
-      public HandlingEventType EventType
-      {
-         get { return _eventType; }
-      }
-      
       /// <summary>
       /// Required by NHibernate.
       /// </summary>

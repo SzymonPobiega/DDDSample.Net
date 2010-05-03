@@ -57,7 +57,6 @@
     <Compile Include="Cargo\CargoHasBeenAssignedToRouteEvent.cs" />
     <Compile Include="Cargo\Delivery.cs" />
     <Compile Include="Cargo\HandlingActivity.cs" />
-    <Compile Include="Cargo\HandlingEvent.cs" />
     <Compile Include="Cargo\RoutingStatus.cs" />
     <Compile Include="Cargo\TransportStatus.cs" />
     <Compile Include="DomainEvent.cs" />

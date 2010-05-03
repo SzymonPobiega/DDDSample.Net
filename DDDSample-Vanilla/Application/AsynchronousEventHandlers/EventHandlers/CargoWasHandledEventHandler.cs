@@ -24,14 +24,10 @@ namespace DDDSample.Application.AsynchronousEventHandlers.EventHandlers
         }
 
         public void Handle(CargoWasHandledEvent @event)
-        {                  
-            _bus.Publish(new CargoWasHandledMessage
-                            {
-                               TrackingId = @event.Source.TrackingId.IdString,
-                               EventType = @event.Source.EventType,
-                               Location = @event.Source.Location.UnLocode.CodeString,
-                               RegistrationDate = @event.Source.RegistrationDate,
-                               CompletionDate = @event.Source.CompletionDate
+        {
+           _bus.Publish(new CargoWasHandledMessage
+                           {
+                              EventUniqueId = @event.Source.Id                               
                             });
         }
     }

@@ -7,7 +7,6 @@ using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
 using NHibernate;
-using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
 
 namespace DDDSample.Application.AsynchronousEventHandlers.MessageHandlers
 {
@@ -17,21 +16,19 @@ namespace DDDSample.Application.AsynchronousEventHandlers.MessageHandlers
    /// </summary>
    public class CargoWasHandledMessageHandler : AbstractMessageHandler<CargoWasHandledMessage>
    {
-      private readonly ILocationRepository _locationRepository;
-      private readonly ICargoRepository _cargoRepository;
+      private readonly IHandlingEventRepository _handlingEventRepository;
 
-      public CargoWasHandledMessageHandler(ICargoRepository cargoRepository, ISessionFactory sessionFactory, ILocationRepository locationRepository) : base(sessionFactory)
+      public CargoWasHandledMessageHandler(ISessionFactory sessionFactory, IHandlingEventRepository handlingEventRepository) : base(sessionFactory)
       {
-         _cargoRepository = cargoRepository;
-         _locationRepository = locationRepository;
+         _handlingEventRepository = handlingEventRepository;
       }
 
       protected override void DoHandle(CargoWasHandledMessage message)
       {
-         Location location = _locationRepository.Find(new UnLocode(message.Location));
-         Cargo cargo = _cargoRepository.Find(new TrackingId(message.TrackingId));
+         var @event = _handlingEventRepository.Find(message.EventUniqueId);
+         var cargo = @event.Cargo;
 
-         cargo.DeriveDeliveryProgress(new HandlingEvent(message.EventType, location, message.RegistrationDate, message.CompletionDate));
+         cargo.DeriveDeliveryProgress(@event);
       }
    }
 }

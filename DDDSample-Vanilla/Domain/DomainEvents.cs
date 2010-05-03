@@ -40,7 +40,7 @@ namespace DDDSample.Domain
       /// Sygnalizuje zdarzenie.
       /// </summary>
       public static void Raise<T>(T eventArgs)
-      {
+      {         
          IEnumerable<IEventHandler<T>> registeredHandlers = ServiceLocator.Current.GetAllInstances<IEventHandler<T>>();
          foreach (IEventHandler<T> handler in registeredHandlers)
          {

@@ -5,7 +5,6 @@ using System.Text;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Handling;
-using HandlingEvent=DDDSample.Domain.Cargo.HandlingEvent;
 
 namespace DDDSample.Application.SynchronousEventHandlers
 {
@@ -24,12 +23,9 @@ namespace DDDSample.Application.SynchronousEventHandlers
 
       public void Handle(CargoWasHandledEvent @event)
       {
-         Cargo cargo = _cargoRepository.Find(@event.Source.TrackingId);                  
+         Cargo cargo = _cargoRepository.Find(@event.Source.Cargo.TrackingId);                  
          
-         cargo.DeriveDeliveryProgress(new HandlingEvent(@event.Source.EventType, 
-            @event.Source.Location, 
-            @event.Source.RegistrationDate, 
-            @event.Source.CompletionDate));
+         cargo.DeriveDeliveryProgress(@event.Source);
       }
    }
 }
