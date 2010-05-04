@@ -40,12 +40,19 @@ namespace DDDSample.Domain
       /// Sygnalizuje zdarzenie.
       /// </summary>
       public static void Raise<T>(T eventArgs)
-      {         
-         IEnumerable<IEventHandler<T>> registeredHandlers = ServiceLocator.Current.GetAllInstances<IEventHandler<T>>();
-         foreach (IEventHandler<T> handler in registeredHandlers)
+      {
+         try
          {
-            handler.Handle(eventArgs);
+            IEnumerable<IEventHandler<T>> registeredHandlers = ServiceLocator.Current.GetAllInstances<IEventHandler<T>>();
+            foreach (IEventHandler<T> handler in registeredHandlers)
+            {
+               handler.Handle(eventArgs);
+            }
          }
+         catch (NullReferenceException)
+         {
+            //When service locator is not set, ignore it.
+         }         
          foreach (Action action in Actions)
          {
             Action<T> typedAction = action as Action<T>;
