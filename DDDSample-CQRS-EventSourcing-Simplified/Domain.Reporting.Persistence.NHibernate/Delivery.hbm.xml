@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.Reporting" 
+                   namespace="DDDSample.Reporting">  
+  <class name="Delivery" table="Delivery" schema="reporting">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"></generator>
+    </id>
+    <many-to-one name="Parent" column="CargoId" not-null="true"/>
+    <property name="IsMisdirected" column="IsMisdirected" not-null="true"/>
+    <property name="EstimatedTimeOfArrival" column="Eta" not-null="false"/>
+    <property name="CalculatedAt" column="CalculatedAt" not-null="true"/>
+    <property name="IsUnloadedAtDestination" column="UnloadedAtDest" not-null="true"/>
+    <property name="RoutingStatus" column="RoutingStatus" not-null="true"/>
+    <property name="TransportStatus" column="TransportStatus" not-null="true"/>
+    <component name="NextExpectedActivity" class="HandlingActivity">
+      <property name="EventType" column="NextExpectedEventType"/>
+      <property name="Location" column="NextExpectedLocation"/>
+    </component>
+    <component name="LastKnownActivity" class="HandlingActivity">
+      <property name="EventType" column="LastKnownEventType"/>
+      <property name="Location" column="LastKnownLocation"/>
+    </component>
+  </class>
+</hibernate-mapping>
