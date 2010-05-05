@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Pathfinder;
-using DDDSample.Messages;
+using DDDSample.Reporting;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -34,9 +34,9 @@ namespace DDDSample.UI.BookingAndTracking.Facade
          return new RouteCandidateDTO {Legs = path.Edges.Select(x => ToLeg(x)).ToList()};
       }
 
-      private static LegDTO ToLeg(TransitEdge edge)
+      private static Leg ToLeg(TransitEdge edge)
       {
-         return new LegDTO
+         return new Leg
                    {
                       LoadDate = edge.FromDate,
                       LoadLocation = edge.From,

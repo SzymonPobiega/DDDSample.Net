@@ -52,15 +52,13 @@
     <Compile Include="Cargo.cs" />
     <Compile Include="Delivery.cs" />
     <Compile Include="HandlingActivity.cs" />
-    <Compile Include="HandlingEventType.cs" />
+    <Compile Include="Leg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoutingStatus.cs" />
-    <Compile Include="TransportStatus.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}</Project>
-      <Name>Messages</Name>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
+      <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

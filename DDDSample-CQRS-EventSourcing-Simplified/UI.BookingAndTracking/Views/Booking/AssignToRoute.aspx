@@ -1,6 +1,6 @@
 <%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
     Inherits="System.Web.Mvc.ViewPage<AssignToRouteModel>" %>
-<%@ Import Namespace="DDDSample.Messages"%>
+<%@ Import Namespace="DDDSample.Reporting"%>
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Models" %>
 <asp:Content ID="changeCargoDestinationTitle" ContentPlaceHolderID="TitleContent"
@@ -48,7 +48,7 @@
             <tbody>
                 <%
                    int legIndex = 0;
-                    foreach (LegDTO leg in routeCandidate.Legs)
+                    foreach (Leg leg in routeCandidate.Legs)
                     {%>                    
                     <%=Html.Hidden("legs[" + legIndex + "].LoadLocation", leg.LoadLocation)%>
                     <%=Html.Hidden("legs[" + legIndex + "].LoadDate", leg.LoadDate)%>

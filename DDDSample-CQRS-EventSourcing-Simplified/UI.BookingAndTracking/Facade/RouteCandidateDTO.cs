@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Messages;
+using DDDSample.Reporting;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -9,13 +9,13 @@ namespace DDDSample.UI.BookingAndTracking.Facade
    {
       public RouteCandidateDTO()
       {
-         Legs = new List<LegDTO>();
+         Legs = new List<Leg>();
       }
-      public RouteCandidateDTO(IList<LegDTO> legs)
+      public RouteCandidateDTO(IList<Leg> legs)
       {
          Legs = legs;
       }
 
-      public IList<LegDTO> Legs { get; set; }
+      public IList<Leg> Legs { get; set; }
    }
 }

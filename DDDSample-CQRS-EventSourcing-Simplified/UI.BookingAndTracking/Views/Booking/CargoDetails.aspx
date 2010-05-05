@@ -1,5 +1,4 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<DDDSample.Reporting.Cargo>" %>
-<%@ Import Namespace="DDDSample.Messages"%>
 <%@ Import Namespace="DDDSample.Reporting"%>
 
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
@@ -72,7 +71,7 @@
                 </thead>
                 <tbody>
                     <%                   
-                        foreach (LegDTO leg in Model.RouteSpecification)
+                        foreach (Leg leg in Model.RouteSpecification)
                         {%>
                     <tr>
                         <td>

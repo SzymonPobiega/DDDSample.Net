@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DDDSample.Domain.Cargo;
-using DDDSample.Messages;
+using DDDSample.Reporting.Persistence.NHibernate;
 using NServiceBus;
 
 namespace DDDSample.Domain.EventHandlers
@@ -14,32 +14,32 @@ namespace DDDSample.Domain.EventHandlers
    /// </summary>
    public class CargoWasHandledEventHandler : IEventHandler<Cargo.Cargo, CargoHandledEvent>
    {
-      private readonly IBus _bus;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public CargoWasHandledEventHandler(IBus bus)
+      public CargoWasHandledEventHandler(CargoDataAccess cargoDataAccess)
       {
-         _bus = bus;
+         _cargoDataAccess = cargoDataAccess;
       }
 
       public void Handle(Cargo.Cargo source, CargoHandledEvent @event)
       {
-         HandlingActivity nextExpectedActivity = @event.Delivery.NextExpectedActivity;
-         _bus.Publish(new CargoHandledMessage
-                         {
-                            CargoId = source.Id,
-                            CalculatedAt = @event.Delivery.CalculatedAt,
-                            EstimatedTimeOfArrival = @event.Delivery.EstimatedTimeOfArrival,
-                            IsMisdirected = @event.Delivery.IsMisdirected,
-                            IsUnloaded = @event.Delivery.IsUnloadedAtDestination,
-                            RoutingStatus = (int) @event.Delivery.RoutingStatus,
-                            TransportStatus = (int) @event.Delivery.TransportStatus,
-                            NextExpectedEventType =
-                               nextExpectedActivity != null ? (int?) nextExpectedActivity.EventType : null,
-                            NextExpectedLocation =
-                               nextExpectedActivity != null ? nextExpectedActivity.Location.CodeString : null,
-                            LastKnownEventType = (int)@event.Delivery.LastEventType,
-                            LastKnownLocation = @event.Delivery.LastKnownLocation.CodeString
-                         });
+         var del = @event.Delivery;
+         var lastKnownActivity = new Reporting.HandlingActivity(del.LastEventType.Value, del.LastKnownLocation.CodeString);
+         Reporting.HandlingActivity nextExpectedActivity = null;
+         if (del.NextExpectedActivity != null)
+         {
+            nextExpectedActivity = new Reporting.HandlingActivity(del.NextExpectedActivity.EventType, del.NextExpectedActivity.Location.CodeString);
+         }
+         var cargo = _cargoDataAccess.Find(source.Id);
+         cargo.UpdateHistory(
+            nextExpectedActivity,
+            lastKnownActivity,
+            del.RoutingStatus,
+            del.TransportStatus,
+            del.EstimatedTimeOfArrival,
+            del.IsUnloadedAtDestination,
+            del.IsMisdirected,
+            del.CalculatedAt);          
       }
    }
 }

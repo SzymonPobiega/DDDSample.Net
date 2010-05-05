@@ -242,17 +242,9 @@
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}</Project>
-      <Name>Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
       <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>
       <Name>Pathfinder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Reporting.MessageHandlers\Reporting.MessageHandlers.csproj">
-      <Project>{905DD567-8314-4E57-A6BC-91CAD38CD7F9}</Project>
-      <Name>Reporting.MessageHandlers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

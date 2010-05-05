@@ -2,8 +2,10 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
-using DDDSample.Messages;
+using DDDSample.Reporting;
+using DDDSample.Reporting.Persistence.NHibernate;
 using NServiceBus;
+using Leg=DDDSample.Reporting.Leg;
 
 namespace DDDSample.Domain.EventHandlers
 {
@@ -12,25 +14,27 @@ namespace DDDSample.Domain.EventHandlers
    /// </summary>
    public class CargoWasAssignedToRouteEventHandler : IEventHandler<Cargo.Cargo, CargoAssignedToRouteEvent>
    {
-      private readonly IBus _bus;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public CargoWasAssignedToRouteEventHandler(IBus bus)
+      public CargoWasAssignedToRouteEventHandler(CargoDataAccess cargoDataAccess)
       {
-         _bus = bus;
+         _cargoDataAccess = cargoDataAccess;
       }
 
       public void Handle(Cargo.Cargo source, CargoAssignedToRouteEvent @event)
       {
-         _bus.Publish(new CargoAssignedToRouteMessage
-                         {
-                            CargoId = source.Id,
-                            Legs = @event.NewItinerary.Legs.Select(x => ConvertLegToDto(x)).ToList()
-                         });
+         var cargo = _cargoDataAccess.Find(source.Id);
+         cargo.RouteSpecification = ConvertItineraryToLegDtos(@event.NewItinerary);
       }
 
-      private static LegDTO ConvertLegToDto(Leg x)
+      private static List<Leg> ConvertItineraryToLegDtos(Itinerary itinerary)
       {
-         return new LegDTO
+         return itinerary.Legs.Select(x => ConvertLegToDto(x)).ToList();           
+      }
+
+      private static Leg ConvertLegToDto(Cargo.Leg x)
+      {
+         return new Leg
                    {
                       LoadDate = x.LoadDate,
                       LoadLocation = x.LoadLocation.CodeString,

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Messages;
+using DDDSample.Domain.Cargo;
 
 namespace DDDSample.Reporting
 {
@@ -16,7 +16,7 @@ namespace DDDSample.Reporting
       public virtual DateTime ArrivalDeadline { get; protected set; }
       public virtual Delivery CurrentInformation { get; protected set; }
 
-      public virtual List<LegDTO> RouteSpecification { get; set; }
+      public virtual List<Leg> RouteSpecification { get; set; }
 
       private readonly IList<Delivery> _history;            
 
