@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.Domain" 
+                   namespace="DDDSample.Domain.Cargo"
+                   schema="domain">
+  <class name="HandlingEvent" table="HandlingEvent">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"/>
+    </id>
+
+    <many-to-one name="_parent" column="CargoId" access="field" class="Cargo"/>
+    <property name="_eventType" access="field" column="EventType" not-null="true"/>
+    <many-to-one name="_location" column="Location" class="DDDSample.Domain.Location.Location" access="field"/>
+    <property name="_registrationDate" access="field" column="RegistrationDate" not-null="true"/>
+    <property name="_completionDate" access="field" column="CompletionDate" not-null="true"/>
+
+  </class>
+</hibernate-mapping>

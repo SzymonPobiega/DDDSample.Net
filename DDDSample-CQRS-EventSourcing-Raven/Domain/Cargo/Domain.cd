@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DDDSample.Domain.Cargo.Cargo" Collapsed="true">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <AssociationLine Name="_deliveryStatus" Type="DDDSample.Domain.Cargo.Delivery" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.875" Y="1.191" />
+        <Point X="2.875" Y="1.375" />
+        <Point X="4" Y="1.375" />
+        <Point X="4" Y="1.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.171" Y="0.133" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_itinerary" Type="DDDSample.Domain.Cargo.Itinerary" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.562" Y="1.191" />
+        <Point X="2.562" Y="1.375" />
+        <Point X="1.5" Y="1.375" />
+        <Point X="1.5" Y="1.75" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="_routeSpecification" Type="DDDSample.Domain.Cargo.RouteSpecification" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="1.191" />
+        <Point X="2.75" Y="3" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAIEAAAAAAAACAAAAAAACAAAIAAAAwAkAAAgAAEAAA=</HashCode>
+      <FileName>Cargo\Cargo.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_deliveryStatus" />
+      <Field Name="_itinerary" />
+      <Field Name="_routeSpecification" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.Delivery" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBAAQECgAABJBgAAAAYwAAAAHAgAAAAAAAwAACAURiA=</HashCode>
+      <FileName>Cargo\Delivery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.Itinerary" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAEAAAAAAAAAIgAAAAAAAAAAAQIAAAAIAQiA=</HashCode>
+      <FileName>Cargo\Itinerary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.RouteSpecification" Collapsed="true">
+    <Position X="2" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAACAAAAAQAAAAAAAAAABEAAAAAAgARiA=</HashCode>
+      <FileName>Cargo\RouteSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.CargoAssignedToRouteEvent" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Cargo\CargoAssignedToRouteEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.CargoDestinationChangedEvent" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Cargo\CargoDestinationChangedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.CargoHandledEvent" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Cargo\CargoHandledEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.Domain.Cargo.CargoRegisteredEvent" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAoAAAAAAAAAAAAAAAAgAAAAAAAAAAAEAAAAAAAAAg=</HashCode>
+      <FileName>Cargo\CargoRegisteredEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
