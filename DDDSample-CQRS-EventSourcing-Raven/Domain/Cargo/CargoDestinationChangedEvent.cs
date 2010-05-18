@@ -11,23 +11,13 @@ namespace DDDSample.Domain.Cargo
    [Serializable]
    public class CargoDestinationChangedEvent : Event<Cargo>
    {
-      private readonly Delivery _delivery;
-      private readonly RouteSpecification _newSpecification;
+      public Delivery Delivery { get; private set; }
+      public RouteSpecification NewSpecification { get; private set; }
 
       public CargoDestinationChangedEvent(RouteSpecification newSpecification, Delivery delivery)
       {
-         _delivery = delivery;
-         _newSpecification = newSpecification;
-      }
-
-      public Delivery Delivery
-      {
-         get { return _delivery; }
-      }
-
-      public RouteSpecification NewSpecification
-      {
-         get { return _newSpecification; }
-      }
+         Delivery = delivery;
+         NewSpecification = newSpecification;
+      }      
    }
 }

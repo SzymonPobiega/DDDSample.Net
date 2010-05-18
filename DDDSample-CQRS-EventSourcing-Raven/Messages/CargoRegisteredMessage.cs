@@ -8,7 +8,7 @@ namespace DDDSample.Messages
    [Serializable]
    public class CargoRegisteredMessage : IMessage
    {
-      public Guid CargoId { get; set; }
+      public string CargoId { get; set; }
       public string TrackingId { get; set; }
       public string Origin { get; set; }
       public string Destination { get; set; }

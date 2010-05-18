@@ -8,7 +8,7 @@ namespace DDDSample.Commands
    [Serializable]
    public class AssignCargoToRouteCommand : IMessage
    {
-      public Guid CargoId { get; set; }
+      public string CargoId { get; set; }
       public List<LegDTO> Legs { get; set; }
    }
 }

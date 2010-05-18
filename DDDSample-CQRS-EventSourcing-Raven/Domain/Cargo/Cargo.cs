@@ -12,10 +12,10 @@ namespace DDDSample.Domain.Cargo
    [Serializable]
    public class Cargo : AggregateRoot
    {
-      private TrackingId _trackingId;
-      private RouteSpecification _routeSpecification;
-      private Itinerary _itinerary;
-      private Delivery _deliveryStatus;
+      public TrackingId TrackingId { get; private set; }
+      public RouteSpecification RouteSpecification { get; private set; }
+      public Itinerary Itinerary { get; private set; }
+      public Delivery DeliveryStatus { get; private set; }
 
       /// <summary>
       /// Creates new <see cref="Cargo"/> object with provided tracking id and route specification.
@@ -34,7 +34,7 @@ namespace DDDSample.Domain.Cargo
          }
 
          Publish(this, new CargoRegisteredEvent(trackingId, routeSpecification,
-                                        Delivery.DerivedFrom(_routeSpecification, _itinerary)));         
+                                        Delivery.DerivedFrom(RouteSpecification, Itinerary)));         
       }
 
       /// <summary>
@@ -47,11 +47,11 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("destination");
          }
-         RouteSpecification routeSpecification = new RouteSpecification(_routeSpecification.Origin, destination,
-                                                                        _routeSpecification.ArrivalDeadline);
+         var routeSpecification = new RouteSpecification(RouteSpecification.Origin, destination,
+                                                                        RouteSpecification.ArrivalDeadline);
 
          Publish(this, new CargoDestinationChangedEvent(routeSpecification,
-                                                _deliveryStatus.Derive(routeSpecification, _itinerary)));         
+                                                DeliveryStatus.Derive(routeSpecification, Itinerary)));         
       }
 
       /// <summary>
@@ -64,12 +64,12 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("itinerary");
          }
-         if (!_routeSpecification.IsSatisfiedBy(itinerary))
+         if (!RouteSpecification.IsSatisfiedBy(itinerary))
          {
             throw new InvalidOperationException("Provided itinerary doesn't satisfy this cargo's route specification.");
          }
 
-         Publish(this, new CargoAssignedToRouteEvent(itinerary, _deliveryStatus.Derive(_routeSpecification, itinerary)));
+         Publish(this, new CargoAssignedToRouteEvent(itinerary, DeliveryStatus.Derive(RouteSpecification, itinerary)));
       }      
 
       /// <summary>
@@ -81,33 +81,33 @@ namespace DDDSample.Domain.Cargo
       /// <param name="completionDate">Date when action represented by the event was completed.</param>
       public virtual void RegisterHandlingEvent(HandlingEventType eventType, UnLocode location, DateTime registrationDate, DateTime completionDate)
       {
-         HandlingEvent @event = new HandlingEvent(eventType, location, registrationDate, completionDate);
+         var @event = new HandlingEvent(eventType, location, registrationDate, completionDate);
          
-         Publish(this, new CargoHandledEvent(Delivery.DerivedFrom(_routeSpecification, _itinerary, @event)));
+         Publish(this, new CargoHandledEvent(Delivery.DerivedFrom(RouteSpecification, Itinerary, @event)));
       }      
 
       private void OnCargoRegistered(CargoRegisteredEvent @event)
       {
-         _trackingId = @event.TrackingId;
-         _routeSpecification = @event.RouteSpecification;
-         _deliveryStatus = @event.Delivery;
+         TrackingId = @event.TrackingId;
+         RouteSpecification = @event.RouteSpecification;
+         DeliveryStatus = @event.Delivery;
       }
 
       private void OnCargoAssignedToRoute(CargoAssignedToRouteEvent @event)
       {
-         _itinerary = @event.NewItinerary;
-         _deliveryStatus = @event.Delivery;
+         Itinerary = @event.NewItinerary;
+         DeliveryStatus = @event.Delivery;
       }
 
       private void OnCargoDestinationChanged(CargoDestinationChangedEvent @event)
       {
-         _routeSpecification = @event.NewSpecification;
-         _deliveryStatus = @event.Delivery;
+         RouteSpecification = @event.NewSpecification;
+         DeliveryStatus = @event.Delivery;
       }
 
       private void OnCargoHandled(CargoHandledEvent @event)
       {
-         _deliveryStatus = @event.Delivery;
+         DeliveryStatus = @event.Delivery;
       }
       
       protected Cargo()

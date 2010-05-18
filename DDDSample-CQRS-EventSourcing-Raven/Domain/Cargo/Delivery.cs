@@ -14,87 +14,54 @@ namespace DDDSample.Domain.Cargo
    public class Delivery : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly TransportStatus _transportStatus;
-      private readonly UnLocode _lastKnownLocation;
-      private readonly bool _misdirected;
-      private readonly DateTime? _eta;      
-      private readonly bool _isUnloadedAtDestination;
-      private readonly RoutingStatus _routingStatus;
-      private readonly DateTime _calculatedAt;
-      private readonly HandlingEvent _lastEvent;
-      private readonly HandlingActivity _nextExpectedActivity;
-
+      public HandlingEvent LastEvent { get; private set; }
 
       /// <summary>
       /// Gets next expected activity.
       /// </summary>
-      public HandlingActivity NextExpectedActivity
-      {
-         get { return _nextExpectedActivity; }
-      }
+      public HandlingActivity NextExpectedActivity { get; private set; }
 
       /// <summary>
       /// Gets status of cargo routing.
       /// </summary>
-      public RoutingStatus RoutingStatus
-      {
-         get { return _routingStatus; }
-      }
+      public RoutingStatus RoutingStatus { get; private set; }
 
       /// <summary>
       /// Gets time when this delivery status was calculated.
       /// </summary>
-      public DateTime CalculatedAt
-      {
-         get { return _calculatedAt; }
-      }
+      public DateTime CalculatedAt { get; private set; }
 
       /// <summary>
       /// Gets if this cargo has been unloaded at its destination.
       /// </summary>
-      public bool IsUnloadedAtDestination
-      {
-         get { return _isUnloadedAtDestination; }
-      }
+      public bool IsUnloadedAtDestination { get; private set; }
 
       /// <summary>
       /// Gets estimated time of arrival. Returns null if information cannot be obtained (cargo is misrouted).
       /// </summary>
-      public DateTime? EstimatedTimeOfArrival
-      {
-         get { return _eta; }
-      }
+      public DateTime? EstimatedTimeOfArrival { get; private set; }
 
       /// <summary>
       /// Gets last known location of this cargo.
       /// </summary>
-      public UnLocode LastKnownLocation
-      {
-         get { return _lastKnownLocation; }
-      }
+      public UnLocode LastKnownLocation { get; private set; }
 
       /// <summary>
       /// Gets status of cargo transport.
       /// </summary>
-      public TransportStatus TransportStatus
-      {
-         get { return _transportStatus; }
-      }
+      public TransportStatus TransportStatus { get; private set; }
 
       /// <summary>
       /// Gets if this cargo was misdirected.
       /// </summary>
-      public bool IsMisdirected
-      {
-         get { return _misdirected; }
-      }
+      public bool IsMisdirected { get; private set; }
 
       /// <summary>
       /// Gets type of last recorded event.
       /// </summary>
       public HandlingEventType? LastEventType
       {
-         get { return _lastEvent != null ? _lastEvent.EventType : (HandlingEventType?)null; }
+         get { return LastEvent != null ? LastEvent.EventType : (HandlingEventType?)null; }
       }
 
       /// <summary>
@@ -117,7 +84,7 @@ namespace DDDSample.Domain.Cargo
       /// <returns>Delivery status description.</returns>
       public Delivery Derive(RouteSpecification specification, Itinerary itinerary)
       {
-         return new Delivery(_lastEvent, itinerary, specification);
+         return new Delivery(LastEvent, itinerary, specification);
       }
 
       /// <summary>
@@ -135,16 +102,16 @@ namespace DDDSample.Domain.Cargo
 
       private Delivery(HandlingEvent lastHandlingEvent, Itinerary itinerary, RouteSpecification specification)
       {
-         _calculatedAt = DateTime.Now;
-         _lastEvent = lastHandlingEvent;
+         CalculatedAt = DateTime.Now;
+         LastEvent = lastHandlingEvent;
 
-         _misdirected = CalculateMisdirectionStatus(itinerary, lastHandlingEvent);
-         _routingStatus = CalculateRoutingStatus(itinerary, specification);
-         _transportStatus = CalculateTransportStatus(lastHandlingEvent);
-         _lastKnownLocation = CalculateLastKnownLocation(lastHandlingEvent);
-         _eta = CalculateEta(itinerary);
-         _nextExpectedActivity = CalculateNextExpectedActivity(specification, itinerary, lastHandlingEvent);
-         _isUnloadedAtDestination = CalculateUnloadedAtDestination(specification, lastHandlingEvent);
+         IsMisdirected = CalculateMisdirectionStatus(itinerary, lastHandlingEvent);
+         RoutingStatus = CalculateRoutingStatus(itinerary, specification);
+         TransportStatus = CalculateTransportStatus(lastHandlingEvent);
+         LastKnownLocation = CalculateLastKnownLocation(lastHandlingEvent);
+         EstimatedTimeOfArrival = CalculateEta(itinerary);
+         NextExpectedActivity = CalculateNextExpectedActivity(specification, itinerary, lastHandlingEvent);
+         IsUnloadedAtDestination = CalculateUnloadedAtDestination(specification, lastHandlingEvent);
       }
 
       private static bool CalculateUnloadedAtDestination(RouteSpecification specification, HandlingEvent lastHandlingEvent)
@@ -255,15 +222,15 @@ namespace DDDSample.Domain.Cargo
 
       protected override IEnumerable<object> GetAtomicValues()
       {
-         yield return _calculatedAt;
-         yield return _eta;
-         yield return _lastEvent;
-         yield return _isUnloadedAtDestination;
-         yield return _isUnloadedAtDestination;
-         yield return _lastKnownLocation;
-         yield return _misdirected;
-         yield return _routingStatus;
-         yield return _transportStatus;
+         yield return CalculatedAt;
+         yield return EstimatedTimeOfArrival;
+         yield return LastEvent;
+         yield return IsUnloadedAtDestination;
+         yield return IsUnloadedAtDestination;
+         yield return LastKnownLocation;
+         yield return IsMisdirected;
+         yield return RoutingStatus;
+         yield return TransportStatus;
       }
 
       public static bool operator ==(Delivery left, Delivery right)

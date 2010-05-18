@@ -21,6 +21,8 @@ using NServiceBus;
 using NServiceBus.Faults.InMemory;
 using NServiceBus.ObjectBuilder;
 using NServiceBus.SagaPersisters.NHibernate;
+using Raven.Client;
+using Raven.Client.Document;
 
 namespace DDDSample.UI.BookingAndTracking
 {
@@ -41,6 +43,7 @@ namespace DDDSample.UI.BookingAndTracking
       private static IUnityContainer _ambientContainer;
       private static IServiceLocator _ambientLocator;
       private static ISessionFactory _webSessionFactory;
+      private static IDocumentStore _documentStore;
             
       private static void ConfigureNHibernateAsynch()
       {
@@ -52,12 +55,22 @@ namespace DDDSample.UI.BookingAndTracking
 
          InitializeNHibernateForWeb(_ambientContainer);
          InitializeNHibernateForBus(busContainer);
+         InitializeDocumentStore();
          
          IBus bus = InitializeBus(busContainer);
          _ambientContainer.RegisterInstance(bus);
 
          ConfigureAsynchEventHandlers(_ambientContainer);
          ConfigureMVC();
+      }
+
+      private static void InitializeDocumentStore()
+      {
+         _documentStore = new DocumentStore
+                             {
+                                Url = "http://localhost:8080/"                                
+                             };                  
+         _documentStore.Initialise();
       }
 
       private static void ConfigureAsynchEventHandlers(IUnityContainer container)

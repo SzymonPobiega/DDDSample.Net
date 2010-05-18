@@ -20,7 +20,7 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       /// <param name="id">Primary key of a cargo.</param>
       /// <returns>Cargo instance if one present, null otherwise.</returns>
-      Cargo Find(Guid id);      
+      Cargo Find(string id);      
       /// <summary>
       /// Returns next, unique tracking id value.
       /// </summary>

@@ -11,24 +11,13 @@ namespace DDDSample.Domain.Cargo
    [Serializable]
    public class CargoAssignedToRouteEvent : Event<Cargo>
    {
-      private readonly Delivery _delivery;
-      private readonly Itinerary _newItinerary;
+      public Delivery Delivery { get; private set; }
+      public Itinerary NewItinerary { get; private set; }
 
       public CargoAssignedToRouteEvent(Itinerary newItinerary, Delivery delivery)
       {
-         _delivery = delivery;
-         _newItinerary = newItinerary;
-      }
-
-
-      public Delivery Delivery
-      {
-         get { return _delivery; }
-      }
-
-      public Itinerary NewItinerary
-      {
-         get { return _newItinerary; }
-      }
+         Delivery = delivery;
+         NewItinerary = newItinerary;
+      }      
    }
 }

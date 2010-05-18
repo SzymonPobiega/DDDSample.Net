@@ -14,28 +14,18 @@ namespace DDDSample.Domain.Cargo
    public class HandlingActivity : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly HandlingEventType _eventType;
-      private readonly UnLocode _location;
-
       public HandlingActivity(HandlingEventType eventType, UnLocode location)
       {
          if (location == null)
          {
             throw new ArgumentNullException("location");
          }
-         _eventType = eventType;
-         _location = location;
+         EventType = eventType;
+         Location = location;
       }
 
-      public HandlingEventType EventType
-      {
-         get { return _eventType; }
-      }
-
-      public UnLocode Location
-      {
-         get { return _location; }
-      }
+      public HandlingEventType EventType { get; private set; }
+      public UnLocode Location { get; private set; }
 
       protected override IEnumerable<object> GetAtomicValues()
       {

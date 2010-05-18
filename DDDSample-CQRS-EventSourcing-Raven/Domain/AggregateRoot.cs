@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace DDDSample.Domain
 {
@@ -14,6 +15,7 @@ namespace DDDSample.Domain
       {
          Apply(@event);
          ((IAggregateRoot)this).Events.Add(@event);
+         _currentVersion++;
          Bus.Publish(@this, @event);
       }
 
@@ -42,18 +44,28 @@ namespace DDDSample.Domain
          }
       }
 
-      public Guid Id
+      [JsonIgnore]
+      public string Id
       {
          get { return _id; }
          set { _id = value; }
       }
 
-      int IAggregateRoot.Version
+      [JsonIgnore]
+      int IAggregateRoot.OriginalVersion
       {
-         get { return _version; }
-         set { _version = value; }
+         get { return _originalVersion; }
+         set { _originalVersion = value; }
       }
 
+      [JsonIgnore]
+      int IAggregateRoot.CurrentVersion
+      {
+         get { return _currentVersion; }
+         set { _currentVersion = value; }
+      }
+
+      [JsonIgnore]
       ICollection<object> IAggregateRoot.Events
       {
          get
@@ -66,8 +78,17 @@ namespace DDDSample.Domain
          }
       }
 
-      [NonSerialized] private List<object> _events;
-      [NonSerialized] private Guid _id = Guid.NewGuid();
-      [NonSerialized] private int _version;
+      [NonSerialized] 
+      [JsonIgnore]
+      private List<object> _events;
+      [NonSerialized]
+      [JsonIgnore]
+      private string _id = Guid.NewGuid().ToString();
+      [NonSerialized]
+      [JsonIgnore]
+      private int _originalVersion;
+      [NonSerialized]
+      [JsonIgnore]
+      private int _currentVersion;
    }
 }

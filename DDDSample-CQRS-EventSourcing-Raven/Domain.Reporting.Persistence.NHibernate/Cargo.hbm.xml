@@ -4,7 +4,7 @@
                    namespace="DDDSample.Reporting" 
                    auto-import="false">
   <class name="Cargo" table="Cargo" schema="reporting">
-    <id type="Guid" name="Id">
+    <id name="Id">
       <column name="Id" />
       <generator class="assigned"></generator>
     </id>

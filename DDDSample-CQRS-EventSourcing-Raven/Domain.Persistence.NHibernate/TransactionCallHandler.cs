@@ -7,6 +7,7 @@ using System.Transactions;
 using Microsoft.Practices.Unity.InterceptionExtension;
 using NHibernate;
 using NHibernate.Context;
+using Raven.Client;
 
 namespace DDDSample.Domain.Persistence.NHibernate
 {
@@ -15,17 +16,17 @@ namespace DDDSample.Domain.Persistence.NHibernate
    /// </summary>
    public class TransactionCallHandler : ICallHandler
    {
-      private readonly ISessionFactory _sessionFactory;
+      private readonly IDocumentStore _documentStore;
 
-      public TransactionCallHandler(ISessionFactory sessionFactory)
+      public TransactionCallHandler(IDocumentStore documentStore)
       {
-         _sessionFactory = sessionFactory;
+         _documentStore = documentStore;
       }
 
       public IMethodReturn Invoke(IMethodInvocation input, GetNextHandlerDelegate getNext)
       {
          Debug.Assert(UnitOfWork.Current == null);
-         UnitOfWork.Current = new UnitOfWork(_sessionFactory);
+         UnitOfWork.Current = new UnitOfWork(_documentStore);
 
          IMethodReturn result = getNext()(input, getNext);
 

@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
 [assembly: AssemblyProduct("UI.BookingAndTracking")]
-[assembly: AssemblyCopyright("Copyright © HP 2009")]
+[assembly: AssemblyCopyright("Copyright � HP 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,10 +22,10 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("3dfcc708-3e6e-476b-83f4-66c1d95a2224")]
 
-// Version information for an assembly consists of the following four values:
+// OriginalVersion information for an assembly consists of the following four values:
 //
-//      Major Version
-//      Minor Version 
+//      Major OriginalVersion
+//      Minor OriginalVersion 
 //      Build Number
 //      Revision
 //

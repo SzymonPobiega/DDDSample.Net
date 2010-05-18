@@ -11,30 +11,19 @@ namespace DDDSample.Domain.Cargo
    [Serializable]
    public class CargoRegisteredEvent : Event<Cargo>
    {
-      private readonly TrackingId _trackingId;
-      private readonly Delivery _delivery;
-      private readonly RouteSpecification _routeSpecification;
+      public Delivery Delivery { get; private set; }
+      public RouteSpecification RouteSpecification { get; private set; }
+      public TrackingId TrackingId { get; private set; }
+
+      public CargoRegisteredEvent()
+      {         
+      }
 
       public CargoRegisteredEvent(TrackingId trackingId, RouteSpecification routeSpecification, Delivery delivery)
       {
-         _routeSpecification = routeSpecification;
-         _trackingId = trackingId;
-         _delivery = delivery;         
-      }
-
-      public Delivery Delivery
-      {
-         get { return _delivery; }
-      }
-
-      public RouteSpecification RouteSpecification
-      {
-         get { return _routeSpecification; }
-      }
-
-      public TrackingId TrackingId
-      {
-         get { return _trackingId; }
-      }
+         RouteSpecification = routeSpecification;
+         TrackingId = trackingId;
+         Delivery = delivery;         
+      }      
    }
 }

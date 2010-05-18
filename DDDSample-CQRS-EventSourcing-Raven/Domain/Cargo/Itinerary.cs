@@ -14,7 +14,7 @@ namespace DDDSample.Domain.Cargo
    public class Itinerary : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly IList<Leg> _legs;
+      public IList<Leg> Legs { get; private set; }
 
       /// <summary>
       /// Creates new <see cref="Itinerary"/> instance for provided collection of routing steps (legs).
@@ -22,23 +22,15 @@ namespace DDDSample.Domain.Cargo
       /// <param name="legs">Collection of routing steps (legs).</param>
       public Itinerary(IEnumerable<Leg> legs)
       {
-         _legs = new List<Leg>(legs);
+         Legs = new List<Leg>(legs);
       }
-
-      /// <summary>
-      /// Gets unmodifiable collection of this itinerary's legs.
-      /// </summary>
-      public virtual IEnumerable<Leg> Legs
-      {
-         get { return _legs; }
-      }
-
+      
       /// <summary>
       /// Gets the location of first departure according to this itinerary.
       /// </summary>
       public virtual UnLocode InitialDepartureLocation
       {
-         get { return IsEmpty ? Location.Location.Unknown.UnLocode : _legs.First().LoadLocation; }
+         get { return IsEmpty ? Location.Location.Unknown.UnLocode : Legs.First().LoadLocation; }
       }
 
       /// <summary>
@@ -46,7 +38,7 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       public virtual UnLocode FinalArrivalLocation
       {
-         get { return IsEmpty ? Location.Location.Unknown.UnLocode : _legs.Last().UnloadLocation; }         
+         get { return IsEmpty ? Location.Location.Unknown.UnLocode : Legs.Last().UnloadLocation; }         
       }
 
       /// <summary>
@@ -54,7 +46,7 @@ namespace DDDSample.Domain.Cargo
       /// </summary>
       public virtual DateTime? FinalArrivalDate
       {
-         get { return IsEmpty ? (DateTime?)null : _legs.Last().UnloadDate; }         
+         get { return IsEmpty ? (DateTime?)null : Legs.Last().UnloadDate; }         
       }
 
       /// <summary>
@@ -70,21 +62,21 @@ namespace DDDSample.Domain.Cargo
          }
          if (@event.EventType == HandlingEventType.Receive)
          {
-            Leg firstLeg = _legs.First();
+            Leg firstLeg = Legs.First();
             return firstLeg.LoadLocation == @event.Location;
          }
          if (@event.EventType == HandlingEventType.Claim)
          {
-            Leg lastLeg = _legs.Last();
+            Leg lastLeg = Legs.Last();
             return lastLeg.UnloadLocation == @event.Location;
          }
          if (@event.EventType == HandlingEventType.Load)
          {
-            return _legs.Any(x => x.LoadLocation == @event.Location);            
+            return Legs.Any(x => x.LoadLocation == @event.Location);            
          }
          if (@event.EventType == HandlingEventType.Unload)
          {
-            return _legs.Any(x => x.UnloadLocation == @event.Location);
+            return Legs.Any(x => x.UnloadLocation == @event.Location);
          }
          //@event.EventType == HandlingEventType.Customs
          return true;
@@ -92,13 +84,13 @@ namespace DDDSample.Domain.Cargo
 
       private bool IsEmpty
       {
-         get { return _legs.Count() == 0; }
+         get { return Legs.Count() == 0; }
       }
 
       #region Infrastructure
       protected override IEnumerable<object> GetAtomicValues()
       {
-         foreach (Leg leg in _legs)
+         foreach (Leg leg in Legs)
          {
             yield return leg;
          }

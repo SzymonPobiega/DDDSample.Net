@@ -27,7 +27,7 @@ namespace Tests.Integration
          /* Use case 1: booking
 
             A new cargo is booked, and the unique tracking id is assigned to the cargo. */
-         Guid cargoId = Guid.Empty;
+         string cargoId = null;
          using (Bus.Register<Cargo, CargoRegisteredEvent>((s,x) => cargoId = s.Id))
          {
             InvokeCommand(new BookNewCargoCommand
@@ -248,7 +248,7 @@ namespace Tests.Integration
          
       }
 
-      private static void RegisterHandlingEvent(Guid cargoId, DateTime time, UnLocode location, HandlingEventType eventType)
+      private static void RegisterHandlingEvent(string cargoId, DateTime time, UnLocode location, HandlingEventType eventType)
       {
          InvokeCommand(new RegisterHandlingEventCommand
                           {
@@ -263,8 +263,8 @@ namespace Tests.Integration
       private static void InvokeCommand<T>(T command)
          where T : IMessage
       {
-         UnitOfWork.Current = new UnitOfWork(_sessionFactory);
-         IMessageHandler<T> handler = ServiceLocator.Current.GetInstance<IMessageHandler<T>>();
+         UnitOfWork.Current = new UnitOfWork(_documentStore);
+         var handler = ServiceLocator.Current.GetInstance<IMessageHandler<T>>();
          handler.Handle(command);
          UnitOfWork.Current.Commit();
          UnitOfWork.Current = null;

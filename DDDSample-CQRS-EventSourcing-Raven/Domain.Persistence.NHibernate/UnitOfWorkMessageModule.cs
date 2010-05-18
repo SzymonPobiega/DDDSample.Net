@@ -4,21 +4,22 @@ using System.Collections.Generic;
 using System.Transactions;
 using NHibernate;
 using NServiceBus;
+using Raven.Client;
 
 namespace DDDSample.Domain.Persistence.NHibernate
 {
    public class UnitOfWorkMessageModule : IMessageModule
    {
-      private readonly ISessionFactory _sessionFactory;
+      private readonly IDocumentStore _documentStore;
 
-      public UnitOfWorkMessageModule(ISessionFactory sessionFactory)
+      public UnitOfWorkMessageModule(IDocumentStore documentStore)
       {
-         _sessionFactory = sessionFactory;
+         _documentStore = documentStore;
       }
 
       public void HandleBeginMessage()
       {
-         UnitOfWork.Current = new UnitOfWork(_sessionFactory);         
+         UnitOfWork.Current = new UnitOfWork(_documentStore);         
       }
 
       public void HandleEndMessage()

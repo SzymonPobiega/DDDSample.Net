@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP")]
 [assembly: AssemblyProduct("Domain.EventHandlers")]
-[assembly: AssemblyCopyright("Copyright © HP 2010")]
+[assembly: AssemblyCopyright("Copyright � HP 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,10 +22,10 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("05d2f9a8-c2e5-49b9-a970-8dbede10112d")]
 
-// Version information for an assembly consists of the following four values:
+// OriginalVersion information for an assembly consists of the following four values:
 //
-//      Major Version
-//      Minor Version 
+//      Major OriginalVersion
+//      Minor OriginalVersion 
 //      Build Number
 //      Revision
 //

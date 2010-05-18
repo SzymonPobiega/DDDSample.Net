@@ -14,12 +14,6 @@ namespace DDDSample.Domain.Cargo
    public class Leg : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly UnLocode _loadLocation;
-      private readonly UnLocode _unloadLocation;
-
-      private readonly DateTime _loadDate;
-      private readonly DateTime _unloadDate;
-
       /// <summary>
       /// Creates new leg instance.
       /// </summary>
@@ -29,51 +23,39 @@ namespace DDDSample.Domain.Cargo
       /// <param name="unloadDate">Date and time when cargo is supposed to be unloaded.</param>
       public Leg(UnLocode loadLocation, DateTime loadDate, UnLocode unloadLocation, DateTime unloadDate)
       {
-         _loadLocation = loadLocation;
-         _unloadDate = unloadDate;
-         _unloadLocation = unloadLocation;
-         _loadDate = loadDate;
+         LoadLocation = loadLocation;
+         UnloadDate = unloadDate;
+         UnloadLocation = unloadLocation;
+         LoadDate = loadDate;
       }
 
       /// <summary>
       /// Gets location where cargo is supposed to be loaded.
       /// </summary>
-      public UnLocode LoadLocation
-      {
-         get { return _loadLocation; }
-      }
+      public UnLocode LoadLocation { get; private set; }
 
       /// <summary>
       /// Gets location where cargo is supposed to be unloaded.
       /// </summary>
-      public UnLocode UnloadLocation
-      {
-         get { return _unloadLocation; }
-      }
+      public UnLocode UnloadLocation { get; private set; }
 
       /// <summary>
       /// Gets date and time when cargo is supposed to be loaded.
       /// </summary>
-      public DateTime LoadDate
-      {
-         get { return _loadDate; }
-      }
+      public DateTime LoadDate { get; private set; }
 
       /// <summary>
       /// Gets date and time when cargo is supposed to be unloaded.
       /// </summary>
-      public DateTime UnloadDate
-      {
-         get { return _unloadDate; }
-      }
+      public DateTime UnloadDate { get; private set; }
 
       #region Infrastructure
       protected override IEnumerable<object> GetAtomicValues()
       {
-         yield return _loadLocation;
-         yield return _unloadLocation;
-         yield return _loadDate;
-         yield return _unloadDate;
+         yield return LoadLocation;
+         yield return UnloadLocation;
+         yield return LoadDate;
+         yield return UnloadDate;
       }
 
       public static bool operator ==(Leg left, Leg right)

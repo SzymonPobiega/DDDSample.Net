@@ -15,7 +15,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
          UnitOfWork.Current.Track(cargo);
       }
 
-      public Cargo.Cargo Find(Guid id)
+      public Cargo.Cargo Find(string id)
       {
          return (Cargo.Cargo)UnitOfWork.Current.LoadById(id);
       }      

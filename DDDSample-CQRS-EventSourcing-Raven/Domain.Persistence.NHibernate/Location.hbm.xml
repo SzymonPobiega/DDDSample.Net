@@ -9,7 +9,7 @@
       <generator class="guid"></generator>
     </id>
     <component name="UnLocode" update="false" class="UnLocode">
-      <property name="_code" column="UnLocode" not-null="true" access="field"/>
+      <property name="CodeString" column="UnLocode" not-null="true"/>
     </component>
     <property name="Name" column="Name" not-null="true"/>    
   </class>

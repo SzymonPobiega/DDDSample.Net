@@ -8,7 +8,7 @@ namespace DDDSample.Reporting
 {
    public class Cargo
    {
-      public virtual Guid Id { get; protected set; }
+      public virtual string Id { get; protected set; }
       public virtual string TrackingId { get; protected set; }
 
       public virtual string Origin { get; protected set; }
@@ -20,7 +20,7 @@ namespace DDDSample.Reporting
 
       private readonly IList<Delivery> _history;            
 
-      public Cargo(Guid id, string trackingId, string origin, string destination, DateTime arrivalDeadline)
+      public Cargo(string id, string trackingId, string origin, string destination, DateTime arrivalDeadline)
       {
          Id = id;
          TrackingId = trackingId;

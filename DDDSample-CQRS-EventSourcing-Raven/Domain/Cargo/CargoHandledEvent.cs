@@ -11,16 +11,15 @@ namespace DDDSample.Domain.Cargo
    [Serializable]
    public class CargoHandledEvent : Event<Cargo>
    {
-      private readonly Delivery _delivery;
+      public Delivery Delivery { get; private set; }
+
+      public CargoHandledEvent()
+      {
+      }
 
       public CargoHandledEvent(Delivery delivery)
       {
-         _delivery = delivery;
+         Delivery = delivery;
       }
-
-      public Delivery Delivery
-      {
-         get { return _delivery; }
-      }      
    }
 }

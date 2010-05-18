@@ -13,28 +13,23 @@ namespace DDDSample.Domain.Cargo
    public class TrackingId : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly string _idString;
-
       /// <summary>
       /// Creates new <see cref="TrackingId"/> instacnce.
       /// </summary>
       /// <param name="idString">String representation of this new tracking id.</param>
       public TrackingId(string idString)
       {
-         _idString = idString;
+         IdString = idString;
       }
 
       /// <summary>
       /// Returns string representation of this tracking id.
       /// </summary>
-      public virtual string IdString
-      {
-         get { return _idString; }
-      }
+      public virtual string IdString { get; private set; }
 
       protected override IEnumerable<object> GetAtomicValues()
       {
-         yield return _idString;
+         yield return IdString;
       }
 
       public static bool operator == (TrackingId left, TrackingId right)

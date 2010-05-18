@@ -8,7 +8,7 @@ namespace DDDSample.Commands
    [Serializable]
    public class ChangeDestinationCommand : IMessage
    {
-      public Guid CargoId { get; set; }
+      public string CargoId { get; set; }
       public string NewDestination { get; set; }
    }
 }

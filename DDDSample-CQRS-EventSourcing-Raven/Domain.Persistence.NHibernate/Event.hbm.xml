@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
                    assembly="DDDSample.Domain.Persistence.NHibernate" 
                    namespace="DDDSample.Domain.Persistence.NHibernate"
@@ -10,7 +10,7 @@
       <generator class="identity"/>
     </id>
 
-    <property name="Version"/>
+    <property name="OriginalVersion"/>
     <property name="EntityId"/>
     <property name="Data" type="Serializable"/>
     <property name="IsSnapshot"/>

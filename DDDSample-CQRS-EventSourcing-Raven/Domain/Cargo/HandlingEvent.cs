@@ -10,12 +10,7 @@ namespace DDDSample.Domain.Cargo
    /// </summary>   
    [Serializable]
    public class HandlingEvent
-   {      
-      private readonly HandlingEventType _eventType;
-      private readonly UnLocode _location;      
-      private readonly DateTime _registrationDate;
-      private readonly DateTime _completionDate;
-
+   {
       /// <summary>
       /// Creates new event.
       /// </summary>
@@ -25,44 +20,32 @@ namespace DDDSample.Domain.Cargo
       /// <param name="completionDate"></param>
       public HandlingEvent(HandlingEventType eventType, UnLocode location, DateTime registrationDate, DateTime completionDate)
       {
-         _eventType = eventType;
-         _completionDate = completionDate;
-         _registrationDate = registrationDate;         
-         _location = location;         
+         EventType = eventType;
+         CompletionDate = completionDate;
+         RegistrationDate = registrationDate;         
+         Location = location;         
       }
 
       /// <summary>
       /// Date when action represented by the event was completed.
       /// </summary>
-      public virtual DateTime CompletionDate
-      {
-         get { return _completionDate; }
-      }
+      public virtual DateTime CompletionDate { get; private set; }
 
       /// <summary>
       /// Date when event was registered.
       /// </summary>
-      public virtual DateTime RegistrationDate
-      {
-         get { return _registrationDate; }
-      }
-      
+      public virtual DateTime RegistrationDate { get; private set; }
+
       /// <summary>
       /// Location where event occured.
       /// </summary>
-      public virtual UnLocode Location
-      {
-         get { return _location; }
-      }
-      
+      public virtual UnLocode Location { get; private set; }
+
       /// <summary>
       /// Type of the event.
       /// </summary>
-      public virtual HandlingEventType EventType
-      {
-         get { return _eventType; }
-      }
-      
+      public virtual HandlingEventType EventType { get; private set; }
+
       /// <summary>
       /// Required by NHibernate.
       /// </summary>

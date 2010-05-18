@@ -6,8 +6,9 @@ namespace DDDSample.Domain
 {
    public interface IAggregateRoot
    {
-      Guid Id { get; set; }
-      int Version { get; set; }
+      string Id { get; set; }
+      int OriginalVersion { get; set; }
+      int CurrentVersion { get; set; }
       ICollection<object> Events { get; }
       void LoadFromEventStream(IEnumerable<object> events);
    }

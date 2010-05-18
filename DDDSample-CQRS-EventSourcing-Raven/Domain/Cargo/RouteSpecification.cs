@@ -14,10 +14,6 @@ namespace DDDSample.Domain.Cargo
    public class RouteSpecification : ValueObject
 #pragma warning restore 661,660
    {
-      private readonly UnLocode _origin;
-      private readonly UnLocode _destination;
-      private readonly DateTime _arrivalDeadline;
-
       public RouteSpecification(UnLocode origin, UnLocode destination, DateTime arrivalDeadline)
       {
          if (origin == null)
@@ -33,9 +29,9 @@ namespace DDDSample.Domain.Cargo
             throw new ArgumentException("Origin and destination can't be the same.");
          }
 
-         _origin = origin;
-         _arrivalDeadline = arrivalDeadline;
-         _destination = destination;
+         Origin = origin;
+         ArrivalDeadline = arrivalDeadline;
+         Destination = destination;
       }
 
       /// <summary>
@@ -56,26 +52,17 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Date of expected cargo arrival.
       /// </summary>
-      public DateTime ArrivalDeadline
-      {
-         get { return _arrivalDeadline; }
-      }
+      public DateTime ArrivalDeadline { get; private set; }
 
       /// <summary>
       /// Location where cargo should be delivered.
       /// </summary>
-      public UnLocode Destination
-      {
-         get { return _destination; }
-      }
+      public UnLocode Destination { get; private set; }
 
       /// <summary>
       /// Location where cargo should be picked up.
       /// </summary>
-      public UnLocode Origin
-      {
-         get { return _origin; }
-      }
+      public UnLocode Origin { get; private set; }
 
       public static bool operator ==(RouteSpecification left, RouteSpecification right)
       {
@@ -89,9 +76,9 @@ namespace DDDSample.Domain.Cargo
 
       protected override IEnumerable<object> GetAtomicValues()
       {
-         yield return _origin;
-         yield return _destination;
-         yield return _arrivalDeadline;
+         yield return Origin;
+         yield return Destination;
+         yield return ArrivalDeadline;
       }
 
       /// <summary>

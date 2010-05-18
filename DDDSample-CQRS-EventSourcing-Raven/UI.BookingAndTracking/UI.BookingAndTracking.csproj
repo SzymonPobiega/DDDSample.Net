@@ -111,6 +111,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Raven.Client-3.5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Raven.Client-3.5.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations">

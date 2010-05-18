@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NHibernate\NHibernate.dll</HintPath>
@@ -46,6 +50,10 @@
     <Reference Include="NServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NServiceBus\NServiceBus.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client-3.5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Raven.Client-3.5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -63,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractRepository.cs" />
+    <Compile Include="AggregateRootMetadata.cs" />
     <Compile Include="CargoRepository.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="LocationRepository.cs" />
@@ -87,7 +96,7 @@
     <None Include="HandlingEvent.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Event.hbm.xml" />
+    <None Include="Event.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

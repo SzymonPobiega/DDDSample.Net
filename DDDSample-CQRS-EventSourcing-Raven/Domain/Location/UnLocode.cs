@@ -18,7 +18,6 @@ namespace DDDSample.Domain.Location
 #pragma warning restore 661,660
    {
       private static readonly Regex _codePattern = new Regex("[a-zA-Z]{2}[a-zA-Z2-9]{3}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-      private readonly string _code;
 
       /// <summary>
       /// Creates new <see cref="UnLocode"/> object.
@@ -34,21 +33,18 @@ namespace DDDSample.Domain.Location
          {
             throw new ArgumentException(string.Format("Provided code does not comply with a UnLocode pattern ({0})",_codePattern), "code");
          }
-         _code = code;
+         CodeString = code;
       }
 
       /// <summary>
       /// Returns a string representation of this UnLocode consisting of 5 characters (all upper):
       /// 2 chars of ISO country code and 3 describing location.
       /// </summary>
-      public virtual string CodeString
-      {
-         get { return _code; }
-      }
+      public virtual string CodeString { get; private set; }
 
       protected override IEnumerable<object> GetAtomicValues()
       {
-         yield return _code;
+         yield return CodeString;
       }
 
       public static bool operator ==(UnLocode left, UnLocode right)
@@ -70,7 +66,7 @@ namespace DDDSample.Domain.Location
 
       public override string ToString()
       {
-         return _code;
+         return CodeString;
       }
    }
 }

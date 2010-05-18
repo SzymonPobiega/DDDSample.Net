@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using DDDSample.CommandHandlers;
 using DDDSample.Commands;
@@ -13,6 +14,8 @@ using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NHibernate;
 using NHibernate.ByteCode.LinFu;
 using NHibernate.Cfg;
@@ -23,6 +26,8 @@ using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
 using NServiceBus;
 using NUnit.Framework;
+using Raven.Client;
+using Raven.Client.Document;
 using Environment=NHibernate.Cfg.Environment;
 
 namespace Tests.Integration
@@ -77,6 +82,7 @@ namespace Tests.Integration
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
       protected static ISessionFactory _sessionFactory;
+      protected static IDocumentStore _documentStore;
 
       private string DatabaseFile;
          
@@ -94,11 +100,33 @@ namespace Tests.Integration
          ServiceLocator.SetLocatorProvider(() => _ambientLocator);     
     
          InitializeNHibernate();
+         InitializeDocumetStore();
+      }
+
+      private static void InitializeDocumetStore()
+      {
+         var serializer = new JsonSerializer
+                             {
+                                ContractResolver = new PropertiesOnlyContractResolver()
+                                                      {
+                                                         DefaultMembersSearchFlags =
+                                                            BindingFlags.Public | BindingFlags.NonPublic |
+                                                            BindingFlags.Instance
+                                                      },
+                                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
+                             };
+         _documentStore = new DocumentStore
+                             {
+                                Url = "http://localhost:8080",
+                                Serializer = serializer
+                             }.Initialise();                  
+         _ambientContainer.RegisterInstance(_documentStore);
       }
 
       [TearDown]
       public void TearDownTests()
       {
+         _documentStore.Dispose();
          _sessionFactory.Dispose();
          EnsureDbFileNotExists();         
       }
@@ -124,18 +152,7 @@ namespace Tests.Integration
          _ambientContainer.RegisterType<IMessageHandler<BookNewCargoCommand>, BookNewCargoCommandHandler>();
          _ambientContainer.RegisterType<IMessageHandler<AssignCargoToRouteCommand>, AssignCargoToRouteCommandHandler>();
          _ambientContainer.RegisterType<IMessageHandler<ChangeDestinationCommand>, ChangeDestinationCommandHandler>();
-         _ambientContainer.RegisterType<IMessageHandler<RegisterHandlingEventCommand>, RegisterHandlingEventCommandHandler>();
-
-         //_ambientContainer.AddNewExtension<Interception>();
-
-         //_ambientContainer.Configure<Interception>()
-
-         //   .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-         //   .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
-
-         //   .AddPolicy("Transactions")
-         //   .AddCallHandler<TransactionCallHandler>()
-         //   .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
+         _ambientContainer.RegisterType<IMessageHandler<RegisterHandlingEventCommand>, RegisterHandlingEventCommandHandler>();         
       }
 
       private void InitializeNHibernate()
@@ -146,7 +163,7 @@ namespace Tests.Integration
                                  {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
                                  {Environment.Dialect, typeof (SQLiteDialect).FullName},
                                  {Environment.ConnectionProvider, typeof (DriverConnectionProvider).FullName},
-                                 { Environment.ConnectionString, string.Format( "Data Source={0};Version=3;New=True;", DatabaseFile) },
+                                 { Environment.ConnectionString, string.Format( "Data Source={0};OriginalVersion=3;New=True;", DatabaseFile) },
                                  {
                                     Environment.ProxyFactoryFactoryClass,
                                     typeof (ProxyFactoryFactory).AssemblyQualifiedName
