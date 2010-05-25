@@ -6,7 +6,7 @@ using NServiceBus;
 namespace DDDSample.Commands
 {
    [Serializable]
-   public class ChangeDestinationCommand : IMessage
+   public class ChangeDestinationCommand
    {
       public string CargoId { get; set; }
       public string NewDestination { get; set; }

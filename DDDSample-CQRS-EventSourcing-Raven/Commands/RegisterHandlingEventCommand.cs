@@ -7,7 +7,7 @@ using NServiceBus;
 namespace DDDSample.Commands
 {
    [Serializable]
-   public class RegisterHandlingEventCommand : IMessage
+   public class RegisterHandlingEventCommand
    {
       public string CargoId { get; set; }
       public DateTime CompletionTime { get; set; }

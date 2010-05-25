@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Serialization;
 
-namespace Tests.Integration
+namespace DDDSample.Domain.Persistence.NHibernate
 {
    public class PropertiesOnlyContractResolver : DefaultContractResolver
    {

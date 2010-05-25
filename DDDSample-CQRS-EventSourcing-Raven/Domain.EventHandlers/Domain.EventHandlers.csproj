@@ -60,13 +60,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Reporting\Reporting.csproj">
+      <Project>{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}</Project>
+      <Name>Reporting %28Reporting\Reporting%29</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}</Project>
-      <Name>Messages</Name>
+    <ProjectReference Include="..\Reporting.Persistence.Raven\Reporting.Persistence.Raven.csproj">
+      <Project>{64DCE7D4-72DC-4578-909D-7305E065F3B3}</Project>
+      <Name>Reporting.Persistence.Raven</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

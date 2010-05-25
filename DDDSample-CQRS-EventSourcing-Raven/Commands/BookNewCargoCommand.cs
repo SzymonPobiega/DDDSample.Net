@@ -7,7 +7,7 @@ using NServiceBus;
 namespace DDDSample.Commands
 {
    [Serializable]
-   public class BookNewCargoCommand : IMessage
+   public class BookNewCargoCommand
    {         
       public string Origin { get; set; }
       public string Destination { get; set; }

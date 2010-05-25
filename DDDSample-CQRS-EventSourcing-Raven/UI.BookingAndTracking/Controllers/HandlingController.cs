@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DDDSample.CommandHandlers;
 using DDDSample.Commands;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSample.Reporting.Persistence.NHibernate;
-using NServiceBus;
+using Reporting.Persistence.Raven;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
@@ -48,9 +48,9 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
             AddHandlingEventTypes();
             return View();
          }
-         Reporting.Cargo cargo = _cargoDataAccess.Find(trackingId);
-         command.CargoId = cargo.Id;
-         _bus.Publish(command);
+         Reporting.Cargo cargo = _cargoDataAccess.FindByTrackingId(trackingId);
+         command.CargoId = cargo.AggregateId;
+         _bus.Send(command);
          return RedirectToAction("Index", "Home");
       }
       

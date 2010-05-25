@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDSample.Domain.Location;
-using DDDSample.Reporting.Persistence.NHibernate;
+using Reporting.Persistence.Raven;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {
@@ -28,7 +28,7 @@ namespace DDDSample.UI.BookingAndTracking.Facade
       /// <returns>DTO.</returns>
       public Reporting.Cargo LoadCargoForRouting(string trackingId)
       {
-         Reporting.Cargo c = _cargoDataAccess.Find(trackingId);
+         Reporting.Cargo c = _cargoDataAccess.FindByTrackingId(trackingId);
          if (c == null)
          {
             throw new ArgumentException("Cargo with specified tracking id not found.");

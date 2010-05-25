@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DDDSample.Domain.Cargo;
 
 namespace DDDSample.Reporting
 {
@@ -10,9 +11,8 @@ namespace DDDSample.Reporting
    /// </summary>
    public class Delivery
    {
-      public Delivery(Cargo parent, HandlingActivity nextExpectedActivity, HandlingActivity lastKnownActivity, RoutingStatus routingStatus, TransportStatus transportStatus, DateTime? estimatedTimeOfArrival, bool isUnloadedAtDestination, bool isMisdirected, DateTime calculatedAt)
+      public Delivery(HandlingActivity nextExpectedActivity, HandlingActivity lastKnownActivity, RoutingStatus routingStatus, TransportStatus transportStatus, DateTime? estimatedTimeOfArrival, bool isUnloadedAtDestination, bool isMisdirected, DateTime calculatedAt)
       {
-         Parent = parent;
          NextExpectedActivity = nextExpectedActivity;
          LastKnownActivity = lastKnownActivity;
          RoutingStatus = routingStatus;

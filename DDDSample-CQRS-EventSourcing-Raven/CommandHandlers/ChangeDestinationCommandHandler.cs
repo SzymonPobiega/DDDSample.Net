@@ -8,7 +8,7 @@ using NServiceBus;
 
 namespace DDDSample.CommandHandlers
 {
-   public class ChangeDestinationCommandHandler : IMessageHandler<ChangeDestinationCommand>
+   public class ChangeDestinationCommandHandler : ICommandHandler<ChangeDestinationCommand>
    {
       private readonly ICargoRepository _cargoRepository;
 

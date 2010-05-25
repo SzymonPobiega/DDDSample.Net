@@ -91,25 +91,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\NHibernate.ByteCode.LinFu.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.ObjectBuilder.Unity, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll</HintPath>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client-3.5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -234,10 +218,6 @@
       <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
       <Name>Domain.Persistence.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.Reporting.Persistence.NHibernate\Reporting.Persistence.NHibernate.csproj">
-      <Project>{5C437BB6-C153-4EE1-9030-F0B52CD926DC}</Project>
-      <Name>Reporting.Persistence.NHibernate</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain.Reporting\Reporting.csproj">
       <Project>{05CCDBD3-F4FA-451C-9DDA-27E31AD409E8}</Project>
       <Name>Reporting %28Reporting\Reporting%29</Name>
@@ -246,17 +226,13 @@
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain %28Domain\Domain%29</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Messages\Messages.csproj">
-      <Project>{4E647270-93DB-49CF-BA64-1ED67A1AC0AC}</Project>
-      <Name>Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
       <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>
       <Name>Pathfinder</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Reporting.MessageHandlers\Reporting.MessageHandlers.csproj">
-      <Project>{905DD567-8314-4E57-A6BC-91CAD38CD7F9}</Project>
-      <Name>Reporting.MessageHandlers</Name>
+    <ProjectReference Include="..\Reporting.Persistence.Raven\Reporting.Persistence.Raven.csproj">
+      <Project>{64DCE7D4-72DC-4578-909D-7305E065F3B3}</Project>
+      <Name>Reporting.Persistence.Raven</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -277,9 +253,7 @@
     <Content Include="Content\images\ui-icons_6da8d5_256x240.png" />
     <Content Include="Content\images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Content\images\ui-icons_f9bd01_256x240.png" />
-    <Content Include="sqlite3.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="sqlite3.dll" />
     <Content Include="Views\Booking\ListCargos.aspx" />
   </ItemGroup>
   <ItemGroup>

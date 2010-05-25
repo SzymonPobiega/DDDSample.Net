@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DDDSample.CommandHandlers;
 using DDDSample.Commands;
 using DDDSample.UI.BookingAndTracking.Facade;
 using DDDSample.UI.BookingAndTracking.Models;
-using NServiceBus;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
@@ -59,7 +59,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          Reporting.Cargo cargo = _bookingFacade.LoadCargoForRouting(trackingId);
          _bus.Send(new ChangeDestinationCommand
                       {
-                         CargoId = cargo.Id,
+                         CargoId = cargo.AggregateId,
                          NewDestination = destination
                       });
          return RedirectToDetails(trackingId);
@@ -97,7 +97,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          Reporting.Cargo cargo = _bookingFacade.LoadCargoForRouting(trackingId);
          _bus.Send(new AssignCargoToRouteCommand
                       {
-                         CargoId = cargo.Id,
+                         CargoId = cargo.AggregateId,
                          Legs = legs
                       });
          return RedirectToDetails(trackingId);

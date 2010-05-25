@@ -75,6 +75,7 @@
     <Compile Include="CargoRepository.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="LocationRepository.cs" />
+    <Compile Include="PropertiesOnlyContractResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionCallHandler.cs" />
     <Compile Include="UnitOfWork.cs" />

@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Reporting;
+using DDDSample.Domain.Cargo;
+using Cargo=DDDSample.Reporting.Cargo;
+using HandlingActivity=DDDSample.Reporting.HandlingActivity;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {   

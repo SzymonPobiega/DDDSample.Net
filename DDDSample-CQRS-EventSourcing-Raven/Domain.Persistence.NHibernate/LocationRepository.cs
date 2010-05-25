@@ -1,30 +1,30 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DDDSample.Domain.Location;
 using NHibernate;
+using Raven.Client;
 
 namespace DDDSample.Domain.Persistence.NHibernate
 {
    /// <summary>
    /// Location repository implementation based on NHibernate.
    /// </summary>
-   public class LocationRepository : AbstractRepository, ILocationRepository
+   public class LocationRepository : ILocationRepository
    {
-      public LocationRepository(ISessionFactory sessionFactory) : base(sessionFactory)
-      {
-      }
+      private readonly IDocumentStore _documentStore;
 
-      public Location.Location Find(UnLocode locode)
+      public LocationRepository(IDocumentStore documentStore)
       {
-         const string query = @"from DDDSample.Domain.Location.Location l where l.UnLocode = :unLocode";
-         return Session.CreateQuery(query).SetString("unLocode",locode.CodeString)
-            .UniqueResult<Location.Location>();
+         _documentStore = documentStore;         
       }
-
+     
       public IList<Location.Location> FindAll()
       {
-         const string query = @"from DDDSample.Domain.Location.Location l";
-         return Session.CreateQuery(query).List<Location.Location>();
+         using (var session = _documentStore.OpenSession())
+         {
+            return session.Query<Location.Location>().ToList();
+         }
       }
    }
 }

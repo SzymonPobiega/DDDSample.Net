@@ -8,7 +8,7 @@ using NServiceBus;
 
 namespace DDDSample.CommandHandlers
 {
-   public class RegisterHandlingEventCommandHandler : IMessageHandler<RegisterHandlingEventCommand>
+   public class RegisterHandlingEventCommandHandler : ICommandHandler<RegisterHandlingEventCommand>
    {
       private readonly ICargoRepository _cargoRepository;
 

@@ -56,7 +56,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
          IList<Event> events;
          using (var session = _documentStore.OpenSession())
          {
-            var metadada = session.Load<AggregateRootMetadata>(id);
+            var metadada = session.Load<AggregateRootMetadata>(MakeRootId(id));
             events = session.Query<Event>()
                .WaitForNonStaleResults()
                .Where(x => x.Version >= metadada.RecentSnapshotVersion)
@@ -72,6 +72,11 @@ namespace DDDSample.Domain.Persistence.NHibernate
          _trackedObjects.Add(lastSnapshot);
 
          return lastSnapshot;
+      }
+
+      private static string MakeRootId(string id)
+      {
+         return "root/"+id;
       }
 
       public void Store(IDocumentSession session, IAggregateRoot root)
@@ -107,7 +112,7 @@ namespace DDDSample.Domain.Persistence.NHibernate
          {
             metadata = new AggregateRootMetadata
                           {
-                             Id = root.Id,
+                             Id = MakeRootId(root.Id),
                              RecentSnapshotVersion = root.CurrentVersion
                           };            
             session.Store(metadata);

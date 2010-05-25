@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Messages;
+using DDDSample.Commands;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {

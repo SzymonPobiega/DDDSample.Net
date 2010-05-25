@@ -1,4 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
+<%@ Import Namespace="DDDSample.Domain.Cargo"%>
 <%@ Import Namespace="DDDSample.Reporting"%>
 
 <%@ Import Namespace="DDDSample.UI.BookingAndTracking.Facade" %>
@@ -28,7 +29,7 @@
         </thead>
         <tbody>
             <%
-                foreach (Cargo cargo in (IList<Cargo>)ViewData["cargos"])
+                foreach (var cargo in (IList<DDDSample.Reporting.Cargo>)ViewData["cargos"])
                 {
             %>
             <tr>

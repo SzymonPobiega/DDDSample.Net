@@ -1,34 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using DDDSample.CommandHandlers;
 using DDDSample.Commands;
-using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
 using DDDSample.Domain.Persistence.NHibernate;
-using DDDSample.Reporting.Persistence.NHibernate;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.InterceptionExtension;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using NHibernate;
-using NHibernate.ByteCode.LinFu;
-using NHibernate.Cfg;
-using NHibernate.Connection;
-using NHibernate.Context;
-using NHibernate.Dialect;
-using NHibernate.Driver;
-using NHibernate.Tool.hbm2ddl;
-using NServiceBus;
+
 using NUnit.Framework;
 using Raven.Client;
 using Raven.Client.Document;
-using Environment=NHibernate.Cfg.Environment;
 
 namespace Tests.Integration
 {
@@ -74,116 +56,74 @@ namespace Tests.Integration
          get { return ServiceLocator.Current.GetInstance<ILocationRepository>(); }
       }
 
-      public static CargoDataAccess CargoDataAccess
-      {
-         get { return ServiceLocator.Current.GetInstance<CargoDataAccess>(); }
-      }
-
       private static IServiceLocator _ambientLocator;
       private static IUnityContainer _ambientContainer;
-      protected static ISessionFactory _sessionFactory;
       protected static IDocumentStore _documentStore;
 
-      private string DatabaseFile;
-         
       [SetUp]
       public void Initialize()
       {
-         DatabaseFile = GetDbFileName();
-         EnsureDbFileNotExists();
-
          _ambientContainer = new UnityContainer();
-
-         ConfigureNHibernateRepositories();
-
          _ambientLocator = new UnityServiceLocator(_ambientContainer);
-         ServiceLocator.SetLocatorProvider(() => _ambientLocator);     
-    
-         InitializeNHibernate();
-         InitializeDocumetStore();
+
+         ConfigureRepositories(_ambientContainer);
+         ConfigureBus(_ambientContainer);
+         InitializeDocumetStore(_ambientContainer);
+
+         ServiceLocator.SetLocatorProvider(() => _ambientLocator);
       }
 
-      private static void InitializeDocumetStore()
+      private static void ConfigureRepositories(IUnityContainer container)
       {
-         var serializer = new JsonSerializer
-                             {
-                                ContractResolver = new PropertiesOnlyContractResolver()
-                                                      {
-                                                         DefaultMembersSearchFlags =
-                                                            BindingFlags.Public | BindingFlags.NonPublic |
-                                                            BindingFlags.Instance
-                                                      },
-                                ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor
-                             };
+         container.RegisterType<ILocationRepository, LocationRepository>();
+         container.RegisterType<ICargoRepository, CargoRepository>();
+      } 
+
+      private static void ConfigureBus(IUnityContainer container)
+      {
+         container.RegisterType<IBus, InProcessBus>();
+         container.RegisterType<ICommandHandler<AssignCargoToRouteCommand>,
+            AssignCargoToRouteCommandHandler>();
+         container.RegisterType<ICommandHandler<BookNewCargoCommand>,
+            BookNewCargoCommandHandler>();
+         container.RegisterType<ICommandHandler<ChangeDestinationCommand>,
+            ChangeDestinationCommandHandler>();
+         container.RegisterType<ICommandHandler<RegisterHandlingEventCommand>,
+            RegisterHandlingEventCommandHandler>();
+      }
+
+
+      private static void InitializeDocumetStore(IUnityContainer container)
+      {
+         var resolver = new PropertiesOnlyContractResolver
+                           {
+                              DefaultMembersSearchFlags =
+                                 BindingFlags.Public | BindingFlags.NonPublic |
+                                 BindingFlags.Instance
+                           };         
          _documentStore = new DocumentStore
                              {
                                 Url = "http://localhost:8080",
-                                Serializer = serializer
+                                Conventions = new DocumentConvention
+                                                 {
+                                                    JsonContractResolver = resolver
+                                                 }
                              }.Initialise();                  
-         _ambientContainer.RegisterInstance(_documentStore);
+         container.RegisterInstance(_documentStore);
+      }
+
+      protected static void InvokeCommand<T>(T command)
+      {
+         var bus = _ambientContainer.Resolve<IBus>();
+         bus.Send(command);
       }
 
       [TearDown]
       public void TearDownTests()
       {
          _documentStore.Dispose();
-         _sessionFactory.Dispose();
-         EnsureDbFileNotExists();         
       }
-
-      private static string GetDbFileName()
-      {
-         return Path.GetFullPath(Guid.NewGuid().ToString("N") + ".Test.db");
-      }
-
-      private void EnsureDbFileNotExists()
-      {
-         if (File.Exists(DatabaseFile))
-         {
-            File.Delete(DatabaseFile);
-         }
-      }
-
-      private static void ConfigureNHibernateRepositories()
-      {
-         _ambientContainer.RegisterType<ILocationRepository, LocationRepository>();
-         _ambientContainer.RegisterType<ICargoRepository, CargoRepository>();
-
-         _ambientContainer.RegisterType<IMessageHandler<BookNewCargoCommand>, BookNewCargoCommandHandler>();
-         _ambientContainer.RegisterType<IMessageHandler<AssignCargoToRouteCommand>, AssignCargoToRouteCommandHandler>();
-         _ambientContainer.RegisterType<IMessageHandler<ChangeDestinationCommand>, ChangeDestinationCommandHandler>();
-         _ambientContainer.RegisterType<IMessageHandler<RegisterHandlingEventCommand>, RegisterHandlingEventCommandHandler>();         
-      }
-
-      private void InitializeNHibernate()
-      {         
-         Configuration cfg = new Configuration()
-            .AddProperties(new Dictionary<string, string>
-                              {
-                                 {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
-                                 {Environment.Dialect, typeof (SQLiteDialect).FullName},
-                                 {Environment.ConnectionProvider, typeof (DriverConnectionProvider).FullName},
-                                 { Environment.ConnectionString, string.Format( "Data Source={0};OriginalVersion=3;New=True;", DatabaseFile) },
-                                 {
-                                    Environment.ProxyFactoryFactoryClass,
-                                    typeof (ProxyFactoryFactory).AssemblyQualifiedName
-                                    },
-                                 {
-                                    Environment.CurrentSessionContextClass,
-                                    typeof (ThreadStaticSessionContext).AssemblyQualifiedName
-                                    },                                 
-                                 {Environment.Hbm2ddlAuto, "create"},
-                                 {Environment.ShowSql, true.ToString()}
-                              });
-         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
-
-         _sessionFactory = cfg.BuildSessionFactory();
-         _ambientContainer.RegisterInstance(_sessionFactory);         
-
-         new SchemaExport(cfg).Execute(false, true, false);
-
-         ISession ambientSession = _sessionFactory.OpenSession();
-         CurrentSessionContext.Bind(ambientSession);
-      }
+      
+           
    }
 }

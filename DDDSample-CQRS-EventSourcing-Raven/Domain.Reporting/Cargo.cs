@@ -1,39 +1,41 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DDDSample.Messages;
+using DDDSample.Domain.Cargo;
+using Newtonsoft.Json;
 
 namespace DDDSample.Reporting
 {
    public class Cargo
    {
-      public virtual string Id { get; protected set; }
-      public virtual string TrackingId { get; protected set; }
+      public string Id { get; set; }
+      public string TrackingId { get; protected set; }
+      public string AggregateId { get; protected set; }
 
-      public virtual string Origin { get; protected set; }
-      public virtual string Destination { get; protected set; }
-      public virtual DateTime ArrivalDeadline { get; protected set; }
-      public virtual Delivery CurrentInformation { get; protected set; }
+      public string Origin { get; protected set; }
+      public string Destination { get; protected set; }
+      public DateTime ArrivalDeadline { get; protected set; }
+      public Delivery CurrentInformation { get; protected set; }
 
-      public virtual List<LegDTO> RouteSpecification { get; set; }
+      public List<Leg> RouteSpecification { get; set; }
 
-      private readonly IList<Delivery> _history;            
+      private IList<Delivery> History { get; set; }
 
-      public Cargo(string id, string trackingId, string origin, string destination, DateTime arrivalDeadline)
+      public Cargo(string aggregateId, string trackingId, string origin, string destination, DateTime arrivalDeadline)
       {
-         Id = id;
+         AggregateId = aggregateId;
          TrackingId = trackingId;
          Origin = origin;
          Destination = destination;
          ArrivalDeadline = arrivalDeadline;
 
-         _history = new List<Delivery>();
+         History = new List<Delivery>();
          UpdateHistory(null, null, RoutingStatus.NotRouted, TransportStatus.NotReceived, null, false, false,
-                       DateTime.Now);                  
+                       DateTime.Now);
       }
 
-      public virtual void UpdateRouteSpecification(string origin, string destination, DateTime arrivalDeadline)
+      public void UpdateRouteSpecification(string origin, string destination, DateTime arrivalDeadline)
       {
          Origin = origin;
          Destination = destination;
@@ -41,20 +43,21 @@ namespace DDDSample.Reporting
          RouteSpecification = null;
       }
 
-      public virtual void UpdateHistory(HandlingActivity nextExpectedActivity, HandlingActivity lastKnownActivity, RoutingStatus routingStatus, TransportStatus transportStatus, DateTime? estimatedTimeOfArrival, bool isUnloadedAtDestination, bool isMisdirected, DateTime calculatedAt)
+      public void UpdateHistory(HandlingActivity nextExpectedActivity, HandlingActivity lastKnownActivity, RoutingStatus routingStatus, TransportStatus transportStatus, DateTime? estimatedTimeOfArrival, bool isUnloadedAtDestination, bool isMisdirected, DateTime calculatedAt)
       {
-         Delivery delivery = new Delivery(this, nextExpectedActivity, lastKnownActivity, routingStatus, transportStatus, estimatedTimeOfArrival, isUnloadedAtDestination, isMisdirected, calculatedAt);
-         _history.Add(delivery);
+         var delivery = new Delivery(nextExpectedActivity, lastKnownActivity, routingStatus, transportStatus, estimatedTimeOfArrival, isUnloadedAtDestination, isMisdirected, calculatedAt);
+         History.Add(delivery);
          CurrentInformation = delivery;
       }
 
-      public virtual IEnumerable<Delivery> DeliveryHistory
+      [JsonIgnore]
+      public IEnumerable<Delivery> DeliveryHistory
       {
-         get { return _history; }
+         get { return History; }
       }
 
       protected Cargo()
-      {         
+      {
       }
    }
 }

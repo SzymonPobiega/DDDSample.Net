@@ -8,7 +8,7 @@ using NServiceBus;
 
 namespace DDDSample.CommandHandlers
 {
-   public class AssignCargoToRouteCommandHandler : IMessageHandler<AssignCargoToRouteCommand>
+   public class AssignCargoToRouteCommandHandler : ICommandHandler<AssignCargoToRouteCommand>
    {
       private readonly ICargoRepository _cargoRepository;
 
@@ -20,7 +20,7 @@ namespace DDDSample.CommandHandlers
       public void Handle(AssignCargoToRouteCommand message)
       {
          Cargo cargo = _cargoRepository.Find(message.CargoId);
-         Itinerary itinerary = new Itinerary(message.Legs.Select(x => new Leg(
+         var itinerary = new Itinerary(message.Legs.Select(x => new Leg(
                                                                          new UnLocode(x.LoadLocation),
                                                                          x.LoadDate,
                                                                          new UnLocode(x.UnloadLocation),

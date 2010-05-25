@@ -1,9 +1,5 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
-using DDDSample.Messages;
-using NServiceBus;
+using Reporting.Persistence.Raven;
 
 namespace DDDSample.Domain.EventHandlers
 {
@@ -12,22 +8,23 @@ namespace DDDSample.Domain.EventHandlers
    /// </summary>
    public class CargoDestinationChangedEventHandler : IEventHandler<Cargo.Cargo, CargoDestinationChangedEvent>
    {
-      private readonly IBus _bus;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public CargoDestinationChangedEventHandler(IBus bus)
+      public CargoDestinationChangedEventHandler(CargoDataAccess cargoDataAccess)
       {
-         _bus = bus;
+         _cargoDataAccess = cargoDataAccess;
       }
 
       public void Handle(Cargo.Cargo source, CargoDestinationChangedEvent @event)
       {
-         _bus.Publish(new CargoDestinationChangedMessage
-                         {
-                            CargoId = source.Id,
-                            Origin = @event.NewSpecification.Origin.CodeString,
-                            Destination = @event.NewSpecification.Destination.CodeString,
-                            ArrivalDeadline = @event.NewSpecification.ArrivalDeadline
-                         });
+         var cargo = _cargoDataAccess.FindByTrackingId(source.TrackingId.IdString);
+         var spec = @event.NewSpecification;
+         cargo.UpdateRouteSpecification(
+            spec.Origin.CodeString,
+            spec.Destination.CodeString,
+            spec.ArrivalDeadline);
+
+         _cargoDataAccess.Store(cargo);
       }
    }
 }

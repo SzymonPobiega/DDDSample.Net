@@ -1,13 +1,9 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Commands;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using DDDSample.Domain.Persistence.NHibernate;
-using Microsoft.Practices.ServiceLocation;
-using NServiceBus;
 using NUnit.Framework;
 
 namespace Tests.Integration
@@ -257,17 +253,6 @@ namespace Tests.Integration
                              Location = location.CodeString,
                              Type = eventType
                           });
-      }
-
-
-      private static void InvokeCommand<T>(T command)
-         where T : IMessage
-      {
-         UnitOfWork.Current = new UnitOfWork(_documentStore);
-         var handler = ServiceLocator.Current.GetInstance<IMessageHandler<T>>();
-         handler.Handle(command);
-         UnitOfWork.Current.Commit();
-         UnitOfWork.Current = null;
       }
    }
 }

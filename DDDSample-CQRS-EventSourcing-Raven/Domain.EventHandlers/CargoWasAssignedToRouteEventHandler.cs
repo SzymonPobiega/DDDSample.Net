@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
-using DDDSample.Messages;
-using NServiceBus;
+using Reporting.Persistence.Raven;
+using Leg = DDDSample.Reporting.Leg;
 
 namespace DDDSample.Domain.EventHandlers
 {
@@ -12,31 +11,35 @@ namespace DDDSample.Domain.EventHandlers
    /// </summary>
    public class CargoWasAssignedToRouteEventHandler : IEventHandler<Cargo.Cargo, CargoAssignedToRouteEvent>
    {
-      private readonly IBus _bus;
+      private readonly CargoDataAccess _cargoDataAccess;
 
-      public CargoWasAssignedToRouteEventHandler(IBus bus)
+      public CargoWasAssignedToRouteEventHandler(CargoDataAccess cargoDataAccess)
       {
-         _bus = bus;
+         _cargoDataAccess = cargoDataAccess;
       }
 
       public void Handle(Cargo.Cargo source, CargoAssignedToRouteEvent @event)
       {
-         _bus.Publish(new CargoAssignedToRouteMessage
-                         {
-                            CargoId = source.Id,
-                            Legs = @event.NewItinerary.Legs.Select(x => ConvertLegToDto(x)).ToList()
-                         });
+         var cargo = _cargoDataAccess.FindByTrackingId(source.TrackingId.IdString);
+         cargo.RouteSpecification = ConvertItineraryToLegDtos(@event.NewItinerary);
+
+         _cargoDataAccess.Store(cargo);
       }
 
-      private static LegDTO ConvertLegToDto(Leg x)
+      private static List<Leg> ConvertItineraryToLegDtos(Itinerary itinerary)
       {
-         return new LegDTO
-                   {
-                      LoadDate = x.LoadDate,
-                      LoadLocation = x.LoadLocation.CodeString,
-                      UnloadDate = x.UnloadDate,
-                      UnloadLocation = x.UnloadLocation.CodeString
-                   };
+         return itinerary.Legs.Select(x => ConvertLegToDto(x)).ToList();
+      }
+
+      private static Leg ConvertLegToDto(Cargo.Leg x)
+      {
+         return new Leg
+         {
+            LoadDate = x.LoadDate,
+            LoadLocation = x.LoadLocation.CodeString,
+            UnloadDate = x.UnloadDate,
+            UnloadLocation = x.UnloadLocation.CodeString
+         };
       }
    }
 }
