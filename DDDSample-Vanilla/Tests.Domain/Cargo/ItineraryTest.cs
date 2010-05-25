@@ -8,20 +8,7 @@ using DDDSample.Domain.Location;
 using NUnit.Framework;
 
 namespace DDDSample.Domain.Tests.Cargo
-{
-   public static class ItineraryExtensions
-   {
-      public static void ShouldExpect(this Itinerary itinerary, HandlingEvent @event)
-      {
-         Assert.IsTrue(itinerary.IsExpected(@event));
-      }
-      public static void ShouldNotExpect(this Itinerary itinerary, HandlingEvent @event)
-      {
-         Assert.IsFalse(itinerary.IsExpected(@event));
-      }
-   }
-  
-
+{   
    [TestFixture]
    public class ItineraryTest
    {
@@ -142,4 +129,17 @@ namespace DDDSample.Domain.Tests.Cargo
          itinerary.ShouldNotExpect(@event);
       }      
    }
+
+   public static class ItineraryExtensions
+   {
+      public static void ShouldExpect(this Itinerary itinerary, HandlingEvent @event)
+      {
+         Assert.IsTrue(itinerary.IsExpected(@event));
+      }
+      public static void ShouldNotExpect(this Itinerary itinerary, HandlingEvent @event)
+      {
+         Assert.IsFalse(itinerary.IsExpected(@event));
+      }
+   }
+  
 }
