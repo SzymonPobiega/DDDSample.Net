@@ -160,6 +160,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Composition\ApplicationServicesModule.cs" />
+    <Compile Include="Composition\EventPublisherModule.cs" />
+    <Compile Include="NHibernateAmbientSessionManager.cs" />
+    <Compile Include="Composition\NHibernateModule.cs" />
+    <Compile Include="Composition\RepositoryModule.cs" />
     <Compile Include="ContainerControllerFactory.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HandlingController.cs" />
@@ -185,6 +190,7 @@
     <Compile Include="Models\HandlingEventViewAdapter.cs" />
     <Compile Include="Models\CargoTrackingViewAdapter.cs" />
     <Compile Include="Models\StringExtensions.cs" />
+    <Compile Include="NHibernateMessageModuleConfig.asax.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

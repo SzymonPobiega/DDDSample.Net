@@ -27,12 +27,12 @@ namespace Infrastructure.Routing
             routeSpecification.Destination.UnLocode.CodeString,
             new Constraints(routeSpecification.ArrivalDeadline));
 
-         return paths.Select(x => ToItinerary(x)).ToList();
+         return paths.Select(ToItinerary).ToList();
       }      
 
       private Itinerary ToItinerary(TransitPath path)
       {
-         return new Itinerary(path.Edges.Select(x => ToLeg(x)));
+         return new Itinerary(path.Edges.Select(ToLeg));
       }
 
       private Leg ToLeg(TransitEdge edge)
