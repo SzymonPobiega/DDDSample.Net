@@ -4,8 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9377EB9-1321-4E3C-9974-71242D75072D}"
 	ProjectSection(SolutionItems) = preProject
 		DDDSample.proj = DDDSample.proj
-		DDDSample.vsmdi = DDDSample.vsmdi
-		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B41F94-5227-4533-B102-75A87FF61AE3}"
@@ -53,8 +51,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain.Persistence.NH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.BookingAndTracking", "UI.BookingAndTracking\UI.BookingAndTracking.csproj", "{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Routing", "Infrastructure.Routing\Infrastructure.Routing.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pathfinder.csproj", "{02B53338-D16B-4051-BA94-503488406CD1}"
@@ -62,9 +58,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{EB1EA7DE-711C-4477-89E6-296B6D760D3E}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = DDDSample.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		DebugAsynch|Any CPU = DebugAsynch|Any CPU
@@ -94,8 +87,6 @@ Global
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.DebugAsynch|Any CPU.ActiveCfg = NHibernateAsynch|Any CPU
 		{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}.DebugAsynch|Any CPU.Build.0 = NHibernateAsynch|Any CPU
-		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.Debug|Any CPU.ActiveCfg = Debug
-		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}.DebugAsynch|Any CPU.ActiveCfg = Debug
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}.DebugAsynch|Any CPU.ActiveCfg = Debug|Any CPU
