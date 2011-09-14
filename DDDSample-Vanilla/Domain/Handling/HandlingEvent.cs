@@ -35,16 +35,17 @@ namespace DDDSample.Domain.Handling
       /// </summary>
       public virtual Guid Id { get; protected set; }
 
-      /// <summary>
-      /// Creates new event.
-      /// </summary>
-      /// <param name="eventType"></param>
-      /// <param name="location"></param>
-      /// <param name="registrationDate"></param>
-      /// <param name="completionDate"></param>
-      /// <param name="cargo"></param>
-      public HandlingEvent(HandlingEventType eventType, Location.Location location, 
-         DateTime registrationDate, DateTime completionDate, Cargo.Cargo cargo)
+       /// <summary>
+       /// Creates new event.
+       /// </summary>
+       /// <param name="eventType"></param>
+       /// <param name="location"></param>
+       /// <param name="registrationDate"></param>
+       /// <param name="completionDate"></param>
+       /// <param name="cargo"></param>
+       /// <param name="eventPublisher"></param>
+       public HandlingEvent(HandlingEventType eventType, Location.Location location, 
+         DateTime registrationDate, DateTime completionDate, Cargo.Cargo cargo, IEventPublisher eventPublisher)
       {
          EventType = eventType;
          Location = location;
@@ -52,7 +53,7 @@ namespace DDDSample.Domain.Handling
          CompletionDate = completionDate;
          Cargo = cargo;
 
-         DomainEvents.Raise(new CargoWasHandledEvent(this));
+         eventPublisher.Raise(new CargoWasHandledEvent(this));
       }
 
       /// <summary>

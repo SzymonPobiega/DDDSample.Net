@@ -23,236 +23,206 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
 using NServiceBus;
-using NServiceBus.ObjectBuilder;
-using NServiceBus.SagaPersisters.NHibernate;
 using Synch = DDDSample.Application.SynchronousEventHandlers;
 using Asynch = DDDSample.Application.AsynchronousEventHandlers;
 
 namespace DDDSample.UI.BookingAndTracking
 {
-   // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-   // visit http://go.microsoft.com/?LinkId=9394801
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // visit http://go.microsoft.com/?LinkId=9394801
 
-   public class MvcApplication : HttpApplication
-   {
-      private static IUnityContainer _ambientContainer;
-      private static IServiceLocator _ambientLocator;
-      private static ISessionFactory _webSessionFactory;
+    public class MvcApplication : HttpApplication
+    {
+        private static IUnityContainer _ambientContainer;
+        private static IServiceLocator _ambientLocator;
+        private static ISessionFactory _webSessionFactory;
 
-      [Conditional("IN_MEMORY")]
-      private static void ConfigureInMemory()
-      {
-         _ambientContainer = new UnityContainer();
-         ConfigureInMemoryRepositories(_ambientContainer);
-         ConfigureServices(_ambientContainer);
-         ConfigureSynchEventHandlers(_ambientContainer);
+        
+        [Conditional("NHIBERNATE")]
+        private static void ConfigureNHibernateSynch()
+        {
+            _ambientContainer = new UnityContainer();
+            ConfigureNHibernateRepositories(_ambientContainer);
+            ConfigureServices(_ambientContainer);
+            ConfigureSynchEventHandlers(_ambientContainer);
+            ConfigureMVC();
+            InitializeNHibernateForWeb(_ambientContainer);
+        }
 
-         _ambientLocator = new UnityServiceLocator(_ambientContainer);
-         ServiceLocator.SetLocatorProvider(() => _ambientLocator);
-         ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory());
-      }
+        [Conditional("NHIBERNATE_ASYNCH")]
+        private static void ConfigureNHibernateAsynch()
+        {
+            _ambientContainer = new UnityContainer();
+            IUnityContainer busContainer = new UnityContainer();
 
-      [Conditional("NHIBERNATE")]
-      private static void ConfigureNHibernateSynch()
-      {
-         _ambientContainer = new UnityContainer();
-         ConfigureNHibernateRepositories(_ambientContainer);
-         ConfigureServices(_ambientContainer);
-         ConfigureSynchEventHandlers(_ambientContainer);
-         ConfigureMVC();
-         InitializeNHibernateForWeb(_ambientContainer);
-      }
+            ConfigureNHibernateRepositories(_ambientContainer);
+            ConfigureNHibernateRepositories(busContainer);
 
-      [Conditional("NHIBERNATE_ASYNCH")]
-      private static void ConfigureNHibernateAsynch()
-      {
-         _ambientContainer = new UnityContainer();
-         IUnityContainer busContainer = new UnityContainer();
+            InitializeNHibernateForWeb(_ambientContainer);
+            InitializeNHibernateForBus(busContainer);
 
-         ConfigureNHibernateRepositories(_ambientContainer);
-         ConfigureNHibernateRepositories(busContainer);
+            ConfigureServices(_ambientContainer);
+            ConfigureServices(busContainer);
 
-         InitializeNHibernateForWeb(_ambientContainer);
-         InitializeNHibernateForBus(busContainer);
+            IBus bus = InitializeBus(busContainer);
+            _ambientContainer.RegisterInstance(bus);
 
-         ConfigureServices(_ambientContainer);
-         ConfigureServices(busContainer);
+            ConfigureAsynchEventHandlers(_ambientContainer);
+            ConfigureMVC();
+        }
 
-         IBus bus = InitializeBus(busContainer);
-         _ambientContainer.RegisterInstance(bus);
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("favicon.ico");
+            routes.MapRoute(
+               "Details",
+               "Booking/CargoDetails/{trackingId}",
+               new { controller = "Booking", action = "CargoDetails" }
+               );
 
-         ConfigureAsynchEventHandlers(_ambientContainer);
-         ConfigureMVC();
-      }
+            routes.MapRoute(
+               "TrackingDetails",
+               "Tracking/Track/{trackingId}",
+               new { controller = "Tracking", action = "Track" }
+               );
 
-      public static void RegisterRoutes(RouteCollection routes)
-      {
-         routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-         routes.IgnoreRoute("favicon.ico");
-         routes.MapRoute(
-            "Details",
-            "Booking/CargoDetails/{trackingId}",
-            new {controller = "Booking", action = "CargoDetails"}
-            );
+            routes.MapRoute(
+               "Change destination",
+               "Booking/ChangeDestination/{trackingId}",
+               new { controller = "Booking", action = "ChangeDestination" }
+               );
 
-         routes.MapRoute(
-            "TrackingDetails",
-            "Tracking/Track/{trackingId}",
-            new {controller = "Tracking", action = "Track"}
-            );
+            routes.MapRoute(
+               "Assign to route",
+               "Booking/AssignToRoute/{trackingId}",
+               new { controller = "Booking", action = "AssignToRoute" }
+               );
 
-         routes.MapRoute(
-            "Change destination",
-            "Booking/ChangeDestination/{trackingId}",
-            new {controller = "Booking", action = "ChangeDestination"}
-            );
+            routes.MapRoute(
+               "Default",
+               "{controller}/{action}/{id}",
+               new { controller = "Home", action = "Index", id = "" }
+               );
+        }
 
-         routes.MapRoute(
-            "Assign to route",
-            "Booking/AssignToRoute/{trackingId}",
-            new {controller = "Booking", action = "AssignToRoute"}
-            );
+        private static void ConfigureMVC()
+        {
+            _ambientLocator = new UnityServiceLocator(_ambientContainer);
+            ServiceLocator.SetLocatorProvider(() => _ambientLocator);
+            ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory());
+        }
 
-         routes.MapRoute(
-            "Default",
-            "{controller}/{action}/{id}",
-            new {controller = "Home", action = "Index", id = ""}
-            );
-      }
+        private static void ConfigureSynchEventHandlers(IUnityContainer container)
+        {
+            container.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>(
+               "cargoWasHandledEventHandler");
+        }
 
-      private static void ConfigureMVC()
-      {
-         _ambientLocator = new UnityServiceLocator(_ambientContainer);
-         ServiceLocator.SetLocatorProvider(() => _ambientLocator);
-         ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory());
-      }
+        private static void ConfigureAsynchEventHandlers(IUnityContainer container)
+        {
+            container.RegisterType
+               <IEventHandler<CargoWasHandledEvent>,
+                  Application.AsynchronousEventHandlers.EventHandlers.CargoWasHandledEventHandler>(
+               "cargoWasHandledEventHandler");
+        }
 
-      private static void ConfigureSynchEventHandlers(IUnityContainer container)
-      {
-         container.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>(
-            "cargoWasHandledEventHandler");
-      }
+        private static void ConfigureServices(IUnityContainer container)
+        {
+            container.RegisterType<IBookingService, BookingService>();
+            container.RegisterType<IRoutingService, RoutingService>();
+            container.RegisterType<IHandlingEventService, HandlingEventService>();
+            container.RegisterType<IEventPublisher, SimpleEventPublisher>();
+        }
 
-      private static void ConfigureAsynchEventHandlers(IUnityContainer container)
-      {         
-         container.RegisterType
-            <IEventHandler<CargoWasHandledEvent>,
-               Application.AsynchronousEventHandlers.EventHandlers.CargoWasHandledEventHandler>(
-            "cargoWasHandledEventHandler");
-      }
+        protected void Application_Start()
+        {
+            RegisterRoutes(RouteTable.Routes);
 
-      private static void ConfigureServices(IUnityContainer container)
-      {
-         container.RegisterType<IBookingService, BookingService>();
-         container.RegisterType<IRoutingService, RoutingService>();
-         container.RegisterType<IHandlingEventService, HandlingEventService>();
-      }
+            ConfigureNHibernateSynch();
+            ConfigureNHibernateAsynch();
+        }
 
-      protected void Application_Start()
-      {
-         RegisterRoutes(RouteTable.Routes);
+        private static IBus InitializeBus(IUnityContainer container)
+        {
+            InitializeNHibernateForBus(container);
+            IBus bus = Configure.WithWeb()
+               .UnityBuilder(container)
+               .XmlSerializer()
+               .MsmqTransport()
+               .IsTransactional(true)
+               .PurgeOnStartup(false)
+               .UnicastBus()
+               .ImpersonateSender(false)
+               .LoadMessageHandlers()
+               .DBSubcriptionStorage()
+               .CreateBus()
+               .Start();
+            bus.Subscribe<CargoWasHandledMessage>();
+            return bus;
+        }
 
-         ConfigureInMemory();
-         ConfigureNHibernateSynch();
-         ConfigureNHibernateAsynch();
-      }
+        private static void ConfigureNHibernateRepositories(IUnityContainer container)
+        {
+            container.RegisterType<ILocationRepository, LocationRepository>();
+            container.RegisterType<ICargoRepository, CargoRepository>();
+            container.RegisterType<IHandlingEventRepository, HandlingEventRepository>();
 
-      private static IBus InitializeBus(IUnityContainer container)
-      {
-         InitializeNHibernateForBus(container);
-         IBus bus = Configure.WithWeb()
-            .UnityBuilder(container)
-            .XmlSerializer()
-            .MsmqTransport()
-            .IsTransactional(true)
-            .PurgeOnStartup(false)
-            .UnicastBus()
-            .ImpersonateSender(false)
-            .LoadMessageHandlers()
-            .DBSubcriptionStorage()                            
-            .CreateBus()
-            .Start();
-         bus.Subscribe<CargoWasHandledMessage>();
-         return bus;
-      }
+            container.AddNewExtension<Interception>();
+            container.Configure<Interception>()
+               .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
+               .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
+               .AddPolicy("Transactions")
+               .AddCallHandler<TransactionCallHandler>()
+               .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
+        }
 
-      private static void ConfigureInMemoryRepositories(IUnityContainer container)
-      {
-         container.RegisterType<ILocationRepository, LocationRepository>();
-         container.RegisterType<ICargoRepository, CargoRepository>();
-         container.RegisterType<IHandlingEventRepository, HandlingEventRepository>();
-      }
-
-      private static void ConfigureNHibernateRepositories(IUnityContainer container)
-      {
-         container.RegisterType<ILocationRepository, Domain.Persistence.NHibernate.LocationRepository>();
-         container.RegisterType<ICargoRepository, Domain.Persistence.NHibernate.CargoRepository>();
-         container.RegisterType<IHandlingEventRepository, Domain.Persistence.NHibernate.HandlingEventRepository>();
-
-         container.AddNewExtension<Interception>();
-         container.Configure<Interception>()
-            .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-            .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
-            .AddPolicy("Transactions")
-            .AddCallHandler<TransactionCallHandler>()
-            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
-      }
-
-      private static void InitializeNHibernateForWeb(IUnityContainer container)
-      {
-         Configuration cfg = new Configuration().Configure();
-         cfg.AddProperties(new Dictionary<string, string>
+        private static void InitializeNHibernateForWeb(IUnityContainer container)
+        {
+            Configuration cfg = new Configuration().Configure();
+            cfg.AddProperties(new Dictionary<string, string>
                               {
                                  {"current_session_context_class", "NHibernate.Context.WebSessionContext"}
                               });
-         _webSessionFactory = cfg.BuildSessionFactory();
-         container.RegisterInstance(_webSessionFactory);
-      }
+            _webSessionFactory = cfg.BuildSessionFactory();
+            container.RegisterInstance(_webSessionFactory);
+        }
 
-      private static void InitializeNHibernateForBus(IUnityContainer container)
-      {
-         Configuration cfg = new Configuration().Configure();
-         cfg.AddProperties(new Dictionary<string, string>
+        private static void InitializeNHibernateForBus(IUnityContainer container)
+        {
+            Configuration cfg = new Configuration().Configure();
+            cfg.AddProperties(new Dictionary<string, string>
                               {
                                  {"current_session_context_class", "NHibernate.Context.ThreadStaticSessionContext"}
                               });
-         ISessionFactory factory = cfg.BuildSessionFactory();
-         container.RegisterInstance(factory);
-      }
+            ISessionFactory factory = cfg.BuildSessionFactory();
+            container.RegisterInstance(factory);
+        }
 
-      public override void Init()
-      {
-         base.Init();
-         WireUpSessionLifecycle();
-      }
+        public override void Init()
+        {
+            base.Init();
+            WireUpSessionLifecycle();
+        }
 
-      private void WireUpSessionLifecycle()
-      {
-         PreRequestHandlerExecute += BindNHibernateSession;
-         PostRequestHandlerExecute += UnbindNHibernateSession;
-      }
-      
-      private static void BindNHibernateSession(object sender, EventArgs e)
-      {
-         CurrentSessionContext.Bind(_webSessionFactory.OpenSession());
-      }
-      
-      private static void UnbindNHibernateSession(object sender, EventArgs e)
-      {
-         ISession session = CurrentSessionContext.Unbind(_webSessionFactory);
-         if (session!= null)
-         {
-            session.Dispose();
-         }
-      }
-   }
+        private void WireUpSessionLifecycle()
+        {
+            PreRequestHandlerExecute += BindNHibernateSession;
+            PostRequestHandlerExecute += UnbindNHibernateSession;
+        }
 
-   public static class NHibernateMessageModuleConfig
-   {
-      public static Configure NHibernateMessageModule(this Configure configure)
-      {
-         configure.Configurer.ConfigureComponent<NHibernateMessageModule>(ComponentCallModelEnum.Singlecall);
-         return configure;
-      }
-   }
+        private static void BindNHibernateSession(object sender, EventArgs e)
+        {
+            CurrentSessionContext.Bind(_webSessionFactory.OpenSession());
+        }
+
+        private static void UnbindNHibernateSession(object sender, EventArgs e)
+        {
+            ISession session = CurrentSessionContext.Unbind(_webSessionFactory);
+            if (session != null)
+            {
+                session.Dispose();
+            }
+        }
+    }
 }

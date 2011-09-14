@@ -53,7 +53,7 @@ namespace Tests.Integration
             The cargo is then assigned to the selected route, described by an itinerary. */
          IList<Itinerary> itineraries = BookingService.RequestPossibleRoutesForCargo(trackingId);
          Itinerary itinerary = SelectPreferedItinerary(itineraries);
-         cargo.AssignToRoute(itinerary);
+         cargo.AssignToRoute(itinerary, EventPublisher);
 
          Assert.AreEqual(TransportStatus.NotReceived, cargo.Delivery.TransportStatus);
          Assert.AreEqual(RoutingStatus.Routed, cargo.Delivery.RoutingStatus);
@@ -143,7 +143,7 @@ namespace Tests.Integration
          // Repeat procedure of selecting one out of a number of possible routes satisfying the route spec
          IList<Itinerary> newItineraries = BookingService.RequestPossibleRoutesForCargo(cargo.TrackingId);
          Itinerary newItinerary = SelectPreferedItinerary(newItineraries);
-         cargo.AssignToRoute(newItinerary);
+         cargo.AssignToRoute(newItinerary, EventPublisher);
 
          // New itinerary should satisfy new route
          Assert.AreEqual(RoutingStatus.Routed, cargo.Delivery.RoutingStatus);

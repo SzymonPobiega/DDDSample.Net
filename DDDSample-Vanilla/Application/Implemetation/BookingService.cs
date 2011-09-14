@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
-using NHibernate;
 
 namespace DDDSample.Application.Implemetation
 {
@@ -15,12 +14,14 @@ namespace DDDSample.Application.Implemetation
       private readonly ILocationRepository _locationRepository;
       private readonly ICargoRepository _cargoRepository;
       private readonly IRoutingService _routingService;
+       private readonly IEventPublisher _eventPublisher;
 
-      public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService)
+       public BookingService(ILocationRepository locationRepository, ICargoRepository cargoRepository, IRoutingService routingService, IEventPublisher eventPublisher)
       {
          _locationRepository = locationRepository;
          _cargoRepository = cargoRepository;
          _routingService = routingService;
+          _eventPublisher = eventPublisher;
       }
 
       public TrackingId BookNewCargo(UnLocode originUnLocode, UnLocode destinationUnLocode, DateTime arrivalDeadline)
@@ -28,9 +29,9 @@ namespace DDDSample.Application.Implemetation
          Location origin = _locationRepository.Find(originUnLocode);
          Location destination = _locationRepository.Find(destinationUnLocode);
 
-         RouteSpecification routeSpecification = new RouteSpecification(origin, destination, arrivalDeadline);
-         TrackingId trackingId = _cargoRepository.NextTrackingId();
-         Cargo cargo = new Cargo(trackingId, routeSpecification);
+         var routeSpecification = new RouteSpecification(origin, destination, arrivalDeadline);
+         var trackingId = _cargoRepository.NextTrackingId();
+         var cargo = new Cargo(trackingId, routeSpecification);
 
          _cargoRepository.Store(cargo);
          return trackingId;
@@ -45,7 +46,7 @@ namespace DDDSample.Application.Implemetation
       public void AssignCargoToRoute(TrackingId trackingId, Itinerary itinerary)
       {
          Cargo cargo = _cargoRepository.Find(trackingId);
-         cargo.AssignToRoute(itinerary);
+         cargo.AssignToRoute(itinerary, _eventPublisher);
       }
 
       public void ChangeDestination(TrackingId trackingId, UnLocode destinationUnLocode)
@@ -53,7 +54,7 @@ namespace DDDSample.Application.Implemetation
          Cargo cargo = _cargoRepository.Find(trackingId);
          Location destination = _locationRepository.Find(destinationUnLocode);
 
-         RouteSpecification routeSpecification = new RouteSpecification(cargo.RouteSpecification.Origin, destination, cargo.RouteSpecification.ArrivalDeadline);
+         var routeSpecification = new RouteSpecification(cargo.RouteSpecification.Origin, destination, cargo.RouteSpecification.ArrivalDeadline);
          cargo.SpecifyNewRoute(routeSpecification);
       }
    }

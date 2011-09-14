@@ -24,116 +24,122 @@ using NHibernate.Dialect;
 using NHibernate.Driver;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using Environment=NHibernate.Cfg.Environment;
+using Environment = NHibernate.Cfg.Environment;
 
 namespace Tests.Integration
 {
-   [TestFixture]
-   public abstract class ScenarioTest
-   {
-      public static Location HONGKONG
-      {
-         get { return LocationRepository.Find(new UnLocode("CNHKG")); }
-      }
-      public static Location STOCKHOLM
-      {
-         get { return LocationRepository.Find(new UnLocode("SESTO")); }
-      }
-      public static Location TOKYO
-      {
-         get { return LocationRepository.Find(new UnLocode("JNTKO")); }
-      }
-      public static Location HAMBURG
-      {
-         get { return LocationRepository.Find(new UnLocode("DEHAM")); }
-      }
-      public static Location NEWYORK
-      {
-         get { return LocationRepository.Find(new UnLocode("USNYC")); }
-      }
-      public static Location CHICAGO
-      {
-         get { return LocationRepository.Find(new UnLocode("USCHI")); }
-      }
+    [TestFixture]
+    public abstract class ScenarioTest
+    {
+        public static Location HONGKONG
+        {
+            get { return LocationRepository.Find(new UnLocode("CNHKG")); }
+        }
+        public static Location STOCKHOLM
+        {
+            get { return LocationRepository.Find(new UnLocode("SESTO")); }
+        }
+        public static Location TOKYO
+        {
+            get { return LocationRepository.Find(new UnLocode("JNTKO")); }
+        }
+        public static Location HAMBURG
+        {
+            get { return LocationRepository.Find(new UnLocode("DEHAM")); }
+        }
+        public static Location NEWYORK
+        {
+            get { return LocationRepository.Find(new UnLocode("USNYC")); }
+        }
+        public static Location CHICAGO
+        {
+            get { return LocationRepository.Find(new UnLocode("USCHI")); }
+        }
 
-      public static ICargoRepository CargoRepository
-      {
-         get { return ServiceLocator.Current.GetInstance<ICargoRepository>(); }
-      }
+        public static ICargoRepository CargoRepository
+        {
+            get { return ServiceLocator.Current.GetInstance<ICargoRepository>(); }
+        }
 
-      public static ILocationRepository LocationRepository
-      {
-         get { return ServiceLocator.Current.GetInstance<ILocationRepository>(); }
-      }
+        public static ILocationRepository LocationRepository
+        {
+            get { return ServiceLocator.Current.GetInstance<ILocationRepository>(); }
+        }
 
-      public static IHandlingEventRepository HandlingEventRepository
-      {
-         get { return ServiceLocator.Current.GetInstance<IHandlingEventRepository>(); }
-      }
+        public static IEventPublisher EventPublisher
+        {
+            get { return ServiceLocator.Current.GetInstance<IEventPublisher>(); }
+        }
 
-      public static IBookingService BookingService
-      {
-         get { return ServiceLocator.Current.GetInstance<IBookingService>(); }
-      }
+        public static IHandlingEventRepository HandlingEventRepository
+        {
+            get { return ServiceLocator.Current.GetInstance<IHandlingEventRepository>(); }
+        }
 
-      public static IHandlingEventService HandlingEventService
-      {
-         get { return ServiceLocator.Current.GetInstance<IHandlingEventService>(); }
-      }
-      
-      private static IServiceLocator _ambientLocator;
-      private static IUnityContainer _ambientContainer;
-      private static ISessionFactory _sessionFactory;
-      
-      private ISession _currentSession;
-         
-      [SetUp]
-      public void Initialize()
-      {
-         _ambientContainer = new UnityContainer();
+        public static IBookingService BookingService
+        {
+            get { return ServiceLocator.Current.GetInstance<IBookingService>(); }
+        }
 
-         ConfigureNHibernateRepositories();
+        public static IHandlingEventService HandlingEventService
+        {
+            get { return ServiceLocator.Current.GetInstance<IHandlingEventService>(); }
+        }
 
-         _ambientContainer.RegisterType<IBookingService, BookingService>();
-         _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
-         _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
-         
-         _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");
+        private static IServiceLocator _ambientLocator;
+        private static IUnityContainer _ambientContainer;
+        private static ISessionFactory _sessionFactory;
 
-         _ambientLocator = new UnityServiceLocator(_ambientContainer);
-         ServiceLocator.SetLocatorProvider(() => _ambientLocator);     
-    
-         InitializeNHibernate();
-      }
+        private ISession _currentSession;
 
-      [TearDown]
-      public void TearDownTests()
-      {
-         _sessionFactory.Dispose();         
-      }
+        [SetUp]
+        public void Initialize()
+        {
+            _ambientContainer = new UnityContainer();
 
-      private static void ConfigureNHibernateRepositories()
-      {
-         _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
-         _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
-         _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
+            ConfigureNHibernateRepositories();
 
-         _ambientContainer.AddNewExtension<Interception>();
+            _ambientContainer.RegisterType<IBookingService, BookingService>();
+            _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
+            _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
+            _ambientContainer.RegisterType<IEventPublisher, SimpleEventPublisher>();
 
-         _ambientContainer.Configure<Interception>()
+            _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");
 
-            .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-            .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
+            _ambientLocator = new UnityServiceLocator(_ambientContainer);
+            ServiceLocator.SetLocatorProvider(() => _ambientLocator);
 
-            .AddPolicy("Transactions")
-            .AddCallHandler<LocalTransactionCallHandler>()
-            .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));         
-      }
+            InitializeNHibernate();
+        }
 
-      private void InitializeNHibernate()
-      {         
-         Configuration cfg = new Configuration()
-            .AddProperties(new Dictionary<string, string>
+        [TearDown]
+        public void TearDownTests()
+        {
+            _sessionFactory.Dispose();
+        }
+
+        private static void ConfigureNHibernateRepositories()
+        {
+            _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
+            _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
+            _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
+
+            _ambientContainer.AddNewExtension<Interception>();
+
+            _ambientContainer.Configure<Interception>()
+
+               .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
+               .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
+
+               .AddPolicy("Transactions")
+               .AddCallHandler<LocalTransactionCallHandler>()
+               .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
+        }
+
+        private void InitializeNHibernate()
+        {
+            Configuration cfg = new Configuration()
+               .AddProperties(new Dictionary<string, string>
                               {
                                  {Environment.ConnectionDriver, typeof (SQLite20Driver).FullName},
                                  {Environment.Dialect, typeof (SQLiteDialect).FullName},
@@ -151,33 +157,33 @@ namespace Tests.Integration
                                  {Environment.Hbm2ddlAuto, "create"},
                                  {Environment.ShowSql, true.ToString()}
                               });
-         cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
+            cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
 
-         _sessionFactory = cfg.BuildSessionFactory();
-         _ambientContainer.RegisterInstance(_sessionFactory);         
+            _sessionFactory = cfg.BuildSessionFactory();
+            _ambientContainer.RegisterInstance(_sessionFactory);
 
-         ISession session = _sessionFactory.OpenSession();
+            ISession session = _sessionFactory.OpenSession();
 
-         new SchemaExport(cfg).Execute(false, true, false, session.Connection, Console.Out);
+            new SchemaExport(cfg).Execute(false, true, false, session.Connection, Console.Out);
 
-         session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
-         session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
-         session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
-         session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
-         session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
-         session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
-         session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
-         session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
-         session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
-         session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
-         session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
-         session.Save(new Location(new UnLocode("USNYC"), "New York"));
-         session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
-         session.Flush();
+            session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
+            session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
+            session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
+            session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
+            session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
+            session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
+            session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
+            session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
+            session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
+            session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
+            session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
+            session.Save(new Location(new UnLocode("USNYC"), "New York"));
+            session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
+            session.Flush();
 
-         _currentSession = session;
+            _currentSession = session;
 
-         CurrentSessionContext.Bind(_currentSession);
-      }
-   }
+            CurrentSessionContext.Bind(_currentSession);
+        }
+    }
 }

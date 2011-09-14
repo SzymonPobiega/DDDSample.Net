@@ -66,11 +66,12 @@ namespace DDDSample.Domain.Cargo
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
       }
 
-      /// <summary>
-      /// Assigns cargo to a provided route.
-      /// </summary>
-      /// <param name="itinerary">New itinerary</param>
-      public virtual void AssignToRoute(Itinerary itinerary)
+       /// <summary>
+       /// Assigns cargo to a provided route.
+       /// </summary>
+       /// <param name="itinerary">New itinerary</param>
+       /// <param name="eventPublisher"></param>
+       public virtual void AssignToRoute(Itinerary itinerary, IEventPublisher eventPublisher)
       {
          if (itinerary == null)
          {
@@ -79,23 +80,24 @@ namespace DDDSample.Domain.Cargo
          var @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
-         DomainEvents.Raise(@event);
+         eventPublisher.Raise(@event);
       }
 
-      /// <summary>
-      /// Updates delivery progress information according to handling history.
-      /// </summary>
-      /// <param name="lastHandlingEvent">Most recent handling event.</param>
-      public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent)
+       /// <summary>
+       /// Updates delivery progress information according to handling history.
+       /// </summary>
+       /// <param name="lastHandlingEvent">Most recent handling event.</param>
+       /// <param name="eventPublisher"></param>
+       public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent, IEventPublisher eventPublisher)
       {
          Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, lastHandlingEvent);
          if (Delivery.IsMisdirected)
          {
-            DomainEvents.Raise(new CargoWasMisdirectedEvent(this));
+            eventPublisher.Raise(new CargoWasMisdirectedEvent(this));
          }
          else if (Delivery.IsUnloadedAtDestination)
          {
-            DomainEvents.Raise(new CargoHasArrivedEvent(this));
+            eventPublisher.Raise(new CargoHasArrivedEvent(this));
          }
       }
       

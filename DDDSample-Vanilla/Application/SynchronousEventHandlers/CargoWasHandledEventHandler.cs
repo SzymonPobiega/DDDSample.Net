@@ -15,17 +15,19 @@ namespace DDDSample.Application.SynchronousEventHandlers
    public class CargoWasHandledEventHandler : IEventHandler<CargoWasHandledEvent>
    {
       private readonly ICargoRepository _cargoRepository;
+       private readonly IEventPublisher _eventPublisher;
 
-      public CargoWasHandledEventHandler(ICargoRepository cargoRepository)
+       public CargoWasHandledEventHandler(ICargoRepository cargoRepository, IEventPublisher eventPublisher)
       {
-         _cargoRepository = cargoRepository;
+          _cargoRepository = cargoRepository;
+          _eventPublisher = eventPublisher;
       }
 
-      public void Handle(CargoWasHandledEvent @event)
+       public void Handle(CargoWasHandledEvent @event)
       {
          Cargo cargo = _cargoRepository.Find(@event.Source.Cargo.TrackingId);                  
          
-         cargo.DeriveDeliveryProgress(@event.Source);
+         cargo.DeriveDeliveryProgress(@event.Source, _eventPublisher);
       }
    }
 }

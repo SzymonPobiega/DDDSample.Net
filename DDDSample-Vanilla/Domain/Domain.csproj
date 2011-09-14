@@ -88,11 +88,11 @@
     <Compile Include="Cargo\ICargoRepository.cs" />
     <Compile Include="Cargo\Leg.cs" />
     <Compile Include="Cargo\RouteSpecification.cs" />
-    <Compile Include="DomainEvents.cs" />
     <Compile Include="Handling\HandlingEvent.cs" />
     <Compile Include="Handling\HandlingHistory.cs" />
     <Compile Include="Handling\IHandlingEventRepository.cs" />
     <Compile Include="IEventHandler.cs" />
+    <Compile Include="IEventPublisher.cs" />
     <Compile Include="IRoutingService.cs" />
     <Compile Include="Location\Location.cs" />
     <Compile Include="Location\ILocationRepository.cs" />
