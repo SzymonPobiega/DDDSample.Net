@@ -76,7 +76,7 @@ namespace DDDSample.Domain.Cargo
          {
             throw new ArgumentNullException("itinerary");
          }
-         CargoHasBeenAssignedToRouteEvent @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
+         var @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
          DomainEvents.Raise(@event);

@@ -1,13 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Persistence", "DomainModel.Persistence\DomainModel.Persistence.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{591BFC07-E7F5-400B-9761-9AF6EF2A3009}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Operations", "DomainModel.Operations\DomainModel.Operations.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9377EB9-1321-4E3C-9974-71242D75072D}"
 	ProjectSection(SolutionItems) = preProject
 		DDDSample.proj = DDDSample.proj
@@ -15,11 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain.Persistence.NHibernate", "Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj", "{41C3E0F5-528E-4703-B321-C0742224BF25}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B41F94-5227-4533-B102-75A87FF61AE3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.BookingAndTracking", "UI.BookingAndTracking\UI.BookingAndTracking.csproj", "{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5592DB69-FE64-492B-8C5D-0C0CE7263495}"
 	ProjectSection(SolutionItems) = preProject
@@ -53,6 +41,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NServiceBus", "NServiceBus"
 		Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll = Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C103219F-A2B7-4A26-B7DA-7C64E95139FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Persistence", "DomainModel.Persistence\DomainModel.Persistence.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{591BFC07-E7F5-400B-9761-9AF6EF2A3009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Operations", "DomainModel.Operations\DomainModel.Operations.csproj", "{FCF5B41B-70F3-42FB-8352-C37584105289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain", "Tests.Domain\Tests.Domain.csproj", "{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Domain.Persistence.NHibernate", "Tests.Domain.Persistence.NHibernate\Tests.Domain.Persistence.NHibernate.csproj", "{41C3E0F5-528E-4703-B321-C0742224BF25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.BookingAndTracking", "UI.BookingAndTracking\UI.BookingAndTracking.csproj", "{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}"
+EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{55AD7CF0-FC44-418A-AA8F-C1F8855366BE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.DecisionSupport", "DomainModel.DecisionSupport\DomainModel.DecisionSupport.csproj", "{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}"
@@ -65,69 +69,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Potential", "Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Infrastructure", "DomainModel.Infrastructure\DomainModel.Infrastructure.csproj", "{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{C103219F-A2B7-4A26-B7DA-7C64E95139FB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel.Policy", "DomainModel.Policy\DomainModel.Policy.csproj", "{C54608A2-5EED-41A4-8004-4DF4D9C78CDD}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs07.codeplex.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Application\\Application.csproj
-		SccProjectName1 = Application
-		SccLocalPath1 = Application
-		SccProjectUniqueName2 = Tests.Domain\\Tests.Domain.csproj
-		SccProjectTopLevelParentUniqueName2 = DDDSample.sln
-		SccProjectName2 = Tests.Domain
-		SccLocalPath2 = Tests.Domain
-		SccProjectUniqueName3 = UI.BookingAndTracking\\UI.BookingAndTracking.csproj
-		SccProjectName3 = UI.BookingAndTracking
-		SccLocalPath3 = UI.BookingAndTracking
-		SccProjectUniqueName4 = Setup\\Setup.vdproj
-		SccProjectTopLevelParentUniqueName4 = DDDSample.sln
-		SccProjectName4 = Setup
-		SccLocalPath4 = Setup
-		SccProjectUniqueName5 = Tests.Domain.Persistence.NHibernate\\Tests.Domain.Persistence.NHibernate.csproj
-		SccProjectTopLevelParentUniqueName5 = DDDSample.sln
-		SccProjectName5 = Tests.Domain.Persistence.NHibernate
-		SccLocalPath5 = Tests.Domain.Persistence.NHibernate
-		SccProjectUniqueName6 = Pathfinder\\Pathfinder.csproj
-		SccProjectTopLevelParentUniqueName6 = DDDSample.sln
-		SccProjectName6 = Pathfinder
-		SccLocalPath6 = Pathfinder
-		SccProjectUniqueName7 = Tests.Integration\\Tests.Integration.csproj
-		SccProjectTopLevelParentUniqueName7 = DDDSample.sln
-		SccProjectName7 = Tests.Integration
-		SccLocalPath7 = Tests.Integration
-		SccProjectUniqueName8 = DomainModel.Potential\\DomainModel.Potential.csproj
-		SccProjectTopLevelParentUniqueName8 = DDDSample.sln
-		SccProjectName8 = DomainModel.Potential
-		SccLocalPath8 = DomainModel.Potential
-		SccProjectUniqueName9 = DomainModel.Infrastructure\\DomainModel.Infrastructure.csproj
-		SccProjectTopLevelParentUniqueName9 = DDDSample.sln
-		SccProjectName9 = DomainModel.Infrastructure
-		SccLocalPath9 = DomainModel.Infrastructure
-		SccProjectUniqueName10 = DomainModel.Policy\\DomainModel.Policy.csproj
-		SccProjectTopLevelParentUniqueName10 = DDDSample.sln
-		SccProjectName10 = DomainModel.Policy
-		SccLocalPath10 = DomainModel.Policy
-		SccProjectUniqueName11 = DomainModel.DecisionSupport\\DomainModel.DecisionSupport.csproj
-		SccProjectTopLevelParentUniqueName11 = DDDSample.sln
-		SccProjectName11 = DomainModel.DecisionSupport
-		SccLocalPath11 = DomainModel.DecisionSupport
-		SccProjectUniqueName12 = DomainModel.Operations\\DomainModel.Operations.csproj
-		SccProjectTopLevelParentUniqueName12 = DDDSample.sln
-		SccProjectName12 = DomainModel.Operations
-		SccLocalPath12 = DomainModel.Operations
-		SccProjectUniqueName13 = DomainModel.Persistence\\DomainModel.Persistence.csproj
-		SccProjectTopLevelParentUniqueName13 = DDDSample.sln
-		SccProjectName13 = DomainModel.Persistence
-		SccLocalPath13 = DomainModel.Persistence
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = DDDSample.vsmdi
 	EndGlobalSection
@@ -166,18 +110,18 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
-		{02B53338-D16B-4051-BA94-503488406CD1} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
-		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
-		{9648B89B-C748-447C-86A1-D125F7053967} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
-		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
-		{214472B7-48D1-4B4F-8865-9381B145D5DA} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
-		{FCF5B41B-70F3-42FB-8352-C37584105289} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
-		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
-		{41C3E0F5-528E-4703-B321-C0742224BF25} = {34B41F94-5227-4533-B102-75A87FF61AE3}
 		{94C4D2EB-16A6-40E8-8589-9DEFDEC3DB01} = {34B41F94-5227-4533-B102-75A87FF61AE3}
+		{41C3E0F5-528E-4703-B321-C0742224BF25} = {34B41F94-5227-4533-B102-75A87FF61AE3}
 		{EB1EA7DE-711C-4477-89E6-296B6D760D3E} = {34B41F94-5227-4533-B102-75A87FF61AE3}
 		{E73BA32A-A565-4D2C-BB59-F8D7DEB80584} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
 		{797E78FB-2CA6-427B-9EAC-9392B67CACCC} = {5592DB69-FE64-492B-8C5D-0C0CE7263495}
+		{FCF5B41B-70F3-42FB-8352-C37584105289} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{214472B7-48D1-4B4F-8865-9381B145D5DA} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{C54608A2-5EED-41A4-8004-4DF4D9C78CDD} = {A96592DC-3CC1-4FC1-AAC1-EC6180B17E85}
+		{9648B89B-C748-447C-86A1-D125F7053967} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{55AD7CF0-FC44-418A-AA8F-C1F8855366BE} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{02B53338-D16B-4051-BA94-503488406CD1} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
+		{1E341BBB-1E25-42E7-89E2-44A5DDD09A71} = {C103219F-A2B7-4A26-B7DA-7C64E95139FB}
 	EndGlobalSection
 EndGlobal
