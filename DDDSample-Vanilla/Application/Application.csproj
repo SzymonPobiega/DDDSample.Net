@@ -84,10 +84,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsynchronousEventHandlers\EventHandlers\CargoWasHandledEventHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\AbstractMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\MessageHandlers\CargoWasHandledMessageHandler.cs" />
-    <Compile Include="AsynchronousEventHandlers\Messages\CargoWasHandledMessage.cs" />
     <Compile Include="Implemetation\HandlingEventService.cs" />
     <Compile Include="IBookingService.cs" />
     <Compile Include="ICargoInspectionService.cs" />
