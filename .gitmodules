@@ -1,0 +1,3 @@
+[submodule "LeanCommandUnframework"]
+	path = LeanCommandUnframework
+	url = git@github.com:SzymonPobiega/LeanCommandUnframework.git
