@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
-using System.Web.Routing;
-using DDDSample.Domain.Location;
-using DDDSample.Application;
-using Microsoft.Practices.ServiceLocation;
+using DDDSample.Application.Commands;
 using DDDSample.UI.BookingAndTracking.Facade;
 using DDDSample.UI.BookingAndTracking.Models;
 
@@ -66,12 +61,12 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          bool validationError = false;
          if (!arrivalDeadline.HasValue)
          {
-            ViewData.ModelState.AddModelError("arrivalDeadline", "Arrival deadline is required and must be a valid date.");
+            ViewData.ModelState.AddModelError("arrivalDeadline", @"Arrival deadline is required and must be a valid date.");
             validationError = true;            
          }
          if (origin == destination)
          {
-            ViewData.ModelState.AddModelError("destination", "Destination of a cargo must be different from its origin.");
+            ViewData.ModelState.AddModelError("destination", @"Destination of a cargo must be different from its origin.");
             validationError = true;            
          }
          if (validationError)

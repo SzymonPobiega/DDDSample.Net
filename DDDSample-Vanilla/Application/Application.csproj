@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DDDSample.Application</RootNamespace>
     <AssemblyName>DDDSample.Application</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>
     </SccProjectName>
@@ -39,6 +39,9 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,15 +63,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=65864fa34642f3f1, processorArchitecture=MSIL" />
-    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -84,16 +78,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implemetation\HandlingEventService.cs" />
-    <Compile Include="IBookingService.cs" />
-    <Compile Include="ICargoInspectionService.cs" />
-    <Compile Include="IHandlingEventService.cs" />
-    <Compile Include="Implemetation\BookingService.cs" />
-    <Compile Include="SimpleEventPublisher.cs" />
-    <Compile Include="SynchronousEventHandlers\CargoWasHandledEventHandler.cs" />
+    <Compile Include="CommandHandlers\AssignCargoToRouteCommandHandler.cs" />
+    <Compile Include="CommandHandlers\BookNewCargoCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ChangeDestinationCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RegisterHandlingEventCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RequestPossibleRoutesForCargoCommandHandler.cs" />
+    <Compile Include="Commands\AssignCargoToRouteCommand.cs" />
+    <Compile Include="Commands\BookNewCargoCommand.cs" />
+    <Compile Include="Commands\BookNewCargoCommandResult.cs" />
+    <Compile Include="Commands\ChangeDestinationCommand.cs" />
+    <Compile Include="Commands\LegDTO.cs" />
+    <Compile Include="Assemblers\LegDTOAssembler.cs" />
+    <Compile Include="Commands\RegisterHandlingEventCommand.cs" />
+    <Compile Include="Commands\RequestPossibleRoutesForCargoCommand.cs" />
+    <Compile Include="Commands\RequestPossibleRoutesForCargoCommandResult.cs" />
+    <Compile Include="Commands\RouteCandidateDTO.cs" />
+    <Compile Include="Assemblers\RouteCandidateDTOAssember.cs" />
+    <Compile Include="EventHandlers\CargoWasHandledEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LeanCommandUnframework\LeanCommandUnframework\LeanCommandUnframework.csproj">
+      <Project>{9CF505D0-D7B7-4B5C-BC53-32AE3304462D}</Project>
+      <Name>LeanCommandUnframework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>Domain</Name>
@@ -116,10 +124,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

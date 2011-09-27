@@ -1,19 +1,15 @@
-﻿using System;
-using DDDSample.Application;
-using DDDSample.Application.SynchronousEventHandlers;
-using DDDSample.Domain;
-using DDDSample.Domain.Handling;
-using Microsoft.Practices.Unity;
+﻿using Autofac;
+using DDDSample.Application.EventHandlers;
+using DDDSample.UI.BookingAndTracking.Infrastructure;
 
 namespace DDDSample.UI.BookingAndTracking.Composition
 {
-    public class EventPublisherModule : UnityContainerExtension
+    public class EventPublisherModule : Module
     {
-        protected override void Initialize()
+        protected override void Load(ContainerBuilder builder)
         {
-            Container.RegisterType<IEventPublisher, SimpleEventPublisher>();
-            Container.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>(
-               "cargoWasHandledEventHandler");
+            builder.RegisterType<AutofacSimpleEventPublisher>().AsImplementedInterfaces();
+            builder.RegisterType<CargoWasHandledEventHandler>().AsImplementedInterfaces();
         }
     }
 }

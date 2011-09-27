@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DDDSample.Application.Commands;
 using DDDSample.UI.BookingAndTracking.Facade;
 
 namespace DDDSample.UI.BookingAndTracking.Models

@@ -1,16 +1,16 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Autofac;
 using DDDSample.UI.BookingAndTracking.Composition;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.ServiceLocatorAdapter;
+using DDDSample.UI.BookingAndTracking.Infrastructure;
 
 namespace DDDSample.UI.BookingAndTracking
 {
     public class MvcApplication : HttpApplication
     {
         private static NHibernateAmbientSessionManager _ambientSessionManager;
+        
 
         public override void Init()
         {
@@ -28,16 +28,24 @@ namespace DDDSample.UI.BookingAndTracking
 
         private static void ComposeApplication()
         {
-            var container = new UnityContainer();
-            container
-                .AddNewExtension<RepositoryModule>()
-                .AddNewExtension<NHibernateModule>()
-                .AddNewExtension<ApplicationServicesModule>()
-                .AddNewExtension<EventPublisherModule>();
+            IContainer container = null;
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<ApplicationServicesModule>();
+            containerBuilder.RegisterModule<RepositoryModule>();
+            containerBuilder.RegisterModule<NHibernateModule>();
+            containerBuilder.RegisterModule<EventPublisherModule>();
+            containerBuilder.RegisterModule<AutofacObjectFactoryModule>();
+            containerBuilder.RegisterModule<CommandFilterModule>();
+            containerBuilder.RegisterModule<ControllerModule>();
+            containerBuilder.RegisterModule<FacadeModule>();
+            containerBuilder.RegisterModule<DTOAssemblerModule>();
+            containerBuilder.RegisterModule<ExternalServicesModule>();
+
+            containerBuilder.Register(x => container);
+
+            container = containerBuilder.Build();
 
             _ambientSessionManager = container.Resolve<NHibernateAmbientSessionManager>();
-            var ambientLocator = new UnityServiceLocator(container);
-            ServiceLocator.SetLocatorProvider(() => ambientLocator);
             ControllerBuilder.Current.SetControllerFactory(new ContainerControllerFactory(container));
         }
         

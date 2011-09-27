@@ -26,6 +26,8 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -69,61 +71,26 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.1.0.39271, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\Iesi.Collections.dll</HintPath>
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="LinFu.DynamicProxy, Version=1.0.3.14911, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\LinFu.DynamicProxy.dll</HintPath>
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.4.18998, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.LinFu.3.1.0.4000\lib\Net35\LinFu.DynamicProxy.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+    <Reference Include="NHibernate, Version=3.2.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=65864fa34642f3f1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.ServiceLocatorAdapter, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f23745499ee693c5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Microsoft.Practices.Unity.ServiceLocatorAdapter.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate\NHibernate.ByteCode.LinFu.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core, Version=2.1.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.ObjectBuilder.Unity, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NServiceBus\NServiceBus.ObjectBuilder.Unity.dll</HintPath>
+    <Reference Include="NHibernate.ByteCode.LinFu, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.LinFu.3.1.0.4000\lib\Net35\NHibernate.ByteCode.LinFu.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -161,11 +128,19 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Composition\ApplicationServicesModule.cs" />
+    <Compile Include="Composition\ControllerModule.cs" />
+    <Compile Include="Composition\DTOAssemblerModule.cs" />
     <Compile Include="Composition\EventPublisherModule.cs" />
-    <Compile Include="NHibernateAmbientSessionManager.cs" />
+    <Compile Include="Composition\ExternalServicesModule.cs" />
+    <Compile Include="Composition\FacadeModule.cs" />
+    <Compile Include="Composition\CommandFilterModule.cs" />
+    <Compile Include="Composition\AutofacObjectFactoryModule.cs" />
+    <Compile Include="Infrastructure\AutofacSimpleEventPublisher.cs" />
+    <Compile Include="Infrastructure\AutofacObjectFactory.cs" />
+    <Compile Include="Infrastructure\NHibernateAmbientSessionManager.cs" />
     <Compile Include="Composition\NHibernateModule.cs" />
     <Compile Include="Composition\RepositoryModule.cs" />
-    <Compile Include="ContainerControllerFactory.cs" />
+    <Compile Include="Infrastructure\ContainerControllerFactory.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HandlingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -179,13 +154,10 @@
     <Compile Include="Facade\CargoRoutingDTO.cs" />
     <Compile Include="Facade\CargoRoutingDTOAssembler.cs" />
     <Compile Include="Facade\HandlingEventServiceFacade.cs" />
-    <Compile Include="Facade\LegDTO.cs" />
-    <Compile Include="Facade\LegDTOAssembler.cs" />
-    <Compile Include="Facade\RouteCandidateDTO.cs" />
-    <Compile Include="Facade\RouteCandidateDTOAssember.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\NHibernateTransactionCommandFilter.cs" />
     <Compile Include="Models\AssignToRouteModel.cs" />
     <Compile Include="Models\HandlingEventViewAdapter.cs" />
     <Compile Include="Models\CargoTrackingViewAdapter.cs" />
@@ -234,6 +206,10 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LeanCommandUnframework\LeanCommandUnframework\LeanCommandUnframework.csproj">
+      <Project>{9CF505D0-D7B7-4B5C-BC53-32AE3304462D}</Project>
+      <Name>LeanCommandUnframework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
       <Name>Application</Name>
@@ -249,6 +225,10 @@
     <ProjectReference Include="..\Infrastructure.Routing\Infrastructure.Routing.csproj">
       <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>
       <Name>Infrastructure.Routing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
+      <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>
+      <Name>Pathfinder</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -319,4 +302,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
 </Project>

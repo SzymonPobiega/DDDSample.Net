@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using DDDSample.Application;
-using DDDSample.Application.Implemetation;
-using DDDSample.Application.SynchronousEventHandlers;
-using DDDSample.Domain;
+using Autofac;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
-using DDDSample.Pathfinder;
-using Infrastructure.Routing;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.InterceptionExtension;
-using Microsoft.Practices.Unity.ServiceLocatorAdapter;
+using DDDSample.UI.BookingAndTracking.Composition;
+using LeanCommandUnframework;
 using NHibernate;
 using NHibernate.ByteCode.LinFu;
 using NHibernate.Cfg;
@@ -31,63 +21,47 @@ namespace Tests.Integration
     [TestFixture]
     public abstract class ScenarioTest
     {
-        public static Location HONGKONG
+        public static Location Hongkong
         {
             get { return LocationRepository.Find(new UnLocode("CNHKG")); }
         }
-        public static Location STOCKHOLM
+        public static Location Stockholm
         {
             get { return LocationRepository.Find(new UnLocode("SESTO")); }
         }
-        public static Location TOKYO
+        public static Location Tokyo
         {
             get { return LocationRepository.Find(new UnLocode("JNTKO")); }
         }
-        public static Location HAMBURG
+        public static Location Hamburg
         {
             get { return LocationRepository.Find(new UnLocode("DEHAM")); }
         }
-        public static Location NEWYORK
+        public static Location NewYork
         {
             get { return LocationRepository.Find(new UnLocode("USNYC")); }
         }
-        public static Location CHICAGO
+        public static Location Chicago
         {
             get { return LocationRepository.Find(new UnLocode("USCHI")); }
         }
 
         public static ICargoRepository CargoRepository
         {
-            get { return ServiceLocator.Current.GetInstance<ICargoRepository>(); }
+            get { return _ambientContainer.Resolve<ICargoRepository>(); }
         }
 
         public static ILocationRepository LocationRepository
         {
-            get { return ServiceLocator.Current.GetInstance<ILocationRepository>(); }
+            get { return _ambientContainer.Resolve<ILocationRepository>(); }
         }
 
-        public static IEventPublisher EventPublisher
+        public static PipelineFactory CommandPipeline
         {
-            get { return ServiceLocator.Current.GetInstance<IEventPublisher>(); }
+            get { return _ambientContainer.Resolve<PipelineFactory>(); }
         }
 
-        public static IHandlingEventRepository HandlingEventRepository
-        {
-            get { return ServiceLocator.Current.GetInstance<IHandlingEventRepository>(); }
-        }
-
-        public static IBookingService BookingService
-        {
-            get { return ServiceLocator.Current.GetInstance<IBookingService>(); }
-        }
-
-        public static IHandlingEventService HandlingEventService
-        {
-            get { return ServiceLocator.Current.GetInstance<IHandlingEventService>(); }
-        }
-
-        private static IServiceLocator _ambientLocator;
-        private static IUnityContainer _ambientContainer;
+        private static IContainer _ambientContainer;
         private static ISessionFactory _sessionFactory;
 
         private ISession _currentSession;
@@ -95,21 +69,23 @@ namespace Tests.Integration
         [SetUp]
         public void Initialize()
         {
-            _ambientContainer = new UnityContainer();
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterModule<ApplicationServicesModule>();
+            containerBuilder.RegisterModule<RepositoryModule>();
+            containerBuilder.RegisterModule<EventPublisherModule>();
+            containerBuilder.RegisterModule<AutofacObjectFactoryModule>();
+            containerBuilder.RegisterModule<ControllerModule>();
+            containerBuilder.RegisterModule<FacadeModule>();
+            containerBuilder.RegisterModule<DTOAssemblerModule>();
 
-            ConfigureNHibernateRepositories();
+            containerBuilder.RegisterType<FakeRoutingService>().AsImplementedInterfaces();
+            containerBuilder.RegisterType<TransactionCommandFilter>().AsSelf();
+            containerBuilder.RegisterInstance(new FilterSelector(typeof(TransactionCommandFilter)));
+            InitializeNHibernate(containerBuilder);
 
-            _ambientContainer.RegisterType<IBookingService, BookingService>();
-            _ambientContainer.RegisterType<IRoutingService, FakeRoutingService>();
-            _ambientContainer.RegisterType<IHandlingEventService, HandlingEventService>();
-            _ambientContainer.RegisterType<IEventPublisher, SimpleEventPublisher>();
+            containerBuilder.Register(x => _ambientContainer);
 
-            _ambientContainer.RegisterType<IEventHandler<CargoWasHandledEvent>, CargoWasHandledEventHandler>("cargoWasHandledEventHandler");
-
-            _ambientLocator = new UnityServiceLocator(_ambientContainer);
-            ServiceLocator.SetLocatorProvider(() => _ambientLocator);
-
-            InitializeNHibernate();
+            _ambientContainer = containerBuilder.Build();
         }
 
         [TearDown]
@@ -118,25 +94,7 @@ namespace Tests.Integration
             _sessionFactory.Dispose();
         }
 
-        private static void ConfigureNHibernateRepositories()
-        {
-            _ambientContainer.RegisterType<ILocationRepository, DDDSample.Domain.Persistence.NHibernate.LocationRepository>();
-            _ambientContainer.RegisterType<ICargoRepository, DDDSample.Domain.Persistence.NHibernate.CargoRepository>();
-            _ambientContainer.RegisterType<IHandlingEventRepository, DDDSample.Domain.Persistence.NHibernate.HandlingEventRepository>();
-
-            _ambientContainer.AddNewExtension<Interception>();
-
-            _ambientContainer.Configure<Interception>()
-
-               .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-               .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
-
-               .AddPolicy("Transactions")
-               .AddCallHandler<LocalTransactionCallHandler>()
-               .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
-        }
-
-        private void InitializeNHibernate()
+        private void InitializeNHibernate(ContainerBuilder builder)
         {
             Configuration cfg = new Configuration()
                .AddProperties(new Dictionary<string, string>
@@ -160,7 +118,7 @@ namespace Tests.Integration
             cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
 
             _sessionFactory = cfg.BuildSessionFactory();
-            _ambientContainer.RegisterInstance(_sessionFactory);
+            builder.RegisterInstance(_sessionFactory);
 
             ISession session = _sessionFactory.OpenSession();
 

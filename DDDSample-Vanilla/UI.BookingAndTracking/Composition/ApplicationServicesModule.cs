@@ -1,29 +1,35 @@
 ﻿using System;
-using DDDSample.Application;
-using DDDSample.Application.Implemetation;
-using DDDSample.Domain;
-using DDDSample.Domain.Persistence.NHibernate;
-using Infrastructure.Routing;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.InterceptionExtension;
+using Autofac;
+using DDDSample.Application.CommandHandlers;
+using LeanCommandUnframework;
 
 namespace DDDSample.UI.BookingAndTracking.Composition
 {
-    public class ApplicationServicesModule : UnityContainerExtension
+    public class ApplicationServicesModule : Module
     {
-        protected override void Initialize()
+        protected override void Load(ContainerBuilder builder)
         {
-            Container.RegisterType<IBookingService, BookingService>();
-            Container.RegisterType<IRoutingService, RoutingService>();
-            Container.RegisterType<IHandlingEventService, HandlingEventService>();
+            var handlerTypes = new[]
+                                   {
+                                       typeof (AssignCargoToRouteCommandHandler),
+                                       typeof (BookNewCargoCommandHandler),
+                                       typeof (ChangeDestinationCommandHandler),
+                                       typeof (RegisterHandlingEventCommandHandler),
+                                       typeof (RequestPossibleRoutesForCargoCommandHandler)
+                                   };
 
-            Container.AddNewExtension<Interception>();
-            Container.Configure<Interception>()
-                .SetInterceptorFor<IBookingService>(new InterfaceInterceptor())
-                .SetInterceptorFor<IHandlingEventService>(new InterfaceInterceptor())
-                .AddPolicy("Transactions")
-                .AddCallHandler<TransactionCallHandler>()
-                .AddMatchingRule(new AssemblyMatchingRule("DDDSample.Application"));
+            builder.RegisterInstance(new HandlerSelector(handlerTypes)).AsSelf();
+            builder.Register(CreatePipelineFactory).SingleInstance().AsSelf();
+            foreach (var handlerType in handlerTypes)
+            {
+                builder.RegisterType(handlerType).AsSelf();
+            }
+        }
+
+        private static PipelineFactory CreatePipelineFactory(IComponentContext context)
+        {
+            return new PipelineFactory(context.Resolve<HandlerSelector>(), context.Resolve<FilterSelector>(),
+                                       context.Resolve<IObjectFactory>());
         }
     }
 }

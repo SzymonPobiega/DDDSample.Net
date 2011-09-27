@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using DDDSample.Application.Assemblers;
+using DDDSample.Application.Commands;
 using DDDSample.Domain.Cargo;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
@@ -30,11 +32,9 @@ namespace DDDSample.UI.BookingAndTracking.Facade
 
       public IList<LegDTO> ToLegDTOs(Itinerary itinerary)
       {
-         if (itinerary == null)
-         {
-            return new List<LegDTO>();
-         }
-         return itinerary.Legs.Select(x => _legDTOAssembler.ToDTO(x)).ToList();
+          return itinerary == null 
+              ? new List<LegDTO>() 
+              : itinerary.Legs.Select(x => _legDTOAssembler.ToDTO(x)).ToList();
       }
    }
 }

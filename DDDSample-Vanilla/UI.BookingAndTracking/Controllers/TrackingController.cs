@@ -38,7 +38,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
       {
          if (string.IsNullOrEmpty(trackingId))
          {
-            ViewData.ModelState.AddModelError("trackingId", "Tracking id must by specified.");
+            ViewData.ModelState.AddModelError("trackingId", @"Tracking id must by specified.");
             return View();
          }
          return Track(trackingId);         
@@ -49,7 +49,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          Cargo cargo = _cargoRepository.Find(new TrackingId(trackingId));
          if (cargo == null)
          {
-            ViewData.ModelState.AddModelError("trackingId", "Provided tracking id is invalid.");
+            ViewData.ModelState.AddModelError("trackingId", @"Provided tracking id is invalid.");
             return View();
          }
          HandlingHistory history = _handlingEventRepository.LookupHandlingHistoryOfCargo(new TrackingId(trackingId));

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Practices.Unity;
+﻿using System.Collections.Generic;
+using Autofac;
+using DDDSample.UI.BookingAndTracking.Infrastructure;
 using NHibernate.Cfg;
 
 namespace DDDSample.UI.BookingAndTracking.Composition
 {
-    public class NHibernateModule : UnityContainerExtension
+    public class NHibernateModule : Module
     {
-        protected override void Initialize()
+        protected override void Load(ContainerBuilder builder)
         {
             var cfg = new Configuration().Configure();
             cfg.AddProperties(new Dictionary<string, string>
@@ -15,7 +15,8 @@ namespace DDDSample.UI.BookingAndTracking.Composition
                                       {"current_session_context_class", "NHibernate.Context.WebSessionContext"}
                                   });
             var sessionFactory = cfg.BuildSessionFactory();
-            Container.RegisterInstance(sessionFactory);
+            builder.RegisterInstance(sessionFactory);
+            builder.RegisterType<NHibernateAmbientSessionManager>().AsSelf();
         }
     }
 }

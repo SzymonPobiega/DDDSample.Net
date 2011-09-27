@@ -1,19 +1,15 @@
-using System;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using DDDSample.Domain.Location;
+using Autofac;
 using DDDSample.Domain.Persistence.NHibernate;
-using Microsoft.Practices.Unity;
 
 namespace DDDSample.UI.BookingAndTracking.Composition
 {
-    public class RepositoryModule : UnityContainerExtension
+    public class RepositoryModule : Module
     {
-        protected override void Initialize()
+        protected override void Load(ContainerBuilder builder)
         {
-            Container.RegisterType<ILocationRepository, LocationRepository>();
-            Container.RegisterType<ICargoRepository, CargoRepository>();
-            Container.RegisterType<IHandlingEventRepository, HandlingEventRepository>();
+            builder.RegisterAssemblyTypes(typeof (LocationRepository).Assembly)
+                .Where(x => x.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces();
         }
     }
 }

@@ -30,12 +30,12 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          bool validationError = false;
          if (!completionTime.HasValue)
          {
-            ViewData.ModelState.AddModelError("completionTime", "Event completion date is required and must be a valid date.");
+            ViewData.ModelState.AddModelError("completionTime", @"Event completion date is required and must be a valid date.");
             validationError = true;            
          }         
          if (string.IsNullOrEmpty(trackingId))
          {
-            ViewData.ModelState.AddModelError("trackingId", "Tracking id must be specified.");
+            ViewData.ModelState.AddModelError("trackingId", @"Tracking id must be specified.");
             validationError = true;
          }         
          if (validationError)
