@@ -1,18 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9377EB9-1321-4E3C-9974-71242D75072D}"
-	ProjectSection(SolutionItems) = preProject
-		DDDSample.proj = DDDSample.proj
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{34B41F94-5227-4533-B102-75A87FF61AE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{5592DB69-FE64-492B-8C5D-0C0CE7263495}"
 	ProjectSection(SolutionItems) = preProject
 		Libs\System.Data.SQLite.DLL = Libs\System.Data.SQLite.DLL
 		Libs\System.Data.SQLite.X64.DLL = Libs\System.Data.SQLite.X64.DLL
-		Libs\System.Web.Mvc.dll = Libs\System.Web.Mvc.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Persistence.NHibernate", "Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj", "{9648B89B-C748-447C-86A1-D125F7053967}"
@@ -33,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder", "Pathfinder\Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Integration", "Tests.Integration\Tests.Integration.csproj", "{EB1EA7DE-711C-4477-89E6-296B6D760D3E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{72295450-A84C-409F-AE15-5F3F2762EEB6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{72295450-A84C-409F-AE15-5F3F2762EEB6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeanCommandUnframework", "..\LeanCommandUnframework\LeanCommandUnframework\LeanCommandUnframework.csproj", "{9CF505D0-D7B7-4B5C-BC53-32AE3304462D}"
 EndProject
