@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {

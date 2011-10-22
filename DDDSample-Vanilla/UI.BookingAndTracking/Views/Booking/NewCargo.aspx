@@ -1,7 +1,5 @@
 <%@ Page Title="Book new cargo" Language="C#" MasterPageFile="~/Views/Shared/Site.Master"
     Inherits="System.Web.Mvc.ViewPage" %>
-
-<%@ Import Namespace="DDDSample.UI.BookingAndTracking.Models" %>
 <asp:Content ID="bookNewCargoTitle" ContentPlaceHolderID="TitleContent" runat="server">
     Book new cargo
 </asp:Content>
@@ -24,6 +22,11 @@
     <div>
         <fieldset>
             <legend>Cargo information</legend>
+            <p>
+                <label for="orderingCustomer">
+                    Ordering customer:</label>
+                <%= Html.DropDownList("orderingCustomer")%>
+            </p>
             <p>
                 <label for="origin">
                     Origin:</label>

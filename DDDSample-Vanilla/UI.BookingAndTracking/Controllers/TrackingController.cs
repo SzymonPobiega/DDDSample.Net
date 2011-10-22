@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 using DDDSample.UI.BookingAndTracking.Models;
 
 namespace DDDSample.UI.BookingAndTracking.Controllers

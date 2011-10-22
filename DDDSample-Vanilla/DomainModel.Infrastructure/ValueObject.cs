@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace DDDSample.Domain
+namespace DDDSample.DomainModel
 {   
    /// <summary>
    /// Base class for Value Objects.
@@ -54,9 +52,9 @@ namespace DDDSample.Domain
          {
             return false;
          }
-         ValueObject other = (ValueObject) obj;
-         IEnumerator<object> thisValues = GetAtomicValues().GetEnumerator();
-         IEnumerator<object> otherValues = other.GetAtomicValues().GetEnumerator();
+         var other = (ValueObject) obj;
+         var thisValues = GetAtomicValues().GetEnumerator();
+         var otherValues = other.GetAtomicValues().GetEnumerator();
          while (thisValues.MoveNext() && otherValues.MoveNext())
          {
             if (ReferenceEquals(thisValues.Current, null) ^ ReferenceEquals(otherValues.Current, null))

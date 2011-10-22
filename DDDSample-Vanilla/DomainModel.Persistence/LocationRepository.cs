@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using DDDSample.Domain.Location;
 using DDDSample.DomainModel.Potential.Location;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DDDSample.Domain.Persistence.NHibernate
+namespace DDDSample.DomainModel.Persistence
 {
    /// <summary>
    /// Location repository implementation based on NHibernate.
@@ -16,17 +15,17 @@ namespace DDDSample.Domain.Persistence.NHibernate
       {
       }
 
-      public DomainModel.Potential.Location.Location Find(UnLocode locode)
+      public Location Find(UnLocode locode)
       {         
-         return Session.CreateCriteria(typeof(DomainModel.Potential.Location.Location))
+         return Session.CreateCriteria(typeof(Location))
             .Add(Restrictions.Eq("UnLocode", locode))
-            .UniqueResult<DomainModel.Potential.Location.Location>();
+            .UniqueResult<Location>();
       }
 
-      public IList<DomainModel.Potential.Location.Location> FindAll()
+      public IList<Location> FindAll()
       {         
-         return Session.CreateCriteria(typeof(DomainModel.Potential.Location.Location))
-            .List<DomainModel.Potential.Location.Location>();
+         return Session.CreateCriteria(typeof(Location))
+            .List<Location>();
       }
    }
 }

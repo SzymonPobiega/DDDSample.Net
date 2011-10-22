@@ -28,6 +28,7 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
       public ActionResult NewCargo()
       {
          AddShipingLocations();
+         AddCustomers();
          return View();
       }
 
@@ -56,25 +57,22 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
       }      
 
       [AcceptVerbs(HttpVerbs.Post)]
-      public ActionResult NewCargo(string origin, string destination, DateTime? arrivalDeadline)
+      public ActionResult NewCargo(string orderingCustomer, string origin, string destination, DateTime? arrivalDeadline)
       {
-         bool validationError = false;
          if (!arrivalDeadline.HasValue)
          {
             ViewData.ModelState.AddModelError("arrivalDeadline", @"Arrival deadline is required and must be a valid date.");
-            validationError = true;            
          }
          if (origin == destination)
          {
             ViewData.ModelState.AddModelError("destination", @"Destination of a cargo must be different from its origin.");
-            validationError = true;            
          }
-         if (validationError)
+         if (!ViewData.ModelState.IsValid)
          {
             AddShipingLocations();
             return View();
          }
-         string trackingId = _bookingFacade.BookNewCargo(origin, destination, arrivalDeadline.Value);
+         string trackingId = _bookingFacade.BookNewCargo(orderingCustomer, origin, destination, arrivalDeadline.Value);
          return RedirectToDetails(trackingId);
       }
 
@@ -97,7 +95,12 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
          IList<SelectListItem> shippingLocations = _bookingFacade.ListShippingLocations();
          ViewData["origin"] = shippingLocations;
          ViewData["destination"] = shippingLocations;
-      }      
+      }
+
+      public void AddCustomers()
+      {
+          ViewData["orderingCustomer"] = _bookingFacade.ListCustomers();
+      }
 
       public ActionResult RedirectToDetails(string trackingId)
       {

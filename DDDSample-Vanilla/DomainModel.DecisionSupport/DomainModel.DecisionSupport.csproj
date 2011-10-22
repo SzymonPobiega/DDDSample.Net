@@ -95,6 +95,10 @@
       <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
       <Name>DomainModel.Operations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
+      <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>
+      <Name>Pathfinder</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

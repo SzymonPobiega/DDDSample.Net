@@ -4,7 +4,7 @@ using DDDSample.DomainModel.Potential.Voyage;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DDDSample.Domain.Persistence.NHibernate
+namespace DDDSample.DomainModel.Persistence
 {
    /// <summary>
    /// Voyage repository implementation based on NHibernate.

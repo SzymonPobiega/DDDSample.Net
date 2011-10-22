@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using DDDSample.DomainModel.Potential.Customer;
 
 namespace DDDSample.DomainModel.Operations.Cargo
@@ -59,11 +55,12 @@ namespace DDDSample.DomainModel.Operations.Cargo
          Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, null);
       }
 
-      /// <summary>
-      /// Specifies a new route for this cargo.
-      /// </summary>
-      /// <param name="routeSpecification">Route specification.</param>
-      public virtual void SpecifyNewRoute(RouteSpecification routeSpecification)
+       /// <summary>
+       /// Specifies a new route for this cargo.
+       /// </summary>
+       /// <param name="routeSpecification">Route specification.</param>
+       /// <param name="eventPublisher"></param>
+       public virtual void SpecifyNewRoute(RouteSpecification routeSpecification, IEventPublisher eventPublisher)
       {
          if (routeSpecification == null)
          {
@@ -73,36 +70,38 @@ namespace DDDSample.DomainModel.Operations.Cargo
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
       }
 
-      /// <summary>
-      /// Assigns cargo to a provided route.
-      /// </summary>
-      /// <param name="itinerary">New itinerary</param>
-      public virtual void AssignToRoute(Itinerary itinerary)
+       /// <summary>
+       /// Assigns cargo to a provided route.
+       /// </summary>
+       /// <param name="itinerary">New itinerary</param>
+       /// <param name="eventPublisher"></param>
+       public virtual void AssignToRoute(Itinerary itinerary, IEventPublisher eventPublisher)
       {
          if (itinerary == null)
          {
             throw new ArgumentNullException("itinerary");
          }
-         CargoHasBeenAssignedToRouteEvent @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
+         var evnt = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
-         DomainEvents.Raise(@event);
+         eventPublisher.Raise(evnt);
       }
 
-      /// <summary>
-      /// Updates delivery progress information according to handling history.
-      /// </summary>
-      /// <param name="lastHandlingEvent">Most recent handling event.</param>
-      public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent)
+       /// <summary>
+       /// Updates delivery progress information according to handling history.
+       /// </summary>
+       /// <param name="lastHandlingEvent">Most recent handling event.</param>
+       /// <param name="eventPublisher"></param>
+       public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent, IEventPublisher eventPublisher)
       {
          Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, lastHandlingEvent);
          if (Delivery.IsMisdirected)
          {
-            DomainEvents.Raise(new CargoWasMisdirectedEvent(this));
+            eventPublisher.Raise(new CargoWasMisdirectedEvent(this));
          }
          else if (Delivery.IsUnloadedAtDestination)
          {
-            DomainEvents.Raise(new CargoHasArrivedEvent(this));
+            eventPublisher.Raise(new CargoHasArrivedEvent(this));
          }
       }
       

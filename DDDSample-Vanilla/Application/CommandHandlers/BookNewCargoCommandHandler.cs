@@ -1,7 +1,8 @@
-using System;
 using DDDSample.Application.Commands;
-using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Customer;
+using DDDSample.DomainModel.Potential.Location;
 using LeanCommandUnframework;
 
 namespace DDDSample.Application.CommandHandlers
@@ -10,10 +11,12 @@ namespace DDDSample.Application.CommandHandlers
     {
         private readonly ILocationRepository _locationRepository;
         private readonly ICargoRepository _cargoRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public BookNewCargoCommandHandler(ILocationRepository locationRepository, ICargoRepository cargoRepository)
+        public BookNewCargoCommandHandler(ILocationRepository locationRepository, ICargoRepository cargoRepository, ICustomerRepository customerRepository)
         {
             _locationRepository = locationRepository;
+            _customerRepository = customerRepository;
             _cargoRepository = cargoRepository;
         }
 
@@ -21,7 +24,8 @@ namespace DDDSample.Application.CommandHandlers
         {
             var routeSpecification = GetRouteSpecification(command);
             var trackingId = _cargoRepository.NextTrackingId();
-            var cargo = new Cargo(trackingId, routeSpecification);
+            var orderingCustomer = _customerRepository.Find(command.OrderingCustomerLogin);
+            var cargo = new Cargo(trackingId, routeSpecification, orderingCustomer);
 
             _cargoRepository.Store(cargo);
 

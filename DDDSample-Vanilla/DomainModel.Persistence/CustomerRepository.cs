@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using DDDSample.DomainModel.Potential.Customer;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DDDSample.Domain.Persistence.NHibernate
+namespace DDDSample.DomainModel.Persistence
 {
    public class CustomerRepository : AbstractRepository, ICustomerRepository
    {

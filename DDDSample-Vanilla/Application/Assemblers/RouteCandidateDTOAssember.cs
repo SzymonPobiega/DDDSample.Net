@@ -1,6 +1,6 @@
 using System.Linq;
 using DDDSample.Application.Commands;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
 
 namespace DDDSample.Application.Assemblers
 {

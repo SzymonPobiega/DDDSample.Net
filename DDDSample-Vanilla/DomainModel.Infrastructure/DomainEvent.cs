@@ -1,8 +1,4 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-
-namespace DDDSample.Domain
+namespace DDDSample.DomainModel
 {
    /// <summary>
    /// Base class for all domain events.

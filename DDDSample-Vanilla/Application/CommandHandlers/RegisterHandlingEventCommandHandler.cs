@@ -2,9 +2,13 @@ using System;
 using DDDSample.Application.Commands;
 using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Potential.Location;
 using LeanCommandUnframework;
+using HandlingEvent = DDDSample.DomainModel.Operations.Handling.HandlingEvent;
 
 namespace DDDSample.Application.CommandHandlers
 {

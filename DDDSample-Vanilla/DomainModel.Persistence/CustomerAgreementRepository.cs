@@ -3,7 +3,7 @@ using DDDSample.DomainModel.Potential.Customer;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DDDSample.Domain.Persistence.NHibernate
+namespace DDDSample.DomainModel.Persistence
 {
    public class CustomerAgreementRepository : AbstractRepository, ICustomerAgreementRepository
    {

@@ -2,9 +2,9 @@ using System;
 using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
 using NHibernate;
-using NHibernate.Criterion;
+using HandlingEvent = DDDSample.DomainModel.Operations.Handling.HandlingEvent;
 
-namespace DDDSample.Domain.Persistence.NHibernate
+namespace DDDSample.DomainModel.Persistence
 {
    /// <summary>
    /// Handling event repository implementation based on NHibernate.
@@ -17,15 +17,16 @@ namespace DDDSample.Domain.Persistence.NHibernate
       }
       
       public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
-      {         
-         return Session.CreateCriteria(typeof(HandlingHistory))
-            .Add(Restrictions.Eq("TrackingId", cargoTrackingId))            
-            .UniqueResult<HandlingHistory>();
+      {
+         const string query = @"from DDDSample.Domain.Handling.HandlingEvent e where e.Cargo.TrackingId = :trackingId";
+         var events = Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
+            .List<HandlingEvent>();
+         return new HandlingHistory(events);
       }
 
-      public void Store(HandlingHistory handlingHistory)
+      public void Store(HandlingEvent handlingEvent)
       {
-         Session.Save(handlingHistory);
+         Session.Save(handlingEvent);
       }
    }
 }

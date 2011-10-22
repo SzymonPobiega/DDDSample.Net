@@ -1,7 +1,6 @@
-﻿using DDDSample.Domain;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using DDDSample.DomainModel;
+﻿using DDDSample.DomainModel;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
 
 namespace DDDSample.Application.EventHandlers
 {

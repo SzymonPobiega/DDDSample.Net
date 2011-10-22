@@ -1,40 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using DDDSample.DomainModel.Operations.Cargo;
-using DDDSample.DomainModel.Potential.Location;
+using DDDSample.Domain;
 
 namespace DDDSample.DomainModel.Operations.Handling
 {
-   /// <summary>
-   /// Contains information about cargo handling history. Enables registration of cargo
-   /// handling events.
+#pragma warning disable 660,661
+    /// <summary>
+   /// Contains information about cargo handling history. 
    /// </summary>
-   public class HandlingHistory
+   public class HandlingHistory : ValueObject
+#pragma warning restore 660,661
    {
       private readonly IList<HandlingEvent> _events;
 
-      public HandlingHistory(TrackingId cargoTrackingId)
-      {
-         TrackingId = cargoTrackingId;
-         _events = new List<HandlingEvent>();
-      }      
-
-      /// <summary>
-      /// Registers new handling event into the history.
-      /// </summary>
-      /// <param name="eventType">Type of the event.</param>
-      /// <param name="location">Location where event occured.</param>
-      /// <param name="registrationDate">Date when event was registered.</param>
-      /// <param name="completionDate">Date when action represented by the event was completed.</param>
-      public virtual void RegisterHandlingEvent(HandlingEventType eventType, Location location, DateTime registrationDate, DateTime completionDate)
+      public HandlingHistory(IEnumerable<HandlingEvent> events)
       {         
-         HandlingEvent @event = new HandlingEvent(eventType, location, registrationDate, completionDate,this);
-         _events.Add(@event);
-         DomainEvents.Raise(new CargoWasHandledEvent(@event));
+         _events = new List<HandlingEvent>(events);
       }
+          
 
       /// <summary>
       /// Gets a collection of events ordered by their completion time.
@@ -44,16 +27,19 @@ namespace DDDSample.DomainModel.Operations.Handling
          get { return _events.OrderBy(x => x.CompletionDate);}
       }
 
-      /// <summary>
-      /// Gets tracking id of cargo which this history object belongs to.
-      /// </summary>
-      public virtual TrackingId TrackingId { get; protected set;}      
-
-      /// <summary>
-      /// Required by NHibernate.
-      /// </summary>
-      protected HandlingHistory()
+      public static bool operator ==(HandlingHistory left, HandlingHistory right)
       {
-      }      
+         return EqualOperator(left, right);
+      }
+
+      public static bool operator !=(HandlingHistory left, HandlingHistory right)
+      {
+         return NotEqualOperator(left, right);
+      }
+            
+      protected override IEnumerable<object> GetAtomicValues()
+      {
+         return _events.Cast<object>();
+      }
    }
 }

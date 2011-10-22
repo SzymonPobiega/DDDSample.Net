@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
-using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 
 namespace DDDSample.DomainModel.Operations.Handling
 {
@@ -10,65 +8,52 @@ namespace DDDSample.DomainModel.Operations.Handling
    /// </summary>   
    public class HandlingEvent
    {
-      private readonly HandlingEventType _eventType;
-      private readonly DomainModel.Potential.Location.Location _location;      
-      private readonly DateTime _registrationDate;
-      private readonly DateTime _completionDate;
-      protected virtual HandlingHistory _parent { get; set;}
-
       /// <summary>
-      /// Creates new event.
+      /// Cargo which this handling event is concerned.
       /// </summary>
-      /// <param name="eventType"></param>
-      /// <param name="location"></param>
-      /// <param name="registrationDate"></param>
-      /// <param name="completionDate"></param>
-      public HandlingEvent(HandlingEventType eventType, DomainModel.Potential.Location.Location location, DateTime registrationDate, DateTime completionDate, HandlingHistory parent)
-      {
-         _eventType = eventType;
-         _parent = parent;
-         _completionDate = completionDate;
-         _registrationDate = registrationDate;         
-         _location = location;         
-      }
-
-      /// <summary>
-      /// Date when action represented by the event was completed.
-      /// </summary>
-      public DateTime CompletionDate
-      {
-         get { return _completionDate; }
-      }
-
-      /// <summary>
-      /// Date when event was registered.
-      /// </summary>
-      public DateTime RegistrationDate
-      {
-         get { return _registrationDate; }
-      }
-      
-      /// <summary>
-      /// Location where event occured.
-      /// </summary>
-      public DomainModel.Potential.Location.Location Location
-      {
-         get { return _location; }
-      }
-
-      public TrackingId TrackingId
-      {
-         get { return _parent.TrackingId; }
-      }
-
+      public virtual Cargo.Cargo Cargo { get; set;}
       /// <summary>
       /// Type of the event.
       /// </summary>
-      public HandlingEventType EventType
+      public virtual HandlingEventType EventType { get; set; }
+      /// <summary>
+      /// Location where event occured.
+      /// </summary>
+      public virtual Location Location { get; set; }
+      /// <summary>
+      /// Date when event was registered.
+      /// </summary>
+      public virtual DateTime RegistrationDate { get; set; }
+      /// <summary>
+      /// Date when action represented by the event was completed.
+      /// </summary>
+      public virtual DateTime CompletionDate { get; set; }
+      /// <summary>
+      /// Unique id of this event.
+      /// </summary>
+      public virtual Guid Id { get; protected set; }
+
+       /// <summary>
+       /// Creates new event.
+       /// </summary>
+       /// <param name="eventType"></param>
+       /// <param name="location"></param>
+       /// <param name="registrationDate"></param>
+       /// <param name="completionDate"></param>
+       /// <param name="cargo"></param>
+       /// <param name="eventPublisher"></param>
+       public HandlingEvent(HandlingEventType eventType, Location location, 
+         DateTime registrationDate, DateTime completionDate, Cargo.Cargo cargo, IEventPublisher eventPublisher)
       {
-         get { return _eventType; }
+         EventType = eventType;
+         Location = location;
+         RegistrationDate = registrationDate;
+         CompletionDate = completionDate;
+         Cargo = cargo;
+
+         eventPublisher.Raise(new CargoWasHandledEvent(this));
       }
-      
+
       /// <summary>
       /// Required by NHibernate.
       /// </summary>

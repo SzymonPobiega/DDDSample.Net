@@ -4,7 +4,7 @@ using DDDSample.DomainModel.Operations.Cargo;
 using NHibernate;
 using NHibernate.Criterion;
 
-namespace DDDSample.Domain.Persistence.NHibernate
+namespace DDDSample.DomainModel.Persistence
 {
    /// <summary>
    /// Cargo repository implementation based on NHibernate.

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using DDDSample.Application.Commands;
 using DDDSample.Domain.Location;
 using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Customer;
 using LeanCommandUnframework;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
@@ -18,10 +19,12 @@ namespace DDDSample.UI.BookingAndTracking.Facade
         private readonly CargoRoutingDTOAssembler _cargoRoutingAssembler;
         private readonly ILocationRepository _locationRepository;
         private readonly ICargoRepository _cargoRepository;
+        private readonly ICustomerRepository _customerRepository;
 
-        public BookingServiceFacade(PipelineFactory pipelineFactory, ILocationRepository locationRepository, ICargoRepository cargoRepository, CargoRoutingDTOAssembler cargoRoutingAssembler)
+        public BookingServiceFacade(PipelineFactory pipelineFactory, ILocationRepository locationRepository, ICargoRepository cargoRepository, CargoRoutingDTOAssembler cargoRoutingAssembler, ICustomerRepository customerRepository)
         {
             _pipelineFactory = pipelineFactory;
+            _customerRepository = customerRepository;
             _cargoRoutingAssembler = cargoRoutingAssembler;
             _cargoRepository = cargoRepository;
             _locationRepository = locationRepository;
@@ -30,14 +33,16 @@ namespace DDDSample.UI.BookingAndTracking.Facade
         /// <summary>
         /// Books new cargo for specified origin, destination and arrival deadline.
         /// </summary>
+        /// <param name="orderingCustomer">The ordering custmer.</param>
         /// <param name="origin">Origin of a cargo in UnLocode format.</param>
         /// <param name="destination">Destination of a cargo in UnLocode format.</param>
         /// <param name="arrivalDeadline">Arrival deadline.</param>
         /// <returns>Cargo tracking id.</returns>
-        public string BookNewCargo(string origin, string destination, DateTime arrivalDeadline)
+        public string BookNewCargo(string orderingCustomer, string origin, string destination, DateTime arrivalDeadline)
         {
             var command = new BookNewCargoCommand
                               {
+                                  OrderingCustomerLogin = orderingCustomer,
                                   Origin = origin,
                                   Destination = destination,
                                   ArrivalDeadline = arrivalDeadline
@@ -46,15 +51,7 @@ namespace DDDSample.UI.BookingAndTracking.Facade
             return result.TrackingId;
         }
 
-        /// <summary>
-        /// Returns a list of all defined shipping locations in format acceptable by MVC framework 
-        /// drop down list.
-        /// </summary>
-        /// <returns>A list of shipping locations.</returns>
-        public IList<SelectListItem> ListShippingLocations()
-        {
-            return _locationRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode.CodeString }).ToList();
-        }
+        
 
         /// <summary>
         /// Loads DTO of cargo for cargo routing function.
@@ -123,6 +120,26 @@ namespace DDDSample.UI.BookingAndTracking.Facade
                                   Route = route
                               };
             _pipelineFactory.Process(command);
+        }
+
+        /// <summary>
+        /// Returns a list of all defined shipping locations in format acceptable by MVC framework 
+        /// drop down list.
+        /// </summary>
+        /// <returns>A list of shipping locations.</returns>
+        public IList<SelectListItem> ListShippingLocations()
+        {
+            return _locationRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.UnLocode.CodeString }).ToList();
+        }
+
+        /// <summary>
+        /// Returns a list of all customers in format acceptable by MVC framework 
+        /// drop down list.
+        /// </summary>
+        /// <returns>A list of customers.</returns>
+        public IList<SelectListItem> ListCustomers()
+        {
+            return _customerRepository.FindAll().Select(x => new SelectListItem { Text = x.Name, Value = x.AssociatedLogin }).ToList();
         }
     }
 }

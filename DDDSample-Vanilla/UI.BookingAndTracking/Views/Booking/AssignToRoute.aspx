@@ -49,6 +49,7 @@
                    int legIndex = 0;
                     foreach (LegDTO leg in routeCandidate.Legs)
                     {%>
+                    <%=Html.Hidden("Legs["+legIndex+"].VoyageId", leg.VoyageId) %>
                     <%=Html.Hidden("Legs["+legIndex+"].VoyageNumber", leg.VoyageNumber) %>
                     <%=Html.Hidden("Legs["+legIndex+"].From", leg.From) %>
                     <%=Html.Hidden("Legs["+legIndex+"].LoadTime", leg.LoadTime) %>
