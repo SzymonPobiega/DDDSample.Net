@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Autofac;
 using DDDSample.Domain;
+using DDDSample.DomainModel;
 
 namespace DDDSample.UI.BookingAndTracking.Infrastructure
 {
