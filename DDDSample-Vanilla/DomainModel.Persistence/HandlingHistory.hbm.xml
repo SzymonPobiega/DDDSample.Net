@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="DDDSample.DomainModel.Operations"
+                   namespace="DDDSample.DomainModel.Operations.Handling">
+  <class name="HandlingHistory" table="HandlingHistory">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"/>
+    </id>
+    <component name="TrackingId" update="false" class="DDDSample.DomainModel.Operations.Cargo.TrackingId">
+      <property name="_idString" column="TrackingId" not-null="true" access="field"/>
+    </component>        
+    <bag name="_events" access="field" lazy="true" table="HandlingEvent" cascade="all-delete-orphan">
+      <key column="ParentId"/>
+      <composite-element class="HandlingEvent">
+        <parent name="_parent"/>
+        <property name="_eventType" access="field" column="EventType" not-null="true"/>        
+        <many-to-one name="_location" column="Location" class="DDDSample.DomainModel.Potential.Location.Location" access="field"/>
+        <property name="_registrationDate" access="field" column="RegistrationDate" not-null="true"/>
+        <property name="_completionDate" access="field" column="CompletionDate" not-null="true"/>
+      </composite-element>
+    </bag>    
+  </class>
+</hibernate-mapping>

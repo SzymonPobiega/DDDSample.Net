@@ -9,84 +9,42 @@ namespace DDDSample.Pathfinder
    /// <summary>
    /// A simple implementation of graph traversal service.
    /// </summary>
-   public class GraphTraversalService
+   public class GraphTraversalService : IGraphTraversalService
    {
-      private readonly GraphDAO _dao;
-      private readonly Random _random = new Random();      
-
-      public GraphTraversalService(GraphDAO dao)
-      {
-         _dao = dao;
-      }
-
-      public IList<TransitPath> FindShortestPaths(String originUnLocode,
-                                                    String destinationUnLocode,
-                                                    Constraints limitations)
-      {
-         DateTime currentDate = NextDate(DateTime.Now);
-
-         IList<String> allVertices = _dao.GetAllLocations();
-         allVertices.Remove(originUnLocode);
-         allVertices.Remove(destinationUnLocode);
-
-         int candidateCount = GetRandomNumberOfCandidates();
-         List<TransitPath> candidates = new List<TransitPath>();
-
-         for (int i = 0; i < candidateCount; i++)
+      public IList<TransitPath> FindPaths(String originUnLocode, String destinationUnLocode, IList<TransitEdge> graphEdges, Constraints limitations)
+      {         
+         DateTime currentDate = DateTime.Now.Date;
+         var result = new List<TransitPath>();
+         var initialEdges = FindPossibleEdges(originUnLocode, currentDate, graphEdges, limitations);
+         foreach (var edge in initialEdges)
          {
-            allVertices = GetRandomChunkOfLocations(allVertices);
-            List<TransitEdge> transitEdges = new List<TransitEdge>();
-            String firstLegTo = allVertices.First();
-
-            DateTime fromDate = NextDate(currentDate);
-            DateTime toDate = NextDate(fromDate);
-            currentDate = NextDate(toDate);
-
-            transitEdges.Add(new TransitEdge(originUnLocode, firstLegTo, fromDate, toDate));
-
-            for (int j = 0; j < allVertices.Count - 1; j++)
-            {
-               String curr = allVertices[j];
-               String next = allVertices[j + 1];
-               transitEdges.Add(GetNextEdge(ref currentDate, curr, next));
-            }
-
-            String lastLegFrom = allVertices.Last();
-            transitEdges.Add(GetNextEdge(ref currentDate, lastLegFrom, destinationUnLocode));
-
-            candidates.Add(new TransitPath(transitEdges));
+            BuildRoute(new List<TransitEdge>{edge}, destinationUnLocode, graphEdges, limitations, result);
          }
-
-         return candidates;
+         return result;
       }
 
-      private TransitEdge GetNextEdge(ref DateTime currentDate, string curr, string next)
+      private static void BuildRoute(IList<TransitEdge> currentPath, string destinationNode, IEnumerable<TransitEdge> edges, Constraints constraints, ICollection<TransitPath> paths)
       {
-         DateTime fromDate = NextDate(currentDate);
-         DateTime toDate = NextDate(fromDate);
-         currentDate = NextDate(toDate);
-         return new TransitEdge(curr, next, fromDate, toDate);
+         var currentEdge = currentPath.Last();
+         if (currentEdge.To == destinationNode)
+         {
+            var path = new TransitPath(currentPath);
+            paths.Add(path);
+            return;
+         }
+         var possibleEdges = FindPossibleEdges(currentEdge.To, currentEdge.ToDate, edges, constraints);
+         foreach (var possibleEdge in possibleEdges)
+         {
+            var newPath = new List<TransitEdge>(currentPath) {possibleEdge};
+            BuildRoute(newPath, destinationNode,edges, constraints, paths);
+         }
       }
 
-      private DateTime NextDate(DateTime currentDate)
+      private static IEnumerable<TransitEdge> FindPossibleEdges(string currentNode, DateTime currentTime, IEnumerable<TransitEdge> edges, Constraints constraints)
       {
-         return currentDate.AddDays(1).AddMinutes(_random.Next(1000) - 500);
-      }
-
-      private int GetRandomNumberOfCandidates()
-      {
-         return 3 + _random.Next(3);
-      }
-
-      private IList<String> GetRandomChunkOfLocations(IEnumerable<string> allLocations)
-      {
-         int total = allLocations.Count();
-         int chunk = total > 4 ? 1 + _random.Next(5) : total;
-         return allLocations.Select(x => new { Value = x, Index = _random.Next(100) })
-            .OrderBy(x => x.Index)
-            .Select(x => x.Value)
-            .Take(chunk)
-            .ToList();
-      }
+         return edges.Where(x => x.From == currentNode &&
+                                 x.FromDate >= currentTime &&
+                                 x.ToDate <= constraints.ArrivalDeadline);
+      }      
    }
 }

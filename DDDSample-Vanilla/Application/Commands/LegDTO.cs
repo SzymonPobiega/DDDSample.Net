@@ -9,5 +9,6 @@ namespace DDDSample.Application.Commands
       public string To { get; set; }
       public string From { get; set; }
       public string VoyageNumber { get; set; }
+      public Guid VoyageId { get; set; }
    }
 }

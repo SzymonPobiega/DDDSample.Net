@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DDDSample.Application.Commands;
-using DDDSample.Domain.Handling;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Handling;
 using LeanCommandUnframework;
 
 namespace DDDSample.UI.BookingAndTracking.Facade

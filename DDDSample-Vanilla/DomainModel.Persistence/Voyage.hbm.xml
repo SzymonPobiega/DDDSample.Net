@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="DDDSample.DomainModel.Potential" 
+                   namespace="DDDSample.DomainModel.Potential.Voyage">
+  <class name="Voyage" table="Voyage">
+    <id type="Guid">
+      <column name="Id" />
+      <generator class="guid"></generator>
+    </id>
+    <component name="Number" update="false" class="VoyageNumber">
+      <property name="_number" column="Number" not-null="true" access="field"/>
+    </component>
+    <component name="Schedule" class="Schedule">
+      <property name="_departureTime" column="DepartureTime" not-null="true" access="field"/>
+      <property name="_arrivalTime" column="ArrivalTime" not-null="true" access="field"/>
+      <list name="_carrierMovements" lazy="false" cascade="all" access="field" table="CarrierMovement">
+        <key column="VoyageId"/>
+        <index column="MovementIndex"/>
+        <composite-element class="CarrierMovement">
+          <many-to-one name="_transportLeg" column="TransportLegId" class="TransportLeg" access="field"/>          
+          <property name="_arrivalTime" column="ArrivalTime" access="field"/>
+          <property name="_departureTime" column="DepartureTime" access="field"/>
+          <property name="_pricePerCargo" column="PricePerCargo" access="field"/>
+        </composite-element>
+      </list>
+    </component>
+    
+  </class>
+</hibernate-mapping>

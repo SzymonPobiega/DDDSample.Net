@@ -134,22 +134,6 @@
       <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
       <Name>Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain.Persistence.NHibernate\Domain.Persistence.NHibernate.csproj">
-      <Project>{9648B89B-C748-447C-86A1-D125F7053967}</Project>
-      <Name>Domain.Persistence.NHibernate</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Routing\Infrastructure.Routing.csproj">
-      <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>
-      <Name>Infrastructure.Routing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Pathfinder\Pathfinder.csproj">
-      <Project>{02B53338-D16B-4051-BA94-503488406CD1}</Project>
-      <Name>Pathfinder</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UI.BookingAndTracking\UI.BookingAndTracking.csproj">
       <Project>{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}</Project>
       <Name>UI.BookingAndTracking</Name>

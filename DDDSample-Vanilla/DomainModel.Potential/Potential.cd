@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DDDSample.DomainModel.Potential.Voyage.Voyage" Collapsed="true">
+    <Position X="2.75" Y="1" Width="1.5" />
+    <AssociationLine Name="Schedule" Type="DDDSample.DomainModel.Potential.Voyage.Schedule">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.068" Y="0.289" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAEAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Voyage\Voyage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Schedule" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Voyage.Schedule" Collapsed="true">
+    <Position X="2.75" Y="2.25" Width="1.5" />
+    <AssociationLine Name="CarrierMovements" Type="DDDSample.DomainModel.Potential.Voyage.CarrierMovement">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.245" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIACAAAEIAAQAAAAAAAAAAAAAAAQjA=</HashCode>
+      <FileName>Voyage\Schedule.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="CarrierMovements" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Voyage.CarrierMovement" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <AssociationLine Name="TransportLeg" Type="DDDSample.DomainModel.Potential.Voyage.TransportLeg" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="3.846" />
+        <Point X="5.5" Y="3.846" />
+        <Point X="5.5" Y="1.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.327" Y="2.393" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAIAAAAAECAAQAEQAAAAAAAAAAAAQjA=</HashCode>
+      <FileName>Voyage\CarrierMovement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="TransportLeg" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Voyage.TransportLeg" Collapsed="true">
+    <Position X="5" Y="1" Width="1.5" />
+    <AssociationLine Name="ArrivalLocation" Type="DDDSample.DomainModel.Potential.Location.Location" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="1.562" />
+        <Point X="5.75" Y="2.364" />
+        <Point X="8.188" Y="2.364" />
+        <Point X="8.188" Y="1.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.602" Y="0.891" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="DepartureLocation" Type="DDDSample.DomainModel.Potential.Location.Location" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.938" Y="1.562" />
+        <Point X="5.938" Y="2.124" />
+        <Point X="7.875" Y="2.124" />
+        <Point X="7.875" Y="1.562" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.237" Y="0.339" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Voyage\TransportLeg.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ArrivalLocation" />
+      <Property Name="DepartureLocation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Location.Location" Collapsed="true">
+    <Position X="7.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Location\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DDDSample.DomainModel.Potential.Customer.Customer" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Customer\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

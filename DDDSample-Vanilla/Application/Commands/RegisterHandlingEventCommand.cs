@@ -1,5 +1,5 @@
 using System;
-using DDDSample.Domain.Handling;
+using DDDSample.DomainModel.Operations.Handling;
 
 namespace DDDSample.Application.Commands
 {

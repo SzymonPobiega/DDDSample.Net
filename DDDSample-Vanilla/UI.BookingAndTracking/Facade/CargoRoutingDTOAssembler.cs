@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Application.Assemblers;
 using DDDSample.Application.Commands;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
 
 namespace DDDSample.UI.BookingAndTracking.Facade
 {

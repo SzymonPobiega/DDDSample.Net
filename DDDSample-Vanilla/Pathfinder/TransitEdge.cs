@@ -9,6 +9,7 @@ namespace DDDSample.Pathfinder
    /// </summary>
    public sealed class TransitEdge
    {
+      private readonly object _key;
       private readonly string _from;
       private readonly string _to;
       private readonly DateTime _fromDate;
@@ -17,13 +18,15 @@ namespace DDDSample.Pathfinder
       /// <summary>
       /// Creates new <see cref="TransitEdge"/> object.
       /// </summary>
+      /// <param name="key">User-specified key / id</param>
       /// <param name="from">Origin UnLocode string.</param>
       /// <param name="to">Destination UnLocode string.</param>
       /// <param name="fromDate">Depatrure date.</param>
       /// <param name="toDate">Arrival date.</param>
-      public TransitEdge(string from, string to, DateTime fromDate, DateTime toDate)
+      public TransitEdge(object key, string from, string to, DateTime fromDate, DateTime toDate)
       {         
          _from = from;
+         _key = key;
          _to = to;
          _fromDate = fromDate;
          _toDate = toDate;
@@ -59,6 +62,14 @@ namespace DDDSample.Pathfinder
       public string From
       {
          get { return _from; }
-      }      
+      }
+
+      /// <summary>
+      /// Gets user-specified key / id.
+      /// </summary>
+      public object Key
+      {
+         get { return _key; }
+      }
    }
 }
