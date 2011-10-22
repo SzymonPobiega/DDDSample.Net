@@ -18,7 +18,7 @@ namespace DDDSample.Domain.Tests.Cargo
         public void Claim_event_is_not_expected_by_an_empty_itinerary()
         {
             var itinerary = new Itinerary(new Leg[] { });
-            var @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now, null, new NullEventPublisher());
+            var @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now, null);
 
             itinerary.ShouldNotExpect(@event);
         }
@@ -34,7 +34,7 @@ namespace DDDSample.Domain.Tests.Cargo
 
         private static HandlingEvent Event(HandlingEventType eventType, Location.Location location)
         {
-            return new HandlingEvent(eventType, location, DateTime.Now, DateTime.Now, null, new NullEventPublisher());
+            return new HandlingEvent(eventType, location, DateTime.Now, DateTime.Now, null);
         }
 
         private static Itinerary FromKrakowToWroclaw()

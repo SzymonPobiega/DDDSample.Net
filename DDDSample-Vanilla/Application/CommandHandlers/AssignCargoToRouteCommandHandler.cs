@@ -1,7 +1,6 @@
 using System;
 using DDDSample.Application.Assemblers;
 using DDDSample.Application.Commands;
-using DDDSample.Domain;
 using DDDSample.Domain.Cargo;
 using LeanCommandUnframework;
 
@@ -10,14 +9,12 @@ namespace DDDSample.Application.CommandHandlers
     public class AssignCargoToRouteCommandHandler : IHandler<AssignCargoToRouteCommand>
     {
         private readonly ICargoRepository _cargoRepository;
-        private readonly IEventPublisher _eventPublisher;
         private readonly RouteCandidateDTOAssember _routeCandidateDTOAssember;
 
-        public AssignCargoToRouteCommandHandler(ICargoRepository cargoRepository, IEventPublisher eventPublisher, RouteCandidateDTOAssember routeCandidateDTOAssember)
+        public AssignCargoToRouteCommandHandler(ICargoRepository cargoRepository, RouteCandidateDTOAssember routeCandidateDTOAssember)
         {
             _cargoRepository = cargoRepository;
             _routeCandidateDTOAssember = routeCandidateDTOAssember;
-            _eventPublisher = eventPublisher;
         }
 
         public object Handle(AssignCargoToRouteCommand command)
@@ -27,7 +24,7 @@ namespace DDDSample.Application.CommandHandlers
 
             var itinerary = _routeCandidateDTOAssember.FromDTO(command.Route);
 
-            cargo.AssignToRoute(itinerary, _eventPublisher);
+            cargo.AssignToRoute(itinerary);
             return null;
         }
     }

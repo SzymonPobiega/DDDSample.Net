@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using DDDSample.Domain.Handling;
 
 namespace DDDSample.Domain.Cargo
@@ -70,8 +66,7 @@ namespace DDDSample.Domain.Cargo
        /// Assigns cargo to a provided route.
        /// </summary>
        /// <param name="itinerary">New itinerary</param>
-       /// <param name="eventPublisher"></param>
-       public virtual void AssignToRoute(Itinerary itinerary, IEventPublisher eventPublisher)
+       public virtual void AssignToRoute(Itinerary itinerary)
       {
          if (itinerary == null)
          {
@@ -80,25 +75,15 @@ namespace DDDSample.Domain.Cargo
          var @event = new CargoHasBeenAssignedToRouteEvent(this, Itinerary);
          Itinerary = itinerary;
          Delivery = Delivery.UpdateOnRouting(RouteSpecification, Itinerary);
-         eventPublisher.Raise(@event);
       }
 
        /// <summary>
        /// Updates delivery progress information according to handling history.
        /// </summary>
        /// <param name="lastHandlingEvent">Most recent handling event.</param>
-       /// <param name="eventPublisher"></param>
-       public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent, IEventPublisher eventPublisher)
+       public virtual void DeriveDeliveryProgress(HandlingEvent lastHandlingEvent)
       {
          Delivery = Delivery.DerivedFrom(RouteSpecification, Itinerary, lastHandlingEvent);
-         if (Delivery.IsMisdirected)
-         {
-            eventPublisher.Raise(new CargoWasMisdirectedEvent(this));
-         }
-         else if (Delivery.IsUnloadedAtDestination)
-         {
-            eventPublisher.Raise(new CargoHasArrivedEvent(this));
-         }
       }
       
       protected Cargo()

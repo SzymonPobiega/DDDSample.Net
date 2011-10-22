@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using DDDSample.Domain.Cargo;
 
 namespace DDDSample.Domain.Handling
@@ -22,10 +19,5 @@ namespace DDDSample.Domain.Handling
       /// </summary>
       /// <param name="handlingEvent">Object representing a cargo handling enent.</param>
       void Store(HandlingEvent handlingEvent);
-
-      /// <summary>
-      /// Finds handling event by its unique id.
-      /// </summary>      
-      HandlingEvent Find(Guid uniqueId);
    }
 }
