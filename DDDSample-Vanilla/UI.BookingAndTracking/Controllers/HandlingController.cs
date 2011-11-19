@@ -9,9 +9,9 @@ namespace DDDSample.UI.BookingAndTracking.Controllers
 {   
    public class HandlingController : Controller
    {
-      private readonly HandlingEventServiceFacade _handlingEventFacade;
+      private readonly HandlingFacade _handlingEventFacade;
 
-      public HandlingController(HandlingEventServiceFacade handlingEventFacade)
+      public HandlingController(HandlingFacade handlingEventFacade)
       {
          _handlingEventFacade = handlingEventFacade;
       }

@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cargo\Cargo.cs" />
-    <Compile Include="Cargo\CargoHasBeenAssignedToRouteEvent.cs" />
     <Compile Include="Cargo\Delivery.cs" />
     <Compile Include="Cargo\HandlingActivity.cs" />
     <Compile Include="Cargo\RoutingStatus.cs" />
@@ -96,9 +95,6 @@
     <Compile Include="Location\Location.cs" />
     <Compile Include="Location\ILocationRepository.cs" />
     <Compile Include="Location\UnLocode.cs" />
-    <Compile Include="Cargo\CargoHasArrivedEvent.cs" />
-    <Compile Include="Handling\CargoWasHandledEvent.cs" />
-    <Compile Include="Cargo\CargoWasMisdirectedEvent.cs" />
     <Compile Include="Cargo\Itinerary.cs" />
     <Compile Include="Cargo\TrackingId.cs" />
     <Compile Include="Handling\HandlingEventType.cs" />

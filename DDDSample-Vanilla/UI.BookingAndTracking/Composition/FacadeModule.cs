@@ -8,7 +8,7 @@ namespace DDDSample.UI.BookingAndTracking.Composition
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<BookingServiceFacade>().AsSelf();
-            builder.RegisterType<HandlingEventServiceFacade>().AsSelf();
+            builder.RegisterType<HandlingFacade>().AsSelf();
         }
     }
 }

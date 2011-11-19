@@ -12,12 +12,12 @@ namespace DDDSample.UI.BookingAndTracking.Facade
     /// <summary>
     /// Facade for cargo handling event service.
     /// </summary>
-    public class HandlingEventServiceFacade
+    public class HandlingFacade
     {
         private readonly ILocationRepository _locationRepository;
         private readonly PipelineFactory _pipelineFactory;
 
-        public HandlingEventServiceFacade(ILocationRepository locationRepository, PipelineFactory pipelineFactory)
+        public HandlingFacade(ILocationRepository locationRepository, PipelineFactory pipelineFactory)
         {
             _locationRepository = locationRepository;
             _pipelineFactory = pipelineFactory;

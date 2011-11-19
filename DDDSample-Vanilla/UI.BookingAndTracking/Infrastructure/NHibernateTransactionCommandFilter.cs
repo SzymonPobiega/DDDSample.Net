@@ -23,7 +23,6 @@ namespace DDDSample.UI.BookingAndTracking.Infrastructure
             _transaction = _session.BeginTransaction();
             CurrentSessionContext.Bind(_session);
         }
-
         public void OnHandled(object command, object result)
         {
             CurrentSessionContext.Unbind(_sessionFactory);
