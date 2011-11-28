@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using DDDSample.Domain.Voyage;
 
 namespace DDDSample.Domain.Cargo
-{   
-   /// <summary>
-   /// Represents one step of an itinerary.
-   /// </summary>
-#pragma warning disable 661,660 //Equals and GetHashCode are overridden in ValueObject class.
+{
+#pragma warning disable 660,661
    public class Leg : ValueObject
-#pragma warning restore 661,660
+#pragma warning restore 660,661
    {
+      private readonly Voyage.Voyage _voyage;
+
       private readonly Location.Location _loadLocation;
       private readonly Location.Location _unloadLocation;
 
@@ -21,16 +20,65 @@ namespace DDDSample.Domain.Cargo
       /// <summary>
       /// Creates new leg instance.
       /// </summary>
+      /// <param name="voyage">Voyage</param>
       /// <param name="loadLocation">Location where cargo is supposed to be loaded.</param>
       /// <param name="loadDate">Date and time when cargo is supposed to be loaded</param>
       /// <param name="unloadLocation">Location where cargo is supposed to be unloaded.</param>
       /// <param name="unloadDate">Date and time when cargo is supposed to be unloaded.</param>
-      public Leg(Location.Location loadLocation, DateTime loadDate, Location.Location unloadLocation, DateTime unloadDate)
+      public Leg(Voyage.Voyage voyage, Location.Location loadLocation, DateTime loadDate, Location.Location unloadLocation, DateTime unloadDate)
       {
          _loadLocation = loadLocation;
+         _voyage = voyage;
          _unloadDate = unloadDate;
          _unloadLocation = unloadLocation;
          _loadDate = loadDate;
+      }
+
+      /// <summary>
+      /// Calculates cost of transporting cargo via this leg.
+      /// </summary>
+      public decimal CalculateCost()
+      {
+         var movements = _voyage.Schedule.CarrierMovements;
+         int firstMovementIndex = GetFirstMovementIndex(movements);
+         int lastMovementIndex = GetLastMovementIndex(movements);
+         var thisLegMovementCount = lastMovementIndex - firstMovementIndex + 1;
+
+         var thisLegMovements = movements
+            .Skip(firstMovementIndex)
+            .Take(thisLegMovementCount);
+
+         return thisLegMovements.Sum(x => x.PricePerCargo);
+      }
+
+      private int GetLastMovementIndex(IList<CarrierMovement> movements)
+      {
+         var lastMovement = movements.Single(IsLastMovementOfLeg);
+         return movements.IndexOf(lastMovement);
+      }
+
+      private int GetFirstMovementIndex(IList<CarrierMovement> movements)
+      {
+         var firstMovement = movements.Single(IsFirstMovementOfLeg);
+         return movements.IndexOf(firstMovement);
+      }
+
+      private bool IsFirstMovementOfLeg(CarrierMovement x)
+      {
+         return x.DepartureTime == LoadDate && x.TransportLeg.DepartureLocation == LoadLocation;
+      }
+
+      private bool IsLastMovementOfLeg(CarrierMovement x)
+      {
+         return x.ArrivalTime == UnloadDate && x.TransportLeg.ArrivalLocation == UnloadLocation;
+      }
+
+      /// <summary>
+      /// Gets voyage.
+      /// </summary>
+      public Voyage.Voyage Voyage
+      {
+         get { return _voyage; }
       }
 
       /// <summary>
@@ -72,6 +120,7 @@ namespace DDDSample.Domain.Cargo
          yield return _unloadLocation;
          yield return _loadDate;
          yield return _unloadDate;
+         yield return _voyage;
       }
 
       public static bool operator ==(Leg left, Leg right)
@@ -87,6 +136,7 @@ namespace DDDSample.Domain.Cargo
       protected Leg()
       {
       }
+
       #endregion
-   }   
+   }
 }

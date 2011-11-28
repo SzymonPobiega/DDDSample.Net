@@ -9,8 +9,7 @@ namespace DDDSample.UI.BookingAndTracking.Composition
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<RoutingService>().AsImplementedInterfaces();
-            builder.RegisterType<GraphTraversalService>().AsSelf();
-            builder.RegisterType<GraphDAO>().AsSelf();
+            builder.RegisterType<GraphTraversalService>().AsImplementedInterfaces();
         }
     }
 }

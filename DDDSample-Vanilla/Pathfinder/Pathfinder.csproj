@@ -78,8 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constraints.cs" />
-    <Compile Include="GraphDAO.cs" />
     <Compile Include="GraphTraversalService.cs" />
+    <Compile Include="IGraphTraversalService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransitEdge.cs" />
     <Compile Include="TransitPath.cs" />

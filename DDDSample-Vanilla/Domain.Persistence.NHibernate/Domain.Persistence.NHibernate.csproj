@@ -93,6 +93,9 @@
   <ItemGroup>
     <Compile Include="AbstractRepository.cs" />
     <Compile Include="CargoRepository.cs" />
+    <Compile Include="SampleLocations.cs" />
+    <Compile Include="SampleTransportLegs.cs" />
+    <Compile Include="SampleVoyages.cs" />
     <Compile Include="VoyageRepository.cs" />
     <Compile Include="HandlingEventRepository.cs" />
     <Compile Include="LocationRepository.cs" />
@@ -132,6 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TransportLeg.hbm.xml" />
+    <EmbeddedResource Include="Voyage.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />

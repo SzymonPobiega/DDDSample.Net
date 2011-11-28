@@ -103,6 +103,7 @@
     <Compile Include="Voyage\CarrierMovement.cs" />
     <Compile Include="Voyage\IVoyageRepository.cs" />
     <Compile Include="Voyage\Schedule.cs" />
+    <Compile Include="Voyage\TransportLeg.cs" />
     <Compile Include="Voyage\Voyage.cs" />
     <Compile Include="Voyage\VoyageNumber.cs" />
   </ItemGroup>

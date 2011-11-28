@@ -1,30 +1,40 @@
-//using System;
-//using System.Linq;
-//using System.Collections.Generic;
+using System;
 
-//namespace DDDSample.Domain.Voyage
-//{
-//   /// <summary>
-//   /// A voyage
-//   /// </summary>
-//   public class Voyage
-//   {
-//      /// <summary>
-//      /// Gets unique identifier of this voyage.
-//      /// </summary>
-//      public virtual VoyageNumber Number { get; protected set;}
+namespace DDDSample.Domain.Voyage
+{
+   /// <summary>
+   /// A voyage
+   /// </summary>
+   public class Voyage
+   {
+      /// <summary>
+      /// Gets unique id of this voyage.
+      /// </summary>
+      public virtual Guid Id { get; protected set; }      
 
-//      /// <summary>
-//      /// Creates new Voyage object.
-//      /// </summary>
-//      /// <param name="number">Identifier of this voyage.</param>
-//      public Voyage(VoyageNumber number)
-//      {
-//         Number = number;
-//      }
+      /// <summary>
+      /// Gets (non-unique) voyage number associated with this voyage.
+      /// </summary>
+      public virtual VoyageNumber Number { get; protected set; }
 
-//      protected Voyage()
-//      {         
-//      }
-//   }
-//}
+      /// <summary>
+      /// Gets the schedule associated with this voyage.
+      /// </summary>
+      public virtual Schedule Schedule { get; protected set; }
+
+      /// <summary>
+      /// Creates new Voyage object.
+      /// </summary>
+      /// <param name="number">Voyage number of this voyage.</param>
+      /// <param name="schedule">Schedule of this voyage</param>
+      public Voyage(VoyageNumber number, Schedule schedule)
+      {
+         Number = number;
+         Schedule = schedule;
+      }
+
+      protected Voyage()
+      {
+      }
+   }
+}
