@@ -1,7 +1,9 @@
 using System;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using DDDSample.Domain.Location;
+using System.Collections.Generic;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Potential.Location;
+using DDDSample.DomainModel.Potential.Voyage;
 using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
@@ -10,15 +12,15 @@ namespace DDDSample.Domain.Tests.Cargo
     [TestFixture]
     public class ItineraryTest
     {
-        protected static readonly Location.Location Krakow = new Location.Location(new UnLocode("PLKRK"), "Krakow");
-        protected static readonly Location.Location Warszawa = new Location.Location(new UnLocode("PLWAW"), "Warszawa");
-        protected static readonly Location.Location Wroclaw = new Location.Location(new UnLocode("PLWRC"), "Wroclaw");
+        protected static readonly DomainModel.Potential.Location.Location Krakow = new DomainModel.Potential.Location.Location(new UnLocode("PLKRK"), "Krakow");
+        protected static readonly DomainModel.Potential.Location.Location Warszawa = new DomainModel.Potential.Location.Location(new UnLocode("PLWAW"), "Warszawa");
+        protected static readonly DomainModel.Potential.Location.Location Wroclaw = new DomainModel.Potential.Location.Location(new UnLocode("PLWRC"), "Wroclaw");
 
         [Test]
         public void Claim_event_is_not_expected_by_an_empty_itinerary()
         {
             var itinerary = new Itinerary(new Leg[] { });
-            var @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now, null, new NullEventPublisher());
+            var @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now, null);
 
             itinerary.ShouldNotExpect(@event);
         }
@@ -32,17 +34,17 @@ namespace DDDSample.Domain.Tests.Cargo
             itinerary.ShouldExpect(@event);
         }
 
-        private static HandlingEvent Event(HandlingEventType eventType, Location.Location location)
+        private static HandlingEvent Event(HandlingEventType eventType, DomainModel.Potential.Location.Location location)
         {
-            return new HandlingEvent(eventType, location, DateTime.Now, DateTime.Now, null, new NullEventPublisher());
+            return new HandlingEvent(eventType, location, DateTime.Now, DateTime.Now, null);
         }
 
         private static Itinerary FromKrakowToWroclaw()
         {
             return new Itinerary(new[]
                                  {
-                                    new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                    new Leg(null,  Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                    new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                  });
         }
 

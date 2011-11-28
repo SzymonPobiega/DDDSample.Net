@@ -23,7 +23,7 @@ namespace DDDSample.Application.EventHandlers
       {
          Cargo cargo = _cargoRepository.Find(@event.Source.Cargo.TrackingId);                  
          
-         cargo.DeriveDeliveryProgress(@event.Source, _eventPublisher);
+         cargo.DeriveDeliveryProgress(@event.Source);
       }
    }
 }

@@ -1,5 +1,5 @@
 using Autofac;
-using DDDSample.Domain.Persistence.NHibernate;
+using DDDSample.DomainModel.Persistence;
 
 namespace DDDSample.UI.BookingAndTracking.Composition
 {

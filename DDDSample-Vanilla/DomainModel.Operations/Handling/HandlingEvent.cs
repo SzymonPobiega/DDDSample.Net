@@ -41,17 +41,14 @@ namespace DDDSample.DomainModel.Operations.Handling
        /// <param name="registrationDate"></param>
        /// <param name="completionDate"></param>
        /// <param name="cargo"></param>
-       /// <param name="eventPublisher"></param>
        public HandlingEvent(HandlingEventType eventType, Location location, 
-         DateTime registrationDate, DateTime completionDate, Cargo.Cargo cargo, IEventPublisher eventPublisher)
+         DateTime registrationDate, DateTime completionDate, Cargo.Cargo cargo)
       {
          EventType = eventType;
          Location = location;
          RegistrationDate = registrationDate;
          CompletionDate = completionDate;
          Cargo = cargo;
-
-         eventPublisher.Raise(new CargoWasHandledEvent(this));
       }
 
       /// <summary>

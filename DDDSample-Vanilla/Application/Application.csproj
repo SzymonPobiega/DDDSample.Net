@@ -102,6 +102,10 @@
       <Project>{9CF505D0-D7B7-4B5C-BC53-32AE3304462D}</Project>
       <Name>LeanCommandUnframework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DomainModel.DecisionSupport\DomainModel.DecisionSupport.csproj">
+      <Project>{B1A116AB-01B0-4E55-9E6F-5C0C92D732AE}</Project>
+      <Name>DomainModel.DecisionSupport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DomainModel.Infrastructure\DomainModel.Infrastructure.csproj">
       <Project>{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}</Project>
       <Name>DomainModel.Infrastructure</Name>

@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using DDDSample.Application.Assemblers;
 using DDDSample.Application.Commands;
-using DDDSample.Domain;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.DecisionSupport.Routing;
+using DDDSample.DomainModel.Operations.Cargo;
 using LeanCommandUnframework;
 
 namespace DDDSample.Application.CommandHandlers
@@ -25,7 +24,7 @@ namespace DDDSample.Application.CommandHandlers
         {
             var trackingId = new TrackingId(command.TrackingId);
             var cargo = _cargoRepository.Find(trackingId);
-            var itineraries = _routingService.FetchRoutesForSpecification(cargo.RouteSpecification);
+            var itineraries = _routingService.FetchRoutesFor(cargo);
             var routeCandidates = itineraries.Select(x => _routeCandidateDTOAssember.ToDTO(x));
 
             return new RequestPossibleRoutesForCargoCommandResult

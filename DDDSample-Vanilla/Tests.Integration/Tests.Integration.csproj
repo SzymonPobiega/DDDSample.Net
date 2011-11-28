@@ -119,7 +119,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeRoutingService.cs" />
     <Compile Include="FromHongkongToStockholm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScenarioTest.cs" />
@@ -133,6 +132,18 @@
     <ProjectReference Include="..\Application\Application.csproj">
       <Project>{591BFC07-E7F5-400B-9761-9AF6EF2A3009}</Project>
       <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Infrastructure\DomainModel.Infrastructure.csproj">
+      <Project>{1E341BBB-1E25-42E7-89E2-44A5DDD09A71}</Project>
+      <Name>DomainModel.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Operations\DomainModel.Operations.csproj">
+      <Project>{FCF5B41B-70F3-42FB-8352-C37584105289}</Project>
+      <Name>DomainModel.Operations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel.Potential\DomainModel.Potential.csproj">
+      <Project>{214472B7-48D1-4B4F-8865-9381B145D5DA}</Project>
+      <Name>DomainModel.Potential</Name>
     </ProjectReference>
     <ProjectReference Include="..\UI.BookingAndTracking\UI.BookingAndTracking.csproj">
       <Project>{7F3F2E90-62A8-4592-BCF3-9C46E19F2FA9}</Project>

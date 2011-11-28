@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using DDDSample.Domain.Cargo;
+using DDDSample.DomainModel.Operations.Cargo;
 using DDDSample.DomainModel.Operations.Handling;
+using HandlingEvent = DDDSample.DomainModel.Operations.Handling.HandlingEvent;
 
 namespace DDDSample.UI.BookingAndTracking.Models
 {   

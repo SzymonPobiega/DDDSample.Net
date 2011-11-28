@@ -1,7 +1,8 @@
 using System;
 using DDDSample.Application.Commands;
-using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 using LeanCommandUnframework;
 
 namespace DDDSample.Application.CommandHandlers

@@ -2,9 +2,9 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using DDDSample.Application.Commands;
-using DDDSample.Domain.Cargo;
-using DDDSample.Domain.Handling;
-using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Operations.Handling;
+using DDDSample.DomainModel.Potential.Location;
 using NUnit.Framework;
 
 namespace Tests.Integration

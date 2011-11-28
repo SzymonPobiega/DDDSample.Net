@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using DDDSample.Domain;
 using DDDSample.DomainModel.Operations.Handling;
 
 namespace DDDSample.DomainModel.Operations.Cargo
@@ -11,7 +9,7 @@ namespace DDDSample.DomainModel.Operations.Cargo
 #pragma warning restore 661,660
    {
       private readonly TransportStatus _transportStatus;
-      private readonly DomainModel.Potential.Location.Location _lastKnownLocation;
+      private readonly Potential.Location.Location _lastKnownLocation;
       private readonly bool _misdirected;
       private readonly DateTime? _eta;      
       private readonly bool _isUnloadedAtDestination;

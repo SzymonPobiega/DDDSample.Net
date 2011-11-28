@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using DDDSample.Domain.Persistence.NHibernate;
-using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Persistence;
+using DDDSample.DomainModel.Potential.Location;
+using Domain.Persistence.Tests;
 using NUnit.Framework;
 
-namespace Domain.Persistence.Tests
+namespace DDDSample.Domain.Persistence.Tests
 {
    [TestFixture]
    public class LocationRepositoryTest : PersistenceTest
@@ -15,12 +15,12 @@ namespace Domain.Persistence.Tests
       {
          using (Scope(true))
          {
-            Session.Save(new Location(new UnLocode("PLKRK"), "Krakow"));
+             Session.Save(new DomainModel.Potential.Location.Location(new UnLocode("PLKRK"), "Krakow"));
          }
-         Location location;
+         DomainModel.Potential.Location.Location location;
          using (Scope( true))
          {
-            LocationRepository repository = new LocationRepository(SessionFactory);
+            var repository = new LocationRepository(SessionFactory);
             location = repository.Find(new UnLocode("PLKRK"));
          }
          Assert.IsNotNull(location);
@@ -28,11 +28,11 @@ namespace Domain.Persistence.Tests
 
       [Test]
       public void Find_NoSatisfyingItems_NullReturned()
-      {         
-         Location location;
+      {
+          DomainModel.Potential.Location.Location location;
          using (Scope(true))
          {
-            LocationRepository repository = new LocationRepository(SessionFactory);
+            var repository = new LocationRepository(SessionFactory);
             location = repository.Find(new UnLocode("PLKRK"));
          }
          Assert.IsNull(location);
@@ -44,12 +44,12 @@ namespace Domain.Persistence.Tests
       {
          using (Scope(true))
          {
-            Session.Save(new Location(new UnLocode("PLKRK"), "Krakow"));
-            Session.Save(new Location(new UnLocode("PLKRK"), "Krakow2"));
+             Session.Save(new DomainModel.Potential.Location.Location(new UnLocode("PLKRK"), "Krakow"));
+             Session.Save(new DomainModel.Potential.Location.Location(new UnLocode("PLKRK"), "Krakow2"));
          }         
          using (Scope(true))
          {
-            LocationRepository repository = new LocationRepository(SessionFactory);
+            var repository = new LocationRepository(SessionFactory);
             repository.Find(new UnLocode("PLKRK"));
          }         
       }
@@ -60,14 +60,14 @@ namespace Domain.Persistence.Tests
       {
          using (Scope(true))
          {
-            Session.Save(new Location(new UnLocode("PLKRK"), "Krakow"));
-            Session.Save(new Location(new UnLocode("PLWAW"), "Warszawa"));
-            Session.Save(new Location(new UnLocode("PLWRC"), "Wroclaw"));
+             Session.Save(new DomainModel.Potential.Location.Location(new UnLocode("PLKRK"), "Krakow"));
+             Session.Save(new DomainModel.Potential.Location.Location(new UnLocode("PLWAW"), "Warszawa"));
+             Session.Save(new DomainModel.Potential.Location.Location(new UnLocode("PLWRC"), "Wroclaw"));
          }         
          using (Scope(true))
          {
-            LocationRepository repository = new LocationRepository(SessionFactory);
-            IEnumerable<Location> results = repository.FindAll();
+            var repository = new LocationRepository(SessionFactory);
+            IEnumerable<DomainModel.Potential.Location.Location> results = repository.FindAll();
             Assert.AreEqual(3, results.Count());
          }        
       }

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autofac;
-using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Potential.Location;
 using DDDSample.UI.BookingAndTracking.Composition;
 using LeanCommandUnframework;
 using NHibernate;
@@ -78,7 +79,6 @@ namespace Tests.Integration
             containerBuilder.RegisterModule<FacadeModule>();
             containerBuilder.RegisterModule<DTOAssemblerModule>();
 
-            containerBuilder.RegisterType<FakeRoutingService>().AsImplementedInterfaces();
             containerBuilder.RegisterType<TransactionCommandFilter>().AsSelf();
             containerBuilder.RegisterInstance(new FilterSelector(typeof(TransactionCommandFilter)));
             InitializeNHibernate(containerBuilder);
