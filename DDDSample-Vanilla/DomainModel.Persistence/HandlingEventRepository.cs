@@ -11,12 +11,15 @@ namespace DDDSample.DomainModel.Persistence
    /// </summary>
    public class HandlingEventRepository : AbstractRepository, IHandlingEventRepository
    {
-      public HandlingEventRepository(ISessionFactory sessionFactory)
+       private readonly IEventPublisher _eventPublisher;
+
+       public HandlingEventRepository(IEventPublisher eventPublisher, ISessionFactory sessionFactory)
          : base(sessionFactory)
       {
+          _eventPublisher = eventPublisher;
       }
-      
-      public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
+
+       public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
       {
          const string query = @"from DDDSample.Domain.Handling.HandlingEvent e where e.Cargo.TrackingId = :trackingId";
          var events = Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
@@ -27,6 +30,7 @@ namespace DDDSample.DomainModel.Persistence
       public void Store(HandlingEvent handlingEvent)
       {
          Session.Save(handlingEvent);
+          _eventPublisher.Raise(handlingEvent);
       }
    }
 }

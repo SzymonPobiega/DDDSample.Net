@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using DDDSample.Domain.Location;
 using DDDSample.DomainModel.Operations.Cargo;
+using DDDSample.DomainModel.Persistence;
 using DDDSample.DomainModel.Potential.Location;
 using DDDSample.UI.BookingAndTracking.Composition;
 using LeanCommandUnframework;
@@ -78,6 +79,7 @@ namespace Tests.Integration
             containerBuilder.RegisterModule<ControllerModule>();
             containerBuilder.RegisterModule<FacadeModule>();
             containerBuilder.RegisterModule<DTOAssemblerModule>();
+            containerBuilder.RegisterModule<ExternalServicesModule>();
 
             containerBuilder.RegisterType<TransactionCommandFilter>().AsSelf();
             containerBuilder.RegisterInstance(new FilterSelector(typeof(TransactionCommandFilter)));
@@ -115,7 +117,7 @@ namespace Tests.Integration
                                  {Environment.Hbm2ddlAuto, "create"},
                                  {Environment.ShowSql, true.ToString()}
                               });
-            cfg.AddAssembly("DDDSample.Domain.Persistence.NHibernate");
+            cfg.AddAssembly(typeof(LocationRepository).Assembly);
 
             _sessionFactory = cfg.BuildSessionFactory();
             builder.RegisterInstance(_sessionFactory);
@@ -124,19 +126,10 @@ namespace Tests.Integration
 
             new SchemaExport(cfg).Execute(false, true, false, session.Connection, Console.Out);
 
-            session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
-            session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
-            session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
-            session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
-            session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
-            session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
-            session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
-            session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
-            session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
-            session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
-            session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
-            session.Save(new Location(new UnLocode("USNYC"), "New York"));
-            session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
+            SampleLocations.CreateLocations(session);
+            SampleTransportLegs.CreateTransportLegs(session);
+            SampleVoyages.CreateVoyages(session);
+            SampleCustomers.CreateCustomers(session);
             session.Flush();
 
             _currentSession = session;

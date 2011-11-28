@@ -29,7 +29,7 @@ namespace DDDSample.Domain.Persistence.Tests
 
          using (Scope(true))
          {
-            IList<Cargo> cargos = Session.CreateQuery("from DDDSample.Domain.Cargo.Cargo c").List<Cargo>();
+            var cargos = Session.CreateCriteria<Cargo>().List<Cargo>();
             Assert.AreEqual(1, cargos.Count);
          }
       }      

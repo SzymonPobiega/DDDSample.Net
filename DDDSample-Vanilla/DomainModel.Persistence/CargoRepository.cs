@@ -6,38 +6,42 @@ using NHibernate.Criterion;
 
 namespace DDDSample.DomainModel.Persistence
 {
-   /// <summary>
-   /// Cargo repository implementation based on NHibernate.
-   /// </summary>
-   public class CargoRepository : AbstractRepository, ICargoRepository
-   {
-      public CargoRepository(ISessionFactory sessionFactory)
-         : base(sessionFactory)
-      {
-      }
+    /// <summary>
+    /// Cargo repository implementation based on NHibernate.
+    /// </summary>
+    public class CargoRepository : AbstractRepository, ICargoRepository
+    {
+        public CargoRepository(ISessionFactory sessionFactory)
+            : base(sessionFactory)
+        {
+        }
 
-      public void Store(DomainModel.Operations.Cargo.Cargo cargo)
-      {
-         Session.Save(cargo);
-      }
+        #region ICargoRepository Members
 
-      public DomainModel.Operations.Cargo.Cargo Find(TrackingId trackingId)
-      {         
-         return Session.CreateCriteria(typeof(Cargo))
-            .Add(Restrictions.Eq("TrackingId", trackingId))
-            .UniqueResult<DomainModel.Operations.Cargo.Cargo>();
-      }
+        public void Store(Cargo cargo)
+        {
+            Session.Save(cargo);
+        }
 
-      public IList<DomainModel.Operations.Cargo.Cargo> FindAll()
-      {
-         return Session.CreateCriteria(typeof(Cargo))
-            .List<DomainModel.Operations.Cargo.Cargo>();
-      }
+        public Cargo Find(TrackingId trackingId)
+        {
+            return Session.CreateCriteria<Cargo>()
+                .Add(Restrictions.Eq("TrackingId", trackingId))
+                .UniqueResult<Cargo>();
+        }
 
-      public TrackingId NextTrackingId()
-      {
-         Guid uniqueId = Guid.NewGuid();
-         return new TrackingId(uniqueId.ToString("N"));
-      }
-   }
+        public IList<Cargo> FindAll()
+        {
+            return Session.CreateCriteria(typeof (Cargo))
+                .List<Cargo>();
+        }
+
+        public TrackingId NextTrackingId()
+        {
+            Guid uniqueId = Guid.NewGuid();
+            return new TrackingId(uniqueId.ToString("N"));
+        }
+
+        #endregion
+    }
 }

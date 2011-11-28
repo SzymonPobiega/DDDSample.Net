@@ -18,13 +18,8 @@
       <property name="_isUnloadedAtDestination" column="UnloadedAtDest" not-null="true" access="field"/>
       <property name="_routingStatus" column="RoutingStatus" not-null="true" access="field"/>
       <property name="_transportStatus" column="TransportStatus" not-null="true" access="field"/>              
-      <many-to-one name="_lastKnownLocation" column="LastKnownLocationId" not-null="false" cascade="none" access="field"/>      
-      <component name="_lastEvent" update="true" access="field">
-        <property name="_eventType" access="field" column="LastEventType"/>
-        <many-to-one name="_location" column="LastEventLocation" class="DDDSample.DomainModel.Potential.Location.Location" access="field"/>
-        <property name="_registrationDate" access="field" column="LastEventRegistrationDate"/>
-        <property name="_completionDate" access="field" column="LastEventCompletionDate"/>
-      </component>
+      <many-to-one name="_lastKnownLocation" column="LastKnownLocationId" not-null="false" cascade="none" access="field"/>
+      <many-to-one name="_lastEvent" column="LastEvetId" cascade="none" access="field"/>
       <component name="_nextExpectedActivity" update="true" access="field">
         <many-to-one name="_location" column="NextExpectedLocationId" cascade="none" access="field"/>
         <property name="_eventType" column="NextExpectedHandlingEventType" access="field"/>        

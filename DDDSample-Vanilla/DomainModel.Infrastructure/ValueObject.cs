@@ -46,7 +46,7 @@ namespace DDDSample.DomainModel
       /// </summary>
       /// <param name="obj">Object to compare to.</param>
       /// <returns>True if objects are considered equal.</returns>
-      public override bool Equals(object obj)
+      public override sealed bool Equals(object obj)
       {
          if (obj == null || obj.GetType() != GetType())
          {
@@ -74,7 +74,7 @@ namespace DDDSample.DomainModel
       /// returned by <see cref="GetAtomicValues"/>.
       /// </summary>
       /// <returns>Hashcode value.</returns>
-      public override int GetHashCode()
+      public override sealed int GetHashCode()
       {
          return GetAtomicValues()
             .Select(x => x != null ? x.GetHashCode() : 0)
