@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Autofac;
 using DDDSample.Domain.Cargo;
 using DDDSample.Domain.Location;
+using DDDSample.Domain.Persistence.NHibernate;
 using DDDSample.UI.BookingAndTracking.Composition;
 using LeanCommandUnframework;
 using NHibernate;
@@ -77,8 +78,8 @@ namespace Tests.Integration
             containerBuilder.RegisterModule<ControllerModule>();
             containerBuilder.RegisterModule<FacadeModule>();
             containerBuilder.RegisterModule<DTOAssemblerModule>();
+            containerBuilder.RegisterModule<ExternalServicesModule>();
 
-            containerBuilder.RegisterType<FakeRoutingService>().AsImplementedInterfaces();
             containerBuilder.RegisterType<TransactionCommandFilter>().AsSelf();
             containerBuilder.RegisterInstance(new FilterSelector(typeof(TransactionCommandFilter)));
             InitializeNHibernate(containerBuilder);
@@ -124,19 +125,9 @@ namespace Tests.Integration
 
             new SchemaExport(cfg).Execute(false, true, false, session.Connection, Console.Out);
 
-            session.Save(new Location(new UnLocode("CNHKG"), "Hongkong"));
-            session.Save(new Location(new UnLocode("AUMEL"), "Melbourne"));
-            session.Save(new Location(new UnLocode("SESTO"), "Stockholm"));
-            session.Save(new Location(new UnLocode("FIHEL"), "Helsinki"));
-            session.Save(new Location(new UnLocode("USCHI"), "Chicago"));
-            session.Save(new Location(new UnLocode("JNTKO"), "Tokyo"));
-            session.Save(new Location(new UnLocode("DEHAM"), "Hamburg"));
-            session.Save(new Location(new UnLocode("CNSHA"), "Shanghai"));
-            session.Save(new Location(new UnLocode("NLRTM"), "Rotterdam"));
-            session.Save(new Location(new UnLocode("SEGOT"), "Göteborg"));
-            session.Save(new Location(new UnLocode("CNHGH"), "Hangzhou"));
-            session.Save(new Location(new UnLocode("USNYC"), "New York"));
-            session.Save(new Location(new UnLocode("USDAL"), "Dallas"));
+            SampleLocations.CreateLocations(session);
+            SampleTransportLegs.CreateTransportLegs(session);
+            SampleVoyages.CreateVoyages(session);
             session.Flush();
 
             _currentSession = session;

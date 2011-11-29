@@ -32,6 +32,7 @@
         <key column="CargoId"/>
         <index column="LegIndex"/>
         <composite-element class="Leg">
+          <many-to-one name="_voyage" column="Voyage" class="DDDSample.Domain.Voyage.Voyage" access="field"/>
           <many-to-one name="_loadLocation" column="LoadLocation" class="DDDSample.Domain.Location.Location" access="field"/>
           <many-to-one name="_unloadLocation" column="UnloadLocation" class="DDDSample.Domain.Location.Location" access="field"/>
           <property name="_loadDate" column="LoadDate" access="field"/>

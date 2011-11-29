@@ -41,8 +41,8 @@ namespace DDDSample.Domain.Tests.Cargo
         {
             return new Itinerary(new[]
                                  {
-                                    new Leg(Krakow, DateTime.Now, Warszawa, DateTime.Now),
-                                    new Leg(Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
+                                    new Leg(null, Krakow, DateTime.Now, Warszawa, DateTime.Now),
+                                    new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                  });
         }
 
