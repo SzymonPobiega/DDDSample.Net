@@ -3,7 +3,7 @@
                    assembly="DDDSample.DomainModel.Potential" 
                    namespace="DDDSample.DomainModel.Potential.Voyage">
   <class name="Voyage" table="Voyage">
-    <id type="Guid">
+    <id name="Id" type="Guid">
       <column name="Id" />
       <generator class="guid"></generator>
     </id>

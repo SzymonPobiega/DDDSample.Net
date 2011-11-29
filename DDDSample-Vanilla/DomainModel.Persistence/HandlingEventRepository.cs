@@ -21,7 +21,7 @@ namespace DDDSample.DomainModel.Persistence
 
        public HandlingHistory LookupHandlingHistoryOfCargo(TrackingId cargoTrackingId)
       {
-         const string query = @"from DDDSample.Domain.Handling.HandlingEvent e where e.Cargo.TrackingId = :trackingId";
+         const string query = @"from DDDSample.DomainModel.Operations.Handling.HandlingEvent e where e.Cargo.TrackingId = :trackingId";
          var events = Session.CreateQuery(query).SetString("trackingId", cargoTrackingId.IdString)
             .List<HandlingEvent>();
          return new HandlingHistory(events);
