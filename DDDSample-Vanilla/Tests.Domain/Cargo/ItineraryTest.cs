@@ -17,27 +17,84 @@ namespace DDDSample.Domain.Tests.Cargo
         [Test]
         public void Claim_event_is_not_expected_by_an_empty_itinerary()
         {
-            var itinerary = new Itinerary(new Leg[] { });
-            var @event = new HandlingEvent(HandlingEventType.Claim, Krakow, DateTime.Now, DateTime.Now, null);
+            var cargoWithEmptyItinerary = new Itinerary(new Leg[] { });
 
-            itinerary.ShouldNotExpect(@event);
+            cargoWithEmptyItinerary
+                .IsNotExpectedToBe(HandlingEventType.Claim).In(Krakow);
         }
 
         [Test]
         public void Receive_event_is_expected_when_first_leg_load_location_matches_event_location()
         {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Receive, Krakow);
-
-            itinerary.ShouldExpect(@event);
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+                .IsExpectedToBe(HandlingEventType.Receive).In(Krakow);
         }
 
-        private static HandlingEvent Event(HandlingEventType eventType, Location.Location location)
+        [Test]
+        public void Receive_event_is_not_expected_when_first_leg_load_location_doesnt_match_event_location()
         {
-            return new HandlingEvent(eventType, location, DateTime.Now, DateTime.Now, null);
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+                .IsNotExpectedToBe(HandlingEventType.Receive).In(Warszawa);
         }
 
-        private static Itinerary FromKrakowToWroclaw()
+        [Test]
+        public void Claim_event_is_expected_when_last_leg_unload_location_matches_event_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsExpectedToBe(HandlingEventType.Claim).In(Wroclaw);
+        }
+
+        [Test]
+        public void Claim_event_is_not_expected_when_last_leg_unload_location_doesnt_match_event_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsNotExpectedToBe(HandlingEventType.Claim).In(Krakow);
+        }
+
+        [Test]
+        public void Load_event_is_expected_when_first_leg_load_location_matches_event_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsExpectedToBe(HandlingEventType.Load).In(Krakow);
+        }
+
+        [Test]
+        public void Load_event_is_expected_when_second_leg_load_location_matches_event_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsExpectedToBe(HandlingEventType.Load).In(Warszawa);
+        }
+
+        [Test]
+        public void Load_event_is_not_expected_when_event_location_doesnt_match_any_legs_load_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsNotExpectedToBe(HandlingEventType.Load).In(Wroclaw);
+        }
+
+        [Test]
+        public void Unload_event_is_expected_when_first_leg_unload_location_matches_event_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsExpectedToBe(HandlingEventType.Unload).In(Warszawa);
+        }
+
+        [Test]
+        public void Unload_event_is_expected_when_second_leg_unload_location_matches_event_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsExpectedToBe(HandlingEventType.Unload).In(Wroclaw);
+        }
+
+        [Test]
+        public void Load_event_is_not_expected_when_event_location_doesnt_match_any_legs_unload_location()
+        {
+            Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
+               .IsNotExpectedToBe(HandlingEventType.Unload).In(Krakow);
+        }
+
+        
+        private static Itinerary Cargo_from_Krakow_via_Warszawa_to_Wroclaw()
         {
             return new Itinerary(new[]
                                  {
@@ -45,99 +102,50 @@ namespace DDDSample.Domain.Tests.Cargo
                                     new Leg(null, Warszawa, DateTime.Now, Wroclaw, DateTime.Now)                                                   
                                  });
         }
+    }
 
-        [Test]
-        public void Receive_event_is_not_expected_when_first_leg_load_location_doesnt_match_event_location()
+    public static class ItineraryTestExtensions
+    {
+        public static ItineraryTestHelper IsExpectedToBe(this Itinerary itinerary, HandlingEventType eventType)
         {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Receive, Warszawa);
-
-            itinerary.ShouldNotExpect(@event);
+            return new ItineraryTestHelper(true, eventType, itinerary);
         }
-
-        [Test]
-        public void Claim_event_is_expected_when_last_leg_unload_location_matches_event_location()
+        public static ItineraryTestHelper IsNotExpectedToBe(this Itinerary itinerary, HandlingEventType eventType)
         {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Claim, Wroclaw);
-
-            itinerary.ShouldExpect(@event);
-        }
-
-        [Test]
-        public void Claim_event_is_not_expected_when_last_leg_unload_location_doesnt_match_event_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Claim, Krakow);
-
-            itinerary.ShouldNotExpect(@event);
-        }
-
-        [Test]
-        public void Load_event_is_expected_when_first_leg_load_location_matches_event_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Load, Krakow);
-
-            itinerary.ShouldExpect(@event);
-        }
-
-        [Test]
-        public void Load_event_is_expected_when_second_leg_load_location_matches_event_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Load, Warszawa);
-
-            itinerary.ShouldExpect(@event);
-        }
-
-        [Test]
-        public void Load_event_is_not_expected_when_event_location_doesnt_match_any_legs_load_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Load, Wroclaw);
-
-            itinerary.ShouldNotExpect(@event);
-        }
-
-        [Test]
-        public void Unload_event_is_expected_when_first_leg_unload_location_matches_event_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Unload, Warszawa);
-
-            itinerary.ShouldExpect(@event);
-        }
-
-        [Test]
-        public void Unload_event_is_expected_when_second_leg_unload_location_matches_event_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Unload, Wroclaw);
-
-            itinerary.ShouldExpect(@event);
-        }
-
-        [Test]
-        public void Load_event_is_not_expected_when_event_location_doesnt_match_any_legs_unload_location()
-        {
-            var itinerary = FromKrakowToWroclaw();
-            var @event = Event(HandlingEventType.Unload, Krakow);
-
-            itinerary.ShouldNotExpect(@event);
+            return new ItineraryTestHelper(false, eventType, itinerary);
         }
     }
 
-    public static class ItineraryExtensions
+    public class ItineraryTestHelper
     {
-        public static void ShouldExpect(this Itinerary itinerary, HandlingEvent @event)
+        private readonly bool _expected;
+        private readonly HandlingEventType _eventType;
+        private readonly Itinerary _itinerary;
+
+        public ItineraryTestHelper(bool expected, HandlingEventType eventType, Itinerary itinerary)
         {
-            Assert.IsTrue(itinerary.IsExpected(@event));
+            _expected = expected;
+            _itinerary = itinerary;
+            _eventType = eventType;
         }
-        public static void ShouldNotExpect(this Itinerary itinerary, HandlingEvent @event)
+
+        public void In(Location.Location location)
         {
-            Assert.IsFalse(itinerary.IsExpected(@event));
+            if (_expected)
+            {
+                Assert.IsTrue(_itinerary.IsExpected(Event(_eventType, location)));
+            }
+            else
+            {
+                Assert.IsFalse(_itinerary.IsExpected(Event(_eventType, location)));
+            }
         }
+
+        private static HandlingEvent Event(HandlingEventType eventType, Location.Location location)
+        {
+            return new HandlingEvent(eventType, location, DateTime.Now, DateTime.Now, null);
+        }
+
     }
 
 }
