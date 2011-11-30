@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace DDDSample.Domain.Tests.Cargo
 {
     [TestFixture]
-    public class ItineraryTest
+    public class ItineraryTests
     {
         protected static readonly Location.Location Krakow = new Location.Location(new UnLocode("PLKRK"), "Krakow");
         protected static readonly Location.Location Warszawa = new Location.Location(new UnLocode("PLWAW"), "Warszawa");

@@ -86,7 +86,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cargo\ItineraryTest.cs" />
+    <Compile Include="Cargo\DeliveryTests.cs" />
+    <Compile Include="Cargo\ItineraryTests.cs" />
+    <Compile Include="Cargo\RouteSpecificationTests.cs" />
     <Compile Include="ValueObjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

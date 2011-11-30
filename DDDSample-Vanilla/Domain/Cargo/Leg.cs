@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using DDDSample.Domain.Voyage;
 
 namespace DDDSample.Domain.Cargo
 {
@@ -32,45 +30,6 @@ namespace DDDSample.Domain.Cargo
          _unloadDate = unloadDate;
          _unloadLocation = unloadLocation;
          _loadDate = loadDate;
-      }
-
-      /// <summary>
-      /// Calculates cost of transporting cargo via this leg.
-      /// </summary>
-      public decimal CalculateCost()
-      {
-         var movements = _voyage.Schedule.CarrierMovements;
-         int firstMovementIndex = GetFirstMovementIndex(movements);
-         int lastMovementIndex = GetLastMovementIndex(movements);
-         var thisLegMovementCount = lastMovementIndex - firstMovementIndex + 1;
-
-         var thisLegMovements = movements
-            .Skip(firstMovementIndex)
-            .Take(thisLegMovementCount);
-
-         return thisLegMovements.Sum(x => x.PricePerCargo);
-      }
-
-      private int GetLastMovementIndex(IList<CarrierMovement> movements)
-      {
-         var lastMovement = movements.Single(IsLastMovementOfLeg);
-         return movements.IndexOf(lastMovement);
-      }
-
-      private int GetFirstMovementIndex(IList<CarrierMovement> movements)
-      {
-         var firstMovement = movements.Single(IsFirstMovementOfLeg);
-         return movements.IndexOf(firstMovement);
-      }
-
-      private bool IsFirstMovementOfLeg(CarrierMovement x)
-      {
-         return x.DepartureTime == LoadDate && x.TransportLeg.DepartureLocation == LoadLocation;
-      }
-
-      private bool IsLastMovementOfLeg(CarrierMovement x)
-      {
-         return x.ArrivalTime == UnloadDate && x.TransportLeg.ArrivalLocation == UnloadLocation;
       }
 
       /// <summary>
